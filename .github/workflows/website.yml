@@ -12,7 +12,8 @@ jobs:
     name: Build website with quarto
     runs-on: ubuntu-latest
     container: mpetienne/mode2025:0.1
-
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -22,7 +23,7 @@ jobs:
       - name: Generate slides
         run: "quarto render"
       - name: GitHub Pages action
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
