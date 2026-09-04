@@ -1,0 +1,93 @@
+[
+  {
+    "objectID": "r_chapter.html",
+    "href": "r_chapter.html",
+    "title": "Basic overview of Markdown potentials with R and Quarto",
+    "section": "",
+    "text": "This chapter is a simple example using R\nYou can import R package using the code\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nand then describe the purpose of your chapter as well as executing R command.\nYou can also add images\n![Gentoo penguins](images/6123849122_b66af201ea_c.jpg}\nFor example a basic summary of a dataset is given by\n\ndf &lt;- read.table(\"https://gist.githubusercontent.com/slopp/ce3b90b9168f2f921784de84fa445651/raw/4ecf3041f0ed4913e7c230758733948bc561f434/penguins.csv\", sep = \",\" , header = TRUE)\n\nand produce a graph\n\ndf %&gt;% ggplot() +\n    aes(x=species, y = body_mass_g) +\n    geom_boxplot()  \n\nWarning: Removed 2 rows containing non-finite outside the scale range\n(`stat_boxplot()`).\n\n\n\n\n\n\n\n\n\nJust for curiosity, you could add an image of Gentoo penguins\nYou can also add images\n\n\n\n\n\n\nFigure 1: Gentoo penguins\n\n\n\nYou can refer to one image using cross-reference. For example, Figure 1 is a photo of a gentoo penguin with chicks by Liam Quinn.\nYou can also add reference associated with models. For example, if you want to study how the body mass differ between species you should use a one way analysis of variance as described in Equation 1\n\\[Y_{sk} = \\mu + \\alpha_s + E_{sk},\n\\tag{1}\\]\nwhere \\(s\\) standes for species and \\(k\\) denotes each individual.\nA useful citation about reproducible reserach Alston and Rick (2021)\n\n\n\n\nReferences\n\nAlston, Jesse M, and Jessica A Rick. 2021. “A Beginner’s Guide to Conducting Reproducible Research.” Bulletin of the Ecological Society of America 102 (2): 1–14."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Statistics to explore environmental questions",
+    "section": "",
+    "text": "This website is produced by the M2 MODE student during year 2025-2026 as part of their assignment in the Online Collaborative Resources course.\nThey were asked to produce collaboratively different illustrations on ecological data for different statistical and mathematical models.\nJust click on one of the three menus on top right side of this page to visit their work. They have used up to data version control workflows to produce this website using git Github, Pull Request, Code review. A set of good practices to help them producible research in the futur.\nThe website is fully generated using Continuous Integration (CI) based on Github Action."
+  },
+  {
+    "objectID": "instructions.html",
+    "href": "instructions.html",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "",
+    "text": "Team project for groups of 3 students. Create examples demonstrating statistical/mathematical methods applied to ecological questions.\nRepository: https://github.com/MarieEtienne/stats-reminder\n\n\n\n\n\n\nDeliverables\n\n\n\nEach team creates 1 example among one of the major theme:\n\nLinear models\nDifferential equations\n\nMultivariate analysis\n\nEach student should devote time to the review process ass well\nThe repository will close on December 1st at 1PM and only the work merged on master will be reviewed and evaluated.\nFinal mark for this assignment will consider\n\nMastering git workflow (commit, pull push , handling conflict, Pull Request, optimmaly rebase to have a clean history)\nTaking part of the reviewing process to increase global quality of the project\n\nDuring the last lab on git, November 5th, students will have a test to evaluate the overall understanding of git process\nThe final grad will be based on both evaluation"
+  },
+  {
+    "objectID": "instructions.html#sec-overview",
+    "href": "instructions.html#sec-overview",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "",
+    "text": "Team project for groups of 3 students. Create examples demonstrating statistical/mathematical methods applied to ecological questions.\nRepository: https://github.com/MarieEtienne/stats-reminder\n\n\n\n\n\n\nDeliverables\n\n\n\nEach team creates 1 example among one of the major theme:\n\nLinear models\nDifferential equations\n\nMultivariate analysis\n\nEach student should devote time to the review process ass well\nThe repository will close on December 1st at 1PM and only the work merged on master will be reviewed and evaluated.\nFinal mark for this assignment will consider\n\nMastering git workflow (commit, pull push , handling conflict, Pull Request, optimmaly rebase to have a clean history)\nTaking part of the reviewing process to increase global quality of the project\n\nDuring the last lab on git, November 5th, students will have a test to evaluate the overall understanding of git process\nThe final grad will be based on both evaluation"
+  },
+  {
+    "objectID": "instructions.html#sec-requirements",
+    "href": "instructions.html#sec-requirements",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Project requirements",
+    "text": "Project requirements\n\nContent\nEach .qmd example must include:\n\nClear ecological question with real/realistic data\nProper cross-references: sections (@sec-methods), figures (@fig-plot), tables (@tbl-results) or equations (@eq-model)\nCitations and bibliography\nWell-documented code and results\n\n\n\nGit Workflow\n\nOne branch per example: team-[names]-[method]-[description]\nUpdate _quarto.yml to include your examples in the website structure (see Section 3.3)\nOptimally Rebase before PR to ensure linear history (see Section 3.4)\nPR requirements (see Section 4.2):\n\n✅ No merge conflicts\n✅ Automated checks pass\n✅ One peer review\n✅ At least one discussion thread"
+  },
+  {
+    "objectID": "instructions.html#sec-workflow",
+    "href": "instructions.html#sec-workflow",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Git Workflow",
+    "text": "Git Workflow\n\nSetup\n# Clone repository\ngit clone https://github.com/MarieEtienne/stats-reminder.git\ncd stats-reminder\n\n# Create team branch\ngit switch -b teamA\ngit push origin teamA\n\n\nCreate one branch per task\n# From your team branch, create example branches\ngit switch teamA\ngit switch -b teamA-intro\n\n# Work on your .qmd file\ngit add linear_model_teamA.qmd\ngit commit -m \"Add linear model example\"\n....\ngit fetch origin teamA\ngit rebase teamA \n\n# If conflicts: resolve, then\ngit add &lt;resolved-files&gt;\ngit rebase --continue\n\n# switch to team branch and update the branch with this neaw linear history\ngit switch teamA\ngit merge teamA-intro\n\n\nUpdating _quarto.yml\nAdd your examples to the website structure:\nwebsite:\n  navbar:\n    left:\n      - text: \"Team Examples\"\n        menu:\n          - text: \"Team Smith\"\n            menu:\n              - text: \"Plant Growth (Linear)\"\n                href: linear_model_teamA.qmd\n              - text: \"Predator-Prey (Diff Eq)\"\n                href: team-smith-diffeq-predator.qmd\n\n\n\nUpdate Before PR\n\n\n\n\n\n\nWarning\n\n\n\nAlways rebase on master before creating PR to ensure clean linear history and avoid conflicts.\n\n\ngit switch teamA\ngit switch -c teamA_PR #create a new branch to avoid destruction\n\n# Fetch and rebase\ngit fetch origin master\ngit rebase origin/master\n\n# If conflicts: resolve, then\ngit add &lt;resolved-files&gt;\ngit rebase --continue\n\n# push teamA_PR and ask for PR in github, there should be no conflict\ngit push origin teamA_PR"
+  },
+  {
+    "objectID": "instructions.html#sec-pull-requests",
+    "href": "instructions.html#sec-pull-requests",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Pull Requests",
+    "text": "Pull Requests\n\nCreating a PR\n\nGo to repository → Pull requests → New pull request\nBase: master, Compare: teamA_PR\nWrite clear description (method, question, team)\n\n\n\nPR Requirements\nAll must be met before merge:\n\n✅ No conflicts (rebase if needed, see Section 3.4)\n✅ Automated checks pass (builds website successfully)\n✅ One review from peer/instructor\n✅ One discussion thread (respond to reviewer comments)\n\nAfter merge, the website automatically deploys to GitHub Pages.\nBe careful that, history in teamA and teamA_PR differ, and teamA_PR is the one to be merged. So if you want to add more contents to your project, remove local and remote teamA branch (and teamA_PR once merge into master) and starts a new branch from the current master branch"
+  },
+  {
+    "objectID": "instructions.html#sec-markdown",
+    "href": "instructions.html#sec-markdown",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Cross-References & Citations",
+    "text": "Cross-References & Citations\n\nCross-References\n## Methods {#sec-methods}\n\nThe model (@eq-linear) uses data shown in @fig-scatter and @tbl-summary.\n\n$$ y = \\beta_0 + \\beta_1 x $$ {#eq-linear}\n\n```{r}\n#| label: fig-scatter\n#| fig-cap: \"Relationship between variables\"\nplot(x, y)\n```\n\nAs described in @sec-methods...\n\n\nCitations\nCreate references.bib:\n@article{smith2020,\n  author = {Smith, J.},\n  title = {Statistical Methods},\n  journal = {Ecology},\n  year = {2020}\n}\nIn your YAML:\nbibliography: references.bib\nIn text:\nAccording to @smith2020, the method..."
+  },
+  {
+    "objectID": "instructions.html#sec-rules",
+    "href": "instructions.html#sec-rules",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Important Rules",
+    "text": "Important Rules\n\n\n\n\n\n\nImportant\n\n\n\n\nMaster is protected - you cannot push directly\nUse rebase not merge (see Section 3.4) as much as possible, that is the good practice\nPass all checks before requesting merge"
+  },
+  {
+    "objectID": "instructions.html#sec-troubleshooting",
+    "href": "instructions.html#sec-troubleshooting",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Common Issues",
+    "text": "Common Issues\nBuild failing: Check logs for syntax errors in .qmd, missing packages, broken cross-references, or invalid _quarto.yml.\nCan’t push to master: Expected! Create a branch instead (see Section 3.2)."
+  },
+  {
+    "objectID": "instructions.html#sec-checklist",
+    "href": "instructions.html#sec-checklist",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Checklist",
+    "text": "Checklist\nBefore submitting PR:\n\n_quarto.yml updated\nCross-references used throughout\nCitations included\nNo conflicts\nRebased on master\nPR created with clear description\nChecks passing\nReview requested"
+  },
+  {
+    "objectID": "instructions.html#sec-resources",
+    "href": "instructions.html#sec-resources",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Resources",
+    "text": "Resources\n\nQuarto Cross-References\nGit Rebase Tutorial\nCreating Pull Requests\n\nQuestions? Check GitHub Issues or contact the instructor. Good luck! 🚀"
+  },
+  {
+    "objectID": "Penguins_chapter.html",
+    "href": "Penguins_chapter.html",
+    "title": "Exploration données sur les manchots",
+    "section": "",
+    "text": "Pourquoi manchot se traduit Penguins en anglais ?\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nles magnifiques pingouins : (O)&gt; ( ) W\n\ndata &lt;- read.table(\"penguins_raw.csv\", sep = \",\" , header = TRUE)\n\nA citation Alston and Rick (2021)\n\nReferences\n\n\nAlston, Jesse M, and Jessica A Rick. 2021. “A Beginner’s Guide to Conducting Reproducible Research.” Bulletin of the Ecological Society of America 102 (2): 1–14."
+  }
+]
