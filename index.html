@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1e25d2145fa1e151253eed935efabca8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7c041f0f1c024a3500aba4102d922bba.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -152,8 +152,27 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#important-dates" id="toc-important-dates" class="nav-link active" data-scroll-target="#important-dates">Important Dates</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#quiz-october-7-coeff-2" id="toc-quiz-october-7-coeff-2" class="nav-link" data-scroll-target="#quiz-october-7-coeff-2">Quiz — October 7 (coeff 2)</a></li>
+  <li><a href="#final-assignment-coeff-3" id="toc-final-assignment-coeff-3" class="nav-link" data-scroll-target="#final-assignment-coeff-3">Final Assignment (coeff 3)</a></li>
+  <li><a href="#grading-breakdown" id="toc-grading-breakdown" class="nav-link" data-scroll-target="#grading-breakdown">Grading breakdown</a></li>
+  </ul></li>
+  <li><a href="#collaboration-guidelines" id="toc-collaboration-guidelines" class="nav-link" data-scroll-target="#collaboration-guidelines">Collaboration Guidelines</a></li>
+  <li><a href="#technical-notes" id="toc-technical-notes" class="nav-link" data-scroll-target="#technical-notes">Technical Notes</a>
+  <ul class="collapse">
+  <li><a href="#grading-breakdown-1" id="toc-grading-breakdown-1" class="nav-link" data-scroll-target="#grading-breakdown-1">Grading breakdown</a></li>
+  </ul></li>
+  <li><a href="#collaboration-guidelines-1" id="toc-collaboration-guidelines-1" class="nav-link" data-scroll-target="#collaboration-guidelines-1">Collaboration Guidelines</a></li>
+  <li><a href="#technical-notes-1" id="toc-technical-notes-1" class="nav-link" data-scroll-target="#technical-notes-1">Technical Notes</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -188,8 +207,203 @@ ul.task-list li input[type="checkbox"] {
 <p>They were asked to produce collaboratively different illustrations on ecological data for different statistical and mathematical models.</p>
 <p>Just click on one of the three menus on top right side of this page to visit their work. They have used up to data version control workflows to produce this website using git Github, Pull Request, Code review. A set of good practices to help them producible research in the futur.</p>
 <p>The website is fully generated using Continuous Integration (CI) based on Github Action.</p>
+<section id="important-dates" class="level2">
+<h2 class="anchored" data-anchor-id="important-dates">Important Dates</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Milestone</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>September 30</strong></td>
+<td>No major changes in the different group branches allowed after this date — review and merging period begins</td>
+</tr>
+<tr class="even">
+<td><strong>October 7</strong></td>
+<td>Quick quiz</td>
+</tr>
+<tr class="odd">
+<td><strong>October 24</strong></td>
+<td>Final assignment deadline, at the latest (23:59), with full review process</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Submission format: On september 30th, all groups shoud have an open PR to propose integration within the main branch</li>
+</ul>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
+<section id="quiz-october-7-coeff-2" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-october-7-coeff-2">Quiz — October 7 (coeff 2)</h3>
+<ul>
+<li>Format: in class, with no doc (multiple choice and open questions), 30 mn durations.</li>
+<li>Covers: Quarto and Git (basic quarto command understanding and question on process development using git)</li>
+</ul>
+</section>
+<section id="final-assignment-coeff-3" class="level3">
+<h3 class="anchored" data-anchor-id="final-assignment-coeff-3">Final Assignment (coeff 3)</h3>
+<p><strong>Quarto part</strong> - Clear presentation of the dataset, including a basic descriptive analysis (graphs and/or tables) - Numbered equations, figures, and/or tables (generated and included), with in-text references to each - A shared bibliography file (<code>.bib</code>) used to cite relevant references, <code>OCR_TP.bib</code> - Expected folder structure: - dataset should be stored in <code>data/</code> or accessible, - figures hould be stored in figures - one qmd file per group</p>
+<p><strong>Git part</strong> - Clear, meaningful commit messages - Clear commit tree showing the development process - Use a branch for each new feature or aspect of the work - Avoid merge commits — keep history as linear and clean as possible - <strong>Do not merge directly into <code>main</code></strong> — use Pull Requests (use the <strong>rebase</strong> option when merging) - Minimum commit frequency: <em>[e.g.&nbsp;regular commits throughout the project, not a single commit at the deadline]</em> - CI must pass on the final PR/commit before submission is considered complete</p>
+</section>
+<section id="grading-breakdown" class="level3">
+<h3 class="anchored" data-anchor-id="grading-breakdown">Grading breakdown</h3>
+<p><em>[Specify how points are split between the Quarto part and the Git part — e.g.&nbsp;60/40, or itemized per criterion above]</em></p>
+</section>
+</section>
+<section id="collaboration-guidelines" class="level2">
+<h2 class="anchored" data-anchor-id="collaboration-guidelines">Collaboration Guidelines</h2>
+<p>Several files are shared among groups — be careful when modifying them. <strong>Do not overwrite or destroy someone else’s work.</strong></p>
+<ul>
+<li>Always <code>pull</code>/<code>fetch</code> before starting work each session</li>
+<li>If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure</li>
+<li>The <code>main</code> branch is protected — all changes go through a reviewed PR</li>
+<li>Remember to <code>.gitignore</code> generated files (rendered output, virtual environments, cache files, etc.) — don’t commit them</li>
+</ul>
+</section>
+<section id="technical-notes" class="level2">
+<h2 class="anchored" data-anchor-id="technical-notes">Technical Notes</h2>
+<ul>
+<li><p>If using RStudio’s visual editor, be aware it can produce messy diffs on <code>.qmd</code> files — prefer the source editor when committing, or review your diff carefully before committing</p></li>
+<li><p>Keep the repository structure consistent with what your group agreed on at the start of the project <strong>Important Dates</strong></p></li>
+<li><p>No major changes after September 30th, Reviewing time started</p></li>
+<li><p>Final assignment is expected on October 24th at the latest (with ful review process)</p></li>
+</ul>
+<p><strong>Evaluation</strong></p>
+<ul>
+<li>A quick quizz on October 7th (coeff 2)</li>
+<li>Final assignment (coeff 3)
+<ul>
+<li>Quarto part : should contain
+<ul>
+<li>a clear presentation of the dataset, with a basic descriptive presentation using graphs and/or table</li>
+<li>numbered equations and figures/and or tables (generated and included) with references to those</li>
+<li>a shared bibliography file use to point interesting references</li>
+</ul></li>
+<li>git part
+<ul>
+<li>clear commit message</li>
+<li>clear commit tree to understand the development process</li>
+<li>use branch when you start a new aspect</li>
+<li>Avoid merge commit, use as much as possible to clean a nice clear history</li>
+<li>DO NOT merge into main, use PR, (be careful to use the rebase option)</li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="grading-breakdown-1" class="level3">
+<h3 class="anchored" data-anchor-id="grading-breakdown-1">Grading breakdown</h3>
+<p><strong>Quarto part — 30 points (group grade)</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Clear presentation of the dataset + descriptive analysis (graphs/tables)</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Numbered equations, figures and/or tables, generated, with in-text references</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Shared bibliography file, used correctly (citations + rendering)</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>Overall document quality (clarity, structure, readability, clean rendering)</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Git part — 70 points</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Level</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Clear, informative commit messages</td>
+<td>Individual</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Readable commit tree within one’s own branch</td>
+<td>Group</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Coherence/impact of the history at PR/merge time into <code>main</code></td>
+<td>Group</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Use of branches (one per feature/aspect)</td>
+<td>Individual</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Clean history — no unnecessary merge commits</td>
+<td>Group</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Correct PR usage (no direct merge into <code>main</code>), rebase used</td>
+<td>Group</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Regularity of commits throughout the project</td>
+<td>Individual</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Penalties</strong> - <strong>-10 points for the group</strong> if another group’s work is destroyed/overwritten at merge time - <strong>-10 points for the group</strong> if the website is no longer functional after a PR</p>
+</section>
+</section>
+<section id="collaboration-guidelines-1" class="level2">
+<h2 class="anchored" data-anchor-id="collaboration-guidelines-1">Collaboration Guidelines</h2>
+<p>Several files are shared among groups — be careful when modifying them. <strong>Do not overwrite or destroy someone else’s work.</strong></p>
+<ul>
+<li>Always <code>pull</code>/<code>fetch</code> before starting work each session</li>
+<li>If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure</li>
+<li>The <code>main</code> branch is protected — all changes go through a reviewed PR</li>
+<li>Remember to <code>.gitignore</code> generated files (rendered output, virtual environments, cache files, etc.) — don’t commit them</li>
+</ul>
+</section>
+<section id="technical-notes-1" class="level2">
+<h2 class="anchored" data-anchor-id="technical-notes-1">Technical Notes</h2>
+<ul>
+<li>If using RStudio’s visual editor, be aware it can produce messy diffs on <code>.qmd</code> files — prefer the source editor when committing, or review your diff carefully before committing</li>
+<li>Keep the repository structure consistent with what your group agreed on at the start of the project</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

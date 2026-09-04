@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "Penguins_chapter.html",
+    "href": "Penguins_chapter.html",
+    "title": "Exploration données sur les manchots",
+    "section": "",
+    "text": "Pourquoi manchot se traduit Penguins en anglais ?\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nles magnifiques pingouins : (O)&gt; ( ) W\n\ndata &lt;- read.table(\"penguins_raw.csv\", sep = \",\" , header = TRUE)\n\nA citation Alston and Rick (2021)\n\nReferences\n\n\nAlston, Jesse M, and Jessica A Rick. 2021. “A Beginner’s Guide to Conducting Reproducible Research.” Bulletin of the Ecological Society of America 102 (2): 1–14."
+  },
+  {
     "objectID": "r_chapter.html",
     "href": "r_chapter.html",
     "title": "Basic overview of Markdown potentials with R and Quarto",
@@ -12,6 +19,48 @@
     "title": "Statistics to explore environmental questions",
     "section": "",
     "text": "This website is produced by the M2 MODE student during year 2025-2026 as part of their assignment in the Online Collaborative Resources course.\nThey were asked to produce collaboratively different illustrations on ecological data for different statistical and mathematical models.\nJust click on one of the three menus on top right side of this page to visit their work. They have used up to data version control workflows to produce this website using git Github, Pull Request, Code review. A set of good practices to help them producible research in the futur.\nThe website is fully generated using Continuous Integration (CI) based on Github Action."
+  },
+  {
+    "objectID": "index.html#important-dates",
+    "href": "index.html#important-dates",
+    "title": "Statistics to explore environmental questions",
+    "section": "Important Dates",
+    "text": "Important Dates\n\n\n\n\n\n\n\nDate\nMilestone\n\n\n\n\nSeptember 30\nNo major changes in the different group branches allowed after this date — review and merging period begins\n\n\nOctober 7\nQuick quiz\n\n\nOctober 24\nFinal assignment deadline, at the latest (23:59), with full review process\n\n\n\n\nSubmission format: On september 30th, all groups shoud have an open PR to propose integration within the main branch"
+  },
+  {
+    "objectID": "index.html#evaluation",
+    "href": "index.html#evaluation",
+    "title": "Statistics to explore environmental questions",
+    "section": "Evaluation",
+    "text": "Evaluation\n\nQuiz — October 7 (coeff 2)\n\nFormat: in class, with no doc (multiple choice and open questions), 30 mn durations.\nCovers: Quarto and Git (basic quarto command understanding and question on process development using git)\n\n\n\nFinal Assignment (coeff 3)\nQuarto part - Clear presentation of the dataset, including a basic descriptive analysis (graphs and/or tables) - Numbered equations, figures, and/or tables (generated and included), with in-text references to each - A shared bibliography file (.bib) used to cite relevant references, OCR_TP.bib - Expected folder structure: - dataset should be stored in data/ or accessible, - figures hould be stored in figures - one qmd file per group\nGit part - Clear, meaningful commit messages - Clear commit tree showing the development process - Use a branch for each new feature or aspect of the work - Avoid merge commits — keep history as linear and clean as possible - Do not merge directly into main — use Pull Requests (use the rebase option when merging) - Minimum commit frequency: [e.g. regular commits throughout the project, not a single commit at the deadline] - CI must pass on the final PR/commit before submission is considered complete\n\n\nGrading breakdown\n[Specify how points are split between the Quarto part and the Git part — e.g. 60/40, or itemized per criterion above]"
+  },
+  {
+    "objectID": "index.html#collaboration-guidelines",
+    "href": "index.html#collaboration-guidelines",
+    "title": "Statistics to explore environmental questions",
+    "section": "Collaboration Guidelines",
+    "text": "Collaboration Guidelines\nSeveral files are shared among groups — be careful when modifying them. Do not overwrite or destroy someone else’s work.\n\nAlways pull/fetch before starting work each session\nIf you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure\nThe main branch is protected — all changes go through a reviewed PR\nRemember to .gitignore generated files (rendered output, virtual environments, cache files, etc.) — don’t commit them"
+  },
+  {
+    "objectID": "index.html#technical-notes",
+    "href": "index.html#technical-notes",
+    "title": "Statistics to explore environmental questions",
+    "section": "Technical Notes",
+    "text": "Technical Notes\n\nIf using RStudio’s visual editor, be aware it can produce messy diffs on .qmd files — prefer the source editor when committing, or review your diff carefully before committing\nKeep the repository structure consistent with what your group agreed on at the start of the project Important Dates\nNo major changes after September 30th, Reviewing time started\nFinal assignment is expected on October 24th at the latest (with ful review process)\n\nEvaluation\n\nA quick quizz on October 7th (coeff 2)\nFinal assignment (coeff 3)\n\nQuarto part : should contain\n\na clear presentation of the dataset, with a basic descriptive presentation using graphs and/or table\nnumbered equations and figures/and or tables (generated and included) with references to those\na shared bibliography file use to point interesting references\n\ngit part\n\nclear commit message\nclear commit tree to understand the development process\nuse branch when you start a new aspect\nAvoid merge commit, use as much as possible to clean a nice clear history\nDO NOT merge into main, use PR, (be careful to use the rebase option)\n\n\n\n\nGrading breakdown\nQuarto part — 30 points (group grade)\n\n\n\n\n\n\n\nCriterion\nPoints\n\n\n\n\nClear presentation of the dataset + descriptive analysis (graphs/tables)\n10\n\n\nNumbered equations, figures and/or tables, generated, with in-text references\n8\n\n\nShared bibliography file, used correctly (citations + rendering)\n6\n\n\nOverall document quality (clarity, structure, readability, clean rendering)\n6\n\n\n\nGit part — 70 points\n\n\n\n\n\n\n\n\nCriterion\nLevel\nPoints\n\n\n\n\nClear, informative commit messages\nIndividual\n10\n\n\nReadable commit tree within one’s own branch\nGroup\n10\n\n\nCoherence/impact of the history at PR/merge time into main\nGroup\n10\n\n\nUse of branches (one per feature/aspect)\nIndividual\n10\n\n\nClean history — no unnecessary merge commits\nGroup\n10\n\n\nCorrect PR usage (no direct merge into main), rebase used\nGroup\n10\n\n\nRegularity of commits throughout the project\nIndividual\n10\n\n\n\nPenalties - -10 points for the group if another group’s work is destroyed/overwritten at merge time - -10 points for the group if the website is no longer functional after a PR"
+  },
+  {
+    "objectID": "index.html#collaboration-guidelines-1",
+    "href": "index.html#collaboration-guidelines-1",
+    "title": "Statistics to explore environmental questions",
+    "section": "Collaboration Guidelines",
+    "text": "Collaboration Guidelines\nSeveral files are shared among groups — be careful when modifying them. Do not overwrite or destroy someone else’s work.\n\nAlways pull/fetch before starting work each session\nIf you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure\nThe main branch is protected — all changes go through a reviewed PR\nRemember to .gitignore generated files (rendered output, virtual environments, cache files, etc.) — don’t commit them"
+  },
+  {
+    "objectID": "index.html#technical-notes-1",
+    "href": "index.html#technical-notes-1",
+    "title": "Statistics to explore environmental questions",
+    "section": "Technical Notes",
+    "text": "Technical Notes\n\nIf using RStudio’s visual editor, be aware it can produce messy diffs on .qmd files — prefer the source editor when committing, or review your diff carefully before committing\nKeep the repository structure consistent with what your group agreed on at the start of the project"
   },
   {
     "objectID": "instructions.html",
@@ -82,12 +131,5 @@
     "title": "Stats Reminder Project - Instructions",
     "section": "Resources",
     "text": "Resources\n\nQuarto Cross-References\nGit Rebase Tutorial\nCreating Pull Requests\n\nQuestions? Check GitHub Issues or contact the instructor. Good luck! 🚀"
-  },
-  {
-    "objectID": "Penguins_chapter.html",
-    "href": "Penguins_chapter.html",
-    "title": "Exploration données sur les manchots",
-    "section": "",
-    "text": "Pourquoi manchot se traduit Penguins en anglais ?\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nles magnifiques pingouins : (O)&gt; ( ) W\n\ndata &lt;- read.table(\"penguins_raw.csv\", sep = \",\" , header = TRUE)\n\nA citation Alston and Rick (2021)\n\nReferences\n\n\nAlston, Jesse M, and Jessica A Rick. 2021. “A Beginner’s Guide to Conducting Reproducible Research.” Bulletin of the Ecological Society of America 102 (2): 1–14."
   }
 ]
