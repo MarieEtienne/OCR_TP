@@ -24,3 +24,120 @@ They were asked to produce collaboratively different illustrations on ecological
 Just click on one of the three menus on top right side of this page to visit their work. They have used up to data version control workflows to produce this website using git Github, Pull Request, Code review. A set of good practices to help them producible research in the futur.
 
 The website is fully generated using Continuous Integration (CI) based on Github Action. 
+
+
+## Important Dates
+
+| Date | Milestone |
+|---|---|
+| **September 30** | No major changes in the different group branches allowed after this date — review and merging period begins |
+| **October 7** | Quick quiz  |
+| **October 24** | Final assignment deadline, at the latest (23:59), with full review process |
+
+- Submission format: On september 30th, all groups shoud have an open PR to propose integration within the main branch
+
+## Evaluation
+
+### Quiz — October 7 (coeff 2)
+- Format: in class, with no doc (multiple choice and open questions), 30 mn durations.
+- Covers: Quarto and Git (basic quarto command understanding and question on process development using git)
+
+### Final Assignment (coeff 3)
+
+**Quarto part**
+- Clear presentation of the dataset, including a basic descriptive analysis (graphs and/or tables)
+- Numbered equations, figures, and/or tables (generated and included), with in-text references to each
+- A shared bibliography file (`.bib`) used to cite relevant references, `OCR_TP.bib` 
+- Expected folder structure: 
+  - dataset should be stored in `data/` or accessible,
+  - figures hould be stored in figures 
+  - one qmd file per group
+
+**Git part**
+- Clear, meaningful commit messages
+- Clear commit tree showing the development process
+- Use a branch for each new feature or aspect of the work
+- Avoid merge commits — keep history as linear and clean as possible
+- **Do not merge directly into `main`** — use Pull Requests (use the **rebase** option when merging)
+- Minimum commit frequency: *[e.g. regular commits throughout the project, not a single commit at the deadline]*
+- CI must pass on the final PR/commit before submission is considered complete
+
+### Grading breakdown
+*[Specify how points are split between the Quarto part and the Git part — e.g. 60/40, or itemized per criterion above]*
+
+## Collaboration Guidelines
+
+Several files are shared among groups — be careful when modifying them. **Do not overwrite or destroy someone else's work.**
+
+- Always `pull`/`fetch` before starting work each session
+- If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure
+- The `main` branch is protected — all changes go through a reviewed PR
+- Remember to `.gitignore` generated files (rendered output, virtual environments, cache files, etc.) — don't commit them
+
+## Technical Notes
+
+- If using RStudio's visual editor, be aware it can produce messy diffs on `.qmd` files — prefer the source editor when committing, or review your diff carefully before committing
+- Keep the repository structure consistent with what your group agreed on at the start of the project
+**Important Dates**
+
+* No major changes after September 30th, Reviewing time started
+* Final assignment is expected on October 24th at the latest (with ful review process)
+
+
+**Evaluation**
+
+* A quick quizz on October 7th (coeff 2)
+* Final assignment (coeff 3)
+  - Quarto part : should contain
+      * a clear presentation of the dataset, with a basic descriptive presentation using graphs and/or table
+      * numbered equations and figures/and or tables (generated and included) with references to those
+      * a shared bibliography file use to point interesting references
+  - git part
+      * clear commit message
+      * clear commit tree to understand the development process
+      * use branch when you start a new aspect
+      * Avoid merge commit, use as much as possible to clean a nice clear history
+      * DO NOT merge into main, use PR, (be careful to use the rebase option)
+      
+      
+
+### Grading breakdown
+
+**Quarto part — 30 points (group grade)**
+
+| Criterion | Points |
+|---|---|
+| Clear presentation of the dataset + descriptive analysis (graphs/tables) | 10 |
+| Numbered equations, figures and/or tables, generated, with in-text references | 8 |
+| Shared bibliography file, used correctly (citations + rendering) | 6 |
+| Overall document quality (clarity, structure, readability, clean rendering) | 6 |
+
+**Git part — 70 points**
+
+| Criterion | Level | Points |
+|---|---|---|
+| Clear, informative commit messages | Individual | 10 |
+| Readable commit tree within one's own branch | Group | 10 |
+| Coherence/impact of the history at PR/merge time into `main` | Group | 10 |
+| Use of branches (one per feature/aspect) | Individual | 10 |
+| Clean history — no unnecessary merge commits | Group | 10 |
+| Correct PR usage (no direct merge into `main`), rebase used | Group | 10 |
+| Regularity of commits throughout the project | Individual | 10 |
+
+**Penalties**
+- **-10 points for the group** if another group's work is destroyed/overwritten at merge time
+- **-10 points for the group** if the website is no longer functional after a PR
+
+## Collaboration Guidelines
+
+Several files are shared among groups — be careful when modifying them. **Do not overwrite or destroy someone else's work.**
+
+- Always `pull`/`fetch` before starting work each session
+- If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure
+- The `main` branch is protected — all changes go through a reviewed PR
+- Remember to `.gitignore` generated files (rendered output, virtual environments, cache files, etc.) — don't commit them
+
+## Technical Notes
+
+- If using RStudio's visual editor, be aware it can produce messy diffs on `.qmd` files — prefer the source editor when committing, or review your diff carefully before committing
+- Keep the repository structure consistent with what your group agreed on at the start of the project
