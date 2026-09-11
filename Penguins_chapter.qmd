@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Titouan" 
+author: "Mt st Michel Normand" 
 bibliography: references.bib
 execute: 
   freeze: auto
