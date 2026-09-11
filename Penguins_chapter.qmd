@@ -17,8 +17,12 @@ format:
 
 Pourquoi manchot se traduit Penguins en anglais ?
 
+   ^ ^
+ =(°^°)=    __
+  ( _ _ )__/
 
 
+   
 (O)>   <(O)
 ( )     ( )
  W       W
@@ -34,13 +38,14 @@ Pourquoi manchot se traduit Penguins en anglais ?
 (O)>
 ( )
  W
-  \/
+ 
+  \ /
  (°v°)
   (   )
    (   )
     (   )
      (   )
-      (   )))))))))))
+      (   ) ) ) ) ) ) ) ) ) ) )
 ```{r}
 library(tidyverse)
 ```
