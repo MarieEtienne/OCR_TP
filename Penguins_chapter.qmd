@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "ELi Desnyder" 
+author: "Eli Desnyder" 
 bibliography: references.bib
 execute: 
   freeze: auto
@@ -19,9 +19,9 @@ Pourquoi manchot se traduit Penguins en anglais ?
 
 
 
-(O)>
-( )
- W
+(O)>   <(O)     (O)>        (O)>
+( )     ( )     ( )         ( )
+ W       W       W           W
 
 (O)>        (O)>
 ( )         ( )
