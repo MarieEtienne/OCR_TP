@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Maëlle HEBRAS" 
+author: "RONDOT Jenny, LENQUETTE Anael et HEBRAS Maëlle" 
 bibliography: references.bib
 execute: 
   freeze: auto
