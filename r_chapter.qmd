@@ -1,5 +1,5 @@
 ---
-title: "Basic overview of Markdown potentials with R and Quarto"
+title: "Basic overview of Markdown potentials with R and Quarto and the secret chapter"
 group: "Marie-Pierre Etienne" 
 bibliography: references.bib
 execute: 
