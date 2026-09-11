@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Titouan" 
+author: "Les vrais Bretons indépendantistes" 
 bibliography: references.bib
 execute: 
   freeze: auto
