@@ -1,6 +1,7 @@
 ---
 title: "Exploration données sur les manchots"
 author: "Méline la best auteur en fait" 
+author: "ELi Desnyder, C. Bres, Méline la best auteur en fait" 
 bibliography: references.bib
 execute: 
   freeze: auto
@@ -17,15 +18,22 @@ format:
 
 Pourquoi manchot se traduit Penguins en anglais ?
 
+   ^ ^
+ =(°^°)=    __
+  ( _ _ )__/
 
 
-(O)>
+   
+(O)>   <(O)
+( )     ( )
+ W       W
+
 ( )
  W
 
-(O)>
-( )
- W
+(O)>        (O)>
+( )         ( )
+ W           W
 
 
 (O)>
@@ -33,6 +41,15 @@ Pourquoi manchot se traduit Penguins en anglais ?
  W
 
 NUT NUUUUUUUUT
+ 
+  \ /
+ (°v°)
+  (   )
+   (   )
+    (   )
+     (   )
+      (   ) ) ) ) ) ) ) ) ) ) )
+
 ```{r}
 library(tidyverse)
 ```
