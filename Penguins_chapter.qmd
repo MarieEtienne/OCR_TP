@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Mt st Michel Normand" 
+author: "Les vrais Bretons indépendantistes mais Mt st Michel Normand" 
 bibliography: references.bib
 execute: 
   freeze: auto
