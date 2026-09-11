@@ -33,6 +33,11 @@ Pourquoi manchot se traduit Penguins en anglais ?
  W
 
 
+(O)>
+( )
+ w
+
+
 ```{r}
 library(tidyverse)
 ```
