@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "ELi Desnyder, C. Bres" 
+author: "Eli Desnyder, C. Bres, Méline la best auteur en fait" 
 bibliography: references.bib
 execute: 
   freeze: auto
@@ -20,6 +20,7 @@ Pourquoi manchot se traduit Penguins en anglais ?
    ^ ^
  =(°^°)=    __
   ( _ _ )__/
+
   
       /\
      /  \
@@ -38,10 +39,18 @@ Pourquoi manchot se traduit Penguins en anglais ?
   (OwO) 
   (    )
     ww
-  
+
+
+
+(O)>   <(O)     (O)>    (O)>
+( )     ( )     ( )     ( )
+ W       W       W       W
+
+
 (O)>   <(O)
 ( )     ( )
  W       W
+
 
  
 (ö)< nut NUT
@@ -56,6 +65,8 @@ Pourquoi manchot se traduit Penguins en anglais ?
 (O)>
 ( )
  W
+
+NUT NUUUUUUUUT
  
   \ /
  (°v°)
@@ -64,6 +75,7 @@ Pourquoi manchot se traduit Penguins en anglais ?
     (   )
      (   )
       (   ) ) ) ) ) ) ) ) ) ) )
+
 ```{r}
 library(tidyverse)
 ```
