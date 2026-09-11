@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Sacha Lafargue" 
+author: "Sacha Lafargue et Paul Laporte et Candys" 
 bibliography: references.bib
 execute: 
   freeze: auto
