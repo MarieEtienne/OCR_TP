@@ -83,6 +83,12 @@ les magnifiques pingouins :
 (O)>
 ( )
  W
+ 
+
+ 
+( ノÒ дÓ)ノ ┻━┻
+
+𓁹‿𓁹 HEH.
 
 ```{r}
 data <- read.table("penguins_raw.csv", sep = "," , header = TRUE)
