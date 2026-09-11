@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Mp Etienne" 
+author: "Méline la best auteur en fait" 
 bibliography: references.bib
 execute: 
   freeze: auto
@@ -32,7 +32,7 @@ Pourquoi manchot se traduit Penguins en anglais ?
 ( )
  W
 
-
+NUT NUUUUUUUUT
 ```{r}
 library(tidyverse)
 ```
