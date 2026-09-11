@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Agathe Julia Titouan" 
+author: "Titouan" 
 bibliography: references.bib
 execute: 
   freeze: auto
