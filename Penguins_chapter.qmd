@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Mp Etienne" 
+author: "Cbres" 
 bibliography: references.bib
 execute: 
   freeze: auto
@@ -19,7 +19,10 @@ Pourquoi manchot se traduit Penguins en anglais ?
 
 
 
-(O)>
+(O)>   <(O)
+( )     ( )
+ W       W
+
 ( )
  W
 
@@ -31,8 +34,13 @@ Pourquoi manchot se traduit Penguins en anglais ?
 (O)>
 ( )
  W
-
-
+  \/
+ (°v°)
+  (   )
+   (   )
+    (   )
+     (   )
+      (   )))))))))))
 ```{r}
 library(tidyverse)
 ```
