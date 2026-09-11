@@ -1,6 +1,6 @@
 ---
 title: "Exploration données sur les manchots"
-author: "Cbres" 
+author: "ELi Desnyder, C. Bres" 
 bibliography: references.bib
 execute: 
   freeze: auto
@@ -30,9 +30,9 @@ Pourquoi manchot se traduit Penguins en anglais ?
 ( )
  W
 
-(O)>
-( )
- W
+(O)>        (O)>
+( )         ( )
+ W           W
 
 
 (O)>
