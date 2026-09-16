@@ -11,14 +11,37 @@ format: html
     toc: true
 ---
 
-##Introduction
+## Introduction
 
 Agathe
 
-##Résultats
+## Résultats
 
-Jenny
+#### Chargement des données
 
-##Discussion
+```{r}
+#| label: setup
+library(gauseR)
+library(deSolve)
+```
+
+On utilise les données originales de l'expérience de compétition de Gause (1934),
+republiées dans le package \`gauseR\` (Mühlbauer et al., 2020), entre
+\*Paramecium caudatum\* et \*Paramecium aurelia\* cultivées en mixture.
+
+```{r}
+#| label: load-data
+data("gause_1934_book_app_t03")
+
+mixturedat <- gause_1934_science_f02_03[gause_1934_science_f02_03$Treatment == "Mixture", ]
+
+time <- mixturedat$Day
+species <- data.frame(mixturedat$Volume_Species1, mixturedat$Volume_Species2)
+colnames(species) <- c("P_caudatum", "P_aurelia")
+
+head(species)
+```
+
+## Discussion
 
 Julia
