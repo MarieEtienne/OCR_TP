@@ -1,11 +1,16 @@
 ---
-title: "analyse_odonate"
+title: "Analyse odonate"
+subtitle: "Répartition des Odonates de Bretagne"
 author: "Lafargue Sacha, Sécher Ewen, David Méline"
 editor:
   markdown:
     canonical: true
     wrap: 72
 ---
+
+# Les Odonates de Bretagne
+
+## Comment les populations d’odonates varient-elles selon les zones biogéographiques ?
 
 ```{r}
 library(here)
