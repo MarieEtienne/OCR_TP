@@ -5,7 +5,8 @@ editor:
   markdown:
     canonical: true
     wrap: 72
-format: html
+format:
+  html:
     theme: cosmo
     css: theme.css
     toc: true
@@ -25,9 +26,10 @@ library(gauseR)
 library(deSolve)
 ```
 
-On utilise les données originales de l'expérience de compétition de Gause (1934),
+On utilise les données originales de l'expérience de compétition de
+Gause (1934),
 republiées dans le package \`gauseR\` (Mühlbauer et al., 2020), entre
-\*Paramecium caudatum\* et \*Paramecium aurelia\* cultivées en mixture.
+*Paramecium caudatum* et *Paramecium aurelia* cultivées en mixture.
 
 ```{r}
 #| label: load-data
@@ -40,6 +42,62 @@ species <- data.frame(mixturedat$Volume_Species1, mixturedat$Volume_Species2)
 colnames(species) <- c("P_caudatum", "P_aurelia")
 
 head(species)
+```
+
+#### Estimation des paramètres
+
+On utilise \`gause_wrapper()\` uniquement pour estimer les paramètres
+($r_1$, $r_2$, $a_{11}$, $a_{12}$, $a_{21}$, $a_{22}$).
+
+```{r}
+#| label: fit-params
+gause_out <- gause_wrapper(time = time, species = species, doplot = FALSE)
+gause_out$parameter_intervals
+```
+
+#### Extraction des paramètres
+
+```{r}
+#| label: extract-params
+params <- gause_out$parameter_intervals$mu
+names(params) <- rownames(gause_out$parameter_intervals)
+
+N0_1 <- params["P_caudatum0"]
+N0_2 <- params["P_aurelia0"]
+r1   <- params["r1"]
+r2   <- params["r2"]
+a11  <- params["a11"]
+a12  <- params["a12"]
+a21  <- params["a21"]
+a22  <- params["a22"]
+
+c(r1, r2, a11, a12, a21, a22)
+```
+
+#### Simulation du modèle de compétition
+
+```{r}
+#| label: model-def
+compet <- function(t, N, param){
+  r1  <- param[1]; r2  <- param[2]
+  a11 <- param[3]; a12 <- param[4]
+  a21 <- param[5]; a22 <- param[6]
+  N1 <- N[1]; N2 <- N[2]
+  
+  dN1 <- N1 * (r1 + a11 * N1 + a12 * N2)
+  dN2 <- N2 * (r2 + a21 * N1 + a22 * N2)
+  
+  list(c(dN1, dN2))
+}
+```
+
+```{r}
+#| label: run-simulation
+parametres <- c(r1 = r1, r2 = r2, a11 = a11, a12 = a12, a21 = a21, a22 = a22)
+N0 <- c(species$P_caudatum[1], species$P_aurelia[1])
+temps_sim <- seq(0, max(time), by = 0.1)
+
+sol <- ode(y = N0, times = temps_sim, func = compet, parms = parametres)
 ```
 
 ## Discussion
