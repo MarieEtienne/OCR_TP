@@ -1,5 +1,6 @@
 ---
 title: "OCR_Orange"
+<<<<<<< HEAD
 author: "Collot, Millard, Ferreira Gomes"
 bibliography: orangeref.bib
 format:
@@ -40,6 +41,28 @@ different part of the world. The yield is in tonnes per hectare.
 We will use the dataset created by the FAO, which lists orange yields by
 country and year from 1961 to 2024. Yield is, in this dataset, measured
 in tonnes per hectare.
+=======
+author: "Collot, Millard, Gomes"
+format: html
+editor:
+  markdown: 
+    canonical: true
+    wrap: 72
+---
+
+![Temporary image of an orange tree](images/oranger.jpg)
+
+Orange_data \<- read.csv("orange-yields.csv") France_data \<-
+Orange_data\[Orange_data\$Entity=="France",\]
+
+## Possibility of usage
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+>>>>>>> 3d5adf5 (Image + bidouille)
 
 ```{r}
 #| echo: false
@@ -52,6 +75,7 @@ summary(orange)
 
 ```
 
+<<<<<<< HEAD
 As The summary of the dataset shows, yield range from 0.2871 to 81.9037
 tonnes per hecatres. This minimum is related to French Polynesia in 2023
 and the maximum is related to Caribbean in 1983.
@@ -223,3 +247,12 @@ tree can get to 10m
 
 ::: {#refs}
 :::
+=======
+References : Dataset : Food and Agriculture Organization of the United
+Nations (2025) – with major processing by Our World in Data. “Orange
+yields – UN FAO” \[dataset\]. Food and Agriculture Organization of the
+United Nations, “Production: Crops and livestock products” \[original
+data\]. Retrieved September 16, 2026 from
+https://archive.ourworldindata.org/20260910-011030/grapher/orange-yields.html
+(archived on September 10, 2026).
+>>>>>>> 3d5adf5 (Image + bidouille)
