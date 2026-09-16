@@ -16,3 +16,35 @@ editor:
     canonical: true
     wrap: 72
 ---
+
+# Analyse des données
+
+## Configuration de la session
+
+```{r}
+#Configuration de la session et chargement des packages R
+rm(list=ls()) # Nettoie l'espace de travail
+library(knitr)
+opts_chunk$set(echo = FALSE, comment = "", cache = TRUE, fig.align = "center")
+library(rmarkdown) 
+library(markdown)
+library(ggplot2) # Package pour les graphiques
+```
+
+## Importation du jeu de données
+
+```{r}
+# Importation des données
+dataFly <- read.table("FlyWeight.txt", dec=".", header = TRUE)
+dataFly$Sex<-as.factor(dataFly$Sex)
+dataFly$Habitat<-as.factor(dataFly$Habitat)
+str(dataFly)
+
+# Vérification de la présence de données manquantes
+colSums(is.na(dataFly))
+#Aucune donnée manquante
+    
+```
+
+Toutes les variables ont la bonne catégorie associée et n'ont pas de
+valeurs manquantes.
