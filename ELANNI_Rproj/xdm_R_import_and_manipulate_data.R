@@ -161,3 +161,52 @@ XDM_individual_density_data[Species == "Quercus robur", c("WS", "mean_WS_measure
 # Création d'un tableau avec uniquement 1 espèce : Quercus robur
 library(dplyr)
 dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
+dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
+
+# Vérification de la présence de données manquantes
+colSums(is.na(dta_Qrobur))
+
+## Visualisations
+
+#Boxplots of wood density (weighted mean basic wood density) by species (species with at least 1000 measurements)
+ggplot(data = dta_Qrobur[N_Cores > 1000], aes(x = reorder(Core_Type, WDbw, FUN = median, order=TRUE), y = WDbw, fill = Core_Type)) +
+  geom_boxplot(show.legend = FALSE) +
+  coord_flip() +
+  facet_grid(rows = vars(Botanical_Class), scales = "free_y", space = "free") +
+  xlab(label = "Species") +
+  ylab(label = bquote('Wood density '(kg.m^-3)))
+
+#Map of the average wood density (weighted mean basic wood density) on each NFI forest plot (using approximate coordinates, as the exact coordinates of the NFI plots are not available for statistical confidentiality reasons)
+france = map_data('france') #Extracting the map of France using the map_data function of maps package
+dta_Qrobur_map = dta_Qrobur[, .(mean = mean(WDbw)), by = c("Plot_ID", "X", "Y")] #Creating a new table with the average wood density (weighted mean basic wood density) for each NFI forest plot
+ggplot(data = france, aes(x = long,y = lat, group = group)) + #Drawing the map
+  geom_polygon(fill = "white", colour = "black") +
+  geom_point(data = dta_Qrobur_map, size = 0.5, aes(x = X, y = Y, group = 1, colour = mean)) +
+  scale_color_gradient2(low = "blue", mid = "tan", high = "red", midpoint = 600)
+
+#Scatter plot of the relationship between tree diameter at breast height (DBH) and wood density in Quercus robur
+ggplot(data = dta_Qrobur, aes(x = DBH, y = WDbw)) +
+  geom_point() +
+  geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + #Adding a smooth line based on generalized additive models
+  xlab(label = "Diameter at breast height (m)") +
+  ylab(label = bquote('Wood density '(kg.m^-3)))
+
+#Scatter plot of the relationship between the mean basic wood density and the weighted mean basic wood density in Picea abies
+ggplot(data = dta_Qrobur, aes(x = WDb, y = WDbw)) +
+  geom_point() +
+  geom_smooth(method = "lm") + #Adding the linear regression line
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") + #Adding the Y=X line
+  xlab(label = bquote('Mean basic wood density '(kg.m^-3))) +
+  ylab(label = bquote('Weighted mean basic wood density '(kg.m^-3)))
+
+## Analyses
+
+# ANCOVA
+
+
+
+# Model formulation
+mod1<-lm(WD0 ~ X+Y+Z+Core_Type+Core_Length+Age+DBH+H+TM+P
+         ,data=dta_Qrobur)
+# Then we check for significance
+drop1(mod1,test="F")
