@@ -6,3 +6,9 @@
 *.html
 
 /.quarto/
+
+**/*.quarto_ipynb
+
+OCR_TP.Rproj
+_freeze/
+_site/

@@ -1,20 +1,24 @@
 ---
 title: "OCR_Orange"
-author: "Collot, Millard, Gomes"
+author: "Collot, Millard, Ferreira Gomes"
 format: html
-editor: visual
+editor:
+  markdown:
+    canonical: true
+    wrap: 72
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+## Context
 
 ## Running Code
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+We will use the dataset created by the FAO, which lists orange yields by
+country and year from 1961 to 2024
 
 ```{r}
-1 + 1
+#| echo: false
+orange <- read.csv(file='orange-yields.csv', sep=',', dec='.')
+summary(orange)
 ```
 
 You can add options to executable code like this
@@ -24,8 +28,13 @@ You can add options to executable code like this
 2 * 2
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+The `echo: false` option disables the printing of code (only output is
+displayed).
 
-References : 
-  Dataset : 
-    Food and Agriculture Organization of the United Nations (2025) – with major processing by Our World in Data. “Orange yields – UN FAO” \[dataset\]. Food and Agriculture Organization of the United Nations, “Production: Crops and livestock products” \[original data\]. Retrieved September 16, 2026 from https://archive.ourworldindata.org/20260910-011030/grapher/orange-yields.html (archived on September 10, 2026).
+References : Dataset : Food and Agriculture Organization of the United
+Nations (2025) – with major processing by Our World in Data. “Orange
+yields – UN FAO” \[dataset\]. Food and Agriculture Organization of the
+United Nations, “Production: Crops and livestock products” \[original
+data\]. Retrieved September 16, 2026 from
+https://archive.ourworldindata.org/20260910-011030/grapher/orange-yields.html
+(archived on September 10, 2026).
