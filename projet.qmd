@@ -8,27 +8,37 @@ editor:
     wrap: 72
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a
-finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that
-includes both content and the output of embedded code. You can embed
-code like this:
-
-```{r}
-1 + 1
+```{=html}
+<style>
+body {
+text-align: justify}
+</style>
+```
+```{r init, include=FALSE}
+#Configuration de la session et chargement des packages R
+rm(list=ls()) # Nettoie l'espace de travail
+library(knitr)
+opts_chunk$set(echo = FALSE, comment = "", cache = TRUE, fig.align = "center")
+library(rmarkdown) 
+library(markdown)
+library(ggplot2) # Package pour les graphiques
+library(tinytex) # Pour la sortie pdf
+library(corrplot)# Calcul d'une matrice de correlation
+library(plot3D)# 3D plot
 ```
 
-You can add options to executable code like this
+# INTRODUCTION GENERALE
 
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is
-displayed).
+Comme l'ANOVA et la régression linéaire, l'ANCOVA (i.e. analysis de
+variance-covariance) est une méthode statistique très utilisée dans
+diverses disciplines. Elle permet de modéliser la relation entre une
+variable dépendante quantitative $Y$ selon plusieurs variables
+explicatives **quantitatives ET qualitatives** $X_{1}$,$X_{2}$...$X_{p}$
+(i.e. les variables indépendantes). Par exemple, nous pouvons utiliser
+une ANCOVA pour tester si la taille (variable quantitative), le sexe
+(variable qualitative), le statut reproductif (variable qualitative),
+l'habitat (variable qualitative), l'âge (variable quantitative) d'un
+cachalot expliquent en partie son poids (variable réponse). Comme
+l'ANCOVA inclut des variables explicatives quantitatives et
+qualitatives, cette méthode statistique se situe entre la régression
+linéaire et l'ANOVA.
