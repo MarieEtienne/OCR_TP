@@ -48,3 +48,26 @@ colSums(is.na(dataFly))
 
 Toutes les variables ont la bonne catégorie associée et n'ont pas de
 valeurs manquantes.
+
+## Exploration des données
+
+### Vérification de l'échantillonnage
+
+```{r}
+# Facteur Sexe
+summary(dataFly$Sex)
+# Facteur Habitat
+summary(dataFly$Habitat)
+```
+
+Nous avons un échantillonnage équilibré
+
+### Vérification de la colinéarité des variables explicatives
+
+```{r}
+# Représentation des graphiques pour chaque paire de covariables continues 
+plot(dataFly[,4:7],pch=16,col='dodgerblue3')
+```
+
+Nous retirons la variable longueur car celle-ci est fortement corrélée
+aux variables largeur et teneur en eau
