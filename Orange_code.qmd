@@ -30,13 +30,13 @@ orange <- read.csv(file='orange-yields.csv', sep=',', dec='.')
 summary(orange)
 ```
 
+## Possibility of usage
+
 ```{r}
 #| echo: false
 Orange_data <- read.csv("orange-yields.csv")
 France_data <- Orange_data[Orange_data$Entity=="France",]
 ```
-
-## Possibility of usage
 
 You can add options to executable code like this
 
