@@ -17,6 +17,22 @@ editor:
     wrap: 72
 ---
 
+# INTRODUCTION GENERALE
+
+Comme l'ANOVA et la régression linéaire, l'ANCOVA (i.e. analysis de
+variance-covariance) est une méthode statistique très utilisée dans
+diverses disciplines. Elle permet de modéliser la relation entre une
+variable dépendante quantitative $Y$ selon plusieurs variables
+explicatives **quantitatives ET qualitatives** $X_{1}$,$X_{2}$...$X_{p}$
+(i.e. les variables indépendantes). Par exemple, nous pouvons utiliser
+une ANCOVA pour tester si la taille (variable quantitative), le sexe
+(variable qualitative), le statut reproductif (variable qualitative),
+l'habitat (variable qualitative), l'âge (variable quantitative) d'un
+cachalot expliquent en partie son poids (variable réponse). Comme
+l'ANCOVA inclut des variables explicatives quantitatives et
+qualitatives, cette méthode statistique se situe entre la régression
+linéaire et l'ANOVA.
+
 # Analyse des données
 
 ## Configuration de la session
@@ -187,4 +203,4 @@ abline(h = 0)
 
 Comme l'illustre la @fig-homogeneite, l'homogénéité de la variance n'est
 pas entièrement respectée, il faudrait faire une transformation
-logarithmique des données pour homogénéiser plus.
+logarithmique des données pour homogénéiser plus. \`\`\`
