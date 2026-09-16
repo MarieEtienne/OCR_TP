@@ -1,0 +1,5 @@
+xdm_metadata.txt (text/plain) 4797 bytes.
+xdm_species_density_data.csv (text/comma-separated-values) 19121 bytes.
+xdm_individual_shrinkage_data.csv (text/comma-separated-values) 1075300 bytes.
+xdm_R_import_and_manipulate_data.R (type/x-r-syntax) 11528 bytes.
+xdm_individual_density_data.csv (text/comma-separated-values) 18177821 bytes.
