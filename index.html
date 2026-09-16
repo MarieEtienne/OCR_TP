@@ -165,11 +165,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#grading-breakdown" id="toc-grading-breakdown" class="nav-link" data-scroll-target="#grading-breakdown">Grading breakdown</a></li>
   </ul></li>
   <li><a href="#collaboration-guidelines" id="toc-collaboration-guidelines" class="nav-link" data-scroll-target="#collaboration-guidelines">Collaboration Guidelines</a></li>
-  <li><a href="#technical-notes" id="toc-technical-notes" class="nav-link" data-scroll-target="#technical-notes">Technical Notes</a>
-  <ul class="collapse">
-  <li><a href="#grading-breakdown-1" id="toc-grading-breakdown-1" class="nav-link" data-scroll-target="#grading-breakdown-1">Grading breakdown</a></li>
-  </ul></li>
-  <li><a href="#collaboration-guidelines-1" id="toc-collaboration-guidelines-1" class="nav-link" data-scroll-target="#collaboration-guidelines-1">Collaboration Guidelines</a></li>
+  <li><a href="#technical-notes" id="toc-technical-notes" class="nav-link" data-scroll-target="#technical-notes">Technical Notes</a></li>
   <li><a href="#technical-notes-1" id="toc-technical-notes-1" class="nav-link" data-scroll-target="#technical-notes-1">Technical Notes</a></li>
   </ul>
 </nav>
@@ -255,50 +251,6 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="grading-breakdown" class="level3">
 <h3 class="anchored" data-anchor-id="grading-breakdown">Grading breakdown</h3>
-<p><em>[Specify how points are split between the Quarto part and the Git part — e.g.&nbsp;60/40, or itemized per criterion above]</em></p>
-</section>
-</section>
-<section id="collaboration-guidelines" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration-guidelines">Collaboration Guidelines</h2>
-<p>Several files are shared among groups — be careful when modifying them. <strong>Do not overwrite or destroy someone else’s work.</strong></p>
-<ul>
-<li>Always <code>pull</code>/<code>fetch</code> before starting work each session</li>
-<li>If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure</li>
-<li>The <code>main</code> branch is protected — all changes go through a reviewed PR</li>
-<li>Remember to <code>.gitignore</code> generated files (rendered output, virtual environments, cache files, etc.) — don’t commit them</li>
-</ul>
-</section>
-<section id="technical-notes" class="level2">
-<h2 class="anchored" data-anchor-id="technical-notes">Technical Notes</h2>
-<ul>
-<li><p>If using RStudio’s visual editor, be aware it can produce messy diffs on <code>.qmd</code> files — prefer the source editor when committing, or review your diff carefully before committing</p></li>
-<li><p>Keep the repository structure consistent with what your group agreed on at the start of the project <strong>Important Dates</strong></p></li>
-<li><p>No major changes after September 30th, Reviewing time started</p></li>
-<li><p>Final assignment is expected on October 24th at the latest (with ful review process)</p></li>
-</ul>
-<p><strong>Evaluation</strong></p>
-<ul>
-<li>A quick quizz on October 7th (coeff 2)</li>
-<li>Final assignment (coeff 3)
-<ul>
-<li>Quarto part : should contain
-<ul>
-<li>a clear presentation of the dataset, with a basic descriptive presentation using graphs and/or table</li>
-<li>numbered equations and figures/and or tables (generated and included) with references to those</li>
-<li>a shared bibliography file use to point interesting references</li>
-</ul></li>
-<li>git part
-<ul>
-<li>clear commit message</li>
-<li>clear commit tree to understand the development process</li>
-<li>use branch when you start a new aspect</li>
-<li>Avoid merge commit, use as much as possible to clean a nice clear history</li>
-<li>DO NOT merge into main, use PR, (be careful to use the rebase option)</li>
-</ul></li>
-</ul></li>
-</ul>
-<section id="grading-breakdown-1" class="level3">
-<h3 class="anchored" data-anchor-id="grading-breakdown-1">Grading breakdown</h3>
 <p><strong>Quarto part — 30 points (group grade)</strong></p>
 <table class="caption-top table">
 <colgroup>
@@ -385,14 +337,23 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Penalties</strong> - <strong>-10 points for the group</strong> if another group’s work is destroyed/overwritten at merge time - <strong>-10 points for the group</strong> if the website is no longer functional after a PR</p>
 </section>
 </section>
-<section id="collaboration-guidelines-1" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration-guidelines-1">Collaboration Guidelines</h2>
+<section id="collaboration-guidelines" class="level2">
+<h2 class="anchored" data-anchor-id="collaboration-guidelines">Collaboration Guidelines</h2>
 <p>Several files are shared among groups — be careful when modifying them. <strong>Do not overwrite or destroy someone else’s work.</strong></p>
 <ul>
 <li>Always <code>pull</code>/<code>fetch</code> before starting work each session</li>
 <li>If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure</li>
 <li>The <code>main</code> branch is protected — all changes go through a reviewed PR</li>
 <li>Remember to <code>.gitignore</code> generated files (rendered output, virtual environments, cache files, etc.) — don’t commit them</li>
+</ul>
+</section>
+<section id="technical-notes" class="level2">
+<h2 class="anchored" data-anchor-id="technical-notes">Technical Notes</h2>
+<ul>
+<li><p>If using RStudio’s visual editor, be aware it can produce messy diffs on <code>.qmd</code> files — prefer the source editor when committing, or review your diff carefully before committing</p></li>
+<li><p>Keep the repository structure consistent with what your group agreed on at the start of the project <strong>Important Dates</strong></p></li>
+<li><p>No major changes after September 30th, Reviewing time started</p></li>
+<li><p>Final assignment is expected on October 24th at the latest (with ful review process)</p></li>
 </ul>
 </section>
 <section id="technical-notes-1" class="level2">
