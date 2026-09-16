@@ -8,6 +8,8 @@ editor:
     wrap: 72
 ---
 
+![Temporary image of an orange tree](images/oranger.jpg)
+
 ## Orange yield around the world
 
 Found on the **ourworldindata.org**, the data set that we are using,
@@ -22,18 +24,19 @@ world. The yield is in tonnes per hectare.
 We will use the dataset created by the FAO, which lists orange yields by
 country and year from 1961 to 2024.
 
-## Orange yield around the world
-
-Found on the **ourworldindata.org**, the data set that we are using,
-gives information about the yield of different countries, their year of
-yield, plus the data set contains the code to the different part of the
-world. The yield is in tonnes per hectare.
-
 ```{r}
 #| echo: false
 orange <- read.csv(file='orange-yields.csv', sep=',', dec='.')
 summary(orange)
 ```
+
+```{r}
+#| echo: false
+Orange_data <- read.csv("orange-yields.csv")
+France_data <- Orange_data[Orange_data$Entity=="France",]
+```
+
+## Possibility of usage
 
 You can add options to executable code like this
 
