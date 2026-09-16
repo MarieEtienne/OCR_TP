@@ -1,5 +1,18 @@
 ---
 title: "Projet_OCR"
 author: "Eudes Damien Emilie"
-editor: visual
+editor:
+  markdown: 
+    canonical: true
+    wrap:72
 ---
+
+Introduction :
+
+Les abeilles sauvages subissent de nombreuses pressions anthopique et beaucoup d'entre elles sont menacées. L'utilisation du paysage fait partie des pressions majeures sur ce groupe. La taille est souvent utilisée pour suivre la disponibilité des ressources alimentaires, les petites espèces d'abeilles sont en effet favorisées par rapport aux grandes qui nécéssites moins de ressources pour arriver à l'âge adulte.
+
+Rajouter bibliographie **Problématique : Comment varie la taille des abeilles sauvages selon le paysage (urbain, semi urbain, agricole et semi naturel) ?**
+
+Description variables : Taille, Milieu, année, mois, Type de capture
+
+Analyses stats : GLMM (avec effet aléatoire : type de capture, mois, année) effet fixe : taille Mettre l'équation Mettre le résultat de la GLMM + Graph Phrase de conclusion
