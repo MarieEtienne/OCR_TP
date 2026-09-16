@@ -18,13 +18,9 @@ country and year from 1961 to 2024.
 ## Orange yield around the world
 
 Found on the **ourworldindata.org**, the data set that we are using,
-gives information about the yield on different
-
-## Running Code
-
-When you click the **Render** button a document will be generated that
-includes both content and the output of embedded code. You can embed
-code like this:
+gives information about the yield of different countries, their year of
+yield, plus the data set contains the code to the different part of the
+world. The yield is in tonnes per hectare.
 
 ```{r}
 #| echo: false
