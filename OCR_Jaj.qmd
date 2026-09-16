@@ -1,6 +1,10 @@
 ---
 title: "OCR Jaj"
 author: "Agathe, Julia, Jenny"
+editor: 
+  markdown:
+    canonical: true
+    wrap: 72
 format: html
     theme: cosmo
     css: theme.css
