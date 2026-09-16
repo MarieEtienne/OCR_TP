@@ -18,8 +18,15 @@ editor:
 ![A beautiful orange tree](images/oranger.jpg){#fig-oranger
 width="300px"}
 
+<<<<<<< HEAD
 ![An orange grove](images/verger_orange.jpg){#fig-oranger width="400px"}
 :::
+=======
+```{r}
+Orange_data <- read.csv("orange-yields.csv") 
+France_data <- Orange_data[Orange_data$Entity=="France",]
+```
+>>>>>>> a397ae7 (Correction code)
 
 ## Orange yield around the world
 
