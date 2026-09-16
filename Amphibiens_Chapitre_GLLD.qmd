@@ -1,14 +1,21 @@
 ---
 title: "Amphibiens_Chapitre_GLLD"
-format: html
+format:
+  html:
+    embed-resources: true
+editor:
+  markdown:
+    canonical: true
+    wrap: 72
 ---
 
-## Setup 
+## Setup
+
 ```{r setup-et-import, message=FALSE, warning=FALSE}
 # Load libraries
 library(tidyverse)
-
-
+library(vegan)
+library(corrplot)
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
@@ -16,16 +23,78 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 ```
 
 ## Chapitre 2
+
 ```{r}
+
 
 ```
 
 ## Chapitre 3
-```{r}
+
+Avec ce meme jeu de donnée on se demande quels variales structure la
+composition et la diversité globale de la communauté d'amphibiens? Pour
+cela una approche approprié concerne l'analyse multivarié.
+
+Les analysis multivariés permettent de...
+
+Dans de cas, ayant un dataset avec des informations sur la
+présence/absence des amphibiens et des variables catégoriques et
+numériques sur le contexte ambiental, analyse du type canonique des
+correspondance (ACC ou CCA) devrait etre réalisé...
+
+Pour cela la premiere étape consiste a vérfier
+
+```{r chapitre3-dataprep, echo = FALSE, warning = FALSE, message = FALSE}
+data_amphi <- data %>% select((last_col() - 6):last_col()) 
+data_var <- data %>% select(3:(last_col() - 7))
+
+dim(data_amphi)
+
+# 1. Verfication data
+## Representation de toutes les especes
+100*apply(!data_amphi==0,2,sum)/nrow(data_amphi)
+
+valid_sites <- rowSums(data_amphi) > 0
+data_amphi_clean <- data_amphi[valid_sites, ]
+data_var_clean   <- data_var[valid_sites, ]
+
+## Verification meme dim pour deux tableaux
+dim(data_amphi_clean)
+dim(data_var_clean)
+```
+
+La suivante étape consiste a vérfier les corrélations entre les
+variables explicatives,....
+
+```{r chapitre3-cor, echo = FALSE, warning = FALSE, message = FALSE}
+
+## Corrélation des donnees
+cor_matrix <- cor(data_var_clean, use = "complete.obs")
+corrplot::corrplot(cor_matrix)
+
+```
+
+```{r chapitre3-cca, echo = FALSE, warning = FALSE, message = FALSE}
+
+# 1. Perform Canonical Correspondence Analysis (CCA)
+cca_model <- cca(data_amphi_clean ~ ., data = data_var_clean)
+
+cca_model <- cca(data_amphi[valid_sites, ] ~ ., data = data_var_clean)
+
+
+# Summary of the model (eigenvalues, variance explained, biplot scores)
+summary(cca_model)
+
+# Test global statistical significance of the model
+anova(cca_model, permutations = 999)
+
+# Test significance of individual environmental variables
+anova(cca_model, by = "term", permutations = 999)
 
 ```
 
 ## Chapitre 4
+
 ```{r}
 
 ```
