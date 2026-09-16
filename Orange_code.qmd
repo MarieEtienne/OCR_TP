@@ -2,16 +2,18 @@
 title: "OCR_Orange"
 author: "Collot, Millard, Gomes"
 format: html
-editor: visual
+editor:
+  markdown: 
+    canonical: true
+    wrap: 72
 ---
 
-## Quarto
+![Temporary image of an orange tree](images/oranger.jpg)
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Orange_data \<- read.csv("orange-yields.csv") France_data \<-
+Orange_data\[Orange_data\$Entity=="France",\]
 
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+## Possibility of usage
 
 ```{r}
 1 + 1
@@ -24,8 +26,10 @@ You can add options to executable code like this
 2 * 2
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
-
-References : 
-  Dataset : 
-    Food and Agriculture Organization of the United Nations (2025) – with major processing by Our World in Data. “Orange yields – UN FAO” \[dataset\]. Food and Agriculture Organization of the United Nations, “Production: Crops and livestock products” \[original data\]. Retrieved September 16, 2026 from https://archive.ourworldindata.org/20260910-011030/grapher/orange-yields.html (archived on September 10, 2026).
+References : Dataset : Food and Agriculture Organization of the United
+Nations (2025) – with major processing by Our World in Data. “Orange
+yields – UN FAO” \[dataset\]. Food and Agriculture Organization of the
+United Nations, “Production: Crops and livestock products” \[original
+data\]. Retrieved September 16, 2026 from
+https://archive.ourworldindata.org/20260910-011030/grapher/orange-yields.html
+(archived on September 10, 2026).
