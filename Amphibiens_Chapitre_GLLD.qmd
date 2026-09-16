@@ -28,7 +28,6 @@ library(corrplot)
 library(lme4)
 library(dplyr)
 
-
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 
@@ -337,7 +336,6 @@ anova(cca_model, by = "term", permutations = 999)
 ```
 
 ## Chapitre 4
-
 ```{r}
 # Modele Green frog 
 dataT <- data %>%
@@ -361,4 +359,3 @@ summary(modele_GF)
 
 # Modele Great crested newt
 
-```
