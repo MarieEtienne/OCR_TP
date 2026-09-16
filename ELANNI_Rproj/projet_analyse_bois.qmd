@@ -9,15 +9,23 @@ editor:
   markdown:
     canonical: true
     wrap: 72
-format:
-  html:
-  theme: cosmo
+format: html
 css: theme.css
 toc: true
 toc_float: true
 ---
 
-## ouvrir dataset
+#Importing needed packages
 
-dta \<- read.table("data_wood_density.csv", header = TRUE, sep = ",",
-dec = ".")
+library(data.table) library(ggplot2) library(maps)
+
+#Importing the file with individual wood density
+measurements(xdm_individual_density_data.csv file)
+XDM_individual_density_data =
+data.table(read.table("xdm_individual_density_data.csv", sep = ",", dec
+= ".", header = TRUE))
+
+# Création d'un tableau avec uniquement 1 espèce : Quercus robur
+
+library(dplyr) dta_Qrobur = filter(XDM_individual_density_data,
+XDM_individual_density_data\$Species == "Quercus robur")
