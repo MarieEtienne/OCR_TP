@@ -17,7 +17,7 @@
 #########################
 
 #Importing needed packages
-.libPaths("D:/Espace_Travail/R/win-library/4.0.3") #Specify library access path if necessary
+#.libPaths("D:/Espace_Travail/R/win-library/4.0.3") #Specify library access path if necessary
 library(data.table)
 library(ggplot2)
 library(maps)
