@@ -10,10 +10,34 @@ library(tidyverse)
 
 
 
+
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 
 ```
+La diversité alpha décrit la diversité locale des communautés en termes de richesse spécifique. Afin de comparer les communautés d'amphibiens associées aux autoroutes A1 et S52, une analyse de la diversité alpha a été réalisée à partir des données de présence-absence des espèces. 
+
+## Chapitre 1
+```{r diversité alpha, echo=FALSE, message=FALSE, warning=FALSE}
+diversite_alpha = data[-1,-c(1,3:16)]
+colnames(diversite_alpha)[1] = "Autoroutes"
+
+diversite_alpha_long <- diversite_alpha %>%
+  pivot_longer(cols = -Autoroutes,
+               names_to = "Especes",
+               values_to = "Presence")
+
+diversite_alpha_resume <- diversite_alpha_long %>%
+  group_by(Autoroutes, Especes) %>%
+  summarise(Nb_amphibiens = sum(Presence), .groups = "drop")
+
+ggplot(diversite_alpha_resume,
+       aes(x = Especes, y = Nb_amphibiens, fill = Autoroutes)) +
+  geom_col(position = "dodge") +
+  coord_flip()
+
+```
+On peut voir que la richesse spécifique de l'autoroute A1 est moins élevée que celle de l'autoroute S52 pour toutes les espèces d'amphibiens. 
 
 ## Chapitre 2
 ```{r}
