@@ -16,7 +16,8 @@ editor:
 library(tidyverse)
 library(vegan)
 library(corrplot)
-
+library(lme4)
+library(dplyr)
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
@@ -174,5 +175,26 @@ anova(cca_model, by = "term", permutations = 999)
 ## Chapitre 4
 
 ```{r}
+# Modele Green frog 
+dataT <- data %>%
+  mutate(across(c(SR, NR, OR), scale))
+modele_GF <- glmer(
+  Green.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+FR+OR+RR+BR+MR+CR+(1 | ID), 
+  data = dataT, 
+  family = binomial(link = "logit")
+)
+summary(modele_GF)
+
+# Modele Brown frog 
+
+# Modele Common toad
+
+# Modele Fire-bellied toad
+
+# Modele Tree frog
+
+# Modele Common newt
+
+# Modele Great crested newt
 
 ```
