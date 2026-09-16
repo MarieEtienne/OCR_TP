@@ -17,4 +17,18 @@ library(here)
 path = here("Odonate_4km_bretagne.csv")
 data = read.csv(path, sep = ";")
 data
+
+length(unique(data$species))
+
+matrice_odo = read.csv(here("Matrice_Odonate.csv"), sep = ";" )
+
+
+```
+
+Estimation du nombre d'espèces total selon le nombre d'espèces:
+
+```{r}
+
+
+
 ```
