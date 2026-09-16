@@ -153,3 +153,11 @@ ggplot(data = XDM_individual_density_data[Species == "Quercus robur"], aes(x = W
 #The basic wood density estimated  using the mean value of shrinkage measurements is lower than the one estimated using literature shrinkage value
 XDM_individual_density_data[Species == "Quercus robur", c("WS", "mean_WS_measured")] #This is logical, as for this species the mean value of shrinkage measurements (mean_WS_measured; ~17.5%) is greater than the literature shrinkage value (WS, 13%)
 
+
+###############################################################################################################################################################
+#6.Analyse sur 1 espèce
+###############################################################################################################################################################
+
+# Création d'un tableau avec uniquement 1 espèce : Quercus robur
+library(dplyr)
+dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
