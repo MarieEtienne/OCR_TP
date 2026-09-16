@@ -17,7 +17,54 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 
 ## Chapitre 2
 ```{r}
+# Chargement des bibliothèques nécessaires
+library(tidyverse)
+library(ggplot2)
 
+# 2. Identification des espèces (7 dernières colonnes)
+species_cols <- tail(names(data), 7)
+
+# 3. Format long pour la manipulation
+data_long <- data %>%
+  pivot_longer(cols = all_of(species_cols), 
+               names_to = "Species", 
+               values_to = "Presence") %>%
+  mutate(Presence = as.numeric(as.character(Presence)),
+         Species = as.factor(Species))
+
+# 4. Extraction automatique des coefficients du modèle avec interaction
+# On teste l'effet de chaque variable de pression pour chaque espèce
+model_global <- glm(Presence ~ (FR + RR + BR + MR) * Species, data = data_long, family = binomial)
+
+# 5. Mise en forme des résultats pour le graphique
+library(broom)
+data_coefs <- tidy(model_global, conf.int = TRUE) %>%
+  filter(grepl(":", term)) # Ne garde que les termes d'interaction (effet propre à chaque espèce)
+
+# Nettoyage des noms de termes pour plus de clarté sur le graphique
+data_coefs <- data_coefs %>%
+  mutate(
+    Variable = case_when(
+      grepl("FR", term) ~ "FR (Pêche/Usage)",
+      grepl("RR", term) ~ "RR (Route)",
+      grepl("BR", term) ~ "BR (Bâtiment)",
+      grepl("MR", term) ~ "MR"
+    ),
+    Species = gsub(".*Species", "", term)
+  )
+
+# 6. Graphique des sensibilités (Effet de la pression humaine par espèce)
+ggplot(data_coefs, aes(x = estimate, y = Species, color = Species)) +
+  geom_point(size = 3) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
+  facet_wrap(~ Variable, scales = "free_x") +
+  theme_minimal() +
+  labs(title = "Sensibilité des espèces d'amphibiens à la pression humaine",
+       subtitle = "Coefficients de régression (IC à 95%) - Ligne rouge = absence d'effet",
+       x = "Effet sur la présence (Coefficient estimé)",
+       y = "Espèce d'amphibien") +
+  theme(legend.position = "none")
 ```
 
 ## Chapitre 3
