@@ -13,7 +13,8 @@ editor:
 ## Running Code
 
 We will use the dataset created by the FAO, which lists orange yields by
-country and year from 1961 to 2024
+country and year from 1961 to 2024. Yield is, in this dataset, measured
+in tonnes per hectare.
 
 ```{r}
 #| echo: false
@@ -21,17 +22,12 @@ orange <- read.csv(file='orange-yields.csv', sep=',', dec='.')
 summary(orange)
 ```
 
-You can add options to executable code like this
+As The summary of the dataset shows, yield range from 0.2871 to 81.9037
+tonnes per hecatres. This minimum is related to French Polynesia in 2023
+and the maximum is related to Caribbean in 1983.
 
-```{r}
-#| echo: false
-2 * 2
-```
+## References : Dataset : Food and Agriculture Organization of the United
 
-The `echo: false` option disables the printing of code (only output is
-displayed).
-
-References : Dataset : Food and Agriculture Organization of the United
 Nations (2025) – with major processing by Our World in Data. “Orange
 yields – UN FAO” \[dataset\]. Food and Agriculture Organization of the
 United Nations, “Production: Crops and livestock products” \[original
