@@ -1,6 +1,6 @@
 ---
 title: "OCR_Orange"
-author: "Collot, Millard, Gomes"
+author: "Collot, Millard, Ferreira Gomes"
 format: html
 editor: 
   markdown: 
@@ -15,8 +15,17 @@ gives information about the yield of different countries, their year of
 yield, plus the data set contains the code to the different part of the
 world. The yield is in tonnes per hectare.
 
+## Context
+
+## Running Code
+
+We will use the dataset created by the FAO, which lists orange yields by
+country and year from 1961 to 2024
+
 ```{r}
-1 + 1
+#| echo: false
+orange <- read.csv(file='orange-yields.csv', sep=',', dec='.')
+summary(orange)
 ```
 
 You can add options to executable code like this
