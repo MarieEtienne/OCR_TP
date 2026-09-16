@@ -21,6 +21,11 @@ width="300px"}
 ![An orange grove](images/verger_orange.jpg){#fig-oranger width="400px"}
 :::
 
+```{r}
+Orange_data <- read.csv("orange-yields.csv") 
+France_data <- Orange_data[Orange_data$Entity=="France",]
+```
+
 ## Orange yield around the world
 
 Found on the **ourworldindata.org**, the data set (@dataset2025) that we
