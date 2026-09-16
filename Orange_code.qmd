@@ -10,8 +10,10 @@ editor:
 
 ![Temporary image of an orange tree](images/oranger.jpg)
 
-Orange_data \<- read.csv("orange-yields.csv") France_data \<-
-Orange_data\[Orange_data\$Entity=="France",\]
+```{r}
+Orange_data <- read.csv("orange-yields.csv") 
+France_data <- Orange_data[Orange_data$Entity=="France",]
+```
 
 ## Possibility of usage
 
