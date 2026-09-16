@@ -13,6 +13,6 @@ Les abeilles sauvages subissent de nombreuses pressions anthopique et beaucoup d
 
 Rajouter bibliographie **Problématique : Comment varie la taille des abeilles sauvages selon le paysage (urbain, semi urbain, agricole et semi naturel) ?**
 
-Description variables : Taille, Milieu, année, mois, Type de capture
+Le tableau de données utilisé est issu de 4 tableaux publiés dans des journeaux relus par des pairs. Les expériences ont toutes été réalisées en Ile-de-France, parfois seulement à Paris mais couvrent parfois de nombreux milieu notamment des milieux agricoles et semi-urbains Description variables : Taille, Milieu, année, mois, Type de capture, site, pourcentage impermabilisation, sexe, espèce
 
 Analyses stats : GLMM (avec effet aléatoire : type de capture, mois, année) effet fixe : taille Mettre l'équation Mettre le résultat de la GLMM + Graph Phrase de conclusion
