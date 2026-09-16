@@ -1,0 +1,31 @@
+---
+title: "Amphibiens_Chapitre_GLLD"
+format: html
+---
+
+## Setup 
+```{r setup-et-import, message=FALSE, warning=FALSE}
+# Load libraries
+library(tidyverse)
+
+
+
+# Import dataset
+data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
+
+```
+
+## Chapitre 2
+```{r}
+
+```
+
+## Chapitre 3
+```{r}
+
+```
+
+## Chapitre 4
+```{r}
+
+```
