@@ -2,13 +2,15 @@
 title: "OCR Jaj"
 author: "Agathe, Julia, Jenny"
 editor: 
-  markdown:
+  markdown: 
     canonical: true
     wrap: 72
-format: html
+format:
+  html:
     theme: cosmo
     css: theme.css
     toc: true
+bibliography: references.bib
 ---
 
 ##Introduction
@@ -22,3 +24,5 @@ Jenny
 ##Discussion
 
 Julia
+
+Comme le montre cette étude [@mühlbauer2020]
