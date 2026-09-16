@@ -5,20 +5,45 @@ editor:
   markdown:
     canonical: true
     wrap: 72
-format: html
+format: 
+  html :
     theme: cosmo
     css: theme.css
     toc: true
 ---
 
-##Introduction
+## Introduction Agathe
 
-Agathe
+### Équation
 
-##Résultats
+### Brouillon
+
+Plan Contexte Photo Équation : Mettre équation avec auto-limitation
+(plus l'espèce prend de la place plus elle est limitée) Hypothèses
+
+Notes de l'article :
+
+https://doi.org/10.1002/ece3.6926
+
+A century ago, Alfred J. Lotka (1920, 1925) and Vito Volterra (1926)
+published their canonical works concerning the mathematics of species
+interactions. These theories were among the first to suggest that the
+dynamics of complex ecological systems could be described through simple
+underlying equations (Israel, 1988; Scudo & Ziegler, 1978). Inspired by
+the possibility of understanding natural systems through mathematics,
+Georgy Gause stated in his “Struggle for Existence” (Gause, 1934b):
+
+Despite their simplicity, the Lotka-Volterra equations are still the
+primary models used to describe species interactions. At their most
+basic, these models describe the changes per unit time in the abundance
+of a species, Ni, as.
+
+### Context
+
+## Résultats
 
 Jenny
 
-##Discussion
+## Discussion
 
 Julia
