@@ -42,3 +42,19 @@ cachalot expliquent en partie son poids (variable réponse). Comme
 l'ANCOVA inclut des variables explicatives quantitatives et
 qualitatives, cette méthode statistique se situe entre la régression
 linéaire et l'ANOVA.
+
+Considérons une variable explicative quantitative et une variable
+explicative qualitative, le modèle s'écrit :
+$$ Y_{ij} = \mu + \alpha_{i}+ \beta.X_{ij}+\gamma_{i}.X_{ij}+ \epsilon_{ij}$$
+
+où $\mu$ est la moyenne générale, $\alpha_{i}$ est l'effet de la ième
+modalité du facteur (i.e. la variable explicative qualitative), $\beta$
+est la pente de la régression (quantité de variation de $Y$ pour chaque
+unité de la covariable $X_{j}$), $\gamma_{i}$ est le coefficient associé
+à l'interaction entre le facteur et la covariable et $\epsilon_{ij}$ est
+l'erreur (i.e. les résidus). L'inclusion du terme d'erreur $\epsilon$,
+également appelé la partie aléatoire du modèle, rend le modèle plus
+statistique que mathématique. Le terme d'erreur est tiré d'une
+distribution statistique intègrant la variabilité aléatoire de la
+réponse. Dans une ANCOVA, on suppose qu'il s'agit d'une distribution
+**Normale**.
