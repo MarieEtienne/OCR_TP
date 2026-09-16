@@ -220,8 +220,10 @@ dim(data_cat)     # 9 col
 
 ### Corrélation
 
-La suivante étape consiste a vérfier les corrélations entre les
-variables explicatives,....
+Nous avons ensuite vérifié les corrélations entre variables explicatives
+afin d'éviter la multicolinéarité dans le modèle : corrélation de
+Spearman pour les variables numériques et V de Cramér pour les variables
+catégorielles.
 
 ```{r chapitre3-visual, echo=FALSE, warning=FALSE,message=FALSE}
 # library(DataExplorer)
@@ -235,12 +237,11 @@ variables explicatives,....
 
 ```{r chapitre3-cor, echo = FALSE, warning = FALSE, message = FALSE}
 
-## Corrélation des donnees
-# 3. Ejemplo de cómo calcular la matriz de correlación solo con las numéricas/ordinales usando Spearman
+## Corrélation des données numériques
 cor_matrix_spearman <- cor(data_num_ord, use = "complete.obs", method = "spearman")
-# Visualización rápida de la correlación de este subgrupo
-corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoef.col = "black")
 
+
+## Corrélation des données catégorielles
 library(rcompanion)
 cat_vars <- colnames(data_cat)
 n_vars <- length(cat_vars)
@@ -252,30 +253,75 @@ for (i in 1:n_vars) {
   }
 }
 cramer_matrix <- as.matrix(cramer_matrix)
-corrplot::corrplot(cramer_matrix, method = "color", type = "upper", 
-                   addCoef.col = "black", tl.col = "black", tl.srt = 45,
-                   title = "V de Cramer",
-                   mar = c(0,0,2,0))
 ```
 
-#### Tableau Récapitulatif des Corrélations et de la Sélection des Variables
+#### Corrélations et sélection des variables numériques
 
-Ce tableau résume les fortes corrélations identifiées dans le jeu de
-données, leur justification écologique et la décision de conservation ou
-de suppression des variables pour éviter la multicolinéarité dans les
-modèles prédictifs.
+```{r}
+#| label: fig-chp3-cor-spearman
+#| fig-cap: "Matrice de corrélation de Spearman entre variables numériques."
+#| echo: false
+#| warning: false
+#| message: false
+corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoef.col = "black")
+```
 
-| Paire de Variables Corrélées | Coefficient de Corrélation ($r$) | Justification / Logique Écologique | Variable Conservée | Variable Éliminée | Justification de la Décision |
-|:---|:--:|:---|:---|:---|:---|
-| **RR** (Distance aux routes) & <br>**BR** (Distance aux bâtiments) | $0.80$ | Les routes et les constructions humaines sont fortement associées dans les zones urbanisées ou périurbaines. | **RR** | **BR** | Les routes ont un impact direct et mortel documenté sur les amphibiens (mortalité routière, pollution), constituant un meilleur prédicteur de la pression anthropique \[SOURCE!!!!!!\]. |
-| **UR** (Utilisation du réservoir) & <br>**FR** (Présence de pêche) | $0.84$ | L'utilisation économique des plans d'eau inclut souvent l'aquaculture ou l'élevage piscicole, menant directement à une pêche intense. | **UR** | **FR** | `UR` est plus globale et catégorise plusieurs états (non utilisé, récréatif, technologique, économique), capturant ainsi la pêche tout en apportant plus de nuances. |
+Le tableau suivant présente les paires de variables fortement corrélées
+(Spearman, seuil $|r| > 0.60$) et la variable conservée pour chacune.
+
+| Paire corrélée | $r$ | Lien écologique | Conservée | Éliminée | Justification |
+|:---|:--:|:---|:--:|:--:|:---|
+| **RR** (distance aux routes) et **BR** (distance aux bâtiments) | $0.80$ | Routes et constructions sont associées dans les zones urbanisées et périurbaines. | **RR** | **BR** | La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique \[SOURCE\]. |
+| **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.84$ | L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense. | **UR** | **FR** | `UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances. |
+
+: Variables corrélées (Spearman) et sélection des variables numériques.
+
+#### Associations et sélection des variables catégorielles
+
+```{r}
+#| label: fig-chp3-cor-cramer
+#| fig-cap: "Matrice des V de Cramér entre variables catégorielles."
+#| echo: false
+#| warning: false
+#| message: false
+corrplot::corrplot(cramer_matrix, method = "color", type = "upper", 
+                   addCoef.col = "black", tl.col = "black", tl.srt = 45)
+```
+
+Le tableau suivant présente les paires de variables fortement associées
+(seuil $V > 0.60$) et la variable conservée pour chacune.
+
+| Paire associée | $V$ | Lien écologique | Conservée | Éliminée | Justification |
+|:---|:--:|:---|:--:|:--:|:---|
+| **MR** (état de maintenance) et **CR** (type de rive) | $0.71$ | Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème. | **CR** | **MR** | Une rive verticale en béton empêche les amphibiens de sortir de l'eau : `CR` est donc un facteur écologique plus déterminant que l'état de propreté (`MR`). |
+| **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.64$ | L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée. | **UR** | **FR** | `UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines. |
+
+: Variables associées (V de Cramér) et sélection des variables
+catégorielles.
+
+```{r chapitre3-drop-vars, echo=false, warning = false, message= false}
+# Variables elimines
+vars_num_drop <- c("BR", "FR")   # num
+vars_cat_drop <- c("MR", "FR")   # cat
+
+# Delete from data frame
+data_num_ord_sel <- data_num_ord[, !colnames(data_num_ord) %in% vars_num_drop, drop = FALSE]
+data_cat_sel     <- data_cat[, !colnames(data_cat) %in% vars_cat_drop, drop = FALSE]
+
+# Bind data frames
+data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
+
+# Ensure categorical variables are conserved as factors
+data_var_clean_cca[names(data_cat_sel)] <- lapply(data_var_clean_cca[names(data_cat_sel)], factor)
+
+```
 
 ```{r chapitre3-cca, echo = FALSE, warning = FALSE, message = FALSE}
 
 # 1. Perform Canonical Correspondence Analysis (CCA)
-cca_model <- cca(data_amphi_clean ~ ., data = data_var_clean)
+cca_model <- cca(data_amphi_clean ~ ., data = data_var_clean_cca)
 
-cca_model <- cca(data_amphi[valid_sites, ] ~ ., data = data_var_clean)
+#cca_model <- cca(data_amphi[valid_sites, ] ~ ., data = data_var_clean_cca)
 
 
 # Summary of the model (eigenvalues, variance explained, biplot scores)
@@ -286,6 +332,7 @@ anova(cca_model, permutations = 999)
 
 # Test significance of individual environmental variables
 anova(cca_model, by = "term", permutations = 999)
+
 
 ```
 
