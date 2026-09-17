@@ -40,20 +40,38 @@ diversite_alpha_long <- diversite_alpha %>%
                names_to = "Especes",
                values_to = "Presence")
 
-diversite_alpha_resume <- diversite_alpha_long %>%
-  group_by(Autoroutes, Especes) %>%
-  summarise(Nb_amphibiens = sum(Presence), .groups = "drop")
+ordre_s52 <- diversite_alpha_resume %>%
+  filter(Autoroutes == "S52") %>%
+  arrange(desc(Nb_amphibiens)) %>%
+  pull(Especes)
+
+diversite_alpha_resume <- diversite_alpha_resume %>%
+  mutate(Especes = factor(Especes, levels = ordre_s52))
 
 ggplot(diversite_alpha_resume,
        aes(x = Especes, y = Nb_amphibiens, fill = Autoroutes)) +
   geom_col(position = "dodge") +
-  coord_flip()
+  labs(x = "Espèces", y = "Nombre d'amphibiens") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 
-On peut voir que la richesse spécifique de l'autoroute A1 est moins
-élevée que celle de l'autoroute S52 pour toutes les espèces
-d'amphibiens.
+Les abondances observées sont systématiquement plus importantes sur
+l'autoroute S52 que sur l'A1 pour l'ensemble des espèces d'amphibiens.
+Les grenouilles brunes représentent l'espèce la plus abondante sur les
+deux autoroutes, tandis que le triton crêté est l'espèce la moins
+représentée. La composition spécifique semble similaire entre les deux
+sites, mais les effectifs sont généralement plus élevés sur la S52, on
+peut supposer que les conditions d'habitat sont plus favorables, ou
+qu'il y a une meilleure connectivité écologique ou encore qu'il y a des
+différences d'effort d'échantillonnage entre les deux sites. Des
+analyses statistiques complémentaires seraient nécessaires afin de
+déterminer si ces écarts sont significatifs ou non.
+
+```{r diversité beta, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+```
 
 ## Chapitre 2
 
