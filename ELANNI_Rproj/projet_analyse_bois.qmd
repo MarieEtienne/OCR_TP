@@ -1,7 +1,8 @@
 ---
 title: "analyse_données_bois"
 author: "Nicolas Chevillon, Anaëlle Baron, Eli Desnyder"
-date: "2026-09-16 10:20:40 CEST "
+creation_date: "2026-09-16 10:20:40 CEST "
+modification_date: "2026-09-18 16:12:17 CEST"
 bibliography: references.bib
 execute: 
   freeze: auto
@@ -31,13 +32,45 @@ XDM_individual_density_data = data.table(read.table("xdm_individual_density_data
 #Creating a datatable with only 1 species: Quercus robur
 dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
-
+View(dta_Qrobur)
 ```
 
-EPXLORATION OF THE DATASET
+Version d'Anaëlle pour extraire les données du chêne robur parmi
+l'immense dataset(datant du 16/09, remis à jour dans le fichier qmd le
+18/09)
 
 ```{r}
+#extraire les données du chêne ----
+View(table(XDM_individual_density_data$Species))
+plot(table((XDM_individual_density_data$Species)))
+#selectionner les donnes du chene robur parmi les 156 sp: elle a 12,7k obs
+table(XDM_individual_density_data$Species =="Quercus robur")
 
-
+XDM_Q.robur_density_data <- subset(XDM_individual_density_data[(XDM_individual_density_data$Species =="Quercus robur"),]
+)#creer un nveau dataset avec Quercus robus
+plot(XDM_Q.robur_density_data$Core_Length)
+barplot(XDM_Q.robur_density_data$Botanical_Class)
+#comparer ce dataset (version subset) avec l'autre : dta_Qrobur (version filter) quand on ne prend pas en compte l'age
+sum(XDM_Q.robur_density_data == dta_Qrobur, na.rm = TRUE)
+nrow(XDM_Q.robur_density_data)*ncol(XDM_Q.robur_density_data)
+sum(is.na (XDM_Q.robur_density_data$Age)) #les NA correspondent à la diff entre dimtot du tab et le nb de TRUE 
 
 ```
+
+EXPLORATION OF THE DATASET On choisit la moyenne pondéré du poids sec
+WD0w = notre variable réponse Y les autres variables seront explicatives
+X :classe botanique; espèce; type et dimension de "core"=coeur,
+intérieur;age
+
+Variables catégorielles
+
+```{r}
+summary(dta_Qrobur)
+#Observer les effectifs par modalité pour les facteurs (var catégorielles)
+boxplot (WD0w~Botanical_Class,  data = dta_Qrobur)
+table(dta_Qrobur$Scanner_name)
+table (dta_Qrobur$WS)
+table()
+```
+
+blabla bla c'est un test
