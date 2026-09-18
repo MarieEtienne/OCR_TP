@@ -30,8 +30,15 @@ XDM_individual_density_data = data.table(read.table("xdm_individual_density_data
 
 #Creating a datatable with only 1 species: Quercus robur
 dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
+#Transforming Core_Type, Botanical_Class, Species into factors
+dta_Qrobur$Botanical_Class=as.factor(dta_Qrobur$Botanical_Class)
+dta_Qrobur$Species=as.factor(dta_Qrobur$Species)
+dta_Qrobur$Core_Type=as.factor(dta_Qrobur$Core_Type)
+
 #Removing the NA for the Age
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
+
+colSums(is.na(dta_Qrobur))
 
 ```
 
@@ -77,11 +84,10 @@ la variation de densité du bois (*WD0w*) parmis les variables suivantes
 
 ```{r}
 # Model formulation
-mod1<-lm(WD0w ~ X+Y+Z+Core_Type+Core_Length+Age+DBH+H+TM+P
+mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM+P
          ,data=dta_Qrobur)
 # Then we check for significance
 drop1(mod1,test="F")
-
-
+summary(mod1)
 
 ```
