@@ -8,4 +8,5 @@
 /.quarto/
  
 _freeze/
-_site/
+_site/projet_cache/
+projet_files/
