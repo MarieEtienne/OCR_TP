@@ -107,7 +107,7 @@ mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM+P
 # Then we check for significance
 drop1(mod1,test="F")
 summary(mod1)
->>>>>>> ELANNI
+
 
 ```
 
