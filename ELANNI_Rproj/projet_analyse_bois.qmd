@@ -33,6 +33,7 @@ XDM_individual_density_data = data.table(read.table("xdm_individual_density_data
 dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
 
 
+
 #Removing the NA for the Age
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
 View(dta_Qrobur)
@@ -153,10 +154,11 @@ la variation de densité du bois (*WD0w*) parmis les variables suivantes
 
 ```{r}
 # Model formulation
-mod1<-lm(WD0w ~ X+Y+Z+Core_Type+Core_Length+Age+DBH+H+TM+P
+mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM+P
          ,data=dta_Qrobur)
 # Then we check for significance
 drop1(mod1,test="F")
+
 ```
 
 ```{r}
@@ -168,6 +170,7 @@ barplot(XDM_Q.robur_density_data$Botanical_Class)
 sum(XDM_Q.robur_density_data == dta_Qrobur, na.rm = TRUE)
 nrow(XDM_Q.robur_density_data)*ncol(XDM_Q.robur_density_data)
 sum(is.na (XDM_Q.robur_density_data$Age)) #les NA correspondent à la diff entre dimtot du tab et le nb de TRUE 
+
 
 ```
 
