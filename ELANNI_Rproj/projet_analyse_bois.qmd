@@ -1,6 +1,6 @@
 ---
 title: "analyse_données_bois"
-author: "Nicolas Chevillon"
+author: "Nicolas Chevillon, Anaëlle Baron, Eli Desnyder"
 date: "2026-09-16 10:20:40 CEST "
 bibliography: references.bib
 execute: 
