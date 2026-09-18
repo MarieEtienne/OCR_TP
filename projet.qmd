@@ -114,3 +114,61 @@ Pour finir, Le modèle explique 61.3 % (R²=0.613) de la variance du poids
 sec. C'est un score plutôt bon pour des données biologiques. Le modèle
 global est robuste et significatif (p-value \< 0.05). Il est bien plus
 performant que le simple hasard pour prédire le poids sec.
+
+## Validation du modèle
+
+### Normalité des résidus
+
+```{r ResidNorm, include=TRUE, fig.height=3, fig.width=6}
+par(mfrow=c(1,2))
+# Histograme
+hist(mod1$residuals,col='dodgerblue3',xlab="residuals",main="Check Normality")
+# Quantile-Quantile plot
+qqnorm(mod1$residuals,pch=16,col='dodgerblue3',xlab='')
+qqline(mod1$residuals,col='red',lwd=2)
+```
+
+Les résidus dévient un peu de la loi normale au niveau des extrémités
+mais cela ne pose pas de problèmes.
+
+### Homogénéité de la variance
+
+```{r Residhomo, include=TRUE, fig.height=5, fig.width=5}
+par(mfrow=c(2,2))
+
+# résidus vs prédictions
+plot(residuals(mod1)~fitted(mod1)
+      , col='dodgerblue3'
+      , pch=16)
+abline(h = 0)
+
+# résidus contre le facteur Habitat
+boxplot(residuals(mod1)~ dataFly$Habitat, 
+         varwidth = TRUE,
+         col="brown",
+         ylab = "Residuals",
+         xlab = "Habitat",
+         main = "")
+
+# résidus contre la Largeur
+plot(residuals(mod1)~ dataFly$Width, 
+         pch=16,
+         col="dodgerblue3",
+         ylab = "Residuals",
+         xlab = "Width",
+         main = "")
+abline(h = 0)
+
+# résidus contre la Teneur en eau
+plot(residuals(mod1)~ dataFly$WaterContent, 
+         pch=16,
+         col="dodgerblue3",
+         ylab = "Residuals",
+         xlab = "Water Content",
+         main = "")
+abline(h = 0)
+```
+
+L'homogénéité de la variance n'est pas entièrement respectée, il
+faudrait faire une transformation logarithmique des données pour
+homogénéiser plus.
