@@ -12,3 +12,5 @@ _freeze/
 _site/
 site_libs/
 projet_files/
+_site/
+projet_cache/
