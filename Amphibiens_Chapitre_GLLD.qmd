@@ -64,6 +64,11 @@ diversite_alpha_long <- diversite_alpha %>%
                names_to = "Especes",
                values_to = "Presence")
 
+diversite_alpha_resume <- diversite_alpha_long %>%
+  group_by(Autoroutes, Especes) %>%
+  summarise(Nb_amphibiens = sum(Presence, na.rm = TRUE),
+            .groups = "drop")
+
 ordre_s52 <- diversite_alpha_resume %>%
   filter(Autoroutes == "S52") %>%
   arrange(desc(Nb_amphibiens)) %>%
@@ -92,10 +97,52 @@ différences d'effort d'échantillonnage entre les deux sites. Des
 analyses statistiques complémentaires seraient nécessaires afin de
 déterminer si ces écarts sont significatifs ou non.
 
-```{r diversité beta, echo=FALSE, message=FALSE, warning=FALSE}
+Bien que la diversité alpha permette de décrire les caractéristiques
+locales de chaque communauté, elle n'informe pas sur le degré de
+similitude ou de différence entre les données observées. La diversité
+bêta a donc été étudiée afin d'évaluer les variations de composition
+entre les relevés réalisés sur les autoroutes A1 et S52. Cette analyse
+repose sur les données de présence-absence des espèces et sur le calcul
+de dissimilarités entre communautés.
 
+```{r diversité beta, echo=FALSE, message=FALSE, warning=FALSE, results='hide',fig.show='asis'}
+especes <- diversite_alpha[, -1] # colonnes espèces
+autoroute <- diversite_alpha$Autoroutes
 
+dist_jaccard <- vegdist(especes,
+                        method = "jaccard",
+                        binary = TRUE)
+keep <- rowSums(especes) > 0
+
+especes2 <- especes[keep, ]
+autoroute2 <- autoroute[keep]
+nmds <- metaMDS(
+  especes2,
+  distance = "jaccard",
+  k = 2,
+  trymax = 100
+)
+nmds_df <- as.data.frame(nmds$points)
+nmds_df$Autoroutes <- autoroute2
+
+ggplot(nmds_df,
+       aes(MDS1, MDS2, color = Autoroutes)) +
+  geom_point(size = 3, alpha = 0.7) +
+  theme_minimal() +
+  labs(
+    title = "Diversité bêta des communautés d'amphibiens",
+    x = "NMDS1",
+    y = "NMDS2"
+  )
 ```
+
+L'ordination NMDS réalisée à partir des distances de Jaccard ne met pas
+en évidence de séparation entre les communautés d'amphibiens associées
+aux autoroutes A1 et S52. Les relevés des deux sites présentent un fort
+chevauchement, suggérant une composition globalement similaire. Malgré
+des différences d'abondance observées entre les deux sites, l'analyse de
+diversité bêta ne révèle pas de séparation nette des communautés,
+suggérant une forte similarité écologique entre les autoroutes étudiées.
 
 ## Chapitre 2
 
