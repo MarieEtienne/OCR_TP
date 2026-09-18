@@ -15,17 +15,29 @@ toc: true
 toc_float: true
 ---
 
+PREPARING THE WORKING SPACE
+
+```{r}
 #Importing needed packages
+library(data.table)
+library(ggplot2)
+library(maps)
+library(dplyr)
 
-library(data.table) library(ggplot2) library(maps)
+#Importing the file with individual wood density measurements(xdm_individual_density_data.csv file)
+XDM_individual_density_data = data.table(read.table("xdm_individual_density_data.csv",
+                                                    sep = ",", dec= ".", header = TRUE))
 
-#Importing the file with individual wood density
-measurements(xdm_individual_density_data.csv file)
-XDM_individual_density_data =
-data.table(read.table("xdm_individual_density_data.csv", sep = ",", dec
-= ".", header = TRUE))
+#Creating a datatable with only 1 species: Quercus robur
+dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
+dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
 
-# Création d'un tableau avec uniquement 1 espèce : Quercus robur
+```
 
-library(dplyr) dta_Qrobur = filter(XDM_individual_density_data,
-XDM_individual_density_data\$Species == "Quercus robur")
+EPXLORATION OF THE DATASET
+
+```{r}
+
+
+
+```
