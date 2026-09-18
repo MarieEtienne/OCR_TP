@@ -67,10 +67,31 @@ Variables catégorielles
 ```{r}
 summary(dta_Qrobur)
 #Observer les effectifs par modalité pour les facteurs (var catégorielles)
-boxplot (WD0w~Botanical_Class,  data = dta_Qrobur)
 table(dta_Qrobur$Scanner_name)
-table (dta_Qrobur$WS)
-table()
+table(dta_Qrobur$Tree_ID)
+table(dta_Qrobur$Botanical_Class)
+#les boxplot
+boxplot (WD0w~Tree_ID,  data = dta_Qrobur, col = "plum4",notch = TRUE)
+boxplot (WD0w~Scanner_name,  data = dta_Qrobur, col = "chocolate3", notch = TRUE)
+
+#var quantitatives
+summary (dta_Qrobur$WS)
+#Largeur du coeur de l'arbre 
+plot(dta_Qrobur$WD0w ~dta_Qrobur$Core_Length, col = "brown")
+test_modlin1 <- lm (dta_Qrobur$WS~dta_Qrobur$Core_Length)
+abline(test_modlin1)
+plot(test_modlin1)
+summary (test_modlin1)
+
+abline (b=1.300e+01, a=-1.953e-16, col = "blue")
+abline (h = 800)
+
+#Dimensions
+barplot(WD0w ~Age, data = dta_Qrobur, col = "green4")
+plot(WD0w ~H, data = dta_Qrobur, col = "purple3")
+plot(WD0w ~TM, data = dta_Qrobur, col = "blue3")
+
+
 ```
 
 blabla bla c'est un test
