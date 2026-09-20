@@ -390,8 +390,8 @@ anova(cca_model, by = "term", permutations = 999)
 # Test de colinéarité 
 # La matrice de colinéarité précédente montre une corrélation > 0.7 pour deux paires 
 # RR-BR et UR-FR
-cor.test(data$RR, data$BR, method = "pearson") # pour des raisons d'interprétation, on supprime BR
-cor.test(data$UR, data$FR, method = "pearson") # pour des raisons d'interprétation, on supprime FR
+cor.test(data$RR, data$BR, method = "spearman") # pour des raisons d'interprétation, on supprime BR
+cor.test(data$UR, data$FR, method = "spearman") # pour des raisons d'interprétation, on supprime FR
 
 ```
 
@@ -403,16 +403,24 @@ dataClean <- data %>%
 
 ```
 
-```{r}
-# Modele Green frog 
-dataT <- data %>%
-  mutate(across(c(SR, NR, OR), scale))
-modele_GF <- glmer(
-  Green.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+FR+OR+RR+BR+MR+CR+(1 | ID), 
-  data = dataT, 
-  family = binomial(link = "logit")
+```{r chapitre4-mod, echo = FALSE, warning = FALSE, message = FALSE}
+### Modèle Grenouille verte 
+# Visualisation des occurrences entre autoroutes
+mosaicplot(
+  table(data$Motorway, data$`Green.frogs`),
+  main = "Grenouille verte selon l'autoroute",
+  xlab = "Autoroute",
+  ylab = "Occurrence",
+  color = TRUE
 )
+# Modèle  
+modele_GF <- glm(
+  Green.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  data = dataClean, 
+  family = binomial
+  )
 summary(modele_GF)
+
 
 # Modele Brown frog 
 
