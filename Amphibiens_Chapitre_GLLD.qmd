@@ -1,12 +1,21 @@
 ---
 title: "Amphibiens_Chapitre_GLLD"
+group: " "
+lang: fr
+bibliography: references.bib
+editor:
+  markdown:
+    wrap: none
+#execute:
+  #freeze: auto
 format:
   html:
     embed-resources: true
-editor:
-  markdown:
-    canonical: true
-    wrap: 72
+    html-math-method: katex
+    theme: cosmo
+    css: theme.css
+    toc: true
+    toc-float: true
 ---
 
 ## Setup
@@ -257,39 +266,27 @@ cramer_matrix <- as.matrix(cramer_matrix)
 
 #### Corrélations et sélection des variables numériques
 
-```{r}
-#| label: fig-chp3-cor-spearman
-#| fig-cap: "Matrice de corrélation de Spearman entre variables numériques."
-#| echo: false
-#| warning: false
-#| message: false
+La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence deux paires dépassant le seuil $|r| > 0.60$ : RR–BR et RR-UF. Pour chacune, une seule variable a été conservée (@tbl-chp3-cor-num).
+
+```{r fig-chp3-cor-spearman, fig.cap="Matrice de corrélation de Spearman entre variables numériques.", echo=FALSE, warning=FALSE, message=FALSE}
+
 corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoef.col = "black")
 ```
-
-Le tableau suivant présente les paires de variables fortement corrélées
-(Spearman, seuil $|r| > 0.60$) et la variable conservée pour chacune.
 
 | Paire corrélée | $r$ | Lien écologique | Conservée | Éliminée | Justification |
 |:---|:--:|:---|:--:|:--:|:---|
 | **RR** (distance aux routes) et **BR** (distance aux bâtiments) | $0.80$ | Routes et constructions sont associées dans les zones urbanisées et périurbaines. | **RR** | **BR** | La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique \[SOURCE\]. |
 | **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.84$ | L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense. | **UR** | **FR** | `UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances. |
 
-: Variables corrélées (Spearman) et sélection des variables numériques.
+: Variables corrélées (Spearman) et sélection des variables numériques. {#tbl-chp3-cor-num}
 
-#### Associations et sélection des variables catégorielles
+#### Corrélations et sélection des variables catégorielles
+La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
-```{r}
-#| label: fig-chp3-cor-cramer
-#| fig-cap: "Matrice des V de Cramér entre variables catégorielles."
-#| echo: false
-#| warning: false
-#| message: false
+```{r fig-chp3-cor-cramer, fig.cap="Matrice des V de Cramér entre variables catégorielles.", echo=FALSE, warning=FALSE, message=FALSE}
 corrplot::corrplot(cramer_matrix, method = "color", type = "upper", 
                    addCoef.col = "black", tl.col = "black", tl.srt = 45)
 ```
-
-Le tableau suivant présente les paires de variables fortement associées
-(seuil $V > 0.60$) et la variable conservée pour chacune.
 
 | Paire associée | $V$ | Lien écologique | Conservée | Éliminée | Justification |
 |:---|:--:|:---|:--:|:--:|:---|
@@ -297,9 +294,12 @@ Le tableau suivant présente les paires de variables fortement associées
 | **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.64$ | L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée. | **UR** | **FR** | `UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines. |
 
 : Variables associées (V de Cramér) et sélection des variables
-catégorielles.
+catégorielles. {#tbl-chp3-cor-cat}
 
-```{r chapitre3-drop-vars, echo=false, warning = false, message= false}
+#### Variables retenues
+Après cette sélection, les variables BR, FR et MR ont été écartées pour la suite de l'analyse.
+
+```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables elimines
 vars_num_drop <- c("BR", "FR")   # num
 vars_cat_drop <- c("MR", "FR")   # cat
