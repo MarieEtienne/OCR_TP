@@ -421,16 +421,108 @@ modele_GF <- glm(
   )
 summary(modele_GF)
 
+### Modèle Grenouille rousse 
+# Visualisation des occurrences entre autoroutes
+mosaicplot(
+  table(data$Motorway, data$`Brown.frogs`),
+  main = " Grenouille rousse selon l'autoroute",
+  xlab = "Autoroute",
+  ylab = "Occurrence",
+  color = TRUE
+)
+# Modèle  
+modele_BF <- glm(
+  Brown.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  data = dataClean, 
+  family = binomial
+  )
+summary(modele_BF)
 
-# Modele Brown frog 
+### Modèle Crapaud commun
+# Visualisation des occurrences entre autoroutes
+mosaicplot(
+  table(data$Motorway, data$`Common.toad`),
+  main = "Crapaud commun selon l'autoroute",
+  xlab = "Autoroute",
+  ylab = "Occurrence",
+  color = TRUE
+)
+# Modèle
+modele_CT <- glm(
+  Common.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  data = dataClean, 
+  family = binomial
+  )
+summary(modele_CT)
 
-# Modele Common toad
+### Modèle Crapaud sonneur
+# Visualisation des occurrences entre autoroutes
+mosaicplot(
+  table(data$Motorway, data$`Fire.bellied.toad`),
+  main = "Crapaud sonneur selon l'autoroute",
+  xlab = "Autoroute",
+  ylab = "Occurrence",
+  color = TRUE
+)
+modele_FBT <- glm(
+  Fire.bellied.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  data = dataClean, 
+  family = binomial
+  )
+summary(modele_FBT)
 
-# Modele Fire-bellied toad
+### Modèle Grenouille arboricole
+# Visualisation des occurrences entre autoroutes
+mosaicplot(
+  table(data$Motorway, data$`Tree.frog`),
+  main = "Grenouille arboricole selon l'autoroute",
+  xlab = "Autoroute",
+  ylab = "Occurrence",
+  color = TRUE
+)
+# Modèle
+modele_TF <- glm(
+  Tree.frog ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  data = dataClean, 
+  family = binomial
+  )
+summary(modele_TF)
 
-# Modele Tree frog
+### Modèle Triton commun
+# Visualisation des occurrences entre autoroutes
+mosaicplot(
+  table(data$Motorway, data$`Common.newt`),
+  main = "Triton commun selon l'autoroute",
+  xlab = "Autoroute",
+  ylab = "Occurrence",
+  color = TRUE
+)
+# Modèle
+modele_CN <- glm(
+  Common.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  data = dataClean, 
+  family = binomial
+  )
+summary(modele_CN)
 
 # Modele Common newt
 
 # Modele Great crested newt
+=======
+### Modèle Triton crêté
+# Visualisation des occurrences entre autoroutes
+mosaicplot(
+  table(data$Motorway, data$`Great.crested.newt`),
+  main = "Triton crêté selon l'autoroute",
+  xlab = "Autoroute",
+  ylab = "Occurrence",
+  color = TRUE
+)
+# Modèle
+modele_GCT <- glm(
+  Great.crested.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  data = dataClean, 
+  family = binomial
+  )
+summary(modele_GCT)
 ```
