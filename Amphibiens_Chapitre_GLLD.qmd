@@ -395,6 +395,14 @@ cor.test(data$UR, data$FR, method = "pearson") # pour des raisons d'interprétat
 
 ```
 
+```{r chapitre4-stand, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Standardisation des variables numériques 
+dataClean <- data %>%
+  mutate(across(c(SR, NR, OR), scale))
+
+```
+
 ```{r}
 # Modele Green frog 
 dataT <- data %>%
