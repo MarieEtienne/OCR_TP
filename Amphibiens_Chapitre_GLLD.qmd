@@ -121,10 +121,10 @@ nmds <- metaMDS(
   k = 2,
   trymax = 100
 )
-nmds_df <- as.data.frame(nmds$points)
-nmds_df$Autoroutes <- autoroute2
+nmds_data <- as.data.frame(nmds$points)
+nmds_data$Autoroutes <- autoroute2
 
-ggplot(nmds_df,
+ggplot(nmds_data,
        aes(MDS1, MDS2, color = Autoroutes)) +
   geom_point(size = 3, alpha = 0.7) +
   theme_minimal() +
@@ -139,56 +139,235 @@ L'ordination NMDS réalisée à partir des distances de Jaccard ne met pas en é
 
 ## Chapitre 2
 
-```{r}
-# Chargement des bibliothèques nécessaires
-library(tidyverse)
-library(ggplot2)
+Dans ce chapitre, nous cherchons à savoir si la sensibilité à la pression humaine diffère significativement entre les espèces d'amphibiens ? Pour tester cette hypothèse, on utilise le modèles linéaires généralisés (GLM).
 
-# 2. Identification des espèces (7 dernières colonnes)
-species_cols <- tail(names(data), 7)
+### Sélection de variables explicatives
 
-# 3. Format long pour la manipulation
-data_long <- data %>%
+On va d'abord chercher à identifier les variables explicatives correspondantes à l'influence humaine sur les populations d'Amphibiens.
+
+Les variables retenues pour notre analyse des pressions anthropiques sont les suivantes : - FR : importance de la pêche au sein des réservoirs - RR : distance minimale du réservoir aux routes - BR : distance minimale du réservoir aux buildings - MR : état du réservoir (propre, légèrement pollué, lourdement pollué) - CR : type de berge du réservoir (naturelle, bétonnée)
+
+On regarde alors si des parametres sont corrélés entre eux pour éviter la redondance
+
+```{r chapitre3-datacheckup, echo = FALSE, warning = FALSE, message = FALSE}
+data_corr_check = data %>%
+  select(FR, RR, BR, MR, CR) %>%
+  mutate(across(everything(), ~ as.numeric(as.factor(.))))
+
+cor(data_corr_check, method = "spearman", use = "complete.obs")
+
+```
+
+Les parametres RR et BR ont une corrélation absolue supérieur à 0.7, on supprime donc le parametre BR. Pour vérifier la distribution des données et repérer d'éventuels effectifs trop faibles par modalité, un diagramme de proportions a été réalisé pour chaque variable.
+
+```{r chapitre3-datarepartition, echo = FALSE, warning = FALSE, message = FALSE}
+
+data_vars = data %>%
+  select(CR, FR, MR, RR) %>%
+  mutate(across(everything(), as.character)) %>%
+  pivot_longer(everything(), names_to = "Variable", values_to = "Modalite")
+
+data_pie = data_vars %>%
+  filter(!is.na(Modalite)) %>%
+  count(Variable, Modalite) %>%
+  mutate(Modalite = factor(Modalite, levels = sort(as.numeric(unique(Modalite))))) %>%
+  group_by(Variable) %>%
+  mutate(
+    Total = sum(n),
+    Prop = n / Total,
+    Pct = round(Prop * 100, 1),
+    ymax = cumsum(Prop),
+    ymin = c(0, head(ymax, length(ymax) - 1)),
+    label_pos = (ymax + ymin) / 2
+  )
+
+
+ggplot(data_pie, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = Modalite)) +
+  geom_rect(color = "white", linewidth = 1) +
+  coord_polar(theta = "y") +
+  xlim(c(2, 4)) + 
+  facet_wrap(~ Variable, scales = "free") +
+  geom_text(aes(x = 3.5, y = label_pos, label = ifelse(Pct > 3, paste0(Pct, "%"), "")), 
+            color = "white", fontface = "bold", size = 3) +
+  theme_void() +
+  labs(
+    title = "Répartition en pourcentages des variables explicatives",
+    fill = "Modalité"
+  ) +
+  theme(
+    strip.text = element_text(face = "bold", size = 11),
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5)
+  )
+
+```
+
+On peut voir que les parametres CR et MR ont une modalité qui représente plus de 95% des valeurs, on les supprime alors.
+
+### Nettoyage data et GLM
+
+```{r chapitre3-GLM_summary, echo = FALSE, warning = FALSE, message = FALSE}
+
+data_env = data %>% select(FR, RR) %>% mutate(across(everything(), as.numeric))
+
+species_cols = tail(names(data), 7)
+
+data_long = data %>%
   pivot_longer(cols = all_of(species_cols), 
                names_to = "Species", 
                values_to = "Presence") %>%
-  mutate(Presence = as.numeric(as.character(Presence)),
-         Species = as.factor(Species))
-
-# 4. Extraction automatique des coefficients du modèle avec interaction
-# On teste l'effet de chaque variable de pression pour chaque espèce
-model_global <- glm(Presence ~ (FR + RR + BR + MR) * Species, data = data_long, family = binomial)
-
-# 5. Mise en forme des résultats pour le graphique
-library(broom)
-data_coefs <- tidy(model_global, conf.int = TRUE) %>%
-  filter(grepl(":", term)) # Ne garde que les termes d'interaction (effet propre à chaque espèce)
-
-# Nettoyage des noms de termes pour plus de clarté sur le graphique
-data_coefs <- data_coefs %>%
   mutate(
-    Variable = case_when(
-      grepl("FR", term) ~ "FR (Pêche/Usage)",
-      grepl("RR", term) ~ "RR (Route)",
-      grepl("BR", term) ~ "BR (Bâtiment)",
-      grepl("MR", term) ~ "MR"
-    ),
-    Species = gsub(".*Species", "", term)
+    Presence = as.numeric(as.character(Presence)),
+    Species = as.factor(Species),
+    FR = as.numeric(FR),
+    RR = as.numeric(RR)
   )
 
-# 6. Graphique des sensibilités (Effet de la pression humaine par espèce)
-ggplot(data_coefs, aes(x = estimate, y = Species, color = Species)) +
-  geom_point(size = 3) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
-  facet_wrap(~ Variable, scales = "free_x") +
-  theme_minimal() +
-  labs(title = "Sensibilité des espèces d'amphibiens à la pression humaine",
-       subtitle = "Coefficients de régression (IC à 95%) - Ligne rouge = absence d'effet",
-       x = "Effet sur la présence (Coefficient estimé)",
-       y = "Espèce d'amphibien") +
-  theme(legend.position = "none")
+
+model_GLM = glm(Presence ~ (FR + RR) * Species, data = data_long, family = binomial)
+
+summary(model_GLM)
 ```
+
+```{r chapitre3-GraphFR-GLM, echo = FALSE, warning = FALSE, message = FALSE}
+
+data_pvalues_fr = tidy(model_GLM) %>%
+  filter(grepl("FR", term)) %>%
+  mutate(
+    Species = if_else(term == "FR", "Brown.frogs", gsub(".*Species", "", term)),
+    Species = gsub("[:_]*FR[:_]*", "", Species),
+    Significance = case_when(
+      p.value < 0.001 ~ "p < 0.001 (***)",
+      p.value < 0.01  ~ "p < 0.01 (**)",
+      p.value < 0.05  ~ "p < 0.05 (*)",
+      p.value < 0.1   ~ "p < 0.1 (.)",
+      TRUE            ~ "Non significatif (NS)"
+    )
+  )
+
+grid_pred_fr = expand.grid(
+  FR = seq(min(data_long$FR, na.rm = TRUE), max(data_long$FR, na.rm = TRUE), length.out = 100),
+  RR = mean(data_long$RR, na.rm = TRUE),
+  Species = unique(data_long$Species)
+)
+
+pred_fr = predict(model_GLM, newdata = grid_pred_fr, type = "link", se.fit = TRUE)
+grid_pred_fr$fit = pred_fr$fit
+grid_pred_fr$se = pred_fr$se.fit
+
+grid_pred_fr = grid_pred_fr %>%
+  mutate(
+    Probability = 1 / (1 + exp(-fit)),
+    lower = 1 / (1 + exp(-(fit - 1.96 * se))),
+    upper = 1 / (1 + exp(-(fit + 1.96 * se)))
+  )
+
+grid_pred_fr = grid_pred_fr %>%
+  left_join(data_pvalues_fr %>% select(Species, Significance), by = "Species")
+
+labels_data_fr = grid_pred_fr %>% 
+  distinct(Species, Significance) %>%
+  mutate(
+    x_pos = min(grid_pred_fr$FR, na.rm = TRUE),
+    y_pos = 0.92, 
+    y_pos = if_else(Species == "Brown.frogs", 0.3, y_pos) 
+  )
+
+ggplot(grid_pred_fr, aes(x = FR, y = Probability, color = Species, fill = Species)) +
+  geom_line(linewidth = 1) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, color = NA) +
+  facet_wrap(~ Species) +
+  geom_text(
+    data = labels_data_fr,
+    aes(x = x_pos, y = y_pos, label = Significance),
+    hjust = 0, vjust = 1, 
+    size = 3, color = "black", fontface = "italic",
+    inherit.aes = FALSE
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Effet de la pêche (FR) sur la probabilité de présence des amphibiens",
+    subtitle = "IC à 95% avec seuil de significativité",
+    x = "Intensité de la pêche (FR)",
+    y = "Probabilité de présence prédite"
+  ) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 10),
+    plot.subtitle = element_text(size = 10, face = "italic")
+  )
+```
+
+```{r chapitre3-GraphRR-GLM, echo = FALSE, warning = FALSE, message = FALSE}
+data_pvalues_rr = tidy(model_GLM) %>%
+  filter(grepl("RR", term)) %>%
+  mutate(
+    Species = if_else(term == "RR", "Brown.frogs", gsub(".*Species", "", term)),
+    Species = gsub("[:_]*RR[:_]*", "", Species),
+    Significance = case_when(
+      p.value < 0.001 ~ "p < 0.001 (***)",
+      p.value < 0.01  ~ "p < 0.01 (**)",
+      p.value < 0.05  ~ "p < 0.05 (*)",
+      p.value < 0.1   ~ "p < 0.1 (.)",
+      TRUE            ~ "Non significatif (NS)"
+    )
+  )
+
+grid_pred_rr = expand.grid(
+  RR = seq(min(data_long$RR, na.rm = TRUE), max(data_long$RR, na.rm = TRUE), length.out = 100),
+  FR = mean(data_long$FR, na.rm = TRUE),
+  Species = unique(data_long$Species)
+)
+
+pred_rr = predict(model_GLM, newdata = grid_pred_rr, type = "link", se.fit = TRUE)
+grid_pred_rr$fit = pred_rr$fit
+grid_pred_rr$se = pred_rr$se.fit
+
+grid_pred_rr = grid_pred_rr %>%
+  mutate(
+    Probability = 1 / (1 + exp(-fit)),
+    lower = 1 / (1 + exp(-(fit - 1.96 * se))),
+    upper = 1 / (1 + exp(-(fit + 1.96 * se)))
+  )
+
+grid_pred_rr = grid_pred_rr %>%
+  left_join(data_pvalues_rr %>% select(Species, Significance), by = "Species")
+
+labels_data = grid_pred_rr %>% 
+  distinct(Species, Significance) %>%
+  mutate(
+    x_pos = min(grid_pred_rr$RR, na.rm = TRUE),
+    y_pos = 0.92,
+    y_pos = if_else(Species == "Brown.frogs", 0.3, y_pos) 
+  )
+
+ggplot(grid_pred_rr, aes(x = RR, y = Probability, color = Species, fill = Species)) +
+  geom_line(linewidth = 1) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, color = NA) +
+  facet_wrap(~ Species) +
+  geom_text(
+    data = labels_data,
+    aes(x = x_pos, y = y_pos, label = Significance),
+    hjust = 0, vjust = 1, 
+    size = 3, color = "black", fontface = "italic",
+    inherit.aes = FALSE
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Effet des routes (RR) sur la probabilité de présence des amphibiens",
+    subtitle = "IC à 95% avec seuil de significativité",
+    x = "Distance minimale du réservoir aux routes (RR)",
+    y = "Probabilité de présence prédite"
+  ) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 10),
+    plot.subtitle = element_text(size = 10, face = "italic")
+  )
+```
+
+En conclusion, la modélisation logistique ne met pas en évidence d'effet significatif de la distance aux routes (RR) sur la probabilité de présence des différentes espèces d'amphibiens, l'ensemble des taxons ne présentant pas de variations notables. En revanche, l'intensité de la pêche (FR) influence significativement la présence de certains taxons, notamment Green.frogs (p \< 0.01), suggérant des sensibilités variables aux pressions anthropiques locales selon les espèces étudiées.
 
 ## Chapitre 3
 
