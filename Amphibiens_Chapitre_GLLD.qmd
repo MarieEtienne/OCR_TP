@@ -385,6 +385,16 @@ anova(cca_model, by = "term", permutations = 999)
 
 ## Chapitre 4
 
+```{r chapitre4-cor, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Test de colinéarité 
+# La matrice de colinéarité précédente montre une corrélation > 0.7 pour deux paires 
+# RR-BR et UR-FR
+cor.test(data$RR, data$BR, method = "pearson") # pour des raisons d'interprétation, on supprime BR
+cor.test(data$UR, data$FR, method = "pearson") # pour des raisons d'interprétation, on supprime FR
+
+```
+
 ```{r}
 # Modele Green frog 
 dataT <- data %>%
