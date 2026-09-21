@@ -1,13 +1,7 @@
 ---
 title: "Amphibiens_Chapitre_GLLD"
-group: " "
 lang: fr
 bibliography: references.bib
-editor:
-  markdown:
-    wrap: none
-#execute:
-  #freeze: auto
 format:
   html:
     embed-resources: true
@@ -15,13 +9,10 @@ format:
     theme: cosmo
     css: theme.css
     toc: true
-    toc-float: true
-format:
-  html:
-    embed-resources: true
+    toc-location: left
 editor:
   markdown:
-    canonical: true
+    canonical: false
     wrap: 72
 ---
 
@@ -33,42 +24,18 @@ library(tidyverse)
 library(vegan)
 library(corrplot)
 library(lme4)
-library(dplyr)
+library(broom)       # tidy() est utilisé dans le chapitre 2
+library(rcompanion)  # cramerV() est utilisé dans le chapitre 3
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
-
 ```
 
-La diversité alpha décrit la diversité locale des communautés en termes de richesse spécifique. Afin de comparer les communautés d'amphibiens associées aux autoroutes A1 et S52, une analyse de la diversité alpha a été réalisée à partir des données de présence-absence des espèces.
-
 ## Chapitre 1
-
-```{r diversité alpha, echo=FALSE, message=FALSE, warning=FALSE}
-diversite_alpha = data[-1,-c(1,3:16)]
-colnames(diversite_alpha)[1] = "Autoroutes"
-
-diversite_alpha_long <- diversite_alpha %>%
-  pivot_longer(cols = -Autoroutes,
-               names_to = "Especes",
-               values_to = "Presence")
-
-diversite_alpha_resume <- diversite_alpha_long %>%
-  group_by(Autoroutes, Especes) %>%
-  summarise(Nb_amphibiens = sum(Presence), .groups = "drop")
-
-ggplot(diversite_alpha_resume,
-       aes(x = Especes, y = Nb_amphibiens, fill = Autoroutes)) +
-  geom_col(position = "dodge") +
-  coord_flip()
-
-```
-
-On peut voir que la richesse spécifique de l'autoroute A1 est moins élevée que celle de l'autoroute S52 pour toutes les espèces d'amphibiens.
-
-La diversité alpha décrit la diversité locale des communautés en termes de richesse spécifique. Afin de comparer les communautés d'amphibiens associées aux autoroutes A1 et S52, une analyse de la diversité alpha a été réalisée à partir des données de présence-absence des espèces.
-
-## Chapitre 1
+La diversité alpha décrit la diversité locale des communautés en termes
+de richesse spécifique. Afin de comparer les communautés d'amphibiens
+associées aux autoroutes A1 et S52, une analyse de la diversité alpha a
+été réalisée à partir des données de présence-absence des espèces.
 
 ```{r diversité alpha, echo=FALSE, message=FALSE, warning=FALSE}
 diversite_alpha = data[-1,-c(1,3:16)]
@@ -100,9 +67,25 @@ ggplot(diversite_alpha_resume,
 
 ```
 
-Les abondances observées sont systématiquement plus importantes sur l'autoroute S52 que sur l'A1 pour l'ensemble des espèces d'amphibiens. Les grenouilles brunes représentent l'espèce la plus abondante sur les deux autoroutes, tandis que le triton crêté est l'espèce la moins représentée. La composition spécifique semble similaire entre les deux sites, mais les effectifs sont généralement plus élevés sur la S52, on peut supposer que les conditions d'habitat sont plus favorables, ou qu'il y a une meilleure connectivité écologique ou encore qu'il y a des différences d'effort d'échantillonnage entre les deux sites. Des analyses statistiques complémentaires seraient nécessaires afin de déterminer si ces écarts sont significatifs ou non.
+Les abondances observées sont systématiquement plus importantes sur
+l'autoroute S52 que sur l'A1 pour l'ensemble des espèces d'amphibiens.
+Les grenouilles brunes représentent l'espèce la plus abondante sur les
+deux autoroutes, tandis que le triton crêté est l'espèce la moins
+représentée. La composition spécifique semble similaire entre les deux
+sites, mais les effectifs sont généralement plus élevés sur la S52, on
+peut supposer que les conditions d'habitat sont plus favorables, ou
+qu'il y a une meilleure connectivité écologique ou encore qu'il y a des
+différences d'effort d'échantillonnage entre les deux sites. Des
+analyses statistiques complémentaires seraient nécessaires afin de
+déterminer si ces écarts sont significatifs ou non.
 
-Bien que la diversité alpha permette de décrire les caractéristiques locales de chaque communauté, elle n'informe pas sur le degré de similitude ou de différence entre les données observées. La diversité bêta a donc été étudiée afin d'évaluer les variations de composition entre les relevés réalisés sur les autoroutes A1 et S52. Cette analyse repose sur les données de présence-absence des espèces et sur le calcul de dissimilarités entre communautés.
+Bien que la diversité alpha permette de décrire les caractéristiques
+locales de chaque communauté, elle n'informe pas sur le degré de
+similitude ou de différence entre les données observées. La diversité
+bêta a donc été étudiée afin d'évaluer les variations de composition
+entre les relevés réalisés sur les autoroutes A1 et S52. Cette analyse
+repose sur les données de présence-absence des espèces et sur le calcul
+de dissimilarités entre communautés.
 
 ```{r diversité beta, echo=FALSE, message=FALSE, warning=FALSE, results='hide',fig.show='asis'}
 especes <- diversite_alpha[, -1] # colonnes espèces
@@ -135,21 +118,15 @@ ggplot(nmds_data,
   )
 ```
 
-L'ordination NMDS réalisée à partir des distances de Jaccard ne met pas en évidence de séparation entre les communautés d'amphibiens associées aux autoroutes A1 et S52. Les relevés des deux sites présentent un fort chevauchement, suggérant une composition globalement similaire. Malgré des différences d'abondance observées entre les deux sites, l'analyse de diversité bêta ne révèle pas de séparation nette des communautés, suggérant une forte similarité écologique entre les autoroutes étudiées.
+L'ordination NMDS réalisée à partir des distances de Jaccard ne met pas
+en évidence de séparation entre les communautés d'amphibiens associées
+aux autoroutes A1 et S52. Les relevés des deux sites présentent un fort
+chevauchement, suggérant une composition globalement similaire. Malgré
+des différences d'abondance observées entre les deux sites, l'analyse de
+diversité bêta ne révèle pas de séparation nette des communautés,
+suggérant une forte similarité écologique entre les autoroutes étudiées.
 
-## Chapitre 2
-
-Dans ce chapitre, nous cherchons à savoir si la sensibilité à la pression humaine diffère significativement entre les espèces d'amphibiens ? Pour tester cette hypothèse, on utilise le modèles linéaires généralisés (GLM).
-
-### Sélection de variables explicatives
-
-On va d'abord chercher à identifier les variables explicatives correspondantes à l'influence humaine sur les populations d'Amphibiens.
-
-Les variables retenues pour notre analyse des pressions anthropiques sont les suivantes : - FR : importance de la pêche au sein des réservoirs - RR : distance minimale du réservoir aux routes - BR : distance minimale du réservoir aux buildings - MR : état du réservoir (propre, légèrement pollué, lourdement pollué) - CR : type de berge du réservoir (naturelle, bétonnée)
-
-On regarde alors si des parametres sont corrélés entre eux pour éviter la redondance
-
-```{r chapitre3-datacheckup, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre2-a, echo = FALSE, warning = FALSE, message = FALSE}
 data_corr_check = data %>%
   select(FR, RR, BR, MR, CR) %>%
   mutate(across(everything(), ~ as.numeric(as.factor(.))))
@@ -160,7 +137,7 @@ cor(data_corr_check, method = "spearman", use = "complete.obs")
 
 Les parametres RR et BR ont une corrélation absolue supérieur à 0.7, on supprime donc le parametre BR. Pour vérifier la distribution des données et repérer d'éventuels effectifs trop faibles par modalité, un diagramme de proportions a été réalisé pour chaque variable.
 
-```{r chapitre3-datarepartition, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre2-b, echo = FALSE, warning = FALSE, message = FALSE}
 
 data_vars = data %>%
   select(CR, FR, MR, RR) %>%
@@ -207,7 +184,7 @@ On peut voir que les parametres CR et MR ont une modalité qui représente plus 
 
 ### Nettoyage data et GLM
 
-```{r chapitre3-GLM_summary, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre2-c, echo = FALSE, warning = FALSE, message = FALSE}
 
 data_env = data %>% select(FR, RR) %>% mutate(across(everything(), as.numeric))
 
@@ -230,7 +207,7 @@ model_GLM = glm(Presence ~ (FR + RR) * Species, data = data_long, family = binom
 summary(model_GLM)
 ```
 
-```{r chapitre3-GraphFR-GLM, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre2-d, echo = FALSE, warning = FALSE, message = FALSE}
 
 data_pvalues_fr = tidy(model_GLM) %>%
   filter(grepl("FR", term)) %>%
@@ -299,7 +276,7 @@ ggplot(grid_pred_fr, aes(x = FR, y = Probability, color = Species, fill = Specie
   )
 ```
 
-```{r chapitre3-GraphRR-GLM, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre2-e, echo = FALSE, warning = FALSE, message = FALSE}
 data_pvalues_rr = tidy(model_GLM) %>%
   filter(grepl("RR", term)) %>%
   mutate(
@@ -369,74 +346,73 @@ ggplot(grid_pred_rr, aes(x = RR, y = Probability, color = Species, fill = Specie
 
 En conclusion, la modélisation logistique ne met pas en évidence d'effet significatif de la distance aux routes (RR) sur la probabilité de présence des différentes espèces d'amphibiens, l'ensemble des taxons ne présentant pas de variations notables. En revanche, l'intensité de la pêche (FR) influence significativement la présence de certains taxons, notamment Green.frogs (p \< 0.01), suggérant des sensibilités variables aux pressions anthropiques locales selon les espèces étudiées.
 
+
 ## Chapitre 3
 
-Avec ce meme jeu de donnée on se demande quels variales structure la composition et la diversité globale de la communauté d'amphibiens? Pour cela una approche approprié concerne l'analyse multivarié.
+Avec ce même jeu de données, on se demande quelles variables structurent
+la composition et la diversité globale de la communauté d'amphibiens.
+Pour cela, une approche appropriée est l'analyse multivariée.
 
-Les analysis multivariés permettent de...
+Les analyses multivariées permettent de... <!-- À COMPLÉTER -->
 
-Dans de cas, ayant un dataset avec des informations sur la présence/absence des amphibiens et des variables catégoriques et numériques sur le contexte ambiental, analyse du type canonique des correspondance (ACC ou CCA) devrait etre réalisé...
+Dans ce cas, ayant un jeu de données avec des informations sur la
+présence/absence des amphibiens et des variables catégorielles et
+numériques sur le contexte environnemental, une analyse canonique des
+correspondances (CCA) devrait être réalisée.
 
-### Netoyage data
+### Nettoyage data
 
-Pour cela la premiere étape consiste a vérfier
+Pour cela, la première étape consiste à vérifier... <!-- À COMPLÉTER -->
 
 ```{r chapitre3-dataprep, echo = FALSE, warning = FALSE, message = FALSE}
-data_amphi <- data %>% select((last_col() - 6):last_col()) 
-data_var <- data %>% select(3:(last_col() - 7))
+data_amphi <- data %>% select((last_col() - 6):last_col())
+data_var   <- data %>% select(3:(last_col() - 7))
 
 dim(data_amphi)
 
-# 1. Verfication data
-## Representation de toutes les especes
-100*apply(!data_amphi==0,2,sum)/nrow(data_amphi)
+# 1. Vérification data
+## Représentation de toutes les espèces (% de sites où chaque espèce est présente)
+100 * apply(!data_amphi == 0, 2, sum) / nrow(data_amphi)
 
 valid_sites <- rowSums(data_amphi) > 0
 data_amphi_clean <- data_amphi[valid_sites, ]
 data_var_clean   <- data_var[valid_sites, ]
 
-## Verification meme dim pour deux tableaux
+## Vérification : mêmes dimensions pour les deux tableaux
 dim(data_amphi_clean)
 dim(data_var_clean)
 
-## variables numeriques / ordinales
+## Variables numériques / ordinales
 data_num_ord <- data_var_clean %>% select(SR, NR, OR, RR, BR)
 dim(data_num_ord) # 5 col
-## Variabels categoriques
-data_cat <- data_var_clean %>% select(TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR) %>% mutate(across(everything(), as.factor))
+## Variables catégorielles
+data_cat <- data_var_clean %>%
+  select(TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR) %>%
+  mutate(across(everything(), as.factor))
 dim(data_cat)     # 9 col
-
 ```
 
 ### Corrélation
 
-Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans le modèle : corrélation de Spearman pour les variables numériques et V de Cramér pour les variables catégorielles.
+Nous avons ensuite vérifié les corrélations entre variables explicatives
+afin d'éviter la multicolinéarité dans le modèle : corrélation de
+Spearman pour les variables numériques et V de Cramér pour les variables
+catégorielles.
 
-```{r chapitre3-visual, echo=FALSE, warning=FALSE,message=FALSE}
-# library(DataExplorer)
-# 
-# # 1. Ver la estructura general de los datos (tipos y valores perdidos)
-# plot_intro(data_var_clean)
-# 
-# # 2. Visualizar las distribuciones de todas las variables numéricas/ordinales
-# plot_histogram(data_var_clean)
-```
-
-```{r chapitre3-cor, echo = FALSE, warning = FALSE, message = FALSE}
-
+```{r chapitre3-cor-calc, echo = FALSE, warning = FALSE, message = FALSE}
 ## Corrélation des données numériques
 cor_matrix_spearman <- cor(data_num_ord, use = "complete.obs", method = "spearman")
 
-
-## Corrélation des données catégorielles
-library(rcompanion)
+## Corrélation des données catégorielles (V de Cramér)
 cat_vars <- colnames(data_cat)
 n_vars <- length(cat_vars)
-cramer_matrix <- matrix(NA, nrow = n_vars, ncol = n_vars, dimnames = list(cat_vars, cat_vars))
+cramer_matrix <- matrix(NA, nrow = n_vars, ncol = n_vars,
+                        dimnames = list(cat_vars, cat_vars))
 for (i in 1:n_vars) {
   for (j in 1:n_vars) {
     ct <- table(data_cat[[i]], data_cat[[j]])
-    cramer_matrix[i, j] <- rcompanion::cramerV(ct)
+    cramer_matrix[i, j] <- tryCatch(rcompanion::cramerV(ct),
+                                    error = function(e) NA_real_)
   }
 }
 cramer_matrix <- as.matrix(cramer_matrix)
@@ -444,83 +420,112 @@ cramer_matrix <- as.matrix(cramer_matrix)
 
 #### Corrélations et sélection des variables numériques
 
-La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence deux paires dépassant le seuil $|r| > 0.60$ : RR–BR et RR-UF. Pour chacune, une seule variable a été conservée (@tbl-chp3-cor-num).
+La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence deux paires dépassant le seuil $|r| > 0.60$ : RR–BR et UR–FR. Pour chacune, une seule variable a été conservée (@tbl-chp3-cor-num).
 
-```{r fig-chp3-cor-spearman, fig.cap="Matrice de corrélation de Spearman entre variables numériques.", echo=FALSE, warning=FALSE, message=FALSE}
-
+```{r}
+#| label: fig-chp3-cor-spearman
+#| fig-cap: "Matrice de corrélation de Spearman entre variables numériques."
+#| echo: false
+#| warning: false
+#| message: false
 corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoef.col = "black")
 ```
 
-| Paire corrélée | $r$ | Lien écologique | Conservée | Éliminée | Justification |
-|:---|:--:|:---|:--:|:--:|:---|
-| **RR** (distance aux routes) et **BR** (distance aux bâtiments) | $0.80$ | Routes et constructions sont associées dans les zones urbanisées et périurbaines. | **RR** | **BR** | La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique \[SOURCE\]. |
-| **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.84$ | L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense. | **UR** | **FR** | `UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances. |
-
-: Variables corrélées (Spearman) et sélection des variables numériques.
+```{r}
+#| label: tbl-chp3-cor-num
+#| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques."
+#| echo: false
+tab <- data.frame(
+  `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
+  `r` = c("$0.80$", "$0.84$"),
+  `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines.", "L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense."),
+  `Conservée` = c("**RR**", "**UR**"),
+  `Éliminée` = c("**BR**", "**FR**"),
+  `Justification` = c("La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique [SOURCE].", "`UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances."),
+  check.names = FALSE, stringsAsFactors = FALSE
+)
+knitr::kable(tab, align = c("l","c","l","c","c","l"))
+```
 
 #### Corrélations et sélection des variables catégorielles
 
 La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
-```{r fig-chp3-cor-cramer, fig.cap="Matrice des V de Cramér entre variables catégorielles.", echo=FALSE, warning=FALSE, message=FALSE}
-corrplot::corrplot(cramer_matrix, method = "color", type = "upper", 
+```{r}
+#| label: fig-chp3-cor-cramer
+#| fig-cap: "Matrice des V de Cramér entre variables catégorielles."
+#| echo: false
+#| warning: false
+#| message: false
+corrplot::corrplot(cramer_matrix, method = "color", type = "upper",
                    addCoef.col = "black", tl.col = "black", tl.srt = 45)
 ```
 
-| Paire associée | $V$ | Lien écologique | Conservée | Éliminée | Justification |
-|:---|:--:|:---|:--:|:--:|:---|
-| **MR** (état de maintenance) et **CR** (type de rive) | $0.71$ | Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème. | **CR** | **MR** | Une rive verticale en béton empêche les amphibiens de sortir de l'eau : `CR` est donc un facteur écologique plus déterminant que l'état de propreté (`MR`). |
-| **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.64$ | L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée. | **UR** | **FR** | `UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines. |
+```{r}
+#| label: tbl-chp3-cor-cat
+#| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles."
+#| echo: false
+tab <- data.frame(
+  `Paire` = c("**MR** (état de maintenance) et **CR** (type de rive)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
+  `r` = c("$0.71$", "$0.64$"),
+  `Lien écologique` = c("Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème.", "L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée."),
+  `Conservée` = c("**CR**", "**UR**"),
+  `Éliminée` = c("**MR**", "**FR**"),
+  `Justification` = c("Une rive verticale en béton empêche les amphibiens de sortir de l'eau : `CR` est donc un facteur écologique plus déterminant que l'état de propreté (`MR`).", "`UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines."),
+  check.names = FALSE, stringsAsFactors = FALSE
+)
+knitr::kable(tab, align = c("l","c","l","c","c","l"))
+```
 
-: Variables associées (V de Cramér) et sélection des variables catégorielles.
 
 #### Variables retenues
 
-Après cette sélection, les variables BR, FR et MR ont été écartées pour la suite de l'analyse.
+Après cette sélection, les variables BR, FR et MR ont été écartées pour
+la suite de l'analyse.
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
-# Variables elimines
+# Variables éliminées
 vars_num_drop <- c("BR", "FR")   # num
 vars_cat_drop <- c("MR", "FR")   # cat
 
-# Delete from data frame
+# Suppression dans les data frames
 data_num_ord_sel <- data_num_ord[, !colnames(data_num_ord) %in% vars_num_drop, drop = FALSE]
 data_cat_sel     <- data_cat[, !colnames(data_cat) %in% vars_cat_drop, drop = FALSE]
 
-# Bind data frames
+# Assemblage
 data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
 
-# Ensure categorical variables are conserved as factors
+# Les variables catégorielles restent des facteurs
 data_var_clean_cca[names(data_cat_sel)] <- lapply(data_var_clean_cca[names(data_cat_sel)], factor)
 ```
 
-La suivante étape consiste a vérfier les corrélations entre les variables explicatives,....
+L'étape suivante consiste à vérifier les corrélations entre les
+variables numériques retenues... <!-- À COMPLÉTER -->
 
-```{r chapitre3-cor, echo = FALSE, warning = FALSE, message = FALSE}
-
-## Corrélation des donnees
-cor_matrix <- cor(data_var_clean, use = "complete.obs")
+```{r chapitre3-cor-final, echo = FALSE, warning = FALSE, message = FALSE}
+## Corrélation des variables numériques retenues
+cor_matrix <- cor(data_num_ord_sel, use = "complete.obs", method = "spearman")
 corrplot::corrplot(cor_matrix)
 ```
 
 ```{r chapitre3-cca, echo = FALSE, warning = FALSE, message = FALSE}
+set.seed(123)
 
-# 1. Perform Canonical Correspondence Analysis (CCA)
-cca_model <- cca(data_amphi_clean ~ ., data = data_var_clean_cca)
+# vegan::cca ne tolère pas les NA : on garde les sites complets
+complets <- complete.cases(data_var_clean_cca)
+data_amphi_cca <- data_amphi_clean[complets, ]
+data_var_cca   <- droplevels(data_var_clean_cca[complets, ])
 
-#cca_model <- cca(data_amphi[valid_sites, ] ~ ., data = data_var_clean_cca)
-cca_model <- cca(data_amphi_clean ~ ., data = data_var_clean)
+# 1. Analyse canonique des correspondances (CCA) avec les variables retenues
+cca_model <- cca(data_amphi_cca ~ ., data = data_var_cca)
 
-cca_model <- cca(data_amphi[valid_sites, ] ~ ., data = data_var_clean)
-
-
-# Summary of the model (eigenvalues, variance explained, biplot scores)
+# Résumé du modèle (valeurs propres, variance expliquée, scores)
 summary(cca_model)
 
-# Test global statistical significance of the model
+# Test de significativité globale du modèle
 anova(cca_model, permutations = 999)
 
-# Test significance of individual environmental variables
+# Test de significativité de chaque variable
 anova(cca_model, by = "term", permutations = 999)
 ```
 
@@ -666,3 +671,4 @@ modele_GCT <- glm(
   )
 summary(modele_GCT)
 ```
+
