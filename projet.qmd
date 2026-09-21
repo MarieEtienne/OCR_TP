@@ -19,6 +19,46 @@ editor:
 
 # INTRODUCTION GENERALE
 
+## PRESENTATION DES DONNEES ET DES OBJECTIFS DE L'ANALYSE
+
+Pour cet exercice, nous utiliserons les données d'une étude réalisée par
+Philippe Vernon - Université de Rennes 1 (1994) et qui concerne la
+mouche *Anatalanta aptera*, une mouche aptère vivant dans les colonies
+d'oiseaux marins des îles subantarctiques. Au début des années 90, P.
+Vernon a collecté de nombreux individus sur l'archipel de Crozet. Il a
+ainsi échantillonné sur le littoral et à l'intérieur des terres (i.e.
+paysage de relief). L'objectif principal de cette étude est de
+déterminer les variables expliquant le poids sec d'*Anatalanta aptera*.
+Le poids sec, désignant le poids de l'animal après qu'il ait été séché
+dans une étuve, représente la matière organique et inorganique totale
+contenues chez un individu. Cette métrique serait plus précise que la
+mesure du poids : le poids sec est une mesure fiable de la croissance et
+est un bon indicateur du contenu énergétique d'un individu.
+
+Après l'échantillonnage, P. Vernon a identifié et mesuré en laboratoire
+les traits d'histoire de vie suivants :\
+- **Sex** = le sexe d'un individu donné, variable qualitative\
+- **Habitat** = l'habitat d'un individu donné ('Coast' or 'Inland'),
+variable qualitative\
+- **Length** = la longueur d'un individu donné, variable quantitative\
+- **Width** = la largeur d'un individu donné, variable quantitative\
+- **WaterContent** = le poids en eau d'un individu donné, variable
+quantitative\
+- **FatContent** = le poids lipidiques d'un individu donné, variable
+quantitative\
+- **DryWeight** = le poids sec d'un individu donné, variable
+quantitative
+
+La variable réponse est le poids sec et les autres variables sont
+supposées être des variables explicatives. La question sous-jacente à
+cette étude est : quelles variables quantitatives (i.e. covariables) et
+qualitatives (i.e. facteurs) déterminent le poids sec chez *Anatalanta
+aptera* ?
+
+Les données figurent dans le fichier FlyWeight.txt.
+
+## METHODE UTILISEE
+
 Comme l'ANOVA et la régression linéaire, l'ANCOVA (i.e. analysis de
 variance-covariance) est une méthode statistique très utilisée dans
 diverses disciplines. Elle permet de modéliser la relation entre une
@@ -32,22 +72,6 @@ cachalot expliquent en partie son poids (variable réponse). Comme
 l'ANCOVA inclut des variables explicatives quantitatives et
 qualitatives, cette méthode statistique se situe entre la régression
 linéaire et l'ANOVA.
-
-Considérons une variable explicative quantitative et une variable
-explicative qualitative, le modèle s'écrit :
-$$ Y_{ij} = \mu + \alpha_{i}+ \beta.X_{ij}+\gamma_{i}.X_{ij}+ \epsilon_{ij}$$
-
-où $\mu$ est la moyenne générale, $\alpha_{i}$ est l'effet de la ième
-modalité du facteur (i.e. la variable explicative qualitative), $\beta$
-est la pente de la régression (quantité de variation de $Y$ pour chaque
-unité de la covariable $X_{j}$), $\gamma_{i}$ est le coefficient associé
-à l'interaction entre le facteur et la covariable et $\epsilon_{ij}$ est
-l'erreur (i.e. les résidus). L'inclusion du terme d'erreur $\epsilon$,
-également appelé la partie aléatoire du modèle, rend le modèle plus
-statistique que mathématique. Le terme d'erreur est tiré d'une
-distribution statistique intègrant la variabilité aléatoire de la
-réponse. Dans une ANCOVA, on suppose qu'il s'agit d'une distribution
-**Normale**.
 
 # Analyse des données
 
@@ -220,3 +244,18 @@ abline(h = 0)
 Comme l'illustre la @fig-homogeneite, l'homogénéité de la variance n'est
 pas entièrement respectée, il faudrait faire une transformation
 logarithmique des données pour homogénéiser plus. \`\`\`
+
+# CONCLUSION
+
+Grâce à l'ANCOVA, nous avons réussi à proposer un modèle permettant
+d'expliquer selon quelles variables et intéractions le poids sec d'un
+individu varie. Nous avons conserver uniquement les variables expliquant
+le mieux le poids sec et nous avons enlevé les variables apportant en
+autre de la redondance d'information.
+
+Le modèle a été validé, d'une par par **l'homogénéité des résidus**, et
+d'autre part par également la **normalité des résidus**.
+
+Par la suite, il serait intéréssant de comprendre, d'un point de vue
+biologique, physiologique ou génétique peut-être, comment s'effectue la
+variation du poids chez les individus.
