@@ -5,11 +5,11 @@ bibliography: references.bib
 format:
   html:
     embed-resources: true
-    html-math-method: katex
-    theme: cosmo
-    css: theme.css
-    toc: true
-    toc-location: left
+html-math-method: katex
+theme: cosmo
+css: theme.css
+toc: true
+toc-location: left
 editor:
   markdown:
     canonical: false
@@ -125,6 +125,18 @@ chevauchement, suggérant une composition globalement similaire. Malgré
 des différences d'abondance observées entre les deux sites, l'analyse de
 diversité bêta ne révèle pas de séparation nette des communautés,
 suggérant une forte similarité écologique entre les autoroutes étudiées.
+
+## Chapitre 2
+
+Dans ce chapitre, nous cherchons à savoir si la sensibilité à la pression humaine diffère significativement entre les espèces d'amphibiens ? Pour tester cette hypothèse, on utilise le modèles linéaires généralisés (GLM).
+
+### Sélection de variables explicatives
+
+On va d'abord chercher à identifier les variables explicatives correspondantes à l'influence humaine sur les populations d'Amphibiens.
+
+Les variables retenues pour notre analyse des pressions anthropiques sont les suivantes : - FR : importance de la pêche au sein des réservoirs - RR : distance minimale du réservoir aux routes - BR : distance minimale du réservoir aux buildings - MR : état du réservoir (propre, légèrement pollué, lourdement pollué) - CR : type de berge du réservoir (naturelle, bétonnée)
+
+On regarde alors si des parametres sont corrélés entre eux pour éviter la redondance
 
 ```{r chapitre2-a, echo = FALSE, warning = FALSE, message = FALSE}
 data_corr_check = data %>%
@@ -348,7 +360,6 @@ En conclusion, la modélisation logistique ne met pas en évidence d'effet signi
 
 
 ## Chapitre 3
-
 Avec ce même jeu de données, on se demande quelles variables structurent
 la composition et la diversité globale de la communauté d'amphibiens.
 Pour cela, une approche appropriée est l'analyse multivariée.
@@ -361,7 +372,6 @@ numériques sur le contexte environnemental, une analyse canonique des
 correspondances (CCA) devrait être réalisée.
 
 ### Nettoyage data
-
 Pour cela, la première étape consiste à vérifier... <!-- À COMPLÉTER -->
 
 ```{r chapitre3-dataprep, echo = FALSE, warning = FALSE, message = FALSE}
@@ -393,7 +403,6 @@ dim(data_cat)     # 9 col
 ```
 
 ### Corrélation
-
 Nous avons ensuite vérifié les corrélations entre variables explicatives
 afin d'éviter la multicolinéarité dans le modèle : corrélation de
 Spearman pour les variables numériques et V de Cramér pour les variables
@@ -419,7 +428,6 @@ cramer_matrix <- as.matrix(cramer_matrix)
 ```
 
 #### Corrélations et sélection des variables numériques
-
 La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence deux paires dépassant le seuil $|r| > 0.60$ : RR–BR et UR–FR. Pour chacune, une seule variable a été conservée (@tbl-chp3-cor-num).
 
 ```{r}
@@ -448,7 +456,6 @@ knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
 #### Corrélations et sélection des variables catégorielles
-
 La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
 ```{r}
@@ -477,9 +484,7 @@ tab <- data.frame(
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-
 #### Variables retenues
-
 Après cette sélection, les variables BR, FR et MR ont été écartées pour
 la suite de l'analyse.
 
@@ -564,7 +569,7 @@ modele_GF <- glm(
   Green.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
-  )
+)
 summary(modele_GF)
 
 ### Modèle Grenouille rousse 
@@ -581,7 +586,7 @@ modele_BF <- glm(
   Brown.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
-  )
+)
 summary(modele_BF)
 
 ### Modèle Crapaud commun
@@ -598,7 +603,7 @@ modele_CT <- glm(
   Common.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
-  )
+)
 summary(modele_CT)
 
 ### Modèle Crapaud sonneur
@@ -614,7 +619,7 @@ modele_FBT <- glm(
   Fire.bellied.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
-  )
+)
 summary(modele_FBT)
 
 ### Modèle Grenouille arboricole
@@ -631,7 +636,7 @@ modele_TF <- glm(
   Tree.frog ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
-  )
+)
 summary(modele_TF)
 
 ### Modèle Triton commun
@@ -648,7 +653,7 @@ modele_CN <- glm(
   Common.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
-  )
+)
 summary(modele_CN)
 
 # Modele Common newt
@@ -668,7 +673,7 @@ modele_GCT <- glm(
   Great.crested.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
-  )
+)
 summary(modele_GCT)
 ```
 
