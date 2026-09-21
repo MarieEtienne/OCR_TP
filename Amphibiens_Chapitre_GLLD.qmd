@@ -40,10 +40,7 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 
 ```
 
-La diversité alpha décrit la diversité locale des communautés en termes
-de richesse spécifique. Afin de comparer les communautés d'amphibiens
-associées aux autoroutes A1 et S52, une analyse de la diversité alpha a
-été réalisée à partir des données de présence-absence des espèces.
+La diversité alpha décrit la diversité locale des communautés en termes de richesse spécifique. Afin de comparer les communautés d'amphibiens associées aux autoroutes A1 et S52, une analyse de la diversité alpha a été réalisée à partir des données de présence-absence des espèces.
 
 ## Chapitre 1
 
@@ -67,14 +64,9 @@ ggplot(diversite_alpha_resume,
 
 ```
 
-On peut voir que la richesse spécifique de l'autoroute A1 est moins
-élevée que celle de l'autoroute S52 pour toutes les espèces
-d'amphibiens.
+On peut voir que la richesse spécifique de l'autoroute A1 est moins élevée que celle de l'autoroute S52 pour toutes les espèces d'amphibiens.
 
-La diversité alpha décrit la diversité locale des communautés en termes
-de richesse spécifique. Afin de comparer les communautés d'amphibiens
-associées aux autoroutes A1 et S52, une analyse de la diversité alpha a
-été réalisée à partir des données de présence-absence des espèces.
+La diversité alpha décrit la diversité locale des communautés en termes de richesse spécifique. Afin de comparer les communautés d'amphibiens associées aux autoroutes A1 et S52, une analyse de la diversité alpha a été réalisée à partir des données de présence-absence des espèces.
 
 ## Chapitre 1
 
@@ -108,25 +100,9 @@ ggplot(diversite_alpha_resume,
 
 ```
 
-Les abondances observées sont systématiquement plus importantes sur
-l'autoroute S52 que sur l'A1 pour l'ensemble des espèces d'amphibiens.
-Les grenouilles brunes représentent l'espèce la plus abondante sur les
-deux autoroutes, tandis que le triton crêté est l'espèce la moins
-représentée. La composition spécifique semble similaire entre les deux
-sites, mais les effectifs sont généralement plus élevés sur la S52, on
-peut supposer que les conditions d'habitat sont plus favorables, ou
-qu'il y a une meilleure connectivité écologique ou encore qu'il y a des
-différences d'effort d'échantillonnage entre les deux sites. Des
-analyses statistiques complémentaires seraient nécessaires afin de
-déterminer si ces écarts sont significatifs ou non.
+Les abondances observées sont systématiquement plus importantes sur l'autoroute S52 que sur l'A1 pour l'ensemble des espèces d'amphibiens. Les grenouilles brunes représentent l'espèce la plus abondante sur les deux autoroutes, tandis que le triton crêté est l'espèce la moins représentée. La composition spécifique semble similaire entre les deux sites, mais les effectifs sont généralement plus élevés sur la S52, on peut supposer que les conditions d'habitat sont plus favorables, ou qu'il y a une meilleure connectivité écologique ou encore qu'il y a des différences d'effort d'échantillonnage entre les deux sites. Des analyses statistiques complémentaires seraient nécessaires afin de déterminer si ces écarts sont significatifs ou non.
 
-Bien que la diversité alpha permette de décrire les caractéristiques
-locales de chaque communauté, elle n'informe pas sur le degré de
-similitude ou de différence entre les données observées. La diversité
-bêta a donc été étudiée afin d'évaluer les variations de composition
-entre les relevés réalisés sur les autoroutes A1 et S52. Cette analyse
-repose sur les données de présence-absence des espèces et sur le calcul
-de dissimilarités entre communautés.
+Bien que la diversité alpha permette de décrire les caractéristiques locales de chaque communauté, elle n'informe pas sur le degré de similitude ou de différence entre les données observées. La diversité bêta a donc été étudiée afin d'évaluer les variations de composition entre les relevés réalisés sur les autoroutes A1 et S52. Cette analyse repose sur les données de présence-absence des espèces et sur le calcul de dissimilarités entre communautés.
 
 ```{r diversité beta, echo=FALSE, message=FALSE, warning=FALSE, results='hide',fig.show='asis'}
 especes <- diversite_alpha[, -1] # colonnes espèces
@@ -159,13 +135,7 @@ ggplot(nmds_df,
   )
 ```
 
-L'ordination NMDS réalisée à partir des distances de Jaccard ne met pas
-en évidence de séparation entre les communautés d'amphibiens associées
-aux autoroutes A1 et S52. Les relevés des deux sites présentent un fort
-chevauchement, suggérant une composition globalement similaire. Malgré
-des différences d'abondance observées entre les deux sites, l'analyse de
-diversité bêta ne révèle pas de séparation nette des communautés,
-suggérant une forte similarité écologique entre les autoroutes étudiées.
+L'ordination NMDS réalisée à partir des distances de Jaccard ne met pas en évidence de séparation entre les communautés d'amphibiens associées aux autoroutes A1 et S52. Les relevés des deux sites présentent un fort chevauchement, suggérant une composition globalement similaire. Malgré des différences d'abondance observées entre les deux sites, l'analyse de diversité bêta ne révèle pas de séparation nette des communautés, suggérant une forte similarité écologique entre les autoroutes étudiées.
 
 ## Chapitre 2
 
@@ -222,16 +192,11 @@ ggplot(data_coefs, aes(x = estimate, y = Species, color = Species)) +
 
 ## Chapitre 3
 
-Avec ce meme jeu de donnée on se demande quels variales structure la
-composition et la diversité globale de la communauté d'amphibiens? Pour
-cela una approche approprié concerne l'analyse multivarié.
+Avec ce meme jeu de donnée on se demande quels variales structure la composition et la diversité globale de la communauté d'amphibiens? Pour cela una approche approprié concerne l'analyse multivarié.
 
 Les analysis multivariés permettent de...
 
-Dans de cas, ayant un dataset avec des informations sur la
-présence/absence des amphibiens et des variables catégoriques et
-numériques sur le contexte ambiental, analyse du type canonique des
-correspondance (ACC ou CCA) devrait etre réalisé...
+Dans de cas, ayant un dataset avec des informations sur la présence/absence des amphibiens et des variables catégoriques et numériques sur le contexte ambiental, analyse du type canonique des correspondance (ACC ou CCA) devrait etre réalisé...
 
 ### Netoyage data
 
@@ -266,10 +231,7 @@ dim(data_cat)     # 9 col
 
 ### Corrélation
 
-Nous avons ensuite vérifié les corrélations entre variables explicatives
-afin d'éviter la multicolinéarité dans le modèle : corrélation de
-Spearman pour les variables numériques et V de Cramér pour les variables
-catégorielles.
+Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans le modèle : corrélation de Spearman pour les variables numériques et V de Cramér pour les variables catégorielles.
 
 ```{r chapitre3-visual, echo=FALSE, warning=FALSE,message=FALSE}
 # library(DataExplorer)
@@ -315,9 +277,10 @@ corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoe
 | **RR** (distance aux routes) et **BR** (distance aux bâtiments) | $0.80$ | Routes et constructions sont associées dans les zones urbanisées et périurbaines. | **RR** | **BR** | La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique \[SOURCE\]. |
 | **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.84$ | L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense. | **UR** | **FR** | `UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances. |
 
-: Variables corrélées (Spearman) et sélection des variables numériques. {#tbl-chp3-cor-num}
+: Variables corrélées (Spearman) et sélection des variables numériques.
 
 #### Corrélations et sélection des variables catégorielles
+
 La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
 ```{r fig-chp3-cor-cramer, fig.cap="Matrice des V de Cramér entre variables catégorielles.", echo=FALSE, warning=FALSE, message=FALSE}
@@ -330,10 +293,10 @@ corrplot::corrplot(cramer_matrix, method = "color", type = "upper",
 | **MR** (état de maintenance) et **CR** (type de rive) | $0.71$ | Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème. | **CR** | **MR** | Une rive verticale en béton empêche les amphibiens de sortir de l'eau : `CR` est donc un facteur écologique plus déterminant que l'état de propreté (`MR`). |
 | **UR** (utilisation du réservoir) et **FR** (présence de pêche) | $0.64$ | L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée. | **UR** | **FR** | `UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines. |
 
-: Variables associées (V de Cramér) et sélection des variables
-catégorielles. {#tbl-chp3-cor-cat}
+: Variables associées (V de Cramér) et sélection des variables catégorielles.
 
 #### Variables retenues
+
 Après cette sélection, les variables BR, FR et MR ont été écartées pour la suite de l'analyse.
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
@@ -352,8 +315,7 @@ data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
 data_var_clean_cca[names(data_cat_sel)] <- lapply(data_var_clean_cca[names(data_cat_sel)], factor)
 ```
 
-La suivante étape consiste a vérfier les corrélations entre les
-variables explicatives,....
+La suivante étape consiste a vérfier les corrélations entre les variables explicatives,....
 
 ```{r chapitre3-cor, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -508,7 +470,6 @@ summary(modele_CN)
 # Modele Common newt
 
 # Modele Great crested newt
-=======
 ### Modèle Triton crêté
 # Visualisation des occurrences entre autoroutes
 mosaicplot(
