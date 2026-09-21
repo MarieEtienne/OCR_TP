@@ -54,27 +54,37 @@ valeurs manquantes.
 ### Vérification de l'échantillonnage
 
 ```{r datafact, include=TRUE}
-# Facteur Sexe
-summary(dataFly$Sex)
-# Facteur Habitat
-summary(dataFly$Habitat)
+#| label: tbl-echantillonnage
+#| tbl-cap: "Répartition des individus en fonction du sexe et de l'habitat."
+
+# Création d'un tableau croisé
+tableau_echantillon <- table(Sexe = dataFly$Sex, Habitat = dataFly$Habitat)
+
+# Génération du tableau formaté
+knitr::kable(tableau_echantillon)
 ```
 
-Nous avons un échantillonnage équilibré.
+Comme l'indique le @tbl-echantillonnage, nous avons un échantillonnage
+équilibré.
 
 ### Vérification de la colinéarité des variables explicatives
 
 ```{r datacolin, include=TRUE, fig.height=5, fig.width=5}
+#| label: fig-colinearite
+#| fig-cap: "Matrice de dispersion pour évaluer la colinéarité des variables explicatives."
 # Représentation des graphiques pour chaque paire de covariables continues 
 plot(dataFly[,4:7],pch=16,col='dodgerblue3')
 ```
 
-Nous retirons la variable longueur car celle-ci est fortement corrélée
-aux variables largeur et teneur en eau.
+Comme observé sur la @fig-colinearite, nous retirons la variable
+longueur car celle-ci est fortement corrélée aux variables largeur et
+teneur en eau.
 
 ## Construction du modèle
 
 ```{r, include = TRUE}
+#| label: tbl-anova
+#| tbl-cap: "Analyse de la variance (ANOVA) des variables du modèle."
 # Formulation du modèle
 mod1<-lm(DryWeight~ Habitat
         + Width
@@ -83,15 +93,15 @@ mod1<-lm(DryWeight~ Habitat
         + Habitat:WaterContent  
         ,data=dataFly)
 # Vérification de la significativité
-drop1(mod1,test="F")
+knitr::kable(drop1(mod1,test="F"))
 # Coefficients du modèle
 summary(mod1)
 ```
 
-Le modèle présenté ci-dessus correspond au modèle candidat qui contient
-toutes les variables explicatives X qui ont un effet sur le poids sec
-d'*Anatalanta aptera*, la variable à expliquer Y. Ainsi, aucune autre
-variable n'est à retirer de ce modèle.
+Le @tbl-anova présente le modèle candidat qui contient toutes les
+variables explicatives X qui ont un effet sur le poids sec d'*Anatalanta
+aptera*, la variable à expliquer Y. Ainsi, aucune autre variable n'est à
+retirer de ce modèle.
 
 En ce qui concerne les coefficients, l'intercept prend en compte
 l'habitat côtier qui correspond donc à l'habitat de référence. Les
@@ -103,12 +113,14 @@ Contrairement à la teneur en eau qui augmente très significativement
 (p-value \< 0.05) le poids sec (+0.31 g pour chaque unité de teneur en
 eau ajoutée).
 
+La pente réelle pour l'habitat Inland est calculée selon l'équation
+suivante: $$
+\text{Pente}_{\text{Inland}} = 0.217 + 2.343 = 2.56
+$$ {#eq-pente-inland}
+
 Pour les interactions, bien que la largeur n'ai pas d'effet significatif
 pour l'habitat de référence, elle a un fort effet positif (p-value \<
-0.05) dans l'habitat Inland. La pente réelle pour Inland est de
-$0.217 + 2.343 = 2.56$. L'effet de la teneur en eau est moins fort dans
-l'habitat Inland que dans celui de référence. La pente réelle pour
-Inland est de $0.313 - 0.213 = 0.10$.
+0.05) dans l'habitat Inland, d'après l'@eq-pente-inland.
 
 Pour finir, Le modèle explique 61.3 % (R²=0.613) de la variance du poids
 sec. C'est un score plutôt bon pour des données biologiques. Le modèle
@@ -120,6 +132,8 @@ performant que le simple hasard pour prédire le poids sec.
 ### Normalité des résidus
 
 ```{r ResidNorm, include=TRUE, fig.height=3, fig.width=6}
+#| label: fig-normalite
+#| fig-cap: "Vérification de la normalité des résidus du modèle."
 par(mfrow=c(1,2))
 # Histograme
 hist(mod1$residuals,col='dodgerblue3',xlab="residuals",main="Check Normality")
@@ -128,12 +142,14 @@ qqnorm(mod1$residuals,pch=16,col='dodgerblue3',xlab='')
 qqline(mod1$residuals,col='red',lwd=2)
 ```
 
-Les résidus dévient un peu de la loi normale au niveau des extrémités
-mais cela ne pose pas de problèmes.
+Comme le montre la @fig-normalite, les résidus dévient un peu de la loi
+normale au niveau des extrémités mais cela ne pose pas de problèmes.
 
 ### Homogénéité de la variance
 
 ```{r Residhomo, include=TRUE, fig.height=5, fig.width=5}
+#| label: fig-homogeneite
+#| fig-cap: "Analyse graphique de l'homogénéité de la variance des résidus."
 par(mfrow=c(2,2))
 
 # résidus vs prédictions
@@ -169,6 +185,6 @@ plot(residuals(mod1)~ dataFly$WaterContent,
 abline(h = 0)
 ```
 
-L'homogénéité de la variance n'est pas entièrement respectée, il
-faudrait faire une transformation logarithmique des données pour
-homogénéiser plus.
+Comme l'illustre la @fig-homogeneite, l'homogénéité de la variance n'est
+pas entièrement respectée, il faudrait faire une transformation
+logarithmique des données pour homogénéiser plus.
