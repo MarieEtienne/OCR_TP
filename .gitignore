@@ -6,9 +6,11 @@
 *.html
 
 /.quarto/
- 
+
 _freeze/
 _site/projet_cache/
 projet_files/
 _site/
 projet_cache/
+
+**/*.quarto_ipynb
