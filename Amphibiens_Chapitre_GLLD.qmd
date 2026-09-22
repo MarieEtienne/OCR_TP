@@ -31,6 +31,108 @@ library(rcompanion)  # cramerV() est utilisé dans le chapitre 3
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 ```
 
+## Introduction
+## Apprendre plus sur les espèces étudiées
+
+```{=html}
+<style>
+  .esp-menu { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .esp-menu select { padding: .4rem; font-size: 1rem; margin-bottom: 1rem; }
+  .esp-fiche { display: none; gap: 1.5rem; align-items: flex-start; }
+  .esp-fiche.actif { display: flex; }
+  .esp-fiche img { max-width: 320px; width: 40%; border-radius: 6px; }
+  @media (max-width: 700px) { .esp-fiche.actif { flex-direction: column; } .esp-fiche img { width: 100%; max-width: none; } }
+</style>
+
+<div class="esp-menu">
+  <label for="choix-espece"><strong>Choisissez une espèce :</strong></label><br>
+  <select id="choix-espece">
+    <option value="">-- Sélectionner --</option>
+    <option value="green-frogs">Grenouille verte (Green frogs)</option>
+    <option value="brown-frogs">Grenouille rousse (Brown frogs)</option>
+    <option value="common-toad">Crapaud commun (Common toad)</option>
+    <option value="fire-bellied-toad">Crapaud sonneur (Fire-bellied toad)</option>
+    <option value="tree-frog">Rainette arboricole (Tree frog)</option>
+    <option value="common-newt">Triton commun (Common newt)</option>
+    <option value="great-crested-newt">Triton crêté (Great crested newt)</option>
+  </select>
+
+  <!-- ===== FICHE : GRENOUILLE VERTE (exemple) ===== -->
+  <div class="esp-fiche" id="green-frogs">
+    <img src="images/green_frog.jpg" alt="Grenouille verte">
+    <div>
+      <h3>Grenouille verte <em>(Pelophylax spp.)</em></h3>
+      <p>Amphibien très aquatique, de 6 à 12 cm, au dos vert à brun marqué de taches
+      sombres, souvent avec une ligne claire dorsale. On la trouve toute l'année
+      dans ou près des plans d'eau, et les mâles chantent au printemps et en été.</p>
+      <p><strong>Dans notre étude :</strong> sa présence est significativement
+      influencée par l'intensité de la pêche dans les réservoirs (p &lt; 0.01).</p>
+    </div>
+  </div>
+
+  <!-- ===== FICHE : GRENOUILLE ROUSSE ===== -->
+  <div class="esp-fiche" id="brown-frogs">
+    <img src="images/brown_frogs.jpg" alt="Grenouille rousse">
+    <div>
+      <h3>Grenouille rousse</h3>
+      <p>Texte à compléter...</p>
+    </div>
+  </div>
+
+  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
+  <div class="esp-fiche" id="common-toad">
+    <img src="images/common_toad.jpg" alt="Crapaud commun">
+    <div>
+      <h3>Crapaud commun</h3>
+      <p>Texte à compléter...</p>
+    </div>
+  </div>
+
+  <!-- ===== FICHE : CRAPAUD SONNEUR ===== -->
+  <div class="esp-fiche" id="fire-bellied-toad">
+    <img src="images/fire_bellied_toad.jpg" alt="Crapaud sonneur">
+    <div>
+      <h3>Crapaud sonneur</h3>
+      <p>Texte à compléter...</p>
+    </div>
+  </div>
+
+  <!-- ===== FICHE : RAINETTE ARBORICOLE ===== -->
+  <div class="esp-fiche" id="tree-frog">
+    <img src="images/tree_frog.jpg" alt="Rainette arboricole">
+    <div>
+      <h3>Rainette arboricole</h3>
+      <p>Texte à compléter...</p>
+    </div>
+  </div>
+
+  <!-- ===== FICHE : TRITON COMMUN ===== -->
+  <div class="esp-fiche" id="common-newt">
+    <img src="images/common_newt.jpg" alt="Triton commun">
+    <div>
+      <h3>Triton commun</h3>
+      <p>Texte à compléter...</p>
+    </div>
+  </div>
+
+  <!-- ===== FICHE : TRITON CRÊTÉ ===== -->
+  <div class="esp-fiche" id="great-crested-newt">
+    <img src="images/great_crested_newt.jpg" alt="Triton crêté">
+    <div>
+      <h3>Triton crêté</h3>
+      <p>Texte à compléter...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("choix-espece").addEventListener("change", function () {
+    document.querySelectorAll(".esp-fiche").forEach(f => f.classList.remove("actif"));
+    if (this.value) document.getElementById(this.value).classList.add("actif");
+  });
+</script>
+```
+
 ## Chapitre 1
 La diversité alpha décrit la diversité locale des communautés en termes
 de richesse spécifique. Afin de comparer les communautés d'amphibiens
