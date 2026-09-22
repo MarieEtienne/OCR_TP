@@ -27,9 +27,9 @@ library(deSolve)
 ```
 
 On utilise les données originales de l'expérience de compétition de
-Gause (1934),
-republiées dans le package \`gauseR\` (Mühlbauer et al., 2020), entre
-*Paramecium caudatum* et *Paramecium aurelia* cultivées en mixture.
+Gause (1934), republiées dans le package `gauseR` (Mühlbauer et *al.*,
+2020), entre *Paramecium caudatum* et *Paramecium aurelia* cultivées en
+mixture.
 
 ```{r}
 #| label: load-data
@@ -46,7 +46,7 @@ head(species)
 
 #### Estimation des paramètres
 
-On utilise \`gause_wrapper()\` uniquement pour estimer les paramètres
+On utilise `gause_wrapper()` uniquement pour estimer les paramètres
 ($r_1$, $r_2$, $a_{11}$, $a_{12}$, $a_{21}$, $a_{22}$).
 
 ```{r}
@@ -74,6 +74,10 @@ a22  <- params["a22"]
 c(r1, r2, a11, a12, a21, a22)
 ```
 
+Extraction des paramètres estimés du modèle de Lotka-Volterra et des
+effectifs initiaux des deux espèces à partir des résultats de
+l’ajustement.
+
 #### Simulation du modèle de compétition
 
 ```{r}
@@ -99,6 +103,40 @@ temps_sim <- seq(0, max(time), by = 0.1)
 
 sol <- ode(y = N0, times = temps_sim, func = compet, parms = parametres)
 ```
+
+Le modèle de compétition de Lotka-Volterra a été implémenté manuellement
+à partir des équations présentées par Mühlbauer et *al.* (2020), puis
+résolu numériquement à l’aide de la fonction `ode()`.
+
+```{r}
+#| label: plot-result
+#| fig-cap: "Simulation du modèle de compétition Lotka-Volterra comparée aux données de Gause (1934)"
+
+plot(sol[,1], sol[,2], type = "l", col = "black", lwd = 2,
+     xlab = "Jour", ylab = "Volume standardisé",
+     xlim = c(0,25),
+     ylim = c(0,200))
+lines(sol[,1], sol[,3], col = "red", lwd = 2)
+
+points(time, species$P_caudatum, pch = 1)
+points(time, species$P_aurelia, pch = 2, col = "red")
+
+legend("topleft", 
+       legend = c("P. caudatum (simulé)", "P. aurelia (simulé)",
+                  "P. caudatum (observé)", "P. aurelia (observé)"),
+       col = c("black", "red", "black", "red"), 
+       lty = c(1, 1, NA, NA), 
+       pch = c(NA, NA, 1, 2),
+       cex=0.7)
+```
+
+**Figure 1.** Compétition de type Lotka-Volterra entre *Paramecium
+caudatum* et *Paramecium aurelia*, représentée par l’évolution du volume
+normalisé selon la taille des populations au cours de 24 jours de
+culture en population mixte, d’après Gause (1934a). Les points
+représentent les observations expérimentales et les lignes correspondent
+aux courbes simulées à partir des équations du modèle de compétition de
+Lotka-Volterra, définies dans la fonction `compet`.
 
 ## Discussion
 
