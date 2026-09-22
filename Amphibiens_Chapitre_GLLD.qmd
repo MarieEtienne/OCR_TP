@@ -40,7 +40,10 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   .esp-menu select { padding: .4rem; font-size: 1rem; margin-bottom: 1rem; }
   .esp-fiche { display: none; gap: 1.5rem; align-items: flex-start; }
   .esp-fiche.actif { display: flex; }
-  .esp-fiche img { max-width: 320px; width: 40%; border-radius: 6px; }
+  .esp-fiche img { max-width: 875px; width: 100%; border-radius: 6px; }
+  .esp-fiche h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .esp-fiche p { font-size: 0.85rem; line-height: 1.4; }
+  .esp-fiche .credit { font-size: 0.7rem; color: #777; margin-top: 0.3rem; }
   @media (max-width: 700px) { .esp-fiche.actif { flex-direction: column; } .esp-fiche img { width: 100%; max-width: none; } }
 </style>
 
@@ -58,17 +61,22 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   </select>
 
   <!-- ===== FICHE : GRENOUILLE VERTE (exemple) ===== -->
-  <div class="esp-fiche" id="green-frogs">
-    <img src="images/green_frog.jpg" alt="Grenouille verte">
-    <div>
-      <h3>Grenouille verte <em>(Pelophylax spp.)</em></h3>
-      <p>Amphibien très aquatique, de 6 à 12 cm, au dos vert à brun marqué de taches
-      sombres, souvent avec une ligne claire dorsale. On la trouve toute l'année
-      dans ou près des plans d'eau, et les mâles chantent au printemps et en été.</p>
-      <p><strong>Dans notre étude :</strong> sa présence est significativement
-      influencée par l'intensité de la pêche dans les réservoirs (p &lt; 0.01).</p>
-    </div>
+<div class="esp-fiche" id="green-frogs">
+  <div>
+    <img src="images/Male_Green_Frog_Hunterdon_County_NJ.jpg", alt="Grenouille verte">
+    <p class="credit">
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&amp;action=edit&amp;redlink=1">Contrabaroness</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
   </div>
+  <div>
+    <h3>Grenouille verte <em>(Pelophylax spp.)</em></h3>
+    <p>Amphibien très aquatique, de 6 à 12 cm, au dos vert à brun marqué de taches
+    sombres, souvent avec une ligne claire dorsale. On la trouve toute l'année
+    dans ou près des plans d'eau, et les mâles chantent au printemps et en été.</p>
+  </div>
+</div>
 
   <!-- ===== FICHE : GRENOUILLE ROUSSE ===== -->
   <div class="esp-fiche" id="brown-frogs">
