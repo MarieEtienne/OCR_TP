@@ -65,7 +65,7 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   <div>
     <img src="images/Male_Green_Frog_Hunterdon_County_NJ.jpg", alt="Grenouille verte">
     <p class="credit">
-      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&amp;action=edit&amp;redlink=1">Contrabaroness</a> —
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
       Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
       <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
     </p>
