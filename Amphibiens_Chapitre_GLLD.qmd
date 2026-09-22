@@ -32,7 +32,10 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 ```
 
 ## Introduction
+<Description jeu données>
+
 ## Apprendre plus sur les espèces étudiées
+Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette étude. Choisissez une espèce dans la liste pour consulter sa description et sa photo.
 
 ```{=html}
 <style>
@@ -81,6 +84,11 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   <!-- ===== FICHE : GRENOUILLE ROUSSE ===== -->
   <div class="esp-fiche" id="brown-frogs">
     <img src="images/brown_frogs.jpg" alt="Grenouille rousse">
+    <p class="credit">
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> — # ICI LIEN A CHANGER
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
     <div>
       <h3>Grenouille rousse</h3>
       <p>Texte à compléter...</p>
@@ -90,6 +98,11 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
   <div class="esp-fiche" id="common-toad">
     <img src="images/common_toad.jpg" alt="Crapaud commun">
+    <p class="credit">
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
     <div>
       <h3>Crapaud commun</h3>
       <p>Texte à compléter...</p>
@@ -99,6 +112,11 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   <!-- ===== FICHE : CRAPAUD SONNEUR ===== -->
   <div class="esp-fiche" id="fire-bellied-toad">
     <img src="images/fire_bellied_toad.jpg" alt="Crapaud sonneur">
+    <p class="credit">
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
     <div>
       <h3>Crapaud sonneur</h3>
       <p>Texte à compléter...</p>
@@ -108,6 +126,11 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   <!-- ===== FICHE : RAINETTE ARBORICOLE ===== -->
   <div class="esp-fiche" id="tree-frog">
     <img src="images/tree_frog.jpg" alt="Rainette arboricole">
+    <p class="credit">
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
     <div>
       <h3>Rainette arboricole</h3>
       <p>Texte à compléter...</p>
@@ -117,6 +140,11 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   <!-- ===== FICHE : TRITON COMMUN ===== -->
   <div class="esp-fiche" id="common-newt">
     <img src="images/common_newt.jpg" alt="Triton commun">
+    <p class="credit">
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
     <div>
       <h3>Triton commun</h3>
       <p>Texte à compléter...</p>
@@ -126,6 +154,11 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
   <!-- ===== FICHE : TRITON CRÊTÉ ===== -->
   <div class="esp-fiche" id="great-crested-newt">
     <img src="images/great_crested_newt.jpg" alt="Triton crêté">
+    <p class="credit">
+      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
     <div>
       <h3>Triton crêté</h3>
       <p>Texte à compléter...</p>
