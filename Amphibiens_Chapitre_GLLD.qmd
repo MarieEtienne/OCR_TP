@@ -308,13 +308,175 @@ diversité bêta ne révèle pas de séparation nette des communautés,
 suggérant une forte similarité écologique entre les autoroutes étudiées.
 
 ## Préparation du jeu de donnée : corrélations des variables
+```{r chapitre3-dataprep, echo = FALSE, warning = FALSE, message = FALSE}
+data_amphi <- data %>% select((last_col() - 6):last_col())
+data_var   <- data %>% select(3:(last_col() - 7))
 
+# 1. Vérification data
+## Représentation de toutes les espèces (% de sites où chaque espèce est présente)
+100 * apply(!data_amphi == 0, 2, sum) / nrow(data_amphi)
+
+valid_sites <- rowSums(data_amphi) > 0
+data_amphi_clean <- data_amphi[valid_sites, ]
+data_var_clean   <- data_var[valid_sites, ]
+
+## Vérification : mêmes dimensions pour les deux tableaux
+dim(data_amphi_clean)
+dim(data_var_clean)
+
+## Variables numériques / ordinales
+data_num_ord <- data_var_clean %>% select(SR, NR, OR, RR, BR)
+## Variables catégorielles
+data_cat <- data_var_clean %>%
+  select(TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR) %>%
+  mutate(across(everything(), as.factor))
+```
+
+Nous avons ensuite vérifié les corrélations entre variables explicatives
+afin d'éviter la multicolinéarité dans le modèle : corrélation de
+Spearman pour les variables numériques et V de Cramér pour les variables
+catégorielles.
+
+```{r chapitre3-cor-calc, echo = FALSE, warning = FALSE, message = FALSE}
+## Corrélation des données numériques
+cor_matrix_spearman <- cor(data_num_ord, use = "complete.obs", method = "spearman")
+
+## Corrélation des données catégorielles (V de Cramér)
+cat_vars <- colnames(data_cat)
+n_vars <- length(cat_vars)
+cramer_matrix <- matrix(NA, nrow = n_vars, ncol = n_vars,
+                        dimnames = list(cat_vars, cat_vars))
+for (i in 1:n_vars) {
+  for (j in 1:n_vars) {
+    ct <- table(data_cat[[i]], data_cat[[j]])
+    cramer_matrix[i, j] <- tryCatch(rcompanion::cramerV(ct),
+                                    error = function(e) NA_real_)
+  }
+}
+cramer_matrix <- as.matrix(cramer_matrix)
+```
+
+### Corrélations et sélection des variables numériques
+La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence deux paires dépassant le seuil $|r| > 0.60$ : RR–BR et UR–FR. Pour chacune, une seule variable a été conservée (@tbl-chp3-cor-num).
+
+```{r}
+#| label: fig-chp3-cor-spearman
+#| fig-cap: "Matrice de corrélation de Spearman entre variables numériques."
+#| echo: false
+#| warning: false
+#| message: false
+corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoef.col = "black")
+```
+
+```{r}
+#| label: tbl-chp3-cor-num
+#| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques."
+#| echo: false
+tab <- data.frame(
+  `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
+  `r` = c("$0.80$", "$0.84$"),
+  `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines.", "L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense."),
+  `Conservée` = c("**RR**", "**UR**"),
+  `Éliminée` = c("**BR**", "**FR**"),
+  `Justification` = c("La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique [SOURCE].", "`UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances."),
+  check.names = FALSE, stringsAsFactors = FALSE
+)
+knitr::kable(tab, align = c("l","c","l","c","c","l"))
+```
+
+### Corrélations et sélection des variables catégorielles
+La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
+
+```{r}
+#| label: fig-chp3-cor-cramer
+#| fig-cap: "Matrice des V de Cramér entre variables catégorielles."
+#| echo: false
+#| warning: false
+#| message: false
+corrplot::corrplot(cramer_matrix, method = "color", type = "upper",
+                   addCoef.col = "black", tl.col = "black", tl.srt = 45)
+```
+
+```{r}
+#| label: tbl-chp3-cor-cat
+#| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles."
+#| echo: false
+tab <- data.frame(
+  `Paire` = c("**MR** (état de maintenance) et **CR** (type de rive)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
+  `r` = c("$0.71$", "$0.64$"),
+  `Lien écologique` = c("Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème.", "L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée."),
+  `Conservée` = c("**CR**", "**UR**"),
+  `Éliminée` = c("**MR**", "**FR**"),
+  `Justification` = c("Une rive verticale en béton empêche les amphibiens de sortir de l'eau : `CR` est donc un facteur écologique plus déterminant que l'état de propreté (`MR`).", "`UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines."),
+  check.names = FALSE, stringsAsFactors = FALSE
+)
+knitr::kable(tab, align = c("l","c","l","c","c","l"))
+```
+
+### Variables retenues
+Après cette sélection, les variables BR, FR et MR ont été écartées pour
+la suite de l'analyse.
+
+```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
+# Variables éliminées
+vars_num_drop <- c("BR", "FR")   # num
+vars_cat_drop <- c("MR", "FR")   # cat
+
+# Suppression dans les data frames
+data_num_ord_sel <- data_num_ord[, !colnames(data_num_ord) %in% vars_num_drop, drop = FALSE]
+data_cat_sel     <- data_cat[, !colnames(data_cat) %in% vars_cat_drop, drop = FALSE]
+
+# Assemblage
+data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
+
+# Les variables catégorielles restent des facteurs
+data_var_clean_cca[names(data_cat_sel)] <- lapply(data_var_clean_cca[names(data_cat_sel)], factor)
+```
+
+L'étape suivante consiste à vérifier les corrélations entre les
+variables numériques retenues... <!-- À COMPLÉTER -->
+
+```{r chapitre3-cor-final, echo = FALSE, warning = FALSE, message = FALSE}
+## Corrélation des variables numériques retenues
+cor_matrix <- cor(data_num_ord_sel, use = "complete.obs", method = "spearman")
+corrplot::corrplot(cor_matrix)
+```
 
 ## Création des modèles pour étudier le jeu de donnée
 
 
 ### Analyse multivarié à deux tableaux
+Avec ce même jeu de données, on se demande quelles variables structurent
+la composition et la diversité globale de la communauté d'amphibiens.
+Pour cela, une approche appropriée est l'analyse multivariée.
 
+Les analyses multivariées permettent de... <!-- À COMPLÉTER -->
+
+Dans ce cas, ayant un jeu de données avec des informations sur la
+présence/absence des amphibiens et des variables catégorielles et
+numériques sur le contexte environnemental, une analyse canonique des
+correspondances (CCA) devrait être réalisée.
+
+```{r chapitre3-cca, echo = FALSE, warning = FALSE, message = FALSE}
+set.seed(123)
+
+# vegan::cca ne tolère pas les NA : on garde les sites complets
+complets <- complete.cases(data_var_clean_cca)
+data_amphi_cca <- data_amphi_clean[complets, ]
+data_var_cca   <- droplevels(data_var_clean_cca[complets, ])
+
+# 1. Analyse canonique des correspondances (CCA) avec les variables retenues
+cca_model <- cca(data_amphi_cca ~ ., data = data_var_cca)
+
+# Résumé du modèle (valeurs propres, variance expliquée, scores)
+summary(cca_model)
+
+# Test de significativité globale du modèle
+anova(cca_model, permutations = 999)
+
+# Test de significativité de chaque variable
+anova(cca_model, by = "term", permutations = 999)
+```
 
 ### Modele linéaire généralisé
 
@@ -557,182 +719,6 @@ ggplot(grid_pred_rr, aes(x = RR, y = Probability, color = Species, fill = Specie
 ```
 
 En conclusion, la modélisation logistique ne met pas en évidence d'effet significatif de la distance aux routes (RR) sur la probabilité de présence des différentes espèces d'amphibiens, l'ensemble des taxons ne présentant pas de variations notables. En revanche, l'intensité de la pêche (FR) influence significativement la présence de certains taxons, notamment Green.frogs (p \< 0.01), suggérant des sensibilités variables aux pressions anthropiques locales selon les espèces étudiées.
-
-
-## Chapitre 3
-Avec ce même jeu de données, on se demande quelles variables structurent
-la composition et la diversité globale de la communauté d'amphibiens.
-Pour cela, une approche appropriée est l'analyse multivariée.
-
-Les analyses multivariées permettent de... <!-- À COMPLÉTER -->
-  
-  Dans ce cas, ayant un jeu de données avec des informations sur la
-présence/absence des amphibiens et des variables catégorielles et
-numériques sur le contexte environnemental, une analyse canonique des
-correspondances (CCA) devrait être réalisée.
-
-### Nettoyage data
-Pour cela, la première étape consiste à vérifier... <!-- À COMPLÉTER -->
-  
-```{r chapitre3-dataprep, echo = FALSE, warning = FALSE, message = FALSE}
-data_amphi <- data %>% select((last_col() - 6):last_col())
-data_var   <- data %>% select(3:(last_col() - 7))
-
-dim(data_amphi)
-
-# 1. Vérification data
-## Représentation de toutes les espèces (% de sites où chaque espèce est présente)
-100 * apply(!data_amphi == 0, 2, sum) / nrow(data_amphi)
-
-valid_sites <- rowSums(data_amphi) > 0
-data_amphi_clean <- data_amphi[valid_sites, ]
-data_var_clean   <- data_var[valid_sites, ]
-
-## Vérification : mêmes dimensions pour les deux tableaux
-dim(data_amphi_clean)
-dim(data_var_clean)
-
-## Variables numériques / ordinales
-data_num_ord <- data_var_clean %>% select(SR, NR, OR, RR, BR)
-dim(data_num_ord) # 5 col
-## Variables catégorielles
-data_cat <- data_var_clean %>%
-  select(TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR) %>%
-  mutate(across(everything(), as.factor))
-dim(data_cat)     # 9 col
-```
-
-### Corrélation
-Nous avons ensuite vérifié les corrélations entre variables explicatives
-afin d'éviter la multicolinéarité dans le modèle : corrélation de
-Spearman pour les variables numériques et V de Cramér pour les variables
-catégorielles.
-
-```{r chapitre3-cor-calc, echo = FALSE, warning = FALSE, message = FALSE}
-## Corrélation des données numériques
-cor_matrix_spearman <- cor(data_num_ord, use = "complete.obs", method = "spearman")
-
-## Corrélation des données catégorielles (V de Cramér)
-cat_vars <- colnames(data_cat)
-n_vars <- length(cat_vars)
-cramer_matrix <- matrix(NA, nrow = n_vars, ncol = n_vars,
-                        dimnames = list(cat_vars, cat_vars))
-for (i in 1:n_vars) {
-  for (j in 1:n_vars) {
-    ct <- table(data_cat[[i]], data_cat[[j]])
-    cramer_matrix[i, j] <- tryCatch(rcompanion::cramerV(ct),
-                                    error = function(e) NA_real_)
-  }
-}
-cramer_matrix <- as.matrix(cramer_matrix)
-```
-
-#### Corrélations et sélection des variables numériques
-La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence deux paires dépassant le seuil $|r| > 0.60$ : RR–BR et UR–FR. Pour chacune, une seule variable a été conservée (@tbl-chp3-cor-num).
-
-```{r}
-#| label: fig-chp3-cor-spearman
-#| fig-cap: "Matrice de corrélation de Spearman entre variables numériques."
-#| echo: false
-#| warning: false
-#| message: false
-corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoef.col = "black")
-```
-
-```{r}
-#| label: tbl-chp3-cor-num
-#| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques."
-#| echo: false
-tab <- data.frame(
-  `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
-  `r` = c("$0.80$", "$0.84$"),
-  `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines.", "L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense."),
-  `Conservée` = c("**RR**", "**UR**"),
-  `Éliminée` = c("**BR**", "**FR**"),
-  `Justification` = c("La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique [SOURCE].", "`UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances."),
-  check.names = FALSE, stringsAsFactors = FALSE
-)
-knitr::kable(tab, align = c("l","c","l","c","c","l"))
-```
-
-#### Corrélations et sélection des variables catégorielles
-La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
-
-```{r}
-#| label: fig-chp3-cor-cramer
-#| fig-cap: "Matrice des V de Cramér entre variables catégorielles."
-#| echo: false
-#| warning: false
-#| message: false
-corrplot::corrplot(cramer_matrix, method = "color", type = "upper",
-                   addCoef.col = "black", tl.col = "black", tl.srt = 45)
-```
-
-```{r}
-#| label: tbl-chp3-cor-cat
-#| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles."
-#| echo: false
-tab <- data.frame(
-  `Paire` = c("**MR** (état de maintenance) et **CR** (type de rive)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
-  `r` = c("$0.71$", "$0.64$"),
-  `Lien écologique` = c("Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème.", "L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée."),
-  `Conservée` = c("**CR**", "**UR**"),
-  `Éliminée` = c("**MR**", "**FR**"),
-  `Justification` = c("Une rive verticale en béton empêche les amphibiens de sortir de l'eau : `CR` est donc un facteur écologique plus déterminant que l'état de propreté (`MR`).", "`UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines."),
-  check.names = FALSE, stringsAsFactors = FALSE
-)
-knitr::kable(tab, align = c("l","c","l","c","c","l"))
-```
-
-#### Variables retenues
-Après cette sélection, les variables BR, FR et MR ont été écartées pour
-la suite de l'analyse.
-
-```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
-# Variables éliminées
-vars_num_drop <- c("BR", "FR")   # num
-vars_cat_drop <- c("MR", "FR")   # cat
-
-# Suppression dans les data frames
-data_num_ord_sel <- data_num_ord[, !colnames(data_num_ord) %in% vars_num_drop, drop = FALSE]
-data_cat_sel     <- data_cat[, !colnames(data_cat) %in% vars_cat_drop, drop = FALSE]
-
-# Assemblage
-data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
-
-# Les variables catégorielles restent des facteurs
-data_var_clean_cca[names(data_cat_sel)] <- lapply(data_var_clean_cca[names(data_cat_sel)], factor)
-```
-
-L'étape suivante consiste à vérifier les corrélations entre les
-variables numériques retenues... <!-- À COMPLÉTER -->
-
-```{r chapitre3-cor-final, echo = FALSE, warning = FALSE, message = FALSE}
-## Corrélation des variables numériques retenues
-cor_matrix <- cor(data_num_ord_sel, use = "complete.obs", method = "spearman")
-corrplot::corrplot(cor_matrix)
-```
-
-```{r chapitre3-cca, echo = FALSE, warning = FALSE, message = FALSE}
-set.seed(123)
-
-# vegan::cca ne tolère pas les NA : on garde les sites complets
-complets <- complete.cases(data_var_clean_cca)
-data_amphi_cca <- data_amphi_clean[complets, ]
-data_var_cca   <- droplevels(data_var_clean_cca[complets, ])
-
-# 1. Analyse canonique des correspondances (CCA) avec les variables retenues
-cca_model <- cca(data_amphi_cca ~ ., data = data_var_cca)
-
-# Résumé du modèle (valeurs propres, variance expliquée, scores)
-summary(cca_model)
-
-# Test de significativité globale du modèle
-anova(cca_model, permutations = 999)
-
-# Test de significativité de chaque variable
-anova(cca_model, by = "term", permutations = 999)
-```
 
 ## Chapitre 4
 
