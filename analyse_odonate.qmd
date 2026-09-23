@@ -2,6 +2,7 @@
 title: "Analyse odonate"
 subtitle: "Répartition des Odonates de Bretagne"
 author: "Lafargue Sacha, Sécher Ewen, David Méline"
+bibliography: references.bib
 editor:
   markdown:
     canonical: true
@@ -16,7 +17,7 @@ editor:
 library(here)
 path = here("Odonate_4km_bretagne.csv")
 data = read.csv(path, sep = ";")
-data
+
 
 length(unique(data$species))
 
@@ -26,6 +27,14 @@ matrice_odo = read.csv(here("Matrice_Odonate.csv"), sep = ";" )
 ```
 
 Estimation du nombre d'espèces total selon le nombre d'espèces:
+
+Estimer la richesse d'un écosysteme n'est pas une tache facile, malgré
+un grand effort d'échantillonage, il est possible que des especes rares
+n'ont pas été détectées. Mais il existe des indices, estimateurs pour
+estimer la richesse réelle à partir d'échantillonage.
+
+Une des méthodes la plus connue, est l'estimateur Chao, developpé par
+Anne Chao [@Chao2013]
 
 ```{r}
 
