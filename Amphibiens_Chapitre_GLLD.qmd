@@ -2,6 +2,8 @@
 title: "Amphibiens_Chapitre_GLLD"
 lang: fr
 bibliography: references.bib
+number-sections: true
+number-depth: 2
 format:
   html:
     embed-resources: true
