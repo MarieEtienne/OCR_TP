@@ -17,9 +17,6 @@ editor:
     canonical: false
     wrap: 72
 ---
-
-## Setup
-
 ```{r setup-et-import, message=FALSE, warning=FALSE}
 # Load libraries
 library(tidyverse)
@@ -36,7 +33,7 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 ## Introduction
 <Description jeu données>
 
-## Apprendre plus sur les espèces étudiées
+### Apprendre plus sur les espèces étudiées
 Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette étude. Choisissez une espèce dans la liste pour consulter sa description et sa photo.
 
 ```{=html}
