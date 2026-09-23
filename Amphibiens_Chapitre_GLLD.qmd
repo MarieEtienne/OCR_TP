@@ -307,6 +307,25 @@ des différences d'abondance observées entre les deux sites, l'analyse de
 diversité bêta ne révèle pas de séparation nette des communautés,
 suggérant une forte similarité écologique entre les autoroutes étudiées.
 
+## Préparation du jeu de donnée : corrélations des variables
+
+
+## Création des modèles pour étudier le jeu de donnée
+
+
+### Analyse multivarié à deux tableaux
+
+
+### Modele linéaire généralisé
+
+
+#### GLM : Matheo
+
+
+#### GLM: PAul
+
+#########
+
 ## Chapitre 2
 
 Dans ce chapitre, nous cherchons à savoir si la sensibilité à la pression humaine diffère significativement entre les espèces d'amphibiens ? Pour tester cette hypothèse, on utilise le modèles linéaires généralisés (GLM).
