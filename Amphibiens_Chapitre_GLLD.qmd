@@ -42,8 +42,8 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
   .esp-menu { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
   .esp-menu select { padding: .4rem; font-size: 1rem; margin-bottom: 1rem; }
   .esp-fiche { display: none; gap: 1.5rem; align-items: flex-start; }
-  .esp-fiche.actif { display: flex; }
-  .esp-fiche img { max-width: 875px; width: 100%; border-radius: 6px; }
+  .esp-fiche.actif {display: block;align-items: flex-start;gap: 1.5rem;}
+  .esp-fiche img {max-width: 250px;width: 250px;border-radius: 6px;}
   .esp-fiche h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
   .esp-fiche p { font-size: 0.85rem; line-height: 1.4; }
   .esp-fiche .credit { font-size: 0.7rem; color: #777; margin-top: 0.3rem; }
@@ -65,6 +65,7 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
 
   <!-- ===== FICHE : GRENOUILLE VERTE (exemple) ===== -->
 <div class="esp-fiche" id="green-frogs">
+<div style="display:flex; gap:20px; align-items:flex-start;">
   <div>
     <img src="images/Male_Green_Frog_Hunterdon_County_NJ.jpg", alt="Grenouille verte">
     <p class="credit">
@@ -80,23 +81,52 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
     dans ou près des plans d'eau, et les mâles chantent au printemps et en été.</p>
   </div>
 </div>
+</div>
 
-  <!-- ===== FICHE : GRENOUILLE ROUSSE ===== -->
-  <div class="esp-fiche" id="brown-frogs">
-    <img src="images/brown_frogs.jpg" alt="Grenouille rousse">
+  <!-- ===== FICHE : GRENOUILLES BRUNES ===== -->
+<div class="esp-fiche" id="brown-frogs">
+<div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:30px;">
+  <div>
+    <img src="images/grenouille_rousse_femelle.jpg", alt="Grenouille rousse">
     <p class="credit">
-      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> — # ICI LIEN A CHANGER
+      Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
       Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
       <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
     </p>
-    <div>
-      <h3>Grenouille rousse</h3>
-      <p>Texte à compléter...</p>
-    </div>
   </div>
 
+  <div>
+    <h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
+    <p>La grenouille rousse est une espèce commune des milieux humides,
+      des prairies et des forêts. Son corps est trapu et sa couleur varie
+      du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.</p>
+  </div>
+</div>
+
+<div style="display:flex; gap:20px; align-items:flex-start;">
+  <div>
+    <img src="images/grenouille_agile.jpg", alt="Grenouille agile">
+    <p class="credit">
+      Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+    </p>
+  </div>
+
+  <div>
+    <h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
+    <p>Plus élancée que la grenouille rousse, la grenouille agile possède
+      de longues pattes arrière qui lui permettent de réaliser de grands sauts.
+      Elle fréquente surtout les bois et les lisières forestières.</p>
+  </div>
+</div>
+</div>
+
+
   <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
-  <div class="esp-fiche" id="common-toad">
+<div class="esp-fiche" id="common-toad">
+<div style="display:flex; gap:20px; align-items:flex-start;">
+  <div>
     <img src="images/common_toad.jpg" alt="Crapaud commun">
     <p class="credit">
       Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
@@ -111,6 +141,8 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
 
   <!-- ===== FICHE : CRAPAUD SONNEUR ===== -->
   <div class="esp-fiche" id="fire-bellied-toad">
+  <div style="display:flex; gap:20px; align-items:flex-start;">
+  <div>
     <img src="images/fire_bellied_toad.jpg" alt="Crapaud sonneur">
     <p class="credit">
       Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
@@ -125,6 +157,8 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
 
   <!-- ===== FICHE : RAINETTE ARBORICOLE ===== -->
   <div class="esp-fiche" id="tree-frog">
+  <div style="display:flex; gap:20px; align-items:flex-start;">
+  <div>
     <img src="images/tree_frog.jpg" alt="Rainette arboricole">
     <p class="credit">
       Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
@@ -139,6 +173,8 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
 
   <!-- ===== FICHE : TRITON COMMUN ===== -->
   <div class="esp-fiche" id="common-newt">
+  <div style="display:flex; gap:20px; align-items:flex-start;">
+  <div>
     <img src="images/common_newt.jpg" alt="Triton commun">
     <p class="credit">
       Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
@@ -153,6 +189,8 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
 
   <!-- ===== FICHE : TRITON CRÊTÉ ===== -->
   <div class="esp-fiche" id="great-crested-newt">
+  <div style="display:flex; gap:20px; align-items:flex-start;">
+  <div>
     <img src="images/great_crested_newt.jpg" alt="Triton crêté">
     <p class="credit">
       Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
@@ -508,15 +546,15 @@ la composition et la diversité globale de la communauté d'amphibiens.
 Pour cela, une approche appropriée est l'analyse multivariée.
 
 Les analyses multivariées permettent de... <!-- À COMPLÉTER -->
-
-Dans ce cas, ayant un jeu de données avec des informations sur la
+  
+  Dans ce cas, ayant un jeu de données avec des informations sur la
 présence/absence des amphibiens et des variables catégorielles et
 numériques sur le contexte environnemental, une analyse canonique des
 correspondances (CCA) devrait être réalisée.
 
 ### Nettoyage data
 Pour cela, la première étape consiste à vérifier... <!-- À COMPLÉTER -->
-
+  
 ```{r chapitre3-dataprep, echo = FALSE, warning = FALSE, message = FALSE}
 data_amphi <- data %>% select((last_col() - 6):last_col())
 data_var   <- data %>% select(3:(last_col() - 7))
