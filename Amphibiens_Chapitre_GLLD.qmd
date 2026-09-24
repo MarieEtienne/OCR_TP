@@ -353,22 +353,28 @@ diversité bêta ne révèle pas de séparation nette des communautés,
 suggérant une forte similarité écologique entre les autoroutes étudiées.
 
 ## Préparation du jeu de donnée : corrélations des variables
-```{r chapitre3-dataprep, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre3-dataprep-a, echo = FALSE, warning = FALSE, message = FALSE}
 data_amphi <- data %>% select((last_col() - 6):last_col())
 data_var   <- data %>% select(3:(last_col() - 7))
+```
 
-# 1. Vérification data
-## Représentation de toutes les espèces (% de sites où chaque espèce est présente)
+Pour réalisé des modeles, il est necessaire de preparer notre jeu de de donnee correctement. Pour cela il faut premierermenet verifier que toutes nos especes sont bien representer dans l'esneble du jeu de donne et qu'il n'y ai pas une sous-representation. Cela doit etre egalement réalisé pour les sites étudié.
+
+```{r chapitre3-dataprep-b, echo = FALSE, warning = FALSE, message = FALSE}
+cat("Représentation du jeu de données (en %):")
 100 * apply(!data_amphi == 0, 2, sum) / nrow(data_amphi)
 
 valid_sites <- rowSums(data_amphi) > 0
 data_amphi_clean <- data_amphi[valid_sites, ]
 data_var_clean   <- data_var[valid_sites, ]
 
-## Vérification : mêmes dimensions pour les deux tableaux
-dim(data_amphi_clean)
-dim(data_var_clean)
+cat("Dans le jeu de données il y a",sum(!valid_sites), "avec '0' observation passant alors de", nrow(data_var), "lignes à", nrow(data_var_clean), "\n")
+```
 
+Ces restultats montrent que: tout nos especes sont bien respresenter et que 6 sites on etait supprimer par sous-represnetaiton.
+
+```{r chapitre3-dataprep-c, echo = FALSE, warning = FALSE, message = FALSE}
+# SEPARATION DATASET
 ## Variables numériques / ordinales
 data_num_ord <- data_var_clean %>% select(SR, NR, OR, RR, BR)
 ## Variables catégorielles
