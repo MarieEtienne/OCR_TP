@@ -453,6 +453,7 @@ corrplot::corrplot(cramer_matrix, method = "color", type = "upper",
 ```{r}
 #| label: tbl-chp3-cor-cat
 #| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles."
+#| tbl-subcap: "Association mesurée par le V de Cramér (issu du test du $\\chi^2$). Sélection basée sur un seuil $V > 0.60$ pour réduire la redondance entre variables catégorielles."
 #| echo: false
 tab <- data.frame(
   `Paire` = c("**MR** (état de maintenance) et **CR** (type de rive)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
