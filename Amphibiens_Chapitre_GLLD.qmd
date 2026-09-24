@@ -448,18 +448,15 @@ Après cette sélection, les variables BR, FR et MR ont été écartées pour la
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables éliminées
-vars_num_drop <- c("BR", "FR")   # num
-vars_cat_drop <- c("MR", "FR")   # cat
+vars_num_drop <- c("BR")         # numériques / ordinales
+vars_cat_drop <- c("MR", "FR")   # catégorielles
 
 # Suppression dans les data frames
 data_num_ord_sel <- data_num_ord[, !colnames(data_num_ord) %in% vars_num_drop, drop = FALSE]
 data_cat_sel     <- data_cat[, !colnames(data_cat) %in% vars_cat_drop, drop = FALSE]
 
-# Assemblage
+# Assemblage (les variables catégorielles restent des facteurs)
 data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
-
-# Les variables catégorielles restent des facteurs
-data_var_clean_cca[names(data_cat_sel)] <- lapply(data_var_clean_cca[names(data_cat_sel)], factor)
 ```
 
 ## Création des modèles pour étudier le jeu de donnée
