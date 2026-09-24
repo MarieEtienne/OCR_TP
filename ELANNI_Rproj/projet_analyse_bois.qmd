@@ -34,11 +34,6 @@ dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Spe
 
 
 
-#Removing the NA for the Age
-dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
-View(dta_Qrobur)
-
-
 #Transforming Core_Type, Botanical_Class, Species into factors
 dta_Qrobur$Botanical_Class=as.factor(dta_Qrobur$Botanical_Class)
 dta_Qrobur$Species=as.factor(dta_Qrobur$Species)
@@ -47,6 +42,7 @@ dta_Qrobur$Core_Type=as.factor(dta_Qrobur$Core_Type)
 #Removing the NA for the Age
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
 
+# Vérification de la présence de données manquantes
 colSums(is.na(dta_Qrobur))
 
 
@@ -211,4 +207,23 @@ plot(WD0w ~TM, data = dta_Qrobur, col = "blue3")
 
 ```
 
-blabla bla c'est un test
+```{r}
+#Observation de relation linéaire entre l'âge de l'arbre et sa hauteur
+ggplot(data = dta_Qrobur, aes(x = Age, y = H)) + geom_point() + geom_smooth(method = "lm")
+summary(lm(H ~ Age, data = dta_Qrobur))
+
+#Observation de la densité anhydre du bois en fonction de la hauteur de l'arbre
+ggplot(data = dta_Qrobur, aes(x = WD0w, y = H)) + geom_point()
+
+#bibliographie sur l'influence des paramètres climatiques sur notamment la densité
+https://www.researchgate.net/publication/43327060_Importance_de_differents_parametres_climatiques_sur_la_croissance_et_la_formation_du_bois_de_pin_rouge_Pinus_resinosa_Ait_en_Ontario_Canada/link/582f233c08aef19cb8155ca5/download?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6InB1YmxpY2F0aW9uIiwicGFnZSI6InB1YmxpY2F0aW9uIn19
+```
+
+```{r}
+#Observation de la densité du bois en fonction des précipitations annuelles
+ggplot(data = dta_Qrobur, aes(x = WDbw, y = P)) + geom_point()
+
+#Observation de la densité du bois en fonction des températures annuelles
+ggplot(data = dta_Qrobur, aes(x = WDbw, y = TM)) + geom_point()
+
+```
