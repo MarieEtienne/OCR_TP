@@ -331,6 +331,8 @@ data_var   <- data %>% select(3:(last_col() - 7))
 
 Pour réaliser des modèles, il est nécessaire de préparer correctement le jeu de données. Il faut d'abord vérifier que toutes les espèces sont bien représentées dans l'ensemble du jeu de données, sans sous-représentation, puis écarter les sites où aucune espèce n'a été observée.
 
+Toutes les espèces sont présentes, avec des fréquences d'occurrence allant de `r min(representation)` % à `r max(representation)` % comme indiqué dans @tbl-chp3-representation. En revanche, `r sum(!valid_sites)` sites ne comptent aucune observation : ils ont été supprimés, ce qui fait passer le jeu de données de `r nrow(data_var)` à `r nrow(data_var_clean)` lignes.
+
 ```{r}
 #| label: tbl-chp3-representation
 #| tbl-cap: "Fréquence d'occurrence de chaque espèce (pourcentage de sites occupés)."
@@ -352,13 +354,8 @@ knitr::kable(
 )
 ```
 
-Toutes les espèces sont présentes, avec des fréquences d'occurrence allant de `r min(representation)` % à `r max(representation)` %. En revanche, `r sum(!valid_sites)` sites ne comptent aucune observation : ils ont été supprimés, ce qui fait passer le jeu de données de `r nrow(data_var)` à `r nrow(data_var_clean)` lignes.
-
-Les variables explicatives se répartissent en trois types :
-
-- **numériques** : SR, NR, OR ;
-- **ordinales** : RR, BR ;
-- **catégorielles** : TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR.
+### Corrélations
+Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0.60$.
 
 ```{r chapitre3-dataprep-c, echo = FALSE, warning = FALSE, message = FALSE}
 # SEPARATION DU JEU DE DONNEES
@@ -369,8 +366,6 @@ data_cat <- data_var_clean %>%
   select(TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR) %>%
   mutate(across(everything(), as.factor))
 ```
-
-Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0.60$.
 
 ```{r chapitre3-cor-calc, echo = FALSE, warning = FALSE, message = FALSE}
 ## Corrélation des variables numériques et ordinales (Spearman)
@@ -391,7 +386,7 @@ for (i in 1:n_vars) {
 cramer_matrix <- as.matrix(cramer_matrix)
 ```
 
-### Corrélations et sélection des variables numériques
+#### Corrélations et sélection des variables numériques
 La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence une seule paire dépassant le seuil $|r| > 0.60$ : RR–BR. Une seule de ces deux variables a donc été conservée (@tbl-chp3-cor-num). Toutes les autres corrélations restent inférieures à $0.60$ en valeur absolue.
 
 ```{r}
@@ -408,19 +403,19 @@ corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoe
 #| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques. Sélection basée sur un seuil de corrélation |r| > 0.70 (test de Spearman via `cor.test`). Les p-values ont été vérifiées et ajustées."
 #| echo: false
 tab <- data.frame(
-  `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
-  `r` = c("$0.80$", "$0.84$"),
-  `p` = c("$100$", "$100$"), #< METTRE BONNES VALEURS ICI @P !>
-  `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines.", "L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense."),
-  `Conservée` = c("**RR**", "**UR**"),
-  `Éliminée` = c("**BR**", "**FR**"),
-  `Justification` = c("La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique [SOURCE].", "`UR` est plus générale (non utilisé, récréatif, technologique, économique) : elle intègre la pêche tout en apportant plus de nuances."),
+  `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)"),
+  `r` = c("$0.80$"),
+  `p` = c("$100$"), #< METTRE BONNES VALEURS ICI @P !>
+  `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines."),
+  `Conservée` = c("**RR**"),
+  `Éliminée` = c("**BR**"),
+  `Justification` = c("La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique [SOURCE]."),
   check.names = FALSE, stringsAsFactors = FALSE
 )
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-### Corrélations et sélection des variables catégorielles
+#### Corrélations et sélection des variables catégorielles
 La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
 ```{r}
@@ -449,7 +444,7 @@ tab <- data.frame(
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-Après cette sélection, les variables BR, FR et MR ont été écartées pour la suite de l'analyse. Il reste donc SR, NR, OR et RR pour les variables numériques et ordinales, et TR, VR, SUR1, SUR2, SUR3, UR et CR pour les variables catégorielles.
+Après cette sélection, les variables $BR$, $FR$ et $MR$ ont été écartées pour la suite de l'analyse. Il reste donc $SR$, $NR$, $OR$ et $RR$ pour les variables numériques et ordinales, et $TR$, $VR$, $SUR1$, $SUR2$, $SUR3$, $UR$ et $CR$ pour les variables catégorielles.
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables éliminées
