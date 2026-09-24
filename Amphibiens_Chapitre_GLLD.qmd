@@ -358,7 +358,7 @@ data_amphi <- data %>% select((last_col() - 6):last_col())
 data_var   <- data %>% select(3:(last_col() - 7))
 ```
 
-Pour réalisé des modeles, il est necessaire de preparer notre jeu de de donnee correctement. Pour cela il faut premierermenet verifier que toutes nos especes sont bien representer dans l'esneble du jeu de donne et qu'il n'y ai pas une sous-representation. Cela doit etre egalement réalisé pour les sites étudié.
+Pour réaliser des modèles, il est nécessaire de préparer correctement le jeu de données. Il faut d'abord vérifier que toutes les espèces sont bien représentées dans l'ensemble du jeu de données, sans sous-représentation, puis écarter les sites où aucune espèce n'a été observée.
 
 ```{r chapitre3-dataprep-b, echo = FALSE, warning = FALSE, message = FALSE}
 cat("Représentation du jeu de données (en %):")
