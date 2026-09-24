@@ -436,7 +436,6 @@ tab <- data.frame(
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-### Variables retenues
 Après cette sélection, les variables BR, FR et MR ont été écartées pour
 la suite de l'analyse.
 
@@ -456,18 +455,7 @@ data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
 data_var_clean_cca[names(data_cat_sel)] <- lapply(data_var_clean_cca[names(data_cat_sel)], factor)
 ```
 
-L'étape suivante consiste à vérifier les corrélations entre les
-variables numériques retenues... <!-- À COMPLÉTER -->
-
-```{r chapitre3-cor-final, echo = FALSE, warning = FALSE, message = FALSE}
-## Corrélation des variables numériques retenues
-cor_matrix <- cor(data_num_ord_sel, use = "complete.obs", method = "spearman")
-corrplot::corrplot(cor_matrix)
-```
-
 ## Création des modèles pour étudier le jeu de donnée
-
-
 ### Analyse multivarié à deux tableaux
 Avec ce même jeu de données, on se demande quelles variables structurent
 la composition et la diversité globale de la communauté d'amphibiens.
