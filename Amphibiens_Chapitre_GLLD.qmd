@@ -444,8 +444,7 @@ tab <- data.frame(
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-Après cette sélection, les variables BR, FR et MR ont été écartées pour
-la suite de l'analyse.
+Après cette sélection, les variables BR, FR et MR ont été écartées pour la suite de l'analyse. Il reste donc SR, NR, OR et RR pour les variables numériques et ordinales, et TR, VR, SUR1, SUR2, SUR3, UR et CR pour les variables catégorielles.
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables éliminées
