@@ -1,29 +1,63 @@
 ---
 title: "Projet_OCR"
 author: "Eudes Damien Emilie"
+bibliography: REF.bib
 editor:
   markdown: 
     canonical: true
-    wrap:72
+    wrap: 72
 ---
 
 Introduction :
 
-Les abeilles sauvages subissent de nombreuses pressions anthopique et beaucoup d'entre elles sont menacées. L'utilisation du paysage fait partie des pressions majeures sur ce groupe. La taille est souvent utilisée pour suivre la disponibilité des ressources alimentaires, les petites espèces d'abeilles sont en effet favorisées par rapport aux grandes qui nécéssites moins de ressources pour arriver à l'âge adulte.
+Les abeilles sauvages subissent de nombreuses pressions anthopique ce
+qui place 172 des espèces d'abeilles européennes dans un statut "menacé"
+(@doi/10.2779/521877). L'utilisation du paysage fait partie des
+pressions majeures sur ce groupe, par exemple, l'imperméabilisation des
+sols diminue grandement les ressources disponibles pour les abeilles.
+Cette disponibilité en ressources alimentaires peut être évaluée grâce à
+la taille. En effet, les espèces les plus petites nécessitent moins de
+ressources pour se développer
+(@https://doi.org/10.1111/1365-2656.13051).
 
-Rajouter bibliographie **Problématique : Comment varie la taille des abeilles sauvages selon le paysage (urbain, semi urbain, agricole et semi naturel) ?**
+Rajouter bibliographie **Problématique : Comment varie la taille des
+abeilles sauvages selon le paysage (urbain, semi urbain, agricole et
+semi naturel) ?**
 
-Le tableau de données utilisé est issu de 4 tableaux publiés dans des journeaux relus par des pairs. Les expériences ont toutes été réalisées en Ile-de-France. Néanmoins, un grand nombre de paramètres (milieu, matériel, nombre de sites, années, périodes de l'année échantillonnée, temps d'échantillonnage) diffèrent selon les expériences. Geslin a réalisé l'expérience dans 30 sites répartis dans quatre milieux différents (3 urbains, 3 sub-urbains, 3 agricoles et 3 semi-naturels) entre avril et juillet 2011 avec des coupelles. Ropars a réalisé l'expérience uniquement dans Paris, dans 5 sites différents en 2014 puis 7 en 2015 et 2016, entre mai et juillet en 2014 et avril et juillet en 2015 et 2016 avec des coupelles et des filets. Zaninotto a réalisé une expérience à Paris et en milieux semi-naturel entre mars et octobre en 2017 et 2018 en capturant les abeilles directement sur 20 fleurs en pots (*Lotus corniculatus L.* et *Sinapsis alba*). Il a réalisé une autre expréience uniquement à Paris dans 12 sites différents entre mars et octobre en 2019 et 2020 avec des coupelles et des filets. Zaninotto a réalisé des mesures de distances intertégulaires (i.e. largeur des abeilles) dans cette deuxième expéricence pour chaque groupe d'espèces et par sexe. Cette distance est expérimée en milimètres.
+Le tableau de données utilisé est issu de 4 tableaux publiés dans des
+journeaux relus par des pairs. Les expériences ont toutes été réalisées
+en Ile-de-France. Néanmoins, un grand nombre de paramètres (milieu,
+matériel, nombre de sites, années, périodes de l'année échantillonnée,
+temps d'échantillonnage) diffèrent selon les expériences. Geslin a
+réalisé l'expérience dans 30 sites répartis dans quatre milieux
+différents (3 urbains, 3 sub-urbains, 3 agricoles et 3 semi-naturels)
+entre avril et juillet 2011 avec des coupelles. Ropars a réalisé
+l'expérience uniquement dans Paris, dans 5 sites différents en 2014 puis
+7 en 2015 et 2016, entre mai et juillet en 2014 et avril et juillet en
+2015 et 2016 avec des coupelles et des filets. Zaninotto a réalisé une
+expérience à Paris et en milieux semi-naturel entre mars et octobre en
+2017 et 2018 en capturant les abeilles directement sur 20 fleurs en pots
+(*Lotus corniculatus L.* et *Sinapsis alba*). Il a réalisé une autre
+expréience uniquement à Paris dans 12 sites différents entre mars et
+octobre en 2019 et 2020 avec des coupelles et des filets. Zaninotto a
+réalisé des mesures de distances intertégulaires (i.e. largeur des
+abeilles) dans cette deuxième expéricence pour chaque groupe d'espèces
+et par sexe. Cette distance est expérimée en milimètres.
 
-Description variables : Taille, Milieu, année, mois, Type de capture, site, pourcentage impermabilisation, sexe, espèce
+Description variables : Taille, Milieu, année, mois, Type de capture,
+site, pourcentage impermabilisation, sexe, espèce
 
 ```{r}
-tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/OCR_TP)
-summary(tab) # pour décrire variables (quantitatives, qualitatives, ...)
+#tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/OCR_TP")
+#summary(tab) # pour décrire variables (quantitatives, qualitatives, ...)
 ```
 
-Analyses stats : GLMM (avec effet aléatoire : type de capture, mois, année) effet fixe : taille Mettre l'équation Mettre le résultat de la GLMM + Graph Phrase de conclusion
+Analyses stats : GLMM (avec effet aléatoire : type de capture, mois,
+année) effet fixe : taille Mettre l'équation Mettre le résultat de la
+GLMM + Graph Phrase de conclusion
 
 ```{r}
-mod<- glmm()
+#mod<- glmm()
 ```
+
+**Bibliographie**
