@@ -127,16 +127,16 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
 <div class="esp-fiche" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
   <div>
-    <img src="images/common_toad.jpg" alt="Crapaud commun">
+    <img src="images/crapaud_commun.jpg" alt="Crapaud commun">
     <p class="credit">
-      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+      Par <a href="/https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
       Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
       <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
     </p>
   </div>
   <div>
-      <h3>Crapaud commun</h3>
-      <p>Texte à compléter...</p>
+      <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
+      <p>Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).</p>
   </div>
 </div>
 </div>
@@ -255,15 +255,44 @@ ordre_s52 <- diversite_alpha_resume %>%
 
 diversite_alpha_resume <- diversite_alpha_resume %>%
   mutate(Especes = factor(Especes, levels = ordre_s52))
-
-ggplot(diversite_alpha_resume,
-       aes(x = Especes, y = Nb_amphibiens, fill = Autoroutes)) +
-  geom_col(position = "dodge") +
-  labs(x = "Espèces", y = "Nombre d'amphibiens") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
 ```
 
+```{r}
+#| label: fig-chp1-diversité
+#| fig-cap: "diversité alpha"
+#| echo: false
+#| warning: false
+#| message: false
+ggplot(diversite_alpha_resume,
+       aes(x = Especes,
+           y = Nb_amphibiens,
+           fill = Autoroutes)) +
+  geom_col(position = position_dodge(width = 0.8)) +
+  scale_fill_manual(
+    values = c(
+      "S52" = "#0072B2",
+      "S11" = "#D55E00"
+    )
+  ) +
+  scale_x_discrete(
+    labels = c("Brown.frogs" = "Grenouille verte"
+      "Common.toad" = "Crapaud commun",
+      "Tree.frogs" = "Rainette verte",
+      "Green.frogs" = "Grenouille verte",
+      "Rana_temporaria" = "Grenouille rousse"
+    )
+  ) +
+  labs(
+    x = "Espèces",
+    y = "Nombre d'individus",
+    fill = "Autoroute"
+  ) +
+  theme_classic() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "top"
+  )
+```
 Les abondances observées sont systématiquement plus importantes sur
 l'autoroute S52 que sur l'A1 pour l'ensemble des espèces d'amphibiens.
 Les grenouilles brunes représentent l'espèce la plus abondante sur les
@@ -614,7 +643,7 @@ grid_pred_fr <- grid_pred_fr %>%
 
 p_fr <- ggplot(grid_pred_fr, aes(x = FR, y = Probability)) +
   geom_line(linewidth = 1.1, color = "#2b5c8f") +
-  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, fill = "#2b5c8f", color = NA) +
+geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, fill = "#2b5c8f", color = NA) +
   annotate("text", x = Inf, y = Inf, label = "p = 0.00184 (**)", hjust = 1.1, vjust = 1.5, size = 3, fontface = "italic") +
   theme_minimal() +
   labs(title = "Effet de la pêche (FR)", x = "Intensité de la pêche (FR)", y = "Probabilité de présence")
@@ -640,7 +669,7 @@ p_rr <- ggplot(grid_pred_rr, aes(x = RR, y = Probability)) +
 ```
 
 <details>
-<summary><strong>Résultats du modèle évaluant l'effet global de la pêche (FR) et des routes (RR) sur la présence des amphibiens</strong></summary>
+  <summary><strong>Résultats du modèle évaluant l'effet global de la pêche (FR) et des routes (RR) sur la présence des amphibiens</strong></summary>
 
 ```{r}
 #| label: tbl-glm-resultats
@@ -662,12 +691,12 @@ knitr::kable(summary(model_GLM)$coefficients)
 p_fr + p_rr
 ```
 Le modèle logistique ajusté s'écrit :
-
+  
+  $$
+  \text{logit}(p_i) = -0.39678 + 0.12983 \times FR_i + 0.02676 \times RR_i
 $$
-\text{logit}(p_i) = -0.39678 + 0.12983 \times FR_i + 0.02676 \times RR_i
-$$
-
-où le coefficient associé à $FR$ est significatif, tandis que celui associé à $RR$ est positif mais non significatif au seuil de 5 %.
+  
+  où le coefficient associé à $FR$ est significatif, tandis que celui associé à $RR$ est positif mais non significatif au seuil de 5 %.
 
 
 En conclusion, le modèle ne met pas en évidence d'effet significatif de la distance aux routes (RR) sur la probabilité de présence des amphibiens ($p = 0.231$) (@fig-effet-global-peche-route & @tbl-glm-resultats). En revanche, l'intensité de la pêche (FR) exerce une influence significative sur leur présence ($p = 0.00184$) (@fig-effet-global-peche-route & @tbl-glm-resultats), suggérant que cette pression anthropique locale joue un rôle important dans la distribution globale des amphibiens. 
@@ -818,5 +847,9 @@ modele_GCT <- glm(
   family = binomial
 )
 summary(modele_GCT)
+```
+
+
+
 ```
 
