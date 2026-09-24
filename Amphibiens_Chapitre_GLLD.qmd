@@ -368,10 +368,10 @@ data_cat <- data_var_clean %>%
 Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0.60$.
 
 ```{r chapitre3-cor-calc, echo = FALSE, warning = FALSE, message = FALSE}
-## Corrélation des données numériques
+## Corrélation des variables numériques et ordinales (Spearman)
 cor_matrix_spearman <- cor(data_num_ord, use = "complete.obs", method = "spearman")
 
-## Corrélation des données catégorielles (V de Cramér)
+## Corrélation des variables catégorielles (V de Cramér)
 cat_vars <- colnames(data_cat)
 n_vars <- length(cat_vars)
 cramer_matrix <- matrix(NA, nrow = n_vars, ncol = n_vars,
@@ -387,7 +387,7 @@ cramer_matrix <- as.matrix(cramer_matrix)
 ```
 
 ### Corrélations et sélection des variables numériques
-La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence deux paires dépassant le seuil $|r| > 0.60$ : RR–BR et UR–FR. Pour chacune, une seule variable a été conservée (@tbl-chp3-cor-num).
+La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence une seule paire dépassant le seuil $|r| > 0.60$ : RR–BR. Une seule de ces deux variables a donc été conservée (@tbl-chp3-cor-num). Toutes les autres corrélations restent inférieures à $0.60$ en valeur absolue.
 
 ```{r}
 #| label: fig-chp3-cor-spearman
