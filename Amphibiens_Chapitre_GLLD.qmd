@@ -361,21 +361,32 @@ data_var   <- data %>% select(3:(last_col() - 7))
 Pour réaliser des modèles, il est nécessaire de préparer correctement le jeu de données. Il faut d'abord vérifier que toutes les espèces sont bien représentées dans l'ensemble du jeu de données, sans sous-représentation, puis écarter les sites où aucune espèce n'a été observée.
 
 ```{r chapitre3-dataprep-b, echo = FALSE, warning = FALSE, message = FALSE}
-cat("Représentation du jeu de données (en %):")
-100 * apply(!data_amphi == 0, 2, sum) / nrow(data_amphi)
+# Fréquence d'occurrence de chaque espèce (% de sites occupés)
+representation <- round(100 * colMeans(data_amphi != 0), 1)
+knitr::kable(
+  data.frame(`Espèce` = names(representation),
+             `Sites occupés (%)` = representation,
+             check.names = FALSE),
+  row.names = FALSE, align = c("l", "c")
+)
 
-valid_sites <- rowSums(data_amphi) > 0
+# Sites sans aucune observation
+valid_sites      <- rowSums(data_amphi) > 0
 data_amphi_clean <- data_amphi[valid_sites, ]
 data_var_clean   <- data_var[valid_sites, ]
-
-cat("Dans le jeu de données il y a",sum(!valid_sites), "avec '0' observation passant alors de", nrow(data_var), "lignes à", nrow(data_var_clean), "\n")
 ```
 
-Ces restultats montrent que: tout nos especes sont bien respresenter et que 6 sites on etait supprimer par sous-represnetaiton.
+Toutes les espèces sont présentes, avec des fréquences d'occurrence allant de `r min(representation)` % à `r max(representation)` %. En revanche, `r sum(!valid_sites)` sites ne comptent aucune observation : ils ont été supprimés, ce qui fait passer le jeu de données de `r nrow(data_var)` à `r nrow(data_var_clean)` lignes.
+
+Les variables explicatives se répartissent en trois types :
+
+- **numériques** : SR, NR, OR ;
+- **ordinales** : RR, BR ;
+- **catégorielles** : TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR.
 
 ```{r chapitre3-dataprep-c, echo = FALSE, warning = FALSE, message = FALSE}
-# SEPARATION DATASET
-## Variables numériques / ordinales
+# SEPARATION DU JEU DE DONNEES
+## Variables numériques et ordinales
 data_num_ord <- data_var_clean %>% select(SR, NR, OR, RR, BR)
 ## Variables catégorielles
 data_cat <- data_var_clean %>%
@@ -383,10 +394,7 @@ data_cat <- data_var_clean %>%
   mutate(across(everything(), as.factor))
 ```
 
-Nous avons ensuite vérifié les corrélations entre variables explicatives
-afin d'éviter la multicolinéarité dans le modèle : corrélation de
-Spearman pour les variables numériques et V de Cramér pour les variables
-catégorielles.
+Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0.60$.
 
 ```{r chapitre3-cor-calc, echo = FALSE, warning = FALSE, message = FALSE}
 ## Corrélation des données numériques
