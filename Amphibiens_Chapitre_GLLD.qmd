@@ -392,8 +392,7 @@ corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoe
 
 ```{r}
 #| label: tbl-chp3-cor-num
-#| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques."
-#| tbl-subcap: "Sélection basée sur un seuil de corrélation |r| > 0.70 (test de Spearman via `cor.test`). Les p-values ont été vérifiées et ajustées."
+#| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques. Sélection basée sur un seuil de corrélation |r| > 0.70 (test de Spearman via `cor.test`). Les p-values ont été vérifiées et ajustées."
 #| echo: false
 tab <- data.frame(
   `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
@@ -423,8 +422,7 @@ corrplot::corrplot(cramer_matrix, method = "color", type = "upper",
 
 ```{r}
 #| label: tbl-chp3-cor-cat
-#| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles."
-#| tbl-subcap: "Association mesurée par le V de Cramér (issu du test du $\\chi^2$). Sélection basée sur un seuil $V > 0.60$ pour réduire la redondance entre variables catégorielles."
+#| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles. Association mesurée par le V de Cramér (issu du test du $\\chi^2$). Sélection basée sur un seuil $V > 0.60$ pour réduire la redondance entre variables catégorielles."
 #| echo: false
 tab <- data.frame(
   `Paire` = c("**MR** (état de maintenance) et **CR** (type de rive)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
@@ -481,7 +479,7 @@ Dans ce cas, ayant un jeu de données avec des informations sur la
 présence/absence des amphibiens et des variables catégorielles et
 numériques sur le contexte environnemental, une analyse canonique des
 correspondances (CCA) devrait être réalisée.
-
+ 
 ```{r chapitre3-cca, echo = FALSE, warning = FALSE, message = FALSE}
 set.seed(123)
 
