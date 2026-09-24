@@ -422,10 +422,12 @@ corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoe
 ```{r}
 #| label: tbl-chp3-cor-num
 #| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques."
+#| tbl-subcap: "Sélection basée sur un seuil de corrélation |r| > 0.70 (test de Spearman via `cor.test`). Les p-values ont été vérifiées et ajustées."
 #| echo: false
 tab <- data.frame(
   `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
   `r` = c("$0.80$", "$0.84$"),
+  `p` = c("$100$", "$100$"), #< METTRE BONNES VALEURS ICI @P !>
   `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines.", "L'usage économique des plans d'eau inclut souvent la pisciculture, donc une pêche intense."),
   `Conservée` = c("**RR**", "**UR**"),
   `Éliminée` = c("**BR**", "**FR**"),
