@@ -554,10 +554,10 @@ data_pie = data_vars %>%
 ```
 
 <details>
-  <summary><strong>Répartition des variables explicatives</strong></summary>
+<summary><strong>Répartition des variables explicatives</strong></summary>
   
   
-  ```{r}
+```{r}
 #| label: fig-répartition-glm-influence-humaine
 #| fig-cap: "Répartition en pourcentages des variables explicatives."
 #| echo: false
@@ -592,12 +592,12 @@ ggplot(data_pie, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = Modali
 
 On établit alors le modèle suivant : 
   
-  $$
+$$
   \text{logit}(p_i) = \beta_0 + \beta_1 FR_i + \beta_2 RR_i
 $$
   où :
   
-  - $p_i$ correspond à la probabilité que l'individu $i$ soit présent ;
+- $p_i$ correspond à la probabilité que l'individu $i$ soit présent ;
 - $\beta_0$ est l'ordonnée à l'origine du modèle ;
 - $\beta_1$ représente l'effet de la variable $FR$ sur le log-odds de présence ;
 - $\beta_2$ représente l'effet de la variable $RR$ sur le log-odds de présence ;
@@ -616,7 +616,7 @@ data_long = data %>%
   mutate(
     Presence = as.numeric(as.character(Presence)),
     FR = as.numeric(FR),
-    RR = as.numeric(RR)
+    RR = as.factor(RR)
   )
 
 model_GLM = glm(Presence ~ (FR + RR) , data = data_long, family = binomial)
@@ -661,7 +661,7 @@ p_rr <- ggplot(grid_pred_rr, aes(x = RR, y = Probability)) +
 ```
 
 <details>
-  <summary><strong>Résultats du modèle évaluant l'effet global de la pêche (FR) et des routes (RR) sur la présence des amphibiens</strong></summary>
+<summary><strong>Résultats du modèle évaluant l'effet global de la pêche (FR) et des routes (RR) sur la présence des amphibiens</strong></summary>
 
 ```{r}
 #| label: tbl-glm-resultats
@@ -684,11 +684,11 @@ p_fr + p_rr
 ```
 Le modèle logistique ajusté s'écrit :
   
-  $$
+$$
   \text{logit}(p_i) = -0.39678 + 0.12983 \times FR_i + 0.02676 \times RR_i
 $$
   
-  où le coefficient associé à $FR$ est significatif, tandis que celui associé à $RR$ est positif mais non significatif au seuil de 5 %.
+où le coefficient associé à $FR$ est significatif, tandis que celui associé à $RR$ est positif mais non significatif au seuil de 5 %.
 
 
 En conclusion, le modèle ne met pas en évidence d'effet significatif de la distance aux routes (RR) sur la probabilité de présence des amphibiens ($p = 0.231$) (@fig-effet-global-peche-route & @tbl-glm-resultats). En revanche, l'intensité de la pêche (FR) exerce une influence significative sur leur présence ($p = 0.00184$) (@fig-effet-global-peche-route & @tbl-glm-resultats), suggérant que cette pression anthropique locale joue un rôle important dans la distribution globale des amphibiens. 
