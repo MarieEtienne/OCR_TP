@@ -349,8 +349,8 @@ Ainsi, bien que la diversité alpha ait mis en évidence des différences d'abon
 
 ## Préparation du jeu de donnée : corrélations des variables
 ```{r chapitre3-dataprep-a, echo = FALSE, warning = FALSE, message = FALSE}
-data_amphi <- data %>% select((last_col() - 6):last_col())
-data_var   <- data %>% select(3:(last_col() - 7))
+data_amphi <- data %>% dplyr::select((last_col() - 6):last_col())
+data_var   <- data %>% dplyr::select(2:(last_col() - 7))
 
 # Sites sans aucune observation
 valid_sites      <- rowSums(data_amphi) > 0
@@ -361,9 +361,9 @@ data_var_clean   <- data_var[valid_sites, ]
 representation <- round(100 * colMeans(data_amphi != 0), 1)
 ```
 
-Pour réaliser des modèles, il est nécessaire de préparer correctement le jeu de données. Il faut d'abord vérifier que toutes les espèces sont bien représentées dans l'ensemble du jeu de données, sans sous-représentation, puis écarter les sites où aucune espèce n'a été observée.
+Nous avions déjà explorer la diversité alpha et beta de nos amis amphibiens, mais pour réaliser des modèles il est nécessaire de préparer correctement le jeu de données. Il faut alors d'abord vérifier que toutes les espèces sont bien représentées, et puis écarter les sites où aucune espèce n'a été observée.
 
-Toutes les espèces sont présentes, avec des fréquences d'occurrence allant de `r min(representation)` % à `r max(representation)` % comme indiqué dans @tbl-chp3-representation. En revanche, `r sum(!valid_sites)` sites ne comptent aucune observation : ils ont été supprimés, ce qui fait passer le jeu de données de `r nrow(data_var)` à `r nrow(data_var_clean)` lignes.
+Selon les analyses réalisés, toutes les espèces sont présentes, avec des fréquences d'occurrence allant de `r min(representation)` % à `r max(representation)` % comme indiqué dans @tbl-chp3-representation. En revanche, `r sum(!valid_sites)` sites ne comptent aucune observation : ils ont été donc supprimés, ce qui fait passer le jeu de données de `r nrow(data_var)` à `r nrow(data_var_clean)` échantillons.
 
 ```{r}
 #| label: tbl-chp3-representation
@@ -386,11 +386,10 @@ Nous avons ensuite vérifié les corrélations entre variables explicatives afin
 ```{r chapitre3-dataprep-c, echo = FALSE, warning = FALSE, message = FALSE}
 # SEPARATION DU JEU DE DONNEES
 ## Variables numériques et ordinales
-data_num_ord <- data_var_clean %>% select(SR, NR, OR, RR, BR)
+data_num_ord <- data_var_clean %>% dplyr::select(SR, NR, OR, RR, BR)
 ## Variables catégorielles
 data_cat <- data_var_clean %>%
-  select(TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR) %>%
-  mutate(across(everything(), as.factor))
+   dplyr::select(TR, VR, SUR1, SUR2, SUR3, UR, FR, MR, CR, Motorway) %>% mutate(across(everything(), as.factor))
 ```
 
 ```{r chapitre3-cor-calc, echo = FALSE, warning = FALSE, message = FALSE}
@@ -413,7 +412,7 @@ cramer_matrix <- as.matrix(cramer_matrix)
 ```
 
 #### Corrélations et sélection des variables numériques
-La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence une seule paire dépassant le seuil $|r| > 0.60$ : RR–BR. Une seule de ces deux variables a donc été conservée (@tbl-chp3-cor-num). Toutes les autres corrélations restent inférieures à $0.60$ en valeur absolue.
+La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence une seule paire dépassant le seuil $|r| > 0.70$ : RR–BR. Une seule de ces deux variables a donc été conservée (@tbl-chp3-cor-num). Toutes les autres corrélations restent inférieures à $0.70$ en valeur absolue.
 
 ```{r}
 #| label: fig-chp3-cor-spearman
@@ -435,14 +434,13 @@ tab <- data.frame(
   `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines."),
   `Conservée` = c("**RR**"),
   `Éliminée` = c("**BR**"),
-  `Justification` = c("La mortalité routière des amphibiens est documentée, ce qui fait de `RR` un meilleur indicateur de pression anthropique [SOURCE]."),
   check.names = FALSE, stringsAsFactors = FALSE
 )
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
 #### Corrélations et sélection des variables catégorielles
-La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.60$ : MR–CR et UR–FR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
+La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.70$ : MR–CR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
 ```{r}
 #| label: fig-chp3-cor-cramer
@@ -456,15 +454,14 @@ corrplot::corrplot(cramer_matrix, method = "color", type = "upper",
 
 ```{r}
 #| label: tbl-chp3-cor-cat
-#| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles. Association mesurée par le V de Cramér (issu du test du $\\chi^2$). Sélection basée sur un seuil $V > 0.60$ pour réduire la redondance entre variables catégorielles."
+#| tbl-cap: "Variables associées (V de Cramér) et sélection des variables catégorielles. Association mesurée par le V de Cramér (issu du test du $\\chi^2$). Sélection basée sur un seuil $V > 0.70$ pour réduire la redondance entre variables catégorielles."
 #| echo: false
 tab <- data.frame(
-  `Paire` = c("**MR** (état de maintenance) et **CR** (type de rive)", "**UR** (utilisation du réservoir) et **FR** (présence de pêche)"),
-  `r` = c("$0.71$", "$0.64$"),
-  `Lien écologique` = c("Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème.", "L'usage économique des plans d'eau implique souvent de la pisciculture, donc une pression de pêche élevée."),
-  `Conservée` = c("**CR**", "**UR**"),
-  `Éliminée` = c("**MR**", "**FR**"),
-  `Justification` = c("Une rive verticale en béton empêche les amphibiens de sortir de l'eau : `CR` est donc un facteur écologique plus déterminant que l'état de propreté (`MR`).", "`UR` couvre une typologie plus large et intègre l'effet de la pêche tout en conservant d'autres types d'interactions humaines."),
+  `Paire` = c("**MR** (état de maintenance) et **CR** (type de rive)"),
+  `r` = c("$0.71$"),
+  `Lien écologique` = c("Les rives artificialisées (béton) vont souvent de pair avec des milieux plus modifiés ou urbanisés, où l'entretien et les dépôts de déchets posent problème."),
+  `Conservée` = c("**CR**"),
+  `Éliminée` = c("**MR**"),
   check.names = FALSE, stringsAsFactors = FALSE
 )
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
@@ -474,15 +471,17 @@ Après cette sélection, les variables $BR$, $FR$ et $MR$ ont été écartées p
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables éliminées
-vars_num_drop <- c("BR")         # numériques / ordinales
-vars_cat_drop <- c("MR", "FR")   # catégorielles
+vars_num_drop <- c("BR")  # numériques / ordinales
+vars_cat_drop <- c("MR")   # catégorielles
 
 # Suppression dans les data frames
-data_num_ord_sel <- data_num_ord[, !colnames(data_num_ord) %in% vars_num_drop, drop = FALSE]
-data_cat_sel     <- data_cat[, !colnames(data_cat) %in% vars_cat_drop, drop = FALSE]
+data_num_ord_clean <- data_num_ord[, !colnames(data_num_ord) %in% vars_num_drop,
+                                   drop = FALSE]
+data_cat_clean <- data_cat[, !colnames(data_cat) %in% vars_cat_drop,
+                           drop = FALSE]
 
 # Assemblage (les variables catégorielles restent des facteurs)
-data_var_clean_cca <- cbind(data_num_ord_sel, data_cat_sel)
+data_var_clean <- cbind(data_num_ord_clean, data_cat_clean)
 ```
 
 ## Création des modèles pour étudier le jeu de donnée
