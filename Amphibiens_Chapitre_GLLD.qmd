@@ -708,7 +708,6 @@ où le coefficient associé à $FR$ est significatif, tandis que celui associé 
 En conclusion, le modèle ne met pas en évidence d'effet global significatif de la distance aux routes ($\text{RR}$) sur la probabilité de présence des amphibiens ($p = 0.5368$), les différents coefficients associés aux classes de distance s'avérant non significatifs au seuil de 5 % (@fig-effet-global-peche-route , @tbl-glm-resultats & @tbl-anova-global). En revanche, l'intensité de la pêche ($\text{FR}$) exerce une influence positive et significative sur leur présence ($p = 0.0017$) (@fig-effet-global-peche-route , @tbl-glm-resultats & @tbl-anova-global), suggérant que cette pression anthropique locale joue un rôle important dans la distribution des amphibiens.
 
 
-#### GLM: PAul
 
 #########
 
@@ -732,18 +731,57 @@ dataClean <- data %>%
 
 ```
 
-```{r chapitre4-mod, echo = FALSE, warning = FALSE, message = FALSE}
-### Modèle Grenouille verte 
-# Visualisation des occurrences entre autoroutes
+# Visualisation des données 
+
+Visualisation des ratios de présences/absences au sein de chaque route préalable à l'analyse GLM. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces. Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
+
+```{r chapitre4-mosaic, echo = FALSE, warning = FALSE, message = FALSE}
+
+par(mfrow = c(2, 4), mar = c(4, 4, 3, 1))
 mosaicplot(
   table(data$Motorway, data$`Green.frogs`),
-  main = "Grenouille verte selon l'autoroute",
-  xlab = "Autoroute",
-  ylab = "Occurrence",
-  color = TRUE
+  main = "Grenouille verte",
+  xlab = "Autoroute", ylab = "Occurrence", color = TRUE
 )
-# Modèle  
-modele_GF <- glm(
+mosaicplot(
+  table(data$Motorway, data$`Brown.frogs`),
+  main = "Grenouille rousse",
+  xlab = "Autoroute", ylab = "Occurrence", color = TRUE
+)
+mosaicplot(
+  table(data$Motorway, data$`Common.toad`),
+  main = "Crapaud commun",
+  xlab = "Autoroute", ylab = "Occurrence", color = TRUE
+)
+mosaicplot(
+  table(data$Motorway, data$`Fire.bellied.toad`),
+  main = "Crapaud sonneur",
+  xlab = "Autoroute", ylab = "Occurrence", color = TRUE
+)
+mosaicplot(
+  table(data$Motorway, data$`Tree.frog`),
+  main = "Grenouille arboricole",
+  xlab = "Autoroute", ylab = "Occurrence", color = TRUE
+)
+mosaicplot(
+  table(data$Motorway, data$`Common.newt`),
+  main = "Triton commun",
+  xlab = "Autoroute", ylab = "Occurrence", color = TRUE
+)
+mosaicplot(
+  table(data$Motorway, data$`Great.crested.newt`),
+  main = "Triton crêté",
+  xlab = "Autoroute", ylab = "Occurrence", color = TRUE
+)
+par(mfrow = c(1, 1))
+
+```
+
+# Analyse GLM pour chaque espèce 
+
+```{r chapitre4-mod, echo = FALSE, warning = FALSE, message = FALSE}
+### Modèle Grenouille verte 
+  modele_GF <- glm(
   Green.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
@@ -751,15 +789,6 @@ modele_GF <- glm(
 summary(modele_GF)
 
 ### Modèle Grenouille rousse 
-# Visualisation des occurrences entre autoroutes
-mosaicplot(
-  table(data$Motorway, data$`Brown.frogs`),
-  main = " Grenouille rousse selon l'autoroute",
-  xlab = "Autoroute",
-  ylab = "Occurrence",
-  color = TRUE
-)
-# Modèle  
 modele_BF <- glm(
   Brown.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
@@ -768,15 +797,6 @@ modele_BF <- glm(
 summary(modele_BF)
 
 ### Modèle Crapaud commun
-# Visualisation des occurrences entre autoroutes
-mosaicplot(
-  table(data$Motorway, data$`Common.toad`),
-  main = "Crapaud commun selon l'autoroute",
-  xlab = "Autoroute",
-  ylab = "Occurrence",
-  color = TRUE
-)
-# Modèle
 modele_CT <- glm(
   Common.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
@@ -785,14 +805,6 @@ modele_CT <- glm(
 summary(modele_CT)
 
 ### Modèle Crapaud sonneur
-# Visualisation des occurrences entre autoroutes
-mosaicplot(
-  table(data$Motorway, data$`Fire.bellied.toad`),
-  main = "Crapaud sonneur selon l'autoroute",
-  xlab = "Autoroute",
-  ylab = "Occurrence",
-  color = TRUE
-)
 modele_FBT <- glm(
   Fire.bellied.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
@@ -801,15 +813,6 @@ modele_FBT <- glm(
 summary(modele_FBT)
 
 ### Modèle Grenouille arboricole
-# Visualisation des occurrences entre autoroutes
-mosaicplot(
-  table(data$Motorway, data$`Tree.frog`),
-  main = "Grenouille arboricole selon l'autoroute",
-  xlab = "Autoroute",
-  ylab = "Occurrence",
-  color = TRUE
-)
-# Modèle
 modele_TF <- glm(
   Tree.frog ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
@@ -818,15 +821,6 @@ modele_TF <- glm(
 summary(modele_TF)
 
 ### Modèle Triton commun
-# Visualisation des occurrences entre autoroutes
-mosaicplot(
-  table(data$Motorway, data$`Common.newt`),
-  main = "Triton commun selon l'autoroute",
-  xlab = "Autoroute",
-  ylab = "Occurrence",
-  color = TRUE
-)
-# Modèle
 modele_CN <- glm(
   Common.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
@@ -834,19 +828,7 @@ modele_CN <- glm(
 )
 summary(modele_CN)
 
-# Modele Common newt
-
-# Modele Great crested newt
 ### Modèle Triton crêté
-# Visualisation des occurrences entre autoroutes
-mosaicplot(
-  table(data$Motorway, data$`Great.crested.newt`),
-  main = "Triton crêté selon l'autoroute",
-  xlab = "Autoroute",
-  ylab = "Occurrence",
-  color = TRUE
-)
-# Modèle
 modele_GCT <- glm(
   Great.crested.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
@@ -854,8 +836,3 @@ modele_GCT <- glm(
 )
 summary(modele_GCT)
 ```
-
-
-
-```
-
