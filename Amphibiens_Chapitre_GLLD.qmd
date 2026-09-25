@@ -351,6 +351,14 @@ Ainsi, bien que la diversité alpha ait mis en évidence des différences d'abon
 ```{r chapitre3-dataprep-a, echo = FALSE, warning = FALSE, message = FALSE}
 data_amphi <- data %>% select((last_col() - 6):last_col())
 data_var   <- data %>% select(3:(last_col() - 7))
+
+# Sites sans aucune observation
+valid_sites      <- rowSums(data_amphi) > 0
+data_amphi_clean <- data_amphi[valid_sites, ]
+data_var_clean   <- data_var[valid_sites, ]
+
+# Fréquence d'occurrence de chaque espèce (% de sites occupés)
+representation <- round(100 * colMeans(data_amphi != 0), 1)
 ```
 
 Pour réaliser des modèles, il est nécessaire de préparer correctement le jeu de données. Il faut d'abord vérifier que toutes les espèces sont bien représentées dans l'ensemble du jeu de données, sans sous-représentation, puis écarter les sites où aucune espèce n'a été observée.
@@ -363,13 +371,7 @@ Toutes les espèces sont présentes, avec des fréquences d'occurrence allant de
 #| echo: false
 #| warning: false
 #| message: false
-# Sites sans aucune observation
-valid_sites      <- rowSums(data_amphi) > 0
-data_amphi_clean <- data_amphi[valid_sites, ]
-data_var_clean   <- data_var[valid_sites, ]
 
-# Fréquence d'occurrence de chaque espèce (% de sites occupés)
-representation <- round(100 * colMeans(data_amphi != 0), 1)
 knitr::kable(
   data.frame(`Espèce` = names(representation),
              `Sites occupés (%)` = representation,
