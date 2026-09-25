@@ -20,12 +20,14 @@ editor:
 ```{r setup-et-import, message=FALSE, warning=FALSE}
 # Load libraries
 library(tidyverse)
+library(car)
 library(vegan)
 library(corrplot)
 library(lme4)
 library(broom)       # tidy() est utilisé dans le chapitre 2
 library(rcompanion)  # cramerV() est utilisé dans le chapitre 3
 library(patchwork)
+library(broom)
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
@@ -592,16 +594,15 @@ ggplot(data_pie, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = Modali
 
 On établit alors le modèle suivant : 
   
-$$
-  \text{logit}(p_i) = \beta_0 + \beta_1 FR_i + \beta_2 RR_i
-$$
+$$\text{logit}(p_i) = \beta_0 + \beta_1 \text{FR}_i + \sum_{k} \beta_{\text{RR}_k} \cdot \mathbb{I}(\text{RR}_i = k)$$
   où :
   
-- $p_i$ correspond à la probabilité que l'individu $i$ soit présent ;
+- $p_i$ correspond à la probabilité de présence sur le site $i$ ;
 - $\beta_0$ est l'ordonnée à l'origine du modèle ;
-- $\beta_1$ représente l'effet de la variable $FR$ sur le log-odds de présence ;
-- $\beta_2$ représente l'effet de la variable $RR$ sur le log-odds de présence ;
-- $FR_i$ et $RR_i$ sont les valeurs observées de ces deux variables pour l'individu $i$.
+- $\beta_1$ représente l'effet de l'intensité de la pêche ($\text{FR}$) sur le log-odds de présence ;
+- $\beta_{\text{RR}_k}$ représente l'effet spécifique de la classe $k$ de la distance aux routes ($\text{RR}$) par rapport à la classe de référence ;
+- $\mathbb{I}(\text{RR}_i = k)$ est une fonction indicatrice qui vaut 1 si l'observation $i$ appartient à la classe $k$ et 0 sinon ;
+- $\text{FR}_i$ est la valeur observée de l'intensité de la pêche pour l'individu $i$.
 
 ```{r effet-global-peche-route, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -636,7 +637,7 @@ grid_pred_fr = grid_pred_fr %>%
 p_fr = ggplot(grid_pred_fr, aes(x = FR, y = Probability)) +
   geom_line(linewidth = 1.1, color = "#2b5c8f") +
   geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, fill = "#2b5c8f", color = NA) +
-  annotate("text", x = Inf, y = Inf, label = "p = 0.00184 (**)", hjust = 1.1, vjust = 1.5, size = 3, fontface = "italic") +
+  annotate("text", x = Inf, y = Inf, label = "p = 0.0017 (**)", hjust = 1.1, vjust = 1.5, size = 3, fontface = "italic") +
   theme_minimal() +
   labs(title = "Effet de la pêche (FR)", x = "Intensité de la pêche (FR)", y = "Probabilité de présence")
 
@@ -656,7 +657,7 @@ grid_pred_rr = grid_pred_rr %>%
 p_rr = ggplot(grid_pred_rr, aes(x = RR, y = Probability)) +
   geom_point(size = 3, color = "#2b8f5c") +
   geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2, color = "#2b8f5c") +
-  annotate("text", x = Inf, y = Inf, label = "p = 0.231 (NS)", hjust = 1.1, vjust = 1.5, size = 3, fontface = "italic") +
+  annotate("text", x = Inf, y = Inf, label = "p = 0.5368 (NS)", hjust = 1.1, vjust = 1.5, size = 3, fontface = "italic") +
   theme_minimal() +
   labs(title = "Effet des routes (RR)", x = "Classes de distance aux routes (RR)", y = "Probabilité de présence")
 ```
@@ -670,7 +671,21 @@ p_rr = ggplot(grid_pred_rr, aes(x = RR, y = Probability)) +
 #| echo: false
 #| warning: false
 #| message: false
-knitr::kable(summary(model_GLM)$coefficients)
+
+knitr::kable(tidy(model_GLM), digits = 4)
+```
+
+</details>
+
+<details>
+<summary><strong>Test d'ANOVA (type II) évaluant l'effet global de la pêche (FR) et de la distance aux routes (RR)</strong></summary>
+```{r}
+#| label: tbl-anova-global
+#| tbl-cap: "Test d'ANOVA (type II) évaluant l'effet global de la pêche (FR) et de la distance aux routes (RR)"
+#| echo: false
+
+anova_res <- car::Anova(model_GLM, type = "II", test = "Wald")
+knitr::kable(as.data.frame(anova_res), digits = 4)
 ```
 
 </details>
@@ -685,14 +700,12 @@ p_fr + p_rr
 ```
 Le modèle logistique ajusté s'écrit :
   
-$$
-  \text{logit}(p_i) = -0.39678 + 0.12983 \times FR_i + 0.02676 \times RR_i
-$$
+$$\text{logit}(p_i) = -0.4472 + 0.1313 \times \text{FR}_i + 0.1210 \times \text{RR}_{1,i} + 0.0597 \times \text{RR}_{2,i} + 0.2694 \times \text{RR}_{5,i} - 0.0667 \times \text{RR}_{9,i} + 0.4472 \times \text{RR}_{10,i}$$
   
 où le coefficient associé à $FR$ est significatif, tandis que celui associé à $RR$ est positif mais non significatif au seuil de 5 %.
 
 
-En conclusion, le modèle ne met pas en évidence d'effet significatif de la distance aux routes (RR) sur la probabilité de présence des amphibiens ($p = 0.231$) (@fig-effet-global-peche-route & @tbl-glm-resultats). En revanche, l'intensité de la pêche (FR) exerce une influence significative sur leur présence ($p = 0.00184$) (@fig-effet-global-peche-route & @tbl-glm-resultats), suggérant que cette pression anthropique locale joue un rôle important dans la distribution globale des amphibiens. 
+En conclusion, le modèle ne met pas en évidence d'effet global significatif de la distance aux routes ($\text{RR}$) sur la probabilité de présence des amphibiens ($p = 0.5368$), les différents coefficients associés aux classes de distance s'avérant non significatifs au seuil de 5 % (@fig-effet-global-peche-route , @tbl-glm-resultats & @tbl-anova-global). En revanche, l'intensité de la pêche ($\text{FR}$) exerce une influence positive et significative sur leur présence ($p = 0.0017$) (@fig-effet-global-peche-route , @tbl-glm-resultats & @tbl-anova-global), suggérant que cette pression anthropique locale joue un rôle important dans la distribution des amphibiens.
 
 
 #### GLM: PAul
