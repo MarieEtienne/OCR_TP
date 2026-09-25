@@ -7,6 +7,9 @@ editor:
   markdown:
     canonical: true
     wrap: 72
+execute:
+  warning: false
+  message: false
 ---
 
 # Les Odonates de Bretagne
@@ -14,14 +17,33 @@ editor:
 ## Comment les populations d’odonates varient-elles selon les zones biogéographiques ?
 
 ```{r}
+#| message: false
+#| warning: false
+
+require(vegan)
+require(ggplot2)
+require(tidyverse)
+require(ggdendro)
+require(ade4)
+require(factoextra)
+require(dplyr)
+require(GGally)
+require(reshape2)
 library(here)
+
+
 path = here("Odonate_4km_bretagne.csv")
 data = read.csv(path, sep = ";")
 
 
 length(unique(data$species))
 
-matrice_odo = read.csv(here("Matrice_Odonate.csv"), sep = ";" )
+matrice_odo = read.table(
+  here("Matrice_Odonate.csv"),
+  sep = ";",
+  header = T,
+  row.names = 1
+)
 
 
 ```
@@ -34,10 +56,130 @@ n'ont pas été détectées. Mais il existe des indices, estimateurs pour
 estimer la richesse réelle à partir d'échantillonage.
 
 Une des méthodes la plus connue, est l'estimateur Chao, developpé par
-Anne Chao [@Chao2013]
+Anne Chao [@Chao2013].
+
+Le principe de la méthode, est que les espèces rares (observées une
+seule fois ou deux fois dans l'échantillon) portent l'information sur
+les espèces non détectées. En effet, plus il y a d'espèces observées une
+seule fois ($s_n^1$, les singletons), plus il est probable qu'il existe
+encore des espèces totalement absentes de l'inventaire.
+
+L'estimateur de Chao1 s'écrit :
+
+$$\hat{S}_{Chao1} = S_{obs} + \frac{(s_n^1)^2}{2\,s_n^2}$$
+
+où $s_n^1$ est le nombre d'espèces observées une seule fois (singletons)
+et $s_n^2$ le nombre d'espèces observées exactement deux fois
+(doubletons) dans l'échantillon de taille $n$.
+
+Lorsque $s_n^2 = 0$, cette formule devient instable (division par zéro)
+; une version corrigée (biais réduit) est alors utilisée :
+
+$$\hat{S}_{Chao1} = S_{obs} + \frac{s_n^1 (s_n^1 - 1)}{2\,(s_n^2 + 1)}$$
+
+Cette correction évite la divergence de l'estimateur lorsque les
+doubletons sont rares ou absents, tout en restant cohérente avec la
+version non corrigée lorsque $s_n^2$ est grand.
+
+L'idée sous-jacente est donc la suivante : le nombre d'espèces
+manquantes $\hat{S}_{Chao1} - S_{obs}$ est approché par le rapport entre
+le carré du nombre de singletons et deux fois le nombre de doubletons,
+ce qui traduit l'intuition que la rareté observée (beaucoup de
+singletons, peu de doubletons) signale une sous-estimation
+potentiellement forte de la richesse réelle $S$.
 
 ```{r}
 
+
+data_mat_compl = ifelse(matrice_odo > 0, 1, 0)
+
+freq_sp = colSums(data_mat_compl)
+
+
+Chao1 = estimateR(freq_sp) ## Permet de mesurer la complétude à travers l'équation de Chao
+
+Chao1
+
+Completude  = Chao1[1] / Chao1[2] * 100
+print(paste0(
+  "La complétude du jeu de données total est de : ",
+  round(Completude, 0),
+  "%"
+))
+
+
+```
+
+```{r}
+library(ggplot2)
+
+# Courbe d'accumulation
+spec <- specaccum(data_mat_compl, method = "random", permutations = 999)
+
+# Récupérer les données dans un data.frame pour ggplot
+df_spec <- data.frame(
+  sites = spec$sites,
+  richness = spec$richness,
+  sd = spec$sd
+)
+
+# Estimation de Chao pour la ligne d'asymptote
+freq_sp <- colSums(data_mat_compl)
+Chao1 <- estimateR(freq_sp)
+S_chao <- Chao1[2]  # S.chao1
+
+ggplot(df_spec, aes(x = sites, y = richness)) +
+  geom_ribbon(aes(ymin = richness - sd, ymax = richness + sd),
+              fill = "lightgreen", alpha = 0.4) +
+  geom_line(col = "darkgreen", linewidth = 1) +
+  geom_hline(yintercept = S_chao, col = "red", linetype = "dashed", linewidth = 1) +
+  annotate("text", x = max(df_spec$sites) * 0.7, y = S_chao + 1,
+           label = paste0("Richesse estimée (Chao1) = ", round(S_chao, 1)),
+           col = "red") +
+  labs(
+    title = "Courbe d'accumulation d'espèces et complétude d'échantillonnage",
+    x = "Nombre de sites échantillonnés",
+    y = "Nombre d'espèces"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(panel.grid.minor = element_blank())
+```
+
+Cela nous donne l'estimation à l'échelle de la Bretagne, mais nous
+pouvons regarder à l'échelle de chaque massif. Et voir si il y a des
+différences d'échantillonage entre les différents massifs.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+
+data_eco = read.table(here("Communauté_4km²_biogeo_ZH.csv"),
+                       sep = ";", header = T, fileEncoding = "latin3")
+
+df_all = data.frame()
+
+for (zone in unique(data_eco$Biogeo_max)) {
+  
+  sites_zone = data_eco$Site[data_eco$Biogeo_max == zone]
+  mat_zone = ifelse(matrice_odo[rownames(matrice_odo) %in% sites_zone, ] > 0, 1, 0)
+  
+  spec = specaccum(mat_zone, method = "random", permutations = 999)
+  
+  df_all = rbind(df_all, data.frame(
+    sites = spec$sites,
+    richness = spec$richness,
+    sd = spec$sd,
+    Zone = zone
+  ))
+}
+
+ggplot(df_all, aes(x = sites, y = richness)) +
+  geom_ribbon(aes(ymin = richness - sd, ymax = richness + sd), fill = "lightgreen", alpha = 0.4) +
+  geom_line(col = "darkgreen", linewidth = 1) +
+  facet_wrap(~ Zone, nrow = 1) +
+  labs(x = "Nombre de sites", y = "Nombre d'espèces",
+       title = "Courbes d'accumulation par zone biogéographique") +
+  theme_minimal(base_size = 12)
 
 
 ```
