@@ -381,7 +381,7 @@ knitr::kable(
 ```
 
 ### Corrélations
-Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0.60$.
+Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0,70$.
 
 ```{r chapitre3-dataprep-c, echo = FALSE, warning = FALSE, message = FALSE}
 # SEPARATION DU JEU DE DONNEES
@@ -412,7 +412,7 @@ cramer_matrix <- as.matrix(cramer_matrix)
 ```
 
 #### Corrélations et sélection des variables numériques
-La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence une seule paire dépassant le seuil $|r| > 0.70$ : RR–BR. Une seule de ces deux variables a donc été conservée (@tbl-chp3-cor-num). Toutes les autres corrélations restent inférieures à $0.70$ en valeur absolue.
+La matrice de corrélation de Spearman (@fig-chp3-cor-spearman) met en évidence une seule paire dépassant le seuil $|r| > 0,70$ : RR–BR. Une seule de ces deux variables a donc été conservée (@tbl-chp3-cor-num). Toutes les autres corrélations restent inférieures à $0,70$ en valeur absolue.
 
 ```{r}
 #| label: fig-chp3-cor-spearman
@@ -440,7 +440,7 @@ knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
 #### Corrélations et sélection des variables catégorielles
-La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0.70$ : MR–CR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
+La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0,70$ : MR–CR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
 ```{r}
 #| label: fig-chp3-cor-cramer
