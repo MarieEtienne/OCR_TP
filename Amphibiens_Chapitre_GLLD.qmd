@@ -485,20 +485,14 @@ data_var_clean <- cbind(data_num_ord_clean, data_cat_clean)
 ```
 
 ## Création des modèles pour étudier le jeu de donnée
-### Analyse multivarié à deux tableaux
-Avec ce même jeu de données, on se demande quelles variables structurent
-la composition et la diversité globale de la communauté d'amphibiens.
-Pour cela, une approche appropriée est l'analyse multivariée.
+### Analyse multivarié à deux tableaux: structuration de la composition de la communauté d'amphibiens
+Avec ce même jeu de données, on se demande **quelles variables structurent la composition et la diversité globale de la communauté d'amphibiens**. Pour cela, une approche appropriée est l'analyse multivariée.💡^[Les analyses multivariées permettent d'analyser simultanément de multiples variables afin de découvrir des modèles, des structures et des relations complexes qui ne peuvent être mis en évidence par l'analyse isolée de chaque variable (@amphi_wikipedia_multivariate_statistics).]
 
-Les analyses multivariées permettent d'analyser simultanément de multiples variables afin de découvrir des modèles, des structures et des relations complexes qui ne peuvent être mis en évidence par l'analyse isolée de chaque variable (@amphi_wikipedia_multivariate_statistics).
-  
-Dans ce cas, ayant un jeu de données avec des informations sur la
-présence/absence des amphibiens et des variables catégorielles et
-numériques sur le contexte environnemental, une analyse canonique des
-correspondances (CCA) devrait être réalisée.
+Dans ce cas, ayant un jeu de données avec des informations sur la présence/absence des amphibiens et des variables catégorielles et numériques sur le contexte environnemental, une analyse canonique des correspondances (CCA) a été retenue 💡^[Cette méthode permet de contraindre l'ordination de la communauté d'amphibiens par un ensemble de variables explicatives, et ainsi d'identifier lesquelles structurent le plus la composition observée.].
 
-```{r chapitre3-cca, echo = FALSE, warning = FALSE, message = FALSE}
-set.seed(123)
+#### Construction du modèle
+```{r cca-graph, echo = FALSE, warning = FALSE, message = FALSE}
+set.seed(1234)
 
 # vegan::cca ne tolère pas les NA : on garde les sites complets
 complets <- complete.cases(data_var_clean)
@@ -508,18 +502,123 @@ data_var_cca   <- droplevels(data_var_clean[complets, ])
 # 1. Analyse canonique des correspondances (CCA) avec les variables retenues
 cca_model <- cca(data_amphi_cca ~ ., data = data_var_cca)
 
-#2. Test ANOVA
+# 2. Test global de significativité du modèle
+set.seed(1234)
 anova_cca <- anova(cca_model)
-anova_cca <- anova(cca_model, by = 'term')
+
+# 3. Test par axe : quels axes contiennent une information significative ?
+set.seed(1234)
+anova_axis_cca <- anova(cca_model, by = 'axis')
+evals_sig <- summary(cca_model)$cont$importance
+percent_sig <- round(evals_sig[2, 1:6] * 100, 2)
+
+# 4. Test par variable : quelles variables contribuent significativement ?
+set.seed(1234)
+anova_term_cca <- anova(cca_model, by = 'term')
+terms_sig <- rownames(anova_term_cca)[anova_term_cca$"Pr(>F)" <= 0.05]
+terms_sig <- terms_sig[!is.na(terms_sig)]
 ```
-Le modèle explique `r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)`% de la variance totale. Nos variables explicatives expliquent `r round((cca_model$CCA$eig[1] / cca_model$CCA$tot.chi) * 100,1)`% de la variance sur le premier axe, et `r round((cca_model$CCA$eig[2] / cca_model$CCA$tot.chi) * 100, 1)`% sur le deuxième.
 
-Pour poursuivre cette analyse, un test ANOVA par permutation (999) a été réalisé afin de tester la significativité de l'inertie contrainte par le modèle. Le test révèle que nos variables explicatives influencent significativement la présence-absence de nos  amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1]`). Au moment d'évaluer l'effet des variables par terme nous nos retrouvons avec $TR$, et $OR$.
+Le modèle canonique de correspondances a été construit à partir de l'ensemble des variables explicatives retenues :
 
-<A COMPLETER!>
+```{r}
+#| echo: false
+#| results: asis
+
+format_var_latex <- function(v) {
+  m <- regmatches(v, regexec("^([A-Za-z]+)([0-9]*)$", v))[[1]]
+  if (length(m) == 3 && nzchar(m[3])) {
+    paste0("\\text{", m[2], "}_{", m[3], "}")
+  } else {
+    paste0("\\text{", v, "}")
+  }
+}
+
+vars <- attr(terms(cca_model), "term.labels")
+form_latex <- paste(sapply(vars, format_var_latex), collapse = " + ")
+
+cat(paste0("$$Y_{\\text{amphibiens}} \\sim ", form_latex, "$$"))
+```
+
+#### Significativité du modèle
+Ce modèle explique `r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)`% de la variance totale de la composition en amphibiens. Parmi cette part expliquée, nos variables environnementales rendent compte de `r round((cca_model$CCA$eig[1] / cca_model$CCA$tot.chi) * 100, 1)`% de la variance sur le premier axe (CCA1) et de `r round((cca_model$CCA$eig[2] / cca_model$CCA$tot.chi) * 100, 1)`% sur le deuxième (CCA2).
+
+Afin de valider la robustesse de ce modèle, un test ANOVA par permutation (999 permutations) a d'abord été réalisé pour évaluer si l'inertie contrainte par l'ensemble des variables était globalement significative. Ce test révèle que nos variables explicatives influencent significativement la composition en amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1]`).
+
+Ce résultat global ne précisant pas *quelles* variables sont réellement responsables de cet effet, un second test ANOVA a été réalisé, cette fois variable par variable (`by = 'term'`). Il montre que `r length(terms_sig)` variables sur l'ensemble testé sont significatives (p <= 0,05) : `r paste(terms_sig, collapse = " et ")`. Ce sont donc ces variables qui seront retenues pour l'interprétation biologique détaillée ci-après.
+
+Enfin, un troisième test (`by = 'axis'`) a permis de vérifier la significativité de chaque axe d'ordination pris individuellement. Les six premiers axes ressortent tous comme significatifs (p < 0,05). Toutefois, dans un choix de parcimonie, seuls les deux premiers axes ont été retenus pour l'interprétation, ceux-ci concentrant à eux seuls la majorité de la variation expliquée par les variables environnementales, soit `r sum(percent_sig[1:2])`% au total (@fig-cca-interties).
+
+````{r}
+#| label: fig-cca-interties
+#| fig-cap: "Histogramme des valeurs propres representants les inerties des premiers axes étudiés"
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+inertie_pourcentage <- (cca_model$CA$eig / sum(cca_model$CA$eig)) * 100
+barplot(inertie_pourcentage[1:10], 
+        main = "Inertie des axes CCA", 
+        ylab = "% d'inertie", 
+        xlab = "Axes",
+        col = "steelblue")
+````
+
+#### Interprétation graphique
+Sur la base de ces deux axes retenus, nous avons représenté graphiquement les espèces et les variables explicatives significatives afin d'en interpréter les associations écologiques (@fig-cca-graph-final). Cette analyse reste descriptive et relative à la position des points d'ordination 💡^[ Les variables catégoriques sont interprétées à partir de la distance entre le centroïde de chaque sous-catégorie et celui des espèces : plus les deux centroïdes sont proches, plus l'association écologique supposée entre l'espèce et cette modalité est forte. Les variables numériques, en revanche, sont représentées par un vecteur et doivent être interprétées comme un gradient : la position d'une espèce le long de ce vecteur indique son association aux valeurs faibles ou élevées de la variable, indépendamment de toute notion de distance.]. Pour une confirmation statistique de ces associations, voir la @sec-glm.
+
+```{r}
+#| label: fig-cca-graph-final
+#| fig-cap: "Graphiques d'ordination de la CCA (espèces et variables) sur les premiers axes."
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+
+{
+  par(mfrow = c(1, 2))
+  
+  # 1. Calcul des limites unifiées
+  factor_terms      <- terms_sig[sapply(terms_sig, function(v) is.factor(data_var_cca[[v]]))]
+  continuous_terms  <- setdiff(terms_sig, factor_terms)
+  bp_scores <- scores(cca_model, display = "bp", scaling = 2)
+  cn_scores <- scores(cca_model, display = "cn", scaling = 2)
+  bp_sel <- bp_scores[rownames(bp_scores) %in% continuous_terms, , drop = FALSE]
+  cn_sel <- cn_scores[sapply(rownames(cn_scores), function(rn) any(startsWith(rn, factor_terms))), , drop = FALSE]
+  lim <- max(abs(rbind(bp_sel, cn_sel))) * 1.2
+  
+  # 2. Panneau Espèces
+  plot(cca_model, display = "species", scaling = 2, main = "Espèces",
+       xlim = c(-lim, lim), ylim = c(-lim, lim))
+  
+  # 3. Panneau Variables
+  plot(cca_model, type = "n", scaling = 2, main = "Variables",
+       xlim = c(-lim, lim), ylim = c(-lim, lim))
+  abline(h = 0, v = 0, col = "grey80", lty = 2)
+  arrows(0, 0, bp_sel[, 1], bp_sel[, 2], length = 0.1, col = "red", lwd = 2)
+  text(bp_sel[, , drop = FALSE], labels = rownames(bp_sel), col = "red", pos = 4, font = 2)
+  points(cn_sel[, , drop = FALSE], pch = 17, col = "blue")
+  text(cn_sel[, , drop = FALSE], labels = rownames(cn_sel), col = "blue", pos = 4, cex = 0.8)
+}
+```
 
 
-### Modele linéaire généralisé
+Concernant la variable catégorique $TR$ (type de réservoir d'eau) :
+
+* `TR7` → associée au *Triton crêté*
+* `TR15` → associée aux *Brown.frogs* et au *Common.toad*
+* `TR2` → aucune espèce associée, trop éloignée des centroïdes
+* `TR1`, `TR5`, `TR11` → aucune association discutée, sous-catégories très proches de l'origine (contribution négligeable au modèle), donc leur position n'est pas interprétable de façon fiable
+
+Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux aires non développées) :
+
+* Valeurs élevées de OR → associées au *Triton crêté*, dont la projection sur ce gradient est nettement la plus forte
+* Projections positives mais modérées, traduisant une association plus faible aux valeurs élevées de OR → *Tree.frog*, *Fire.bellied.toad*, *Common.newt*
+* Projection proche de zéro → *Brown.frogs*, peu associée à ce gradient
+* Projections négatives, associées aux valeurs basses de OR → *Common.toad*, *Green.frogs* (cette dernière étant l'espèce la plus fortement associée à ce pôle)
+
+#### Conclusion CCA
+En conclusion....
+
+### Modele linéaire généralisé {#sec-glm}
 
 
 #### Analyse de l'influence des activités humaines sur la présence des amphibiens
