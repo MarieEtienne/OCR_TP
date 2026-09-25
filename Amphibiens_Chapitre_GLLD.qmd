@@ -490,9 +490,9 @@ Avec ce même jeu de données, on se demande quelles variables structurent
 la composition et la diversité globale de la communauté d'amphibiens.
 Pour cela, une approche appropriée est l'analyse multivariée.
 
-Les analyses multivariées permettent de... <!-- À COMPLÉTER -->
+Les analyses multivariées permettent d'analyser simultanément de multiples variables afin de découvrir des modèles, des structures et des relations complexes qui ne peuvent être mis en évidence par l'analyse isolée de chaque variable (@amphi_wikipedia_multivariate_statistics).
   
-  Dans ce cas, ayant un jeu de données avec des informations sur la
+Dans ce cas, ayant un jeu de données avec des informations sur la
 présence/absence des amphibiens et des variables catégorielles et
 numériques sur le contexte environnemental, une analyse canonique des
 correspondances (CCA) devrait être réalisée.
@@ -501,22 +501,23 @@ correspondances (CCA) devrait être réalisée.
 set.seed(123)
 
 # vegan::cca ne tolère pas les NA : on garde les sites complets
-complets <- complete.cases(data_var_clean_cca)
+complets <- complete.cases(data_var_clean)
 data_amphi_cca <- data_amphi_clean[complets, ]
-data_var_cca   <- droplevels(data_var_clean_cca[complets, ])
+data_var_cca   <- droplevels(data_var_clean[complets, ])
 
 # 1. Analyse canonique des correspondances (CCA) avec les variables retenues
 cca_model <- cca(data_amphi_cca ~ ., data = data_var_cca)
 
-# Résumé du modèle (valeurs propres, variance expliquée, scores)
-summary(cca_model)
-
-# Test de significativité globale du modèle
-anova(cca_model, permutations = 999)
-
-# Test de significativité de chaque variable
-anova(cca_model, by = "term", permutations = 999)
+#2. Test ANOVA
+anova(cca_model)
+anova(cca_model, by = 'term')
 ```
+Le modèle explique `r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)`% de la variance totale. Nos variables explicatives expliquent `r round((cca_model$CCA$eig[1] / cca_model$CCA$tot.chi) * 100,1)`% de la variance sur le premier axe, et `r round((cca_model$CCA$eig[2] / cca_model$CCA$tot.chi) * 100, 1)`% sur le deuxième.
+
+Pour poursuivre cette analyse, un test ANOVA par permutation (999) a été réalisé afin de tester la significativité de l'inertie contrainte par le modèle. Le test révèle que nos variables explicatives influencent significativement la présence-absence de nos  amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1]`). Au moment d'évaluer l'effet des variables par terme nous nos retrouvons avec $TR$, et $OR$.
+
+<A COMPLETER!>
+
 
 ### Modele linéaire généralisé
 
