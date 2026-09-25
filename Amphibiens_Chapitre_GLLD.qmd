@@ -621,43 +621,44 @@ data_long = data %>%
 
 model_GLM = glm(Presence ~ (FR + RR) , data = data_long, family = binomial)
 
-grid_pred_fr <- expand.grid(
+grid_pred_fr = expand.grid(
   FR = seq(min(data_long$FR, na.rm = TRUE), max(data_long$FR, na.rm = TRUE), length.out = 100),
-  RR = mean(data_long$RR, na.rm = TRUE)
+  RR = levels(data_long$RR)[1]  
 )
-pred_fr <- predict(model_GLM, newdata = grid_pred_fr, type = "link", se.fit = TRUE)
-grid_pred_fr <- grid_pred_fr %>%
+pred_fr = predict(model_GLM, newdata = grid_pred_fr, type = "link", se.fit = TRUE)
+grid_pred_fr = grid_pred_fr %>%
   mutate(
     Probability = 1 / (1 + exp(-pred_fr$fit)),
     lower = 1 / (1 + exp(-(pred_fr$fit - 1.96 * pred_fr$se.fit))),
     upper = 1 / (1 + exp(-(pred_fr$fit + 1.96 * pred_fr$se.fit)))
   )
 
-p_fr <- ggplot(grid_pred_fr, aes(x = FR, y = Probability)) +
+p_fr = ggplot(grid_pred_fr, aes(x = FR, y = Probability)) +
   geom_line(linewidth = 1.1, color = "#2b5c8f") +
   geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, fill = "#2b5c8f", color = NA) +
   annotate("text", x = Inf, y = Inf, label = "p = 0.00184 (**)", hjust = 1.1, vjust = 1.5, size = 3, fontface = "italic") +
   theme_minimal() +
   labs(title = "Effet de la pêche (FR)", x = "Intensité de la pêche (FR)", y = "Probabilité de présence")
 
-grid_pred_rr <- expand.grid(
-  RR = seq(min(data_long$RR, na.rm = TRUE), max(data_long$RR, na.rm = TRUE), length.out = 100),
-  FR = mean(data_long$FR, na.rm = TRUE)
+grid_pred_rr = expand.grid(
+  RR = levels(data_long$RR),                  
+  FR = mean(data_long$FR, na.rm = TRUE)     
 )
-pred_rr <- predict(model_GLM, newdata = grid_pred_rr, type = "link", se.fit = TRUE)
-grid_pred_rr <- grid_pred_rr %>%
+
+pred_rr = predict(model_GLM, newdata = grid_pred_rr, type = "link", se.fit = TRUE)
+grid_pred_rr = grid_pred_rr %>%
   mutate(
     Probability = 1 / (1 + exp(-pred_rr$fit)),
     lower = 1 / (1 + exp(-(pred_rr$fit - 1.96 * pred_rr$se.fit))),
     upper = 1 / (1 + exp(-(pred_rr$fit + 1.96 * pred_rr$se.fit)))
   )
 
-p_rr <- ggplot(grid_pred_rr, aes(x = RR, y = Probability)) +
-  geom_line(linewidth = 1.1, color = "#2b8f5c") +
-  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, fill = "#2b8f5c", color = NA) +
+p_rr = ggplot(grid_pred_rr, aes(x = RR, y = Probability)) +
+  geom_point(size = 3, color = "#2b8f5c") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2, color = "#2b8f5c") +
   annotate("text", x = Inf, y = Inf, label = "p = 0.231 (NS)", hjust = 1.1, vjust = 1.5, size = 3, fontface = "italic") +
   theme_minimal() +
-  labs(title = "Effet des routes (RR)", x = "Distance / Intensité des routes (RR)", y = "Probabilité de présence")
+  labs(title = "Effet des routes (RR)", x = "Classes de distance aux routes (RR)", y = "Probabilité de présence")
 ```
 
 <details>
