@@ -509,8 +509,8 @@ data_var_cca   <- droplevels(data_var_clean[complets, ])
 cca_model <- cca(data_amphi_cca ~ ., data = data_var_cca)
 
 #2. Test ANOVA
-anova(cca_model)
-anova(cca_model, by = 'term')
+anova_cca <- anova(cca_model)
+anova_cca <- anova(cca_model, by = 'term')
 ```
 Le modèle explique `r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)`% de la variance totale. Nos variables explicatives expliquent `r round((cca_model$CCA$eig[1] / cca_model$CCA$tot.chi) * 100,1)`% de la variance sur le premier axe, et `r round((cca_model$CCA$eig[2] / cca_model$CCA$tot.chi) * 100, 1)`% sur le deuxième.
 
