@@ -92,6 +92,7 @@ dans ou près des plans d'eau, et les mâles chantent au printemps et en été.
 <!-- ===== FICHE : GRENOUILLES BRUNES ===== -->
 <div class="esp-fiche" id="brown-frogs">
 <div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:30px;">
+<<<<<<< HEAD
 <div>
 <img src="images/grenouille_rousse_femelle.jpg" alt="Grenouille rousse">
 <p class="credit">
@@ -102,6 +103,15 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 </div>
 <div>
 <h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
+=======
+  <div>
+    <img src="images/grenouille_rousse_femelle.jpg", alt="Grenouille rousse">
+    <p class="credit">
+      Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://fr.wikipedia.org/wiki/Grenouille_rousse">Lien</a>
+    </p>
+  </div>
 
 La grenouille rousse est une espèce commune des milieux humides,
 des prairies et des forêts. Son corps est trapu et sa couleur varie
@@ -112,6 +122,7 @@ du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
 </div>
 
 <div style="display:flex; gap:20px; align-items:flex-start;">
+<<<<<<< HEAD
 <div>
 <img src="images/grenouille_agile.jpg" alt="Grenouille agile">
 <p class="credit">
@@ -122,6 +133,15 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 </div>
 <div>
 <h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
+=======
+  <div>
+    <img src="images/grenouille_agile.jpg", alt="Grenouille agile">
+    <p class="credit">
+      Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://fr.wikipedia.org/wiki/Rana_dalmatina">Lien</a>
+    </p>
+  </div>
 
 Plus élancée que la grenouille rousse, la grenouille agile possède
 de longues pattes arrière qui lui permettent de réaliser de grands sauts.
@@ -131,6 +151,7 @@ Elle fréquente surtout les bois et les lisières forestières.
 </div>
 </div>
 
+<<<<<<< HEAD
 <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
@@ -150,6 +171,23 @@ d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones
 humides (étangs, mares, sous-bois).
 
 </div>
+=======
+
+  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
+<div class="esp-fiche" markdown="1" id="common-toad">
+<div style="display:flex; gap:20px; align-items:flex-start;">
+  <div>
+    <img src="images/crapaud_commun.jpg" alt="Crapaud commun">
+    <p class="credit">
+      Par <a href="/https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://fr.wikipedia.org/wiki/Crapaud_commun">Lien</a>
+    </p>
+  </div>
+  <div>
+      <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
+      <p>Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).</p>
+  </div>
 </div>
 </div>
 
@@ -252,7 +290,7 @@ Texte à compléter...
 ## Analyse de la diversité des communautés d'amphibiens
 ### Diversité alpha : abondance et richesse spécifique
 La diversité alpha décrit la diversité locale des communautés en termes
-de richesse spécifique. Afin de comparer les communautés d'amphibiens
+de richesse spécifique [@xia2023alpha]. Afin de comparer les communautés d'amphibiens
 associées aux autoroutes A1 et S52, une analyse de la diversité alpha a
 été réalisée à partir des données de présence-absence des espèces (@fig-chp1-diversité_alpha).
 
@@ -319,10 +357,10 @@ ggplot(diversite_alpha_resume,
 
 La répartition des observations met en évidence des abondances plus élevées le long de l'autoroute S52 que sur l'autoroute A1 pour l'ensemble des espèces étudiées (@fig-chp1-diversité_alpha). Les grenouilles brunes constituent le taxon le plus fréquemment observé sur les deux sites, tandis que le triton crêté apparaît comme l'espèce la plus rare.
 
-Malgré ces différences quantitatives, le classement relatif des espèces reste globalement similaire entre les deux autoroutes. Cette tendance suggère que les communautés présentes le long de l'A1 et de la S52 partagent une composition spécifique comparable, mais que les populations semblent plus abondantes sur la S52. Plusieurs facteurs peuvent expliquer ce résultat, notamment une qualité d'habitat plus favorable, une meilleure connectivité écologique ou encore des différences dans les conditions d'échantillonnage. Des analyses statistiques complémentaires seraient toutefois nécessaires afin de déterminer si ces écarts sont significatifs.
+Malgré ces différences quantitatives, le classement relatif des espèces reste globalement similaire entre les deux autoroutes. Cette tendance suggère que les communautés présentes le long de l'A1 et de la S52 partagent une composition spécifique comparable, mais que les populations semblent plus abondantes sur la S52. Plusieurs facteurs peuvent expliquer ce résultat, notamment une qualité d'habitat plus favorable, une meilleure connectivité écologique [@clauzel2024connectivity] ou encore des différences dans les conditions d'échantillonnage. Des analyses statistiques complémentaires seraient toutefois nécessaires afin de déterminer si ces écarts sont significatifs.
 
 ### Diversité bêta : similitude des communautés entre autoroutes
-Si la diversité alpha permet de caractériser les communautés localement, elle ne renseigne pas sur le degré de similitude entre les assemblages observés. Afin d'évaluer les différences de composition spécifique entre les relevés effectués sur les deux autoroutes, une analyse de la diversité bêta a été réalisée à partir des distances de Jaccard calculées sur les données de présence-absence (@fig-chp1-diversité_beta).
+Si la diversité alpha permet de caractériser les communautés localement, elle ne renseigne pas sur le degré de similitude entre les assemblages observés. Afin d'évaluer les différences de composition spécifique entre les relevés effectués sur les deux autoroutes, une analyse de la diversité bêta [@chen2010beta] a été réalisée à partir des distances de Jaccard calculées sur les données de présence-absence (@fig-chp1-diversité_beta).
 
 ```{r diversité beta, echo=FALSE, message=FALSE, warning=FALSE, results='hide',fig.show='asis'}
 especes <- diversite_alpha[, -1] # colonnes espèces
@@ -362,7 +400,7 @@ values = c(
 )
 ```
 
-L'ordination NMDS obtenue à partir des distances de Jaccard montre un important chevauchement des relevés associés aux autoroutes A1 et S52 (@fig-chp1-diversité_beta). Les points représentant les deux groupes ne forment pas de clusters distincts, ce qui suggère une forte similarité dans la composition des communautés d'amphibiens.
+L'ordination NMDS [@souza2025nmds] obtenue à partir des distances de Jaccard montre un important chevauchement des relevés associés aux autoroutes A1 et S52 (@fig-chp1-diversité_beta). Les points représentant les deux groupes ne forment pas de clusters distincts, ce qui suggère une forte similarité dans la composition des communautés d'amphibiens.
 
 Ainsi, bien que la diversité alpha ait mis en évidence des différences d'abondance entre les deux autoroutes, la diversité bêta indique que les espèces présentes sont globalement les mêmes. Les variations observées semblent donc principalement liées aux effectifs des espèces plutôt qu'à une modification de la composition spécifique des communautés.
 
