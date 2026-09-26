@@ -937,72 +937,67 @@ par(mfrow = c(1, 1))
 
 ##### Analyse GLM pour chaque espèce 
 
-```{r chapitre4-mod1, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre4-mod, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille verte 
-  modele_GF <- glm(
-  Green.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+modele_GF <- glm(
+  Green.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
 )
-summary(modele_GF)
-```
-
-```{r chapitre4-mod2, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille rousse 
 modele_BF <- glm(
-  Brown.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Brown.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
 )
-summary(modele_BF)
-```
-
-```{r chapitre4-mod3, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Crapaud commun
 modele_CT <- glm(
-  Common.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Common.toad ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
 )
-summary(modele_CT)
-```
-
-```{r chapitre4-mod4, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Crapaud sonneur
 modele_FBT <- glm(
-  Fire.bellied.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Fire.bellied.toad ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
 )
-summary(modele_FBT)
-```
-
-```{r chapitre4-mod5, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille arboricole
 modele_TF <- glm(
-  Tree.frog ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Tree.frog ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
 )
-summary(modele_TF)
-```
-
-```{r chapitre4-mod6, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Triton commun
 modele_CN <- glm(
-  Common.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Common.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
 )
-summary(modele_CN)
-```
-
-```{r chapitre4-mod7, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Triton crêté
 modele_GCT <- glm(
-  Great.crested.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Great.crested.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
   data = dataClean, 
   family = binomial
 )
-summary(modele_GCT)
+
+# Regroupement des modèles 
+modeles_especes <- list(
+  "Grenouille verte"      = modele_GF,
+  "Grenouille rousse"     = modele_BF,
+  "Crapaud commun"        = modele_CT,
+  "Crapaud sonneur"       = modele_FBT,
+  "Grenouille arboricole" = modele_TF,
+  "Triton commun"         = modele_CN,
+  "Triton crêté"          = modele_GCT
+)
+
+# Modèle summary 
+modelsummary(
+  modeles_especes,
+  stars = TRUE,         
+  exponentiate = FALSE,  
+  gof_omit = "IC|Log"    
+)
+
 ```
