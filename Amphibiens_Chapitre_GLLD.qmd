@@ -869,7 +869,7 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 
 #########
 
-## Chapitre 4
+#### Chapitre 4
 
 ```{r chapitre4-cor, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -889,9 +889,9 @@ dataClean <- data %>%
 
 ```
 
-# Visualisation des données 
+##### Visualisation des données 
 
-Visualisation des ratios de présences/absences au sein de chaque route préalable à l'analyse GLM. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces. Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
+Préalablement à l'analyse GLM des occurences de chaque espèce, une visualisation des ratios de présence/absence selon les routes a été effectué. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces. Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
 
 ```{r chapitre4-mosaic, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -935,9 +935,9 @@ par(mfrow = c(1, 1))
 
 ```
 
-# Analyse GLM pour chaque espèce 
+##### Analyse GLM pour chaque espèce 
 
-```{r chapitre4-mod, echo = FALSE, warning = FALSE, message = FALSE}
+```{r chapitre4-mod1, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille verte 
   modele_GF <- glm(
   Green.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
@@ -945,7 +945,9 @@ par(mfrow = c(1, 1))
   family = binomial
 )
 summary(modele_GF)
+```
 
+```{r chapitre4-mod2, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille rousse 
 modele_BF <- glm(
   Brown.frogs ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
@@ -953,7 +955,9 @@ modele_BF <- glm(
   family = binomial
 )
 summary(modele_BF)
+```
 
+```{r chapitre4-mod3, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Crapaud commun
 modele_CT <- glm(
   Common.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
@@ -961,7 +965,9 @@ modele_CT <- glm(
   family = binomial
 )
 summary(modele_CT)
+```
 
+```{r chapitre4-mod4, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Crapaud sonneur
 modele_FBT <- glm(
   Fire.bellied.toad ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
@@ -969,7 +975,9 @@ modele_FBT <- glm(
   family = binomial
 )
 summary(modele_FBT)
+```
 
+```{r chapitre4-mod5, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille arboricole
 modele_TF <- glm(
   Tree.frog ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
@@ -977,7 +985,9 @@ modele_TF <- glm(
   family = binomial
 )
 summary(modele_TF)
+```
 
+```{r chapitre4-mod6, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Triton commun
 modele_CN <- glm(
   Common.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
@@ -985,7 +995,9 @@ modele_CN <- glm(
   family = binomial
 )
 summary(modele_CN)
+```
 
+```{r chapitre4-mod7, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Triton crêté
 modele_GCT <- glm(
   Great.crested.newt ~  Motorway+SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
