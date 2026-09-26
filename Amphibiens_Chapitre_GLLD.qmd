@@ -51,10 +51,11 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
   .esp-fiche .credit { font-size: 0.7rem; color: #777; margin-top: 0.3rem; }
   @media (max-width: 700px) { .esp-fiche.actif { flex-direction: column; } .esp-fiche img { width: 100%; max-width: none; } }
 </style>
+```
 
 <div class="esp-menu">
-  <label for="choix-espece"><strong>Choisissez une espèce :</strong></label><br>
-  <select id="choix-espece">
+<label for="choix-espece"><strong>Choisissez une espèce :</strong></label><br>
+<select id="choix-espece">
     <option value="">-- Sélectionner --</option>
     <option value="green-frogs">Grenouille verte (Green frogs)</option>
     <option value="brown-frogs">Grenouille rousse (Brown frogs)</option>
@@ -63,165 +64,184 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
     <option value="tree-frog">Rainette arboricole (Tree frog)</option>
     <option value="common-newt">Triton commun (Common newt)</option>
     <option value="great-crested-newt">Triton crêté (Great crested newt)</option>
-  </select>
+</select>
 
-  <!-- ===== FICHE : GRENOUILLE VERTE (exemple) ===== -->
+<!-- ===== FICHE : GRENOUILLE VERTE ===== -->
 <div class="esp-fiche" id="green-frogs">
 <div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/Male_Green_Frog_Hunterdon_County_NJ.jpg", alt="Grenouille verte">
-    <p class="credit">
-      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-    </p>
-  </div>
-  <div>
-    <h3>Grenouille verte <em>(Pelophylax spp.)</em></h3>
-    <p>Amphibien très aquatique, de 6 à 12 cm, au dos vert à brun marqué de taches
-    sombres, souvent avec une ligne claire dorsale. On la trouve toute l'année
-    dans ou près des plans d'eau, et les mâles chantent au printemps et en été.</p>
-  </div>
+<div>
+<img src="images/Male_Green_Frog_Hunterdon_County_NJ.jpg" alt="Grenouille verte">
+<p class="credit">
+Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+</p>
+</div>
+<div>
+<h3>Grenouille verte <em>(Pelophylax spp.)</em></h3>
+
+Amphibien très aquatique, de 6 à 12 cm, au dos vert à brun marqué de taches
+sombres, souvent avec une ligne claire dorsale. On la trouve toute l'année
+dans ou près des plans d'eau, et les mâles chantent au printemps et en été.
+[@amphi_wikipedia_multivariate_statistics]
+
+</div>
 </div>
 </div>
 
-  <!-- ===== FICHE : GRENOUILLES BRUNES ===== -->
+<!-- ===== FICHE : GRENOUILLES BRUNES ===== -->
 <div class="esp-fiche" id="brown-frogs">
 <div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:30px;">
-  <div>
-    <img src="images/grenouille_rousse_femelle.jpg", alt="Grenouille rousse">
-    <p class="credit">
-      Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-    </p>
-  </div>
+<div>
+<img src="images/grenouille_rousse_femelle.jpg" alt="Grenouille rousse">
+<p class="credit">
+Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+</p>
+</div>
+<div>
+<h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
 
-  <div>
-    <h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
-    <p>La grenouille rousse est une espèce commune des milieux humides,
-      des prairies et des forêts. Son corps est trapu et sa couleur varie
-      du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.</p>
-  </div>
+La grenouille rousse est une espèce commune des milieux humides,
+des prairies et des forêts. Son corps est trapu et sa couleur varie
+du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
+[@amphi_brunes]
+
+</div>
 </div>
 
 <div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/grenouille_agile.jpg", alt="Grenouille agile">
-    <p class="credit">
-      Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-    </p>
-  </div>
+<div>
+<img src="images/grenouille_agile.jpg" alt="Grenouille agile">
+<p class="credit">
+Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+</p>
+</div>
+<div>
+<h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
 
-  <div>
-    <h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
-    <p>Plus élancée que la grenouille rousse, la grenouille agile possède
-      de longues pattes arrière qui lui permettent de réaliser de grands sauts.
-      Elle fréquente surtout les bois et les lisières forestières.</p>
-  </div>
+Plus élancée que la grenouille rousse, la grenouille agile possède
+de longues pattes arrière qui lui permettent de réaliser de grands sauts.
+Elle fréquente surtout les bois et les lisières forestières.
+
 </div>
 </div>
+</div>
 
-
-  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
+<!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/crapaud_commun.jpg" alt="Crapaud commun">
-    <p class="credit">
-      Par <a href="/https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-    </p>
-  </div>
-  <div>
-      <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
-      <p>Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).</p>
-  </div>
+<div>
+<img src="images/crapaud_commun.jpg" alt="Crapaud commun">
+<p class="credit">
+Par <a href="https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+</p>
+</div>
+<div>
+<h3>Crapaud commun <em>(Bufo bufo)</em></h3>
+
+Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement
+d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones
+humides (étangs, mares, sous-bois).
+
+</div>
 </div>
 </div>
 
-  <!-- ===== FICHE : CRAPAUD SONNEUR ===== -->
+<!-- ===== FICHE : CRAPAUD SONNEUR ===== -->
 <div class="esp-fiche" id="fire-bellied-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/Benny_Trapp_Bombina_bombina_Rotbauchunke.jpg" alt="Crapaud sonneur">
-    <p class="credit">
-      Par <a href="//commons.wikimedia.org/wiki/User:Benny_Trapp" title="User:Benny Trapp">Benny Trapp</a> —
-      Travail personnel, <a href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=18794203">Lien</a>
-    </p>
-  </div>
-  <div>
-      <h3>Crapaud sonneur <em>(Bombina spp.)</em></h3>
-      <p>Les Bombina spp., communément appelés les crapauds sonneurs,
-      forment un genre de petits amphibiens de la famille des Bombinatoridae.
-      Bien qu'on les appelle "crapauds", ils possèdent des caractéristiques biologiques
-      uniques qui les distinguent à la fois des vrais crapauds et des grenouilles.</p>
-  </div>
+<div>
+<img src="images/Benny_Trapp_Bombina_bombina_Rotbauchunke.jpg" alt="Crapaud sonneur">
+<p class="credit">
+Par <a href="//commons.wikimedia.org/wiki/User:Benny_Trapp" title="User:Benny Trapp">Benny Trapp</a> —
+Travail personnel, <a href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=18794203">Lien</a>
+</p>
+</div>
+<div>
+<h3>Crapaud sonneur <em>(Bombina spp.)</em></h3>
+
+Les Bombina spp., communément appelés les crapauds sonneurs,
+forment un genre de petits amphibiens de la famille des Bombinatoridae.
+Bien qu'on les appelle "crapauds", ils possèdent des caractéristiques biologiques
+uniques qui les distinguent à la fois des vrais crapauds et des grenouilles.
+
+</div>
 </div>
 </div>
 
-  <!-- ===== FICHE : RAINETTE ARBORICOLE ===== -->
+<!-- ===== FICHE : RAINETTE ARBORICOLE ===== -->
 <div class="esp-fiche" id="tree-frog">
 <div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/Laubfrosch_cropped.jpg" alt="Rainette arboricole">
-    <p class="credit">
-      Par <a href="https://de.wikipedia.org/wiki/User:Christoph_Leeb" class="extiw" title="de:User:Christoph Leeb">Christoph Leeb</a> —
-      Travail personnel, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=4347533">Lien</a>
-    </p>
-  </div>
-  <div>
-      <h3>Rainette arboricole <em>(Hyla arborea)</em></h3>
-      <p>Hyla arborea, communément appelée la Rainette verte, 
-      est sans doute l'un des amphibiens les plus élégants d'Europe. 
-      Contrairement aux grenouilles vertes classiques (Pelophylax), 
-      elle appartient à la famille des Hylidae. 
-      Elle possède un mode de vie presque exclusivement arboricole.</p>
-  </div>
+<div>
+<img src="images/Laubfrosch_cropped.jpg" alt="Rainette arboricole">
+<p class="credit">
+Par <a href="https://de.wikipedia.org/wiki/User:Christoph_Leeb" class="extiw" title="de:User:Christoph Leeb">Christoph Leeb</a> —
+Travail personnel, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=4347533">Lien</a>
+</p>
+</div>
+<div>
+<h3>Rainette arboricole <em>(Hyla arborea)</em></h3>
+
+Hyla arborea, communément appelée la Rainette verte,
+est sans doute l'un des amphibiens les plus élégants d'Europe.
+Contrairement aux grenouilles vertes classiques (Pelophylax),
+elle appartient à la famille des Hylidae.
+Elle possède un mode de vie presque exclusivement arboricole.
+
+</div>
 </div>
 </div>
 
-  <!-- ===== FICHE : TRITON COMMUN ===== -->
+<!-- ===== FICHE : TRITON COMMUN ===== -->
 <div class="esp-fiche" id="common-newt">
 <div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/common_newt.jpg" alt="Triton commun">
-    <p class="credit">
-      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-    </p>
-  </div>
-  <div>
-      <h3>Triton commun</h3>
-      <p>Texte à compléter...</p>
-  </div>
+<div>
+<img src="images/common_newt.jpg" alt="Triton commun">
+<p class="credit">
+Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+</p>
+</div>
+<div>
+<h3>Triton commun</h3>
+
+Texte à compléter... 
+
+</div>
 </div>
 </div>
 
-  <!-- ===== FICHE : TRITON CRÊTÉ ===== -->
+<!-- ===== FICHE : TRITON CRÊTÉ ===== -->
 <div class="esp-fiche" id="great-crested-newt">
 <div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/great_crested_newt.jpg" alt="Triton crêté">
-    <p class="credit">
-      Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-    </p>
-  </div>
-  <div>
-      <h3>Triton crêté</h3>
-      <p>Texte à compléter...</p>
-  </div>
+<div>
+<img src="images/great_crested_newt.jpg" alt="Triton crêté">
+<p class="credit">
+Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
+</p>
+</div>
+<div>
+<h3>Triton crêté</h3>
+
+Texte à compléter... 
+
+</div>
+</div>
 </div>
 </div>
 
+```{=html}
 <script>
   document.getElementById("choix-espece").addEventListener("change", function () {
     document.querySelectorAll(".esp-fiche").forEach(f => f.classList.remove("actif"));
@@ -229,7 +249,6 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
   });
 </script>
 ```
-
 ## Analyse de la diversité des communautés d'amphibiens
 ### Diversité alpha : abondance et richesse spécifique
 La diversité alpha décrit la diversité locale des communautés en termes
