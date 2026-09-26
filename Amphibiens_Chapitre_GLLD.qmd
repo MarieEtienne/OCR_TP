@@ -28,6 +28,7 @@ library(broom)       # tidy() est utilisé dans le chapitre 2
 library(rcompanion)  # cramerV() est utilisé dans le chapitre 3
 library(patchwork)
 library(broom)
+library(modelsummary) # modelsummary() est utilisé dans le chapitre 4
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
@@ -871,6 +872,11 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 
 #### Chapitre 4
 
+Ce chapitre consiste à explorer davantage les liens entre les variables environnementales et l'occurence des espèces d'amphibiens. Plus précisément, il tente de répondre à la question : Quels facteurs influencent l'occurrence des amphibiens au sein des routes ? Pour y répondre, des modèles GLM seront utilisés pour chaque espèce afin de voir si les variables concernées change en fonction de celle-ci. 
+
+##### Colinéarité 
+Comme démontré précédemment, les paires RR-BR, UR-FR et MR-CR sont associées à des coefficients de colinéarité supérieurs à 0,6. Toutes ces paires sont significativement colinéaires. De même que pour les précédentes analyses, les variables BR, FR et MR sont retirées. 
+
 ```{r chapitre4-cor, echo = FALSE, warning = FALSE, message = FALSE}
 
 # Test de colinéarité 
@@ -878,6 +884,7 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 # RR-BR et UR-FR
 cor.test(data$RR, data$BR, method = "spearman") # pour des raisons d'interprétation, on supprime BR
 cor.test(data$UR, data$FR, method = "spearman") # pour des raisons d'interprétation, on supprime FR
+cor.test(data$MR, data$CR, method = "spearman") # pour des raisons d'interprétation, on supprime MR
 
 ```
 
@@ -891,7 +898,7 @@ dataClean <- data %>%
 
 ##### Visualisation des données 
 
-Préalablement à l'analyse GLM des occurences de chaque espèce, une visualisation des ratios de présence/absence selon les routes a été effectué. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces. Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
+Préalablement à l'analyse GLM des occurences de chaque espèce, une visualisation des ratios de présence/absence selon les routes a été effectué. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces.  Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
 
 ```{r chapitre4-mosaic, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -940,43 +947,43 @@ par(mfrow = c(1, 1))
 ```{r chapitre4-mod, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille verte 
 modele_GF <- glm(
-  Green.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Green.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
   family = binomial
 )
 ### Modèle Grenouille rousse 
 modele_BF <- glm(
-  Brown.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Brown.frogs ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
   family = binomial
 )
 ### Modèle Crapaud commun
 modele_CT <- glm(
-  Common.toad ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Common.toad ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
   family = binomial
 )
 ### Modèle Crapaud sonneur
 modele_FBT <- glm(
-  Fire.bellied.toad ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Fire.bellied.toad ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
   family = binomial
 )
 ### Modèle Grenouille arboricole
 modele_TF <- glm(
-  Tree.frog ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Tree.frog ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
   family = binomial
 )
 ### Modèle Triton commun
 modele_CN <- glm(
-  Common.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Common.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
   family = binomial
 )
 ### Modèle Triton crêté
 modele_GCT <- glm(
-  Great.crested.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+MR+CR, 
+  Great.crested.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
   family = binomial
 )
@@ -1001,3 +1008,4 @@ modelsummary(
 )
 
 ```
+Comme anticipé de par la très faible occurence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700). Les p-values associés à ces trois modèles ne sont donc pas interprétables. 
