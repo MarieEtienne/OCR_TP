@@ -106,16 +106,6 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 </div>
 <div>
 <h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
-=======
-  <div>
-    <img src="images/grenouille_rousse_femelle.jpg", alt="Grenouille rousse">
-    <p class="credit">
-      Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://fr.wikipedia.org/wiki/Grenouille_rousse">Lien</a>
-    </p>
-  </div>
-
 La grenouille rousse est une espèce commune des milieux humides,
 des prairies et des forêts. Son corps est trapu et sa couleur varie
 du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
@@ -125,8 +115,8 @@ du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
 </div>
 
 <div style="display:flex; gap:20px; align-items:flex-start;">
-<div>
-<img src="images/grenouille_agile.jpg" alt="Grenouille agile">
+  <div>
+    <img src="images/grenouille_agile.jpg" alt="Grenouille agile">
 <p class="credit">
 Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
 Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
@@ -135,16 +125,6 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 </div>
 <div>
 <h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
-=======
-  <div>
-    <img src="images/grenouille_agile.jpg", alt="Grenouille agile">
-    <p class="credit">
-      Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://fr.wikipedia.org/wiki/Rana_dalmatina">Lien</a>
-    </p>
-  </div>
-
 Plus élancée que la grenouille rousse, la grenouille agile possède
 de longues pattes arrière qui lui permettent de réaliser de grands sauts.
 Elle fréquente surtout les bois et les lisières forestières.
@@ -152,6 +132,7 @@ Elle fréquente surtout les bois et les lisières forestières.
 </div>
 </div>
 </div>
+
 
 <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" id="common-toad">
@@ -172,23 +153,6 @@ d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones
 humides (étangs, mares, sous-bois).
 
 </div>
-=======
-
-  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
-<div class="esp-fiche" markdown="1" id="common-toad">
-<div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/crapaud_commun.jpg" alt="Crapaud commun">
-    <p class="credit">
-      Par <a href="/https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://fr.wikipedia.org/wiki/Crapaud_commun">Lien</a>
-    </p>
-  </div>
-  <div>
-      <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
-      <p>Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).</p>
-  </div>
 </div>
 </div>
 
@@ -253,6 +217,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Triton commun</h3>
 
+<<<<<<< HEAD
 Le triton commun, lissotriton vulgaris, est l'espèce de triton la plus répandue en Europe. Il occupe généralement des environnements stagnants et ensoleillés, de préférence sans poissons. Son alimentation varie selon qu'il soit en phase terrestre ou aquatique mais se constitue principalement de petits invertébrés.
 
 </div>
@@ -263,7 +228,8 @@ Le triton commun, lissotriton vulgaris, est l'espèce de triton la plus répandu
 <div class="esp-fiche" id="great-crested-newt">
 <div style="display:flex; gap:20px; align-items:flex-start;">
 <div>
-<img src="images/triton_crete.jpg" alt="Triton crêté">
+
+<img src="images/great_crested_newt.jpg" alt="Triton crêté">
 <p class="credit">
 Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
 Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
@@ -272,6 +238,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 </div>
 <div>
 <h3>Triton crêté</h3>
+
 
 Triturus cristatus, de son nom commun le triton crêté, est une espèce de triton présente principalement dans le nord et l'est de l'Europe. A l'instar du triton commun, il possède une phase aquatique pendant le printemps dédiée à la reproduction et une phase terrestre le reste de l'année. Il est reconnaissable par sa grande taille (jusqu'à 18cm) et sa crête particulièrement développée chez le mâle pendant la période de reproduction.
 
