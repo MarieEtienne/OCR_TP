@@ -96,16 +96,15 @@ dans ou près des plans d'eau, et les mâles chantent au printemps et en été.
 <!-- ===== FICHE : GRENOUILLES BRUNES ===== -->
 <div class="esp-fiche" id="brown-frogs">
 <div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:30px;">
-<div>
-<img src="images/grenouille_rousse_femelle.jpg" alt="Grenouille rousse">
-<p class="credit">
-Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
-Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-</p>
-</div>
-<div>
-<h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
+  <div>
+    <img src="images/grenouille_rousse_femelle.jpg", alt="Grenouille rousse">
+    <p class="credit">
+      Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://fr.wikipedia.org/wiki/Grenouille_rousse">Lien</a>
+    </p>
+  </div>
+
 La grenouille rousse est une espèce commune des milieux humides,
 des prairies et des forêts. Son corps est trapu et sa couleur varie
 du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
@@ -116,15 +115,13 @@ du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
 
 <div style="display:flex; gap:20px; align-items:flex-start;">
   <div>
-    <img src="images/grenouille_agile.jpg" alt="Grenouille agile">
-<p class="credit">
-Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
-Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-</p>
-</div>
-<div>
-<h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
+    <img src="images/grenouille_agile.jpg", alt="Grenouille agile">
+    <p class="credit">
+      Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://fr.wikipedia.org/wiki/Rana_dalmatina">Lien</a>
+    </p>
+  </div>
 Plus élancée que la grenouille rousse, la grenouille agile possède
 de longues pattes arrière qui lui permettent de réaliser de grands sauts.
 Elle fréquente surtout les bois et les lisières forestières.
@@ -133,26 +130,21 @@ Elle fréquente surtout les bois et les lisières forestières.
 </div>
 </div>
 
-
-<!-- ===== FICHE : CRAPAUD COMMUN ===== -->
-<div class="esp-fiche" id="common-toad">
+  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
+<div class="esp-fiche" markdown="1" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
-<div>
-<img src="images/crapaud_commun.jpg" alt="Crapaud commun">
-<p class="credit">
-Par <a href="https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
-Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-<a href="https://commons.wikimedia.org/w/index.php?curid=15268023">Lien</a>
-</p>
-</div>
-<div>
-<h3>Crapaud commun <em>(Bufo bufo)</em></h3>
-
-Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement
-d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones
-humides (étangs, mares, sous-bois).
-
-</div>
+  <div>
+    <img src="images/crapaud_commun.jpg" alt="Crapaud commun">
+    <p class="credit">
+      Par <a href="/https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
+      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+      <a href="https://fr.wikipedia.org/wiki/Crapaud_commun">Lien</a>
+    </p>
+  </div>
+  <div>
+      <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
+      <p>Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).</p>
+  </div>
 </div>
 </div>
 
@@ -217,7 +209,6 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Triton commun</h3>
 
-<<<<<<< HEAD
 Le triton commun, lissotriton vulgaris, est l'espèce de triton la plus répandue en Europe. Il occupe généralement des environnements stagnants et ensoleillés, de préférence sans poissons. Son alimentation varie selon qu'il soit en phase terrestre ou aquatique mais se constitue principalement de petits invertébrés.
 
 </div>
