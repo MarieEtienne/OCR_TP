@@ -18,8 +18,9 @@ format:
 
 ### Brouillon
 
-Plan Contexte Photo Équation : Mettre équation avec auto-limitation
+Plan: Contexte Photo Équation : Mettre équation avec auto-limitation
 (plus l'espèce prend de la place plus elle est limitée) Hypothèses
+Présentation package
 
 Notes de l'article :
 
