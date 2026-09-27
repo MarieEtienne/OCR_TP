@@ -35,7 +35,10 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 ```
 
 ## Introduction
-<Description jeu données>
+
+Le jeu de données utilisé pour les analyses suivantes provient de diverses sources comprenant des données de Système d'Information Géographique (SIG), d'imagerie satellitaire ainsi que de relevés naturalistes. Toutes ces données ont été réunies dans le cadre des Etudes d’Impact sur l’Environnement (EIE) pour deux projets routiers en Pologne et se concentrent sur un taxon bien particulier, les amphibiens. Plus précisément, le dataset associe des données environnementales liées aux routes à des données d'occurrence pour 7 espèces d’amphibiens. Ces 7 espèces sont : la grenouille verte, la grenouille brune/rousse, le crapaud commun, le crapaud sonneur, la rainette arboricole, le triton commun et le triton crêté. Concernant les données environnementales, elles se décomposent en 14 variables visant à caractériser les routes et leur association avec des zones humides proches. On peut citer entre autres : la surface des zones humides (SR), leur nombre (NR), leur distance minimale aux routes (RR) ou encore le type d’occupation du sol associé (SUR1/2/3). 
+L’inventaire a été réalisé à proximité de tronçons de deux autoroutes distinctes, l’A1 (Pyrzowice, Pologne) et la S52 (Bielsko-Biata, Pologne). Au total, 189 sites de reproduction ont été échantillonnés, 80 pour l’autoroute A1 et 109 pour l’autoroute S52. Le protocole a consisté en l’échantillonnage sur une bande de 500m autour du projet routier pendant le printemps 2010, de zones à présence supposée ou avérée d’amphibiens. Ainsi, le but est notamment de prédire la présence d’espèces d’amphibiens à proximité des zones humides et leur relation avec les projets routiers dans une optique de conservation. 
+Lors de cette étude, l’enjeu sera de relever les variables importantes et explicatives de la présence ou de l’absence des amphibiens et voir si celles-ci varient selon l’espèce. Pour cela, divers outils statistiques seront appliqués, allant des analyses multivariées (ACC) aux modèles linéaires généralisés (GLM). 
 
 ### Apprendre plus sur les espèces étudiées
 Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette étude. Choisissez une espèce dans la liste pour consulter sa description et sa photo.
