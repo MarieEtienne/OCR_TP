@@ -50,7 +50,7 @@ colSums(is.na(dta_Qrobur))
 
 Version d'Anaëlle pour extraire les données du chêne robur parmi
 l'immense dataset(datant du 16/09, remis à jour dans le fichier qmd le
-18/09)
+18/09) c'est en doublon avec le code 'EXPLORATION OF THE DATASET'
 
 ```{r}
 
@@ -208,22 +208,51 @@ plot(WD0w ~TM, data = dta_Qrobur, col = "blue3")
 ```
 
 ```{r}
+#Analyse de la densité
+summary(XDM_Q.robur_density_data$WD0w)
+
+plot(XDM_Q.robur_density_data$WD0w)
+
+hist(XDM_individual_density_data$WDbw, breaks = 50, probability = T, main = "Distribution de la densité du bois")
+
+#test de loi normale
+qqnorm(XDM_Q.robur_density_data$WD0w,
+       main = "Q-Q plot")
+qqline(XDM_Q.robur_density_data$WD0w,
+       col = "red",
+       lwd = 2)
+
+
+```
+
+#bibliographie sur l'influence des paramètres climatiques sur la densité
+https://www.researchgate.net/publication/43327060_Importance_de_differents_parametres_climatiques_sur_la_croissance_et_la_formation_du_bois_de_pin_rouge_Pinus_resinosa_Ait_en_Ontario_Canada/link/582f233c08aef19cb8155ca5/download?\_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6InB1YmxpY2F0aW9uIiwicGFnZSI6InB1YmxpY2F0aW9uIn19
+
+```{r}
 #Observation de relation linéaire entre l'âge de l'arbre et sa hauteur
-ggplot(data = dta_Qrobur, aes(x = Age, y = H)) + geom_point() + geom_smooth(method = "lm")
-summary(lm(H ~ Age, data = dta_Qrobur))
+ggplot(data = XDM_Q.robur_density_data, aes(x = Age, y = H)) + geom_point() + geom_smooth(method = "lm")
+summary(lm(H ~ Age, data = XDM_Q.robur_density_data))
 
-#Observation de la densité anhydre du bois en fonction de la hauteur de l'arbre
-ggplot(data = dta_Qrobur, aes(x = WD0w, y = H)) + geom_point()
 
-#bibliographie sur l'influence des paramètres climatiques sur notamment la densité
-https://www.researchgate.net/publication/43327060_Importance_de_differents_parametres_climatiques_sur_la_croissance_et_la_formation_du_bois_de_pin_rouge_Pinus_resinosa_Ait_en_Ontario_Canada/link/582f233c08aef19cb8155ca5/download?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6InB1YmxpY2F0aW9uIiwicGFnZSI6InB1YmxpY2F0aW9uIn19
+#Observation de la densité du bois en fonction de la hauteur de l'arbre
+ggplot(data = XDM_individual_density_data, aes(x = WD0w, y = H)) + geom_point()
+
+
+#Observation de la densité du bois en fonction des précipitations annuelles
+ggplot(data = XDM_Q.robur_density_data, aes(x = WD0w, y = P)) + geom_point()
+
+
+#Observation de la densité du bois en fonction des températures annuelles
+ggplot(data = XDM_Q.robur_density_data, aes(x = WD0w, y = TM)) + geom_point()
+
 ```
 
 ```{r}
-#Observation de la densité du bois en fonction des précipitations annuelles
-ggplot(data = dta_Qrobur, aes(x = WDbw, y = P)) + geom_point()
+#test de corrélation entre les variables explicatives
+library(GGally)
+library(ggplot2)
 
-#Observation de la densité du bois en fonction des températures annuelles
-ggplot(data = dta_Qrobur, aes(x = WDbw, y = TM)) + geom_point()
+vars <- XDM_Q.robur_density_data[, c("WD0w", "X", "Y", "Z", "Core_Length", "Age", "DBH", "H", "TM", "P")]
 
+ggpairs(vars)
 ```
