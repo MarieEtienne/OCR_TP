@@ -93,7 +93,6 @@ dans ou près des plans d'eau, et les mâles chantent au printemps et en été.
 <!-- ===== FICHE : GRENOUILLES BRUNES ===== -->
 <div class="esp-fiche" id="brown-frogs">
 <div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:30px;">
-<<<<<<< HEAD
 <div>
 <img src="images/grenouille_rousse_femelle.jpg" alt="Grenouille rousse">
 <p class="credit">
@@ -123,7 +122,6 @@ du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
 </div>
 
 <div style="display:flex; gap:20px; align-items:flex-start;">
-<<<<<<< HEAD
 <div>
 <img src="images/grenouille_agile.jpg" alt="Grenouille agile">
 <p class="credit">
@@ -152,7 +150,6 @@ Elle fréquente surtout les bois et les lisières forestières.
 </div>
 </div>
 
-<<<<<<< HEAD
 <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
@@ -273,7 +270,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Triton crêté</h3>
 
-Triturus cristatus, de son nom commun le triton crêté, est une espèce de triton présente principalement dans le nord et l'est de l'Europe. A l'instar du triton commun, il possède une phase aquatique pendant le printemps dédiée à la reproduction et une phase terrestre le reste de l'année. Il est reconnaissable par sa grande taille et sa crête particulièrement développée chez le mâle pendant la période de reproduction.
+Triturus cristatus, de son nom commun le triton crêté, est une espèce de triton présente principalement dans le nord et l'est de l'Europe. A l'instar du triton commun, il possède une phase aquatique pendant le printemps dédiée à la reproduction et une phase terrestre le reste de l'année. Il est reconnaissable par sa grande taille (jusqu'à 18cm) et sa crête particulièrement développée chez le mâle pendant la période de reproduction.
 
 </div>
 </div>
