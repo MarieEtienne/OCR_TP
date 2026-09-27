@@ -21,7 +21,7 @@ Dans les années 1920, Alfred J.Lotka (1925) et Vito Volterra (1926) ont
 publié leur premières théories concernant les intéractions entre
 espèces, suggérant que la stucture dynamique et complexe des écosystèmes
 pouvaient être résumées dans de simples équations mathématiques
-(Mühlbauer et al., 2020).
+[@mühlbauer2020].
 
 Gause (1934), suivant les théories de A. Lotka et V. Volterra, a étudié
 expérimentalement la compétition entre deux espèces de protozoaires
@@ -65,17 +65,17 @@ espèces $i$ et $j$.
 L'objectif de cette étude est de modéliser le comportement des deux
 espèces lorsqu'elles sont en interaction pour un même milieu. Le modèle
 de compétition de Lotka-Volterra repose sur plisueurs hypothèses
-simplificatrices (Begon, 2006) :
+simplificatrices [@begon2006] :
 
-- Sans compétiteur, chaque population croît selon une dynamique
-  logistique limitée par sa propre capacité de charge
-- Les deux espèces sont en compétition pour les mêmes ressources
-  limitantes
-- L'environnement est homogène et constant au cours du temps
-- Les paramètres du modèle sont constants au cours du temps et ne
-  dépendent pas de l'âge ou de l'état physiologique des individus
-- Les populations sont suffisamment grandes pour écarter les effets
-  stochastiques liés
+-   Sans compétiteur, chaque population croît selon une dynamique
+    logistique limitée par sa propre capacité de charge
+-   Les deux espèces sont en compétition pour les mêmes ressources
+    limitantes
+-   L'environnement est homogène et constant au cours du temps
+-   Les paramètres du modèle sont constants au cours du temps et ne
+    dépendent pas de l'âge ou de l'état physiologique des individus
+-   Les populations sont suffisamment grandes pour écarter les effets
+    stochastiques liés
 
 Sur la base de ces hypothèses, on s'attend à observer soit une
 coexistence stable des deux espèces soit l'exclusion compétitive de
@@ -93,8 +93,8 @@ library(deSolve)
 ```
 
 On utilise les données originales de l'expérience de compétition de
-Gause (1934), republiées dans le package `gauseR` (Mühlbauer et *al.*,
-2020), entre *Paramecium caudatum* et *Paramecium aurelia* cultivées en
+Gause (1934), republiées dans le package `gauseR` [@mühlbauer2020],
+entre *Paramecium caudatum* et *Paramecium aurelia* cultivées en
 mixture.
 
 ```{r}
@@ -171,8 +171,8 @@ sol <- ode(y = N0, times = temps_sim, func = compet, parms = parametres)
 ```
 
 Le modèle de compétition de Lotka-Volterra a été implémenté manuellement
-à partir des équations présentées par Mühlbauer et *al.* (2020), puis
-résolu numériquement à l’aide de la fonction `ode()`.
+à partir des équations présentées par [@mühlbauer2020], puis résolu
+numériquement à l’aide de la fonction `ode()`.
 
 ```{r}
 #| label: plot-result
@@ -199,13 +199,23 @@ legend("topleft",
 **Figure 2.** Compétition de type Lotka-Volterra entre *Paramecium
 caudatum* et *Paramecium aurelia*, représentée par l’évolution du volume
 normalisé selon la taille des populations au cours de 24 jours de
-culture en population mixte, d’après Gause (1934a). Les points
+culture en population mixte, d’après [@gause1934a]. Les points
 représentent les observations expérimentales et les lignes correspondent
 aux courbes simulées à partir des équations du modèle de compétition de
 Lotka-Volterra, définies dans la fonction `compet`.
 
 ## Discussion
 
-Julia
+Les résultats de notre étude basés sur les données de Gause
 
-Comme le montre cette étude [@mühlbauer2020]
+Comme le montre cette étude
+
+[@mühlbauer2020]
+
+[@begon2006]
+
+[@lotka1925]
+
+[@volterra1926]
+
+[@gause1934a]
