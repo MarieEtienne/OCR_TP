@@ -35,6 +35,78 @@ As The summary of the dataset shows, yield range from 0.2871 to 81.9037
 tonnes per hecatres. This minimum is related to French Polynesia in 2023
 and the maximum is related to Caribbean in 1983.
 
+## The World's Largest and Smallest Orange Producers
+
+```{r}
+#| echo: false
+library(dplyr)
+orange_countries <- orange %>%
+  filter(!is.na(Code) & nchar(Code) == 3) # Keep only countries with a 3-character ISO code
+
+# Calculate mean yields by country
+country_means <- orange_countries %>%
+  group_by(Entity) %>%
+  summarise(
+    Rendement_Moyen = mean(Oranges...Yield..tonnes.per.hectare., na.rm = TRUE)
+  ) %>%
+  rename(Pays = Entity)
+
+# Extract top 3 highest and bottom 3 lowest average yields
+top_3 <- country_means %>%
+  arrange(desc(Rendement_Moyen)) %>%
+  head(3)
+
+bottom_3 <- country_means %>%
+  arrange(Rendement_Moyen) %>%
+  head(3)
+
+
+cat("=============================================\n")
+cat("  TOP 3 COUNTRIES WITH HIGHEST YIELDS  \n")
+cat("=============================================\n")
+print(top_3)
+
+cat("\n=============================================\n")
+cat("  TOP 3 COUNTRIES WITH LOWEST YIELDS \n")
+cat("=============================================\n")
+print(bottom_3)
+```
+
+Although this ranking isn't the most meaningful, we wanted to highlight
+the top 3 best and worst orange producers in the world. This ranking
+could be improved by reducing the number of years used to calculate the
+average, since some countries, such as Guatemala, have only recently
+become major producers.
+
+Here is a comparison of Guatemala's production with the global average
+to illustrate this point :
+
+```{r}
+#| echo: false
+guatemala <- subset(orange, Entity == "Guatemala")
+world <- subset(orange, Entity == "World")
+
+plot(
+  world$Year, world$Oranges...Yield..tonnes.per.hectare.,
+  type = "l", col = "blue", lwd = 2,
+  ylim = c(0, max(guatemala$Oranges...Yield..tonnes.per.hectare., na.rm = TRUE) + 5),
+  xlab = "Year", ylab = "Yield (tonnes per hectare)",
+  main = "Orange Yield: Guatemala vs. World Average"
+)
+
+lines(
+  guatemala$Year, guatemala$Oranges...Yield..tonnes.per.hectare.,
+  col = "orange", lwd = 2
+)
+
+legend(
+  "topleft",
+  legend = c("Guatemala", "World"),
+  col = c("orange", "blue"),
+  lwd = 2
+)
+```
+
 ## Possibility of usage
 
 ```{r}
