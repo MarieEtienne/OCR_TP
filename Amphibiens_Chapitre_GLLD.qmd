@@ -130,6 +130,8 @@ Elle fréquente surtout les bois et les lisières forestières.
 </div>
 </div>
 
+
+
   <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" markdown="1" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
@@ -230,7 +232,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Triton crêté</h3>
 
-
+>>>>>>> 4ef3e8e (resolved conflits)
 Triturus cristatus, de son nom commun le triton crêté, est une espèce de triton présente principalement dans le nord et l'est de l'Europe. A l'instar du triton commun, il possède une phase aquatique pendant le printemps dédiée à la reproduction et une phase terrestre le reste de l'année. Il est reconnaissable par sa grande taille (jusqu'à 18cm) et sa crête particulièrement développée chez le mâle pendant la période de reproduction.
 
 </div>
