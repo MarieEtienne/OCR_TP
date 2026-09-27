@@ -906,7 +906,7 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 
 #### Chapitre 4
 
-Ce chapitre consiste à explorer davantage les liens entre les variables environnementales et l'occurence des espèces d'amphibiens. Plus précisément, il tente de répondre à la question : Quels facteurs influencent l'occurrence des amphibiens au sein des routes ? Pour y répondre, des modèles GLM seront utilisés pour chaque espèce afin de voir si les variables concernées change en fonction de celle-ci. 
+Ce chapitre consiste à explorer davantage les liens entre les variables environnementales et l'occurence des espèces d'amphibiens. Plus précisément, il tente de répondre à la question : Quels facteurs influencent l'occurrence des amphibiens à proximité des routes ? Pour y répondre, des GLM seront utilisés pour chaque espèce afin de voir si les variables concernées changent en fonction de celle-ci. 
 
 ##### Colinéarité 
 Comme démontré précédemment, les paires RR-BR, UR-FR et MR-CR sont associées à des coefficients de colinéarité supérieurs à 0,6. Toutes ces paires sont significativement colinéaires. De même que pour les précédentes analyses, les variables BR, FR et MR sont retirées. 
@@ -1003,7 +1003,7 @@ modele_FBT <- glm(
   data = dataClean, 
   family = binomial
 )
-### Modèle Grenouille arboricole
+### Modèle Rainette arboricole
 modele_TF <- glm(
   Tree.frog ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
@@ -1028,7 +1028,82 @@ modeles_especes <- list(
   "Grenouille rousse"     = modele_BF,
   "Crapaud commun"        = modele_CT,
   "Crapaud sonneur"       = modele_FBT,
-  "Grenouille arboricole" = modele_TF,
+  "Rainette arboricole" = modele_TF,
+  "Triton commun"         = modele_CN,
+  "Triton crêté"          = modele_GCT
+)
+
+# Modèle summary 
+modelsummary(
+  modeles_especes,
+  stars = TRUE,
+  exponentiate = FALSE,
+  gof_omit = ".*" )
+  
+```
+Comme anticipé de par la très faible occurence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700). Par conséquent, les p-values associés à ces quatres modèles (crapaud sonneur, rainette arboricole, triton commun, triton crêté) ne sont pas interprétables. 
+
+En ce qui concerne les autres modèles (grenouille verte, grenouille rousse, crapaud commun), plusieurs variables ressortent comme significatives et varient selon les espèces. L'occurence de la grenouille verte varie significativement selon le type de zone humide (TR), la troisième occupation du sol dominante (SUR3) et la distance minimale aux routes (RR). Plus cette dernière variable est élevée, plus la grenouille verte à de chances d'être présence ce qui signifie un potentiel impact direct des routes sur l'espèce.
+
+Pour la grenouille rousse, seul le pourcentage d'accès des zones humides aux aires non développées s'avère être une variable explicative de l'occurence. Lorsque l'accès aux zones non dévelloppées est important, on peut s'attendre à davantage de présence pour cette espèce. Cela s'avère cohérent avec le mode de vie de cette dernière qui est très terrestre et se disperse davantage que la grenouille verte. Ainsi, partant du principe que la route diminue l'accès à ces zones non développées, la grenouille rousse est une autre victime potentiel du projet routier. 
+
+Enfin, en ce qui concerne le crapaud commun, seule la variable TR est significative avec un coefficient bêta de -0,088. Le type de zone humide a également un impact sur l'occurence de cette espèce. Dans la mesure où la route peut justement impacter le type de zone humide à proximité, le projet routier peut avoir un impact sur son occurence en ce sens. 
+
+Pour conclure sur ces premiers modèles, il existe bien une différence entre espèce des variables ayant un effet sur l'occurence et cette différence peut en partie s'expliquer par le mode de vie comme démontré pour le cas de la grenouille rousse. 
+
+Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédent. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. 
+
+```{r chapitre4-mod2, echo = FALSE, warning = FALSE, message = FALSE}
+### Modèle Grenouille verte 
+modele_GF <- glm(
+  Green.frogs ~  TR+SUR3+OR+RR, 
+  data = dataClean, 
+  family = binomial
+)
+### Modèle Grenouille rousse 
+modele_BF <- glm(
+  Brown.frogs ~  TR+SUR3+OR+RR, 
+  data = dataClean, 
+  family = binomial
+)
+### Modèle Crapaud commun
+modele_CT <- glm(
+  Common.toad ~  TR+SUR3+OR+RR, 
+  data = dataClean, 
+  family = binomial
+)
+### Modèle Crapaud sonneur
+modele_FBT <- glm(
+  Fire.bellied.toad ~  TR+SUR3+OR+RR, 
+  data = dataClean, 
+  family = binomial
+)
+### Modèle Rainette arboricole
+modele_TF <- glm(
+  Tree.frog ~  TR+SUR3+OR+RR, 
+  data = dataClean, 
+  family = binomial
+)
+### Modèle Triton commun
+modele_CN <- glm(
+  Common.newt ~  TR+SUR3+OR+RR, 
+  data = dataClean, 
+  family = binomial
+)
+### Modèle Triton crêté
+modele_GCT <- glm(
+  Great.crested.newt ~  TR+SUR3+OR+RR, 
+  data = dataClean, 
+  family = binomial
+)
+
+# Regroupement des modèles 
+modeles_especes <- list(
+  "Grenouille verte"      = modele_GF,
+  "Grenouille rousse"     = modele_BF,
+  "Crapaud commun"        = modele_CT,
+  "Crapaud sonneur"       = modele_FBT,
+  "Rainette arboricole" = modele_TF,
   "Triton commun"         = modele_CN,
   "Triton crêté"          = modele_GCT
 )
@@ -1038,8 +1113,10 @@ modelsummary(
   modeles_especes,
   stars = TRUE,         
   exponentiate = FALSE,  
-  gof_omit = "IC|Log"    
+  gof_omit = ".*"    
 )
-
 ```
-Comme anticipé de par la très faible occurence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700). Les p-values associés à ces trois modèles ne sont donc pas interprétables. 
+
+Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables TR significative. Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
+
+En conlusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
