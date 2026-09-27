@@ -225,12 +225,27 @@ deux espèces qui occupent la même niche et dépendent de la même
 ressource limitante ne peuvent pas coexister durablement, la plus
 compétitive finit pas éliminer l'autre.
 
-[@mühlbauer2020]
+#### Limites du modèle
 
-[@begon2006]
+Le modèle reproduit bien la tendance générale observée en conditions
+expérimentales (déclin de *P. caudatum* puis stabilisation de *P.
+aurelia*) mais illustre moins bien la période transitoire qui a lieu
+entre le 4ème et le 8ème jour. Ces écarts peuvent s'expliquer par les
+hypothèses simplificatrices du modèle [@begon2006] : milieu homogène et
+paramètres constants dans le temps qui ne representent pas un système de
+culture réel plus complexe.
 
-[@lotka1925]
+Les auteurs du package gauseR mettent eux même en lumière une limite
+importante : la méthode d'ajustement des moindres carrés utilisée prend
+seulement en compte l'erreur de mesure et non les autres sources
+d'incertitudes liées au processus biologique lui même [@mühlbauer2020].
 
-[@volterra1926]
+Des méthodes plus récentes permettent d'isoler ces biais ce qui éviterai
+de supposer que le modèle décrit une dynamique deterministe. Le modèle
+Lokta-Volterra reste donc une approximation, surtout valable autour de
+l'équilibre plutot qu'une description exacte de ce qui se passe
+biologiquement.
 
-[@gause1934a]
+#### Perspectives
+
+#### Conclusion
