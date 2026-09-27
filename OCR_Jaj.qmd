@@ -14,32 +14,72 @@ format:
 
 ## Introduction
 
-### Équation
+### Contexte
 
-### Brouillon
+Dans les années 1920, Alfred J.Lotka (1925) et Vito Volterra (1926) ont
+publié leur premières théories concernant les intéractions entre
+espèces, suggérant que la stucture dynamique et complexe des écosystèmes
+pouvaient être résumées dans de simples équations mathématiques
+(Mühlbauer et al., 2020).
 
-Plan: Contexte Photo Équation : Mettre équation avec auto-limitation
-(plus l'espèce prend de la place plus elle est limitée) Hypothèses
-Présentation package
+Gause (1934), suivant les théories de A. Lotka et V. Volterra, a étudié
+expérimentalement la compétition entre deux espèces de protozoaires
+ciliées, **Paramecium caudatum** et **Paramecium aurelia**, cultivées
+séparément puis en mélange. Lorsque les deux espèces sont mises en
+culture ensemble, elles entrent en compétition pour les mêmes
+ressources, ce qui conduit au déclin progressif d'une des deux espèces :
+P. caudatum au profit de P.aurelia. Cette expérience constitue l'une des
+illustrations historiques du principe d'exclusion compétitive.
 
-Notes de l'article :
+![Morphologie de P. caudatum à gauche et P. aurelia à droite, échelle :
+100
+micromètres.](https://rsscience.com/wp-content/uploads/2020/06/Paramecium-caudatum-and-aurelia.jpg)
+**Figure 1.** Morphologie de *Paramecium caudatum* (à gauche) et
+*Paramecium aurelia* (à droite). *P. caudatum* présente une forme
+allongée, arrondie à l'extrémité antérieure et pointue à l'extrémité
+postérieure, tandis que *P. aurelia* présente une forme plus ovoïde.
+Barres d'échelle : 100 μm. Crédits photo : *P. caudatum* (Deuterostome,
+Wikimedia Commons), *P. aurelia* (Barfooz, Wikimedia Commons).
 
-https://doi.org/10.1002/ece3.6926
+### Équations
 
-A century ago, Alfred J. Lotka (1920, 1925) and Vito Volterra (1926)
-published their canonical works concerning the mathematics of species
-interactions. These theories were among the first to suggest that the
-dynamics of complex ecological systems could be described through simple
-underlying equations (Israel, 1988; Scudo & Ziegler, 1978). Inspired by
-the possibility of understanding natural systems through mathematics,
-Georgy Gause stated in his “Struggle for Existence” (Gause, 1934b):
+Le modèle de compétition de Lotka-Volterra décrit l'évolution temporelle
+des effectifs des deux espèces, en intégrant à la fois un effet
+d'auto-limitation (plus une espèce est abondante, plus sa propre
+croissance est freinée par la compétition intraspécifique pour les
+ressources) et un effet de compétition interspécifique.
 
-Despite their simplicity, the Lotka-Volterra equations are still the
-primary models used to describe species interactions. At their most
-basic, these models describe the changes per unit time in the abundance
-of a species, Ni, as.
+$$
+\begin{aligned}
+\frac{dN_1}{dt} &= N_1 (r_1 + a_{11} \cdot N_1 + a_{12} \cdot N_2) \\
+\frac{dN_2}{dt} &= N_2 (r_2 + a_{21} \cdot N_1 + a_{22} \cdot N_2)
+\end{aligned}
+$$ Où : où $N_1$ et $N_2$ désignent les effectifs des deux espèces,
+$r_1$ et $r_2$ leurs taux de croissance intrinsèques, et $a_{ij}$ les
+coefficients d'interaction (intra- et interspécifiques) entre les
+espèces $i$ et $j$.
 
-### Context
+### Hypothèses
+
+L'objectif de cette étude est de modéliser le comportement des deux
+espèces lorsqu'elles sont en interaction pour un même milieu. Le modèle
+de compétition de Lotka-Volterra repose sur plisueurs hypothèses
+simplificatrices (Begon, 2006) :
+
+- Sans compétiteur, chaque population croît selon une dynamique
+  logistique limitée par sa propre capacité de charge
+- Les deux espèces sont en compétition pour les mêmes ressources
+  limitantes
+- L'environnement est homogène et constant au cours du temps
+- Les paramètres du modèle sont constants au cours du temps et ne
+  dépendent pas de l'âge ou de l'état physiologique des individus
+- Les populations sont suffisamment grandes pour écarter les effets
+  stochastiques liés
+
+Sur la base de ces hypothèses, on s'attend à observer soit une
+coexistence stable des deux espèces soit l'exclusion compétitive de
+l'une par l'autre selon les valeurs relatives des coefficients
+d'interaction intra et inter-spécifiques.
 
 ## Résultats
 
@@ -155,7 +195,7 @@ legend("topleft",
        cex=0.7)
 ```
 
-**Figure 1.** Compétition de type Lotka-Volterra entre *Paramecium
+**Figure 2.** Compétition de type Lotka-Volterra entre *Paramecium
 caudatum* et *Paramecium aurelia*, représentée par l’évolution du volume
 normalisé selon la taille des populations au cours de 24 jours de
 culture en population mixte, d’après Gause (1934a). Les points
