@@ -39,6 +39,8 @@ and the maximum is related to Caribbean in 1983.
 
 ```{r}
 #| echo: false
+#| message: false
+#| warning: false
 library(dplyr)
 orange_countries <- orange %>%
   filter(!is.na(Code) & nchar(Code) == 3) # Keep only countries with a 3-character ISO code
@@ -47,29 +49,35 @@ orange_countries <- orange %>%
 country_means <- orange_countries %>%
   group_by(Entity) %>%
   summarise(
-    Rendement_Moyen = mean(Oranges...Yield..tonnes.per.hectare., na.rm = TRUE)
+    Average_Yield = mean(Oranges...Yield..tonnes.per.hectare., na.rm = TRUE)
   ) %>%
-  rename(Pays = Entity)
+  rename(Country = Entity)
 
 # Extract top 3 highest and bottom 3 lowest average yields
 top_3 <- country_means %>%
-  arrange(desc(Rendement_Moyen)) %>%
+  arrange(desc(Average_Yield)) %>%
   head(3)
 
 bottom_3 <- country_means %>%
-  arrange(Rendement_Moyen) %>%
+  arrange(Average_Yield) %>%
   head(3)
 
 
-cat("=============================================\n")
-cat("  TOP 3 COUNTRIES WITH HIGHEST YIELDS  \n")
-cat("=============================================\n")
-print(top_3)
+cat(
+  "=============================================\n",
+  "  TOP 3 COUNTRIES WITH HIGHEST YIELDS        \n",
+  "=============================================\n",
+  sep = ""
+)
+print(as.data.frame(top_3))
 
-cat("\n=============================================\n")
-cat("  TOP 3 COUNTRIES WITH LOWEST YIELDS \n")
-cat("=============================================\n")
-print(bottom_3)
+cat(
+  "\n=============================================\n",
+  "  TOP 3 COUNTRIES WITH LOWEST YIELDS         \n",
+  "=============================================\n",
+  sep = ""
+)
+print(as.data.frame(bottom_3))
 ```
 
 Although this ranking isn't the most meaningful, we wanted to highlight
