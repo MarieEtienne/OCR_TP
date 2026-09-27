@@ -253,7 +253,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Triton commun</h3>
 
-Texte à compléter... 
+Le triton commun, lissotriton vulgaris, est l'espèce de triton la plus répandue en Europe. Il occupe généralement des environnements stagnants et ensoleillés, de préférence sans poissons. Son alimentation varie selon qu'il soit en phase terrestre ou aquatique mais se constitue principalement de petits invertébrés.
 
 </div>
 </div>
@@ -263,7 +263,7 @@ Texte à compléter...
 <div class="esp-fiche" id="great-crested-newt">
 <div style="display:flex; gap:20px; align-items:flex-start;">
 <div>
-<img src="images/great_crested_newt.jpg" alt="Triton crêté">
+<img src="images/triton_crete.jpg" alt="Triton crêté">
 <p class="credit">
 Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
 Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
@@ -273,7 +273,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Triton crêté</h3>
 
-Texte à compléter... 
+Triturus cristatus, de son nom commun le triton crêté, est une espèce de triton présente principalement dans le nord et l'est de l'Europe. A l'instar du triton commun, il possède une phase aquatique pendant le printemps dédiée à la reproduction et une phase terrestre le reste de l'année. Il est reconnaissable par sa grande taille et sa crête particulièrement développée chez le mâle pendant la période de reproduction.
 
 </div>
 </div>
