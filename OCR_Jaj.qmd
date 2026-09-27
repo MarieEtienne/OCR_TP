@@ -206,9 +206,24 @@ Lotka-Volterra, définies dans la fonction `compet`.
 
 ## Discussion
 
-Les résultats de notre étude basés sur les données de Gause
+#### Interprétation des dynamiques de population
 
-Comme le montre cette étude
+Les résultats de notre simulation confirment ce qui a été observé
+expérimentalement : quand les deux espèces partagent le même milieu,
+elles finissent par entrer en compétition directe pour la ressource. En
+effet, *Paramecium caudatum* décline progressivement tandis que
+*Paramecium aurelia* prend le dessus et se stabilise autour des 140
+unités de volume à la fin de l'expérience (Figure 2).
+
+Les paramètres estimés montrent que chaque espèce freine sa propre
+croissance (auto-limitation) mais aussi celle de l'autre, ce que prévoit
+la théorie de Lokta-Volterra [@mühlbauer2020]. Si *P.aurelia* prend
+l'avantage, c'est parce que son effet inhibiteur sur *P.caudatum* est
+plus fort que l'inverse. *P.aurelia* est donc une meilleure compétitrice
+pour cette ressource. On retrouve le principe d'exclusion compétitive :
+deux espèces qui occupent la même niche et dépendent de la même
+ressource limitante ne peuvent pas coexister durablement, la plus
+compétitive finit pas éliminer l'autre.
 
 [@mühlbauer2020]
 
