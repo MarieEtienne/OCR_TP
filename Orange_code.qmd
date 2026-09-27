@@ -1,7 +1,13 @@
 ---
 title: "OCR_Orange"
 author: "Collot, Millard, Ferreira Gomes"
-format: html
+bibliography: orangeref.bib
+format:
+  html:
+    theme: cosmo
+    css: theme.css
+    toc: true
+    toc_float: true
 editor: 
   markdown: 
     canonical: true 
@@ -12,10 +18,10 @@ editor:
 
 ## Orange yield around the world
 
-Found on the **ourworldindata.org**, the data set that we are using,
-gives information about the yield of different countries, their year of
-yield, plus the data set contains the code to the different part of the
-world. The yield is in tonnes per hectare.
+Found on the **ourworldindata.org**, the data set (@dataset2025) that we
+are using, gives information about the yield of different countries,
+their year of yield, plus the data set contains the code to the
+different part of the world. The yield is in tonnes per hectare.
 
 ## Context
 
@@ -123,13 +129,11 @@ Orange_data <- read.csv("orange-yields.csv")
 France_data <- Orange_data[Orange_data$Entity=="France",]
 ```
 
-You can add options to executable code like this
+As exposed by @MichaelIgolima2023ModifiedOP, the orange peel is able to
+absorb heavy metal via bio-adsorption. This is a good option for the
+future, seeing how much the orange production has increased.
 
-## References : Dataset : Food and Agriculture Organization of the United
+### References :
 
-Nations (2025) – with major processing by Our World in Data. “Orange
-yields – UN FAO” \[dataset\]. Food and Agriculture Organization of the
-United Nations, “Production: Crops and livestock products” \[original
-data\]. Retrieved September 16, 2026 from
-https://archive.ourworldindata.org/20260910-011030/grapher/orange-yields.html
-(archived on September 10, 2026).
+::: {#refs}
+:::
