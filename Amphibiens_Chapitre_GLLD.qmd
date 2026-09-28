@@ -923,12 +923,15 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 
 #########
 
-#### Chapitre 4
+#### Analyse GLM : Quels facteurs influencent l'occurence des amphibiens à proximité des routes selon l'espèce ?
 
 Ce chapitre consiste à explorer davantage les liens entre les variables environnementales et l'occurence des espèces d'amphibiens. Plus précisément, il tente de répondre à la question : Quels facteurs influencent l'occurrence des amphibiens à proximité des routes ? Pour y répondre, des GLM seront utilisés pour chaque espèce afin de voir si les variables concernées changent en fonction de celle-ci. 
 
+<details>
+<summary><strong>Colinéarité</strong></summary>
+
 ##### Colinéarité 
-Comme démontré précédemment, les paires RR-BR, UR-FR et MR-CR sont associées à des coefficients de colinéarité supérieurs à 0,6. Toutes ces paires sont significativement colinéaires. De même que pour les précédentes analyses, les variables BR, FR et MR sont retirées. 
+Comme montré précédemment, les paires UR-FR et MR-CR sont associées à des coefficients de colinéarité supérieurs à 0,7. Toutes ces paires sont significativement colinéaires. De même que pour les précédentes analyses, les variables FR et MR sont retirées. De plus, la paire RR-BR ayant un coefficient de colinéarité de plus de 0,6 et étant très proche sur le plan de la signification écologique, la variable BR a aussi été retirée pour cette analyse.  
 
 ```{r chapitre4-cor, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -940,6 +943,8 @@ cor.test(data$UR, data$FR, method = "spearman") # pour des raisons d'interpréta
 cor.test(data$MR, data$CR, method = "spearman") # pour des raisons d'interprétation, on supprime MR
 
 ```
+
+<details>
 
 ```{r chapitre4-stand, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -988,7 +993,7 @@ mosaicplot(
 )
 mosaicplot(
   table(data$Motorway, data$`Great.crested.newt`),
-  main = "Triton crêté",
+  main = "Triton crete",
   xlab = "Autoroute", ylab = "Occurrence", color = TRUE
 )
 par(mfrow = c(1, 1))
@@ -1034,7 +1039,7 @@ modele_CN <- glm(
   data = dataClean, 
   family = binomial
 )
-### Modèle Triton crêté
+### Modèle Triton crete
 modele_GCT <- glm(
   Great.crested.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
@@ -1049,7 +1054,7 @@ modeles_especes <- list(
   "Crapaud sonneur"       = modele_FBT,
   "Rainette arboricole" = modele_TF,
   "Triton commun"         = modele_CN,
-  "Triton crêté"          = modele_GCT
+  "Triton crete"          = modele_GCT
 )
 
 # Modèle summary 
@@ -1109,7 +1114,7 @@ modele_CN <- glm(
   data = dataClean, 
   family = binomial
 )
-### Modèle Triton crêté
+### Modèle Triton crete
 modele_GCT <- glm(
   Great.crested.newt ~  TR+SUR3+OR+RR, 
   data = dataClean, 
@@ -1124,7 +1129,7 @@ modeles_especes <- list(
   "Crapaud sonneur"       = modele_FBT,
   "Rainette arboricole" = modele_TF,
   "Triton commun"         = modele_CN,
-  "Triton crêté"          = modele_GCT
+  "Triton crete"          = modele_GCT
 )
 
 # Modèle summary 
