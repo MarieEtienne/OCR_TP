@@ -185,3 +185,16 @@ ggplot(df_all, aes(x = sites, y = richness)) +
 ```
 
 ## Introduction
+
+La Bretagne, région située à l'extrème Ouest de la France, est entourée
+au trois-quart par la mer et possède un paysage aux relièfes pronomcés.
+Fort de son sol majoritairement granitique, la majorité de l'eau
+bretonne est présente en surface et alimente un réseau hydrique très
+dense : 30 000 km de cours d'eau qui couvrent près de 70% du territoire
+breton constituants plus de 500 petits bassins versants \[OEB -
+Observatoire de l'Environnement en Bretagne\]. La Bretagen a donc été
+une région avec une quantité importante de zone humide. Seulement,
+d'après le \[RERZH\], près de 42% des zones humides de Bretagne auraient
+été détruitent du remembrement en 1960 à 2019. C'est donc un milieu
+naturel très menacé mais qui pourtant représente un service écologique
+important.
