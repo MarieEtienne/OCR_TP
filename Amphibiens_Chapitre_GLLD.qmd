@@ -693,10 +693,10 @@ Sur la base de ces deux axes retenus, nous avons représenté graphiquement les 
 
 Concernant la variable catégorique $TR$ (type de réservoir d'eau) :
 
-* `TR7` → associée au *Triton crêté*
-* `TR15` → associée aux *Brown.frogs* et au *Common.toad*
-* `TR2` → aucune espèce associée, trop éloignée des centroïdes
-* `TR1`, `TR5`, `TR11` → aucune association discutée, sous-catégories très proches de l'origine (contribution négligeable au modèle), donc leur position n'est pas interprétable de façon fiable
+* `TR7` → correspond aux tranchées ; associée au *Triton crêté*
+* `TR15` → catégorie non identifiée ; associée aux *Brown.frogs* et au *Common.toad*
+* `TR2` → correspond aux réservoirs récemment formés, non soumis à une naturalisation ; aucune espèce associée, la catégorie étant trop éloignée des centroïdes
+* `TR1`, `TR5`, `TR11` → correspondent respectivement à des réservoirs à caractère naturel, à des réservoirs hydrauliques techniques et à une catégorie non identifiée ; aucune association discutée, ces sous-catégories étant très proches de l'origine (contribution négligeable au modèle), leur position n'est donc pas interprétable de façon fiable
 
 Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux aires non développées) :
 
