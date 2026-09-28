@@ -140,7 +140,7 @@ production.
 ```{r}
 #| echo: false
 Orange_data <- read.csv("orange-yields.csv")
-europe_data <- Orange_data[Orange_data$Entity=="Europe",]
+europe_data <- orange[orange$Entity=="Europe",]
 ```
 
 To make a connection to modeling, we decided to develop a model of
@@ -150,6 +150,13 @@ orange yields in France since 1961.
 lm_model <- lm(Yield_t_per_ha ~ Year, data = europe_data)
 summary(lm_model)
 ```
+
+The extremely low p-values (\<0.001) for Intercept and the Year variable
+confirms that the evolution of European Yields can be modeled by a
+linear regression. This model explains approximately 75% of the
+variability in yields (R²=0.753), and the estimate for the Year variable
+shows that yields tend to increase in Europe
+($\hat{\beta}_1 \approx 0.133$).
 
 ```{r}
 #| echo: false
@@ -175,6 +182,9 @@ legend(
   lwd = 2
 )
 ```
+
+As can be seen, the figures @fig-lm illustrate the linear model, which
+we already knew models an increasing trend in yields.
 
 ## Possibility of usage
 
