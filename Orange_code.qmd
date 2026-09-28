@@ -33,8 +33,13 @@ in tonnes per hectare.
 
 ```{r}
 #| echo: false
+#| message: false
+#| warning: false
+library(dplyr)
 orange <- read.csv(file='orange-yields.csv', sep=',', dec='.')
+orange <- rename(orange, Yield_t_per_ha = Oranges...Yield..tonnes.per.hectare.)
 summary(orange)
+
 ```
 
 As The summary of the dataset shows, yield range from 0.2871 to 81.9037
@@ -55,7 +60,7 @@ orange_countries <- orange %>%
 country_means <- orange_countries %>%
   group_by(Entity) %>%
   summarise(
-    Average_Yield = mean(Oranges...Yield..tonnes.per.hectare., na.rm = TRUE)
+    Average_Yield = mean(Yield_t_per_ha, na.rm = TRUE)
   ) %>%
   rename(Country = Entity)
 
@@ -105,15 +110,15 @@ guatemala <- subset(orange, Entity == "Guatemala")
 world <- subset(orange, Entity == "World")
 
 plot(
-  world$Year, world$Oranges...Yield..tonnes.per.hectare.,
+  world$Year, world$Yield_t_per_ha,
   type = "l", col = "blue", lwd = 2,
-  ylim = c(0, max(guatemala$Oranges...Yield..tonnes.per.hectare., na.rm = TRUE) + 5),
+  ylim = c(0, max(guatemala$Yield_t_per_ha, na.rm = TRUE) + 5),
   xlab = "Year", ylab = "Yield (tonnes per hectare)",
   main = "Orange Yield: Guatemala vs. World Average"
 )
 
 lines(
-  guatemala$Year, guatemala$Oranges...Yield..tonnes.per.hectare.,
+  guatemala$Year, guatemala$Yield_t_per_ha,
   col = "orange", lwd = 2
 )
 
@@ -142,7 +147,7 @@ To make a connection to modeling, we decided to develop a model of
 orange yields in France since 1961.
 
 ```{r}
-lm_model <- lm(Oranges...Yield..tonnes.per.hectare. ~ Year, data = europe_data)
+lm_model <- lm(Yield_t_per_ha ~ Year, data = europe_data)
 summary(lm_model)
 ```
 
@@ -153,7 +158,7 @@ summary(lm_model)
 #| eval: true
 #| 
 plot(
-  europe_data$Year, europe_data$Oranges...Yield..tonnes.per.hectare.,
+  europe_data$Year, europe_data$Yield_t_per_ha,
   type = "b", pch = 19, col = "darkblue",
   xlab = "Year", ylab = "Yield (tonnes per hectare)",
   main = "Orange Yield Trend in Europe"
