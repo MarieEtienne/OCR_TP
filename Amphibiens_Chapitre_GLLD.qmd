@@ -923,7 +923,7 @@ cor.test(data$MR, data$CR, method = "spearman") # pour des raisons d'interpréta
 
 ```
 
-<details>
+</details>
 
 ```{r chapitre4-stand, echo = FALSE, warning = FALSE, message = FALSE}
 
