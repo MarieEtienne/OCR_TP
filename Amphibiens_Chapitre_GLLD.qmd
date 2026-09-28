@@ -652,6 +652,12 @@ set.seed(1234)
 anova_term_cca <- anova(cca_model, by = 'term')
 terms_sig <- rownames(anova_term_cca)[anova_term_cca$"Pr(>F)" <= 0.05]
 terms_sig <- terms_sig[!is.na(terms_sig)]
+
+# 5. Test par variable marginal : quelles variables contribuent significativement ?
+set.seed(1234)
+anova_margin_cca <- anova(cca_model, by = 'margin')
+terms_sig_margin <- rownames(anova_margin_cca)[anova_margin_cca$"Pr(>F)" <= 0.05]
+terms_sig_margin <- terms_sig[!is.na(terms_sig)]
 ```
 
 Le modèle canonique de correspondances a été construit à partir de l'ensemble des variables explicatives retenues :
@@ -680,7 +686,7 @@ Ce modèle explique `r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 
 
 Afin de valider la robustesse de ce modèle, un test ANOVA par permutation (999 permutations) a d'abord été réalisé pour évaluer si l'inertie contrainte par l'ensemble des variables était globalement significative. Ce test révèle que nos variables explicatives influencent significativement la composition en amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1]`).
 
-Ce résultat global ne précisant pas *quelles* variables sont réellement responsables de cet effet, un second test ANOVA a été réalisé, cette fois variable par variable (`by = 'term'`). Il montre que `r length(terms_sig)` variables sur l'ensemble testé sont significatives (p <= 0,05) : `r paste(terms_sig, collapse = " et ")`. Ce sont donc ces variables qui seront retenues pour l'interprétation biologique détaillée ci-après.
+Ce résultat global ne précisant pas *quelles* variables sont réellement responsables de cet effet, un second test ANOVA a été réalisé, cette fois variable par variable (`by = 'term'`). Il montre que `r length(terms_sig)` variables sur l'ensemble testé sont significatives (p <= 0,05) : `r paste(terms_sig, collapse = " et ")`. Ce même test effectué par marge (`by = 'margin'`) fournit un résultat distinct conservant uniquement `r paste(terms_sig_margin, collapse = " et ")`. Ce sont donc ces variables qui seront retenues pour l'interprétation biologique détaillée ci-après ⚠️^[Dans une analyse classique, seules les variables retenues par le test marginal (by = 'margin') devraient être conservées car ce test élimine les effets de colinéarité. Cependant, nous avons choisi de discuter également la seconde variable identifiée par by = 'term', car son effet global reste significatif et apporte un éclairage écologique complémentaire sur les facteurs structurant le milieu.].
 
 Enfin, un troisième test (`by = 'axis'`) a permis de vérifier la significativité de chaque axe d'ordination pris individuellement. Les six premiers axes ressortent tous comme significatifs (p < 0,05). Toutefois, dans un choix de parcimonie, seuls les deux premiers axes ont été retenus pour l'interprétation, ceux-ci concentrant à eux seuls la majorité de la variation expliquée par les variables environnementales, soit `r sum(percent_sig[1:2])`% au total (@fig-cca-interties).
 
