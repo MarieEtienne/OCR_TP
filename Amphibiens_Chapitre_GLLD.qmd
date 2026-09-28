@@ -516,7 +516,7 @@ knitr::kable(
 ```
 
 ### Corrélations {#sec-cor}
-Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0,70$.
+Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman [@amphi_spearman1904] pour les variables numériques et ordinales, et V de Cramér [@amphi_cramer1999mathematical] pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0,70$.
 
 ```{r chapitre3-dataprep-c, echo = FALSE, warning = FALSE, message = FALSE}
 # SEPARATION DU JEU DE DONNEES
