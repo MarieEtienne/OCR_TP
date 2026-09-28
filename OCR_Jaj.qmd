@@ -248,4 +248,25 @@ biologiquement.
 
 #### Perspectives
 
+Plusieurs pistes nous permettraient d'aller plus loin :
+
+-   minimiser les biais en séparant le bruit d'observation du bruit de
+    processus, ce que suggère les auteurs de gauseR eux mêmes.
+-   faire varier les coefficients d'interactions selon la taille ou la
+    composition de population afin d'obtenir un modèle plus réalistes,
+    ce qui a déjà été propose dans la littérature selon
+    [@mühlbauer2020].
+
 #### Conclusion
+
+Pour conclure, cette étude reprend les données historiques de Gause
+(1934) pour estimer les paramètres d'un modèle de compétition de
+Lokta-Volterra et simuler la dynamique entre *P. caudatum* et *P.
+aurelia*. Les résultats confirment le principe d'exclusion compétitive :
+dans un milieu clos avec une ressource limitante partagée, *P. aurelia*
+finit par être plus présente que *P. caudatum*. Le modèle capture bien
+la tendance générale mais reflète moins la réalité experimentale lors de
+la phase de transition (4ème au 8ème jour) ce qui rappelle les limites
+des hypothèses posées au départ.
+
+#### Bibliographie
