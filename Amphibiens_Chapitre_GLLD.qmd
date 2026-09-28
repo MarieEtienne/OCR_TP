@@ -470,7 +470,7 @@ knitr::kable(
 )
 ```
 
-### Corrélations
+### Corrélations {#sec-cor}
 Nous avons ensuite vérifié les corrélations entre variables explicatives afin d'éviter la multicolinéarité dans les modèles : corrélation de Spearman pour les variables numériques et ordinales, et V de Cramér pour les variables catégorielles. Dans les deux cas, le seuil de redondance retenu est de $0,70$.
 
 ```{r chapitre3-dataprep-c, echo = FALSE, warning = FALSE, message = FALSE}
@@ -713,7 +713,7 @@ En conclusion....
 
 #### Analyse de l'influence des activités humaines sur la présence des amphibiens
 
-Nous cherchons à savoir si la présence des amphibiens est influencée par les activités anthropiques. Pour tester cette hypothèse, nous utilisons des modèles linéaires généralisés (GLM).
+Nous cherchons à savoir si la présence des amphibiens est influencée par les activités anthropiques. Pour tester cette hypothèse, nous utilisons des modèles linéaires généralisés (GLM) [@hastie1992glm].
 
 ##### Sélection de variables explicatives
 
@@ -721,7 +721,7 @@ On va d'abord chercher à identifier les variables explicatives correspondantes 
 
 Les variables retenues pour notre analyse des pressions anthropiques sont les suivantes : - FR : importance de la pêche au sein des réservoirs - RR : distance minimale du réservoir aux routes - BR : distance minimale du réservoir aux buildings - MR : état du réservoir (propre, légèrement pollué, lourdement pollué) - CR : type de berge du réservoir (naturelle, bétonnée)
 
-Avec la matrice de corrélation (@fig-chp3-cor-spearman & @fig-chp3-cor-cramer), on peut observer que les paramètres RR et BR ont une corrélation absolue supérieure à 0.7, on supprime donc le paramètre BR. Pour vérifier la distribution des données et repérer d'éventuels effectifs trop faibles par modalité, un diagramme de proportions a été réalisé pour chaque variable.
+Avec la matrice de corrélation (voir la @sec-cor), on peut observer que les paramètres RR et BR ont une corrélation absolue supérieure à 0.7, on supprime donc le paramètre BR. Pour vérifier la distribution des données et repérer d'éventuels effectifs trop faibles par modalité, un diagramme de proportions a été réalisé pour chaque variable.
 
 
 ```{r répartiton-glm-influence-humaine, echo = FALSE, warning = FALSE, message = FALSE}
