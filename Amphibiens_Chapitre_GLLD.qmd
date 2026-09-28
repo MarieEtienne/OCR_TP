@@ -29,6 +29,7 @@ library(rcompanion)  # cramerV() est utilisé dans le chapitre 3
 library(patchwork)
 library(broom)
 library(modelsummary) # modelsummary() est utilisé dans le chapitre 4
+library(ggpattern)
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
@@ -110,7 +111,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 La grenouille rousse est une espèce commune des milieux humides,
 des prairies et des forêts. Son corps est trapu et sa couleur varie
 du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
-[@amphi_brunes]
+[@Guillemin1967]
 
 </div>
 </div>
@@ -129,14 +130,13 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 
 Plus élancée que la grenouille rousse, la grenouille agile possède
 de longues pattes arrière qui lui permettent de réaliser de grands sauts.
-Elle fréquente surtout les bois et les lisières forestières.
+Elle fréquente surtout les bois et les lisières forestières [@Guillemin1967].
 
 </div>
 </div>
 
 </div>
 
-  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
@@ -151,7 +151,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
 
-Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).
+Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois) [@WoodlandTrustCommonToad].
 
 </div>
 </div>
@@ -291,6 +291,7 @@ diversite_alpha_resume <- diversite_alpha_resume %>%
 #| echo: false
 #| warning: false
 #| message: false
+
 ggplot(
   diversite_alpha_resume,
   aes(
@@ -299,11 +300,15 @@ ggplot(
     fill = Autoroutes
   )
 ) +
-  geom_col(position = position_dodge(width = 0.8)) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    colour = "black",
+    linewidth = 0.3
+  ) +
   scale_fill_manual(
     values = c(
-      "S52" = "#A8D5E2",
-      "A1" = "#F4B183"
+      "S52" = "#0072B2",  # bleu foncé
+      "A1"  = "#D55E00"   # orange foncé
     )
   ) +
   scale_x_discrete(
@@ -318,7 +323,8 @@ ggplot(
     )
   ) +
   scale_y_continuous(
-    breaks = seq(0, 140, by = 20)
+    breaks = seq(0, 140, by = 20),
+    expand = expansion(mult = c(0, 0.05))
   ) +
   labs(
     x = "Espèces",
@@ -327,18 +333,33 @@ ggplot(
   ) +
   theme_classic() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 13),
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      size = 13
+    ),
     axis.text.y = element_text(size = 13),
-    axis.title.x = element_text(size = 16, face = "bold"),
-    axis.title.y = element_text(size = 16, face = "bold"),
-    panel.grid.major.y = element_line(color = "grey85", linewidth = 0.5),
+    axis.title.x = element_text(
+      size = 16,
+      face = "bold"
+    ),
+    axis.title.y = element_text(
+      size = 16,
+      face = "bold"
+    ),
+    panel.grid.major.y = element_line(
+      color = "grey85",
+      linewidth = 0.5
+    ),
     panel.grid.minor.y = element_blank(),
     legend.position = "top",
-    legend.title = element_text(size = 14, face = "bold"),
+    legend.title = element_text(
+      size = 14,
+      face = "bold"
+    ),
     legend.text = element_text(size = 13),
     legend.key.size = grid::unit(0.8, "cm")
   )
-
 
 ```
 
@@ -381,20 +402,31 @@ ggplot(
   aes(
     x = MDS1,
     y = MDS2,
-    color = Autoroutes
+    color = Autoroutes,
+    shape = Autoroutes
   )
 ) +
-  geom_point(size = 3.5, alpha = 1) +
+  geom_point(
+    size = 3.5,
+    alpha = 1
+  ) +
   scale_color_manual(
     values = c(
-      "S52" = "#A8D5E2",
-      "A1"  = "#F4B183"
+      "S52" = "#0072B2",  # bleu foncé
+      "A1"  = "#D55E00"   # orange foncé
+    )
+  ) +
+  scale_shape_manual(
+    values = c(
+      "S52" = 17,  # triangle plein
+      "A1"  = 16   # cercle plein
     )
   ) +
   labs(
     x = "NMDS1",
     y = "NMDS2",
-    color = "Autoroute"
+    color = "Autoroute",
+    shape = "Autoroute"
   ) +
   theme_classic() +
   theme(
@@ -403,7 +435,6 @@ ggplot(
     axis.title.x = element_text(size = 16, face = "bold"),
     axis.title.y = element_text(size = 16, face = "bold"),
 
-    # Quadrillage horizontal et vertical
     panel.grid.major.x = element_line(
       color = "grey85",
       linewidth = 0.5
@@ -414,16 +445,30 @@ ggplot(
     ),
     panel.grid.minor = element_blank(),
 
-    # Légende plus grande
     legend.position = "top",
-    legend.title = element_text(size = 14, face = "bold"),
+    legend.title = element_text(
+      size = 14,
+      face = "bold"
+    ),
     legend.text = element_text(size = 13),
     legend.key.size = unit(0.8, "cm"),
 
-    plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = "white", color = NA),
-    legend.background = element_rect(fill = "white", color = NA),
-    legend.key = element_rect(fill = "white", color = NA)
+    plot.background = element_rect(
+      fill = "white",
+      color = NA
+    ),
+    panel.background = element_rect(
+      fill = "white",
+      color = NA
+    ),
+    legend.background = element_rect(
+      fill = "white",
+      color = NA
+    ),
+    legend.key = element_rect(
+      fill = "white",
+      color = NA
+    )
   ) +
   guides(
     color = guide_legend(
