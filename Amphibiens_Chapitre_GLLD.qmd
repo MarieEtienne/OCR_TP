@@ -993,7 +993,7 @@ mosaicplot(
 )
 mosaicplot(
   table(data$Motorway, data$`Great.crested.newt`),
-  main = "Triton crete",
+  main = "Triton crêté",
   xlab = "Autoroute", ylab = "Occurrence", color = TRUE
 )
 par(mfrow = c(1, 1))
@@ -1039,7 +1039,7 @@ modele_CN <- glm(
   data = dataClean, 
   family = binomial
 )
-### Modèle Triton crete
+### Modèle Triton crêté
 modele_GCT <- glm(
   Great.crested.newt ~  SR+NR+TR+VR+SUR1+SUR2+SUR3+UR+OR+RR+CR, 
   data = dataClean, 
@@ -1054,7 +1054,7 @@ modeles_especes <- list(
   "Crapaud sonneur"       = modele_FBT,
   "Rainette arboricole" = modele_TF,
   "Triton commun"         = modele_CN,
-  "Triton crete"          = modele_GCT
+  "Triton crêté"          = modele_GCT
 )
 
 # Modèle summary 
@@ -1114,7 +1114,7 @@ modele_CN <- glm(
   data = dataClean, 
   family = binomial
 )
-### Modèle Triton crete
+### Modèle Triton crêté
 modele_GCT <- glm(
   Great.crested.newt ~  TR+SUR3+OR+RR, 
   data = dataClean, 
@@ -1129,7 +1129,7 @@ modeles_especes <- list(
   "Crapaud sonneur"       = modele_FBT,
   "Rainette arboricole" = modele_TF,
   "Triton commun"         = modele_CN,
-  "Triton crete"          = modele_GCT
+  "Triton crêté"          = modele_GCT
 )
 
 # Modèle summary 
