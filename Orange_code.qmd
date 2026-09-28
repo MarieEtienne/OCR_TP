@@ -96,11 +96,11 @@ Here is a comparison of Guatemala's production with the global average
 to illustrate this point :
 
 ```{r}
+#| echo: false
 #| label: fig-example
 #| fig-cap: "Comparison of Orange yield between Guatemala and the World"
 #| eval: true
 
-#| echo: false
 guatemala <- subset(orange, Entity == "Guatemala")
 world <- subset(orange, Entity == "World")
 
@@ -130,13 +130,48 @@ We can see in the @fig-example that the Guatemala stands above the rest
 of the world. Even though it is only a mean of the orange world
 production.
 
-## Possibility of usage
+## How are european yields evolving ?
 
 ```{r}
 #| echo: false
 Orange_data <- read.csv("orange-yields.csv")
-France_data <- Orange_data[Orange_data$Entity=="France",]
+europe_data <- Orange_data[Orange_data$Entity=="Europe",]
 ```
+
+To make a connection to modeling, we decided to develop a model of
+orange yields in France since 1961.
+
+```{r}
+lm_model <- lm(Oranges...Yield..tonnes.per.hectare. ~ Year, data = europe_data)
+summary(lm_model)
+```
+
+```{r}
+#| echo: false
+#| label: fig-lm
+#| fig-cap: "Orange Yield Trend in Europe"
+#| eval: true
+#| 
+plot(
+  europe_data$Year, europe_data$Oranges...Yield..tonnes.per.hectare.,
+  type = "b", pch = 19, col = "darkblue",
+  xlab = "Year", ylab = "Yield (tonnes per hectare)",
+  main = "Orange Yield Trend in Europe"
+)
+
+# 4. Add linear regression line
+abline(lm_model, col = "red", lwd = 2)
+
+legend(
+  "topleft",
+  legend = c("European Yields", "Linear Model"),
+  col = c("blue", "red"),
+  pch = c(15, NA),
+  lwd = 2
+)
+```
+
+## Possibility of usage
 
 As exposed by @MichaelIgolima2023ModifiedOP, the orange peel is able to
 absorb heavy metal via bio-adsorption. This is a good option for the
