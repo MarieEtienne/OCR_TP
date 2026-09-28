@@ -17,20 +17,20 @@ bibliography: references.bib
 
 ### Contexte
 
-Dans les années 1920, Alfred J.Lotka (1925) et Vito Volterra (1926) ont
-publié leur premières théories concernant les intéractions entre
-espèces, suggérant que la stucture dynamique et complexe des écosystèmes
-pouvaient être résumées dans de simples équations mathématiques
-[@mühlbauer2020].
+Dans les années 1920, Alfred J.Lotka (1925) [@lotka1925a] et Vito
+Volterra (1926) [@volterra1926a] ont publié leur premières théories
+concernant les intéractions entre espèces, suggérant que la stucture
+dynamique et complexe des écosystèmes pouvaient être résumées dans de
+simples équations mathématiques [@mühlbauer2020].
 
-Gause (1934), suivant les théories de A. Lotka et V. Volterra, a étudié
-expérimentalement la compétition entre deux espèces de protozoaires
-ciliées, **Paramecium caudatum** et **Paramecium aurelia**, cultivées
-séparément puis en mélange. Lorsque les deux espèces sont mises en
-culture ensemble, elles entrent en compétition pour les mêmes
+Gause[@gause1934b], suivant les théories de A. Lotka et V. Volterra, a
+étudié expérimentalement la compétition entre deux espèces de
+protozoaires ciliées, *Paramecium caudatum* et *Paramecium aurelia*,
+cultivées séparément puis en mélange. Lorsque les deux espèces sont
+mises en culture ensemble, elles entrent en compétition pour les mêmes
 ressources, ce qui conduit au déclin progressif d'une des deux espèces :
-P. caudatum au profit de P.aurelia. Cette expérience constitue l'une des
-illustrations historiques du principe d'exclusion compétitive.
+*P. caudatum* au profit de *P.aurelia*. Cette expérience constitue l'une
+des illustrations historiques du principe d'exclusion compétitive.
 
 ![Morphologie de P. caudatum à gauche et P. aurelia à droite, échelle :
 100
@@ -217,7 +217,7 @@ unités de volume à la fin de l'expérience (Figure 2).
 
 Les paramètres estimés montrent que chaque espèce freine sa propre
 croissance (auto-limitation) mais aussi celle de l'autre, ce que prévoit
-la théorie de Lokta-Volterra [@mühlbauer2020]. Si *P.aurelia* prend
+la théorie de Lotka-Volterra [@mühlbauer2020]. Si *P.aurelia* prend
 l'avantage, c'est parce que son effet inhibiteur sur *P.caudatum* est
 plus fort que l'inverse. *P.aurelia* est donc une meilleure compétitrice
 pour cette ressource. On retrouve le principe d'exclusion compétitive :
@@ -230,7 +230,7 @@ compétitive finit pas éliminer l'autre.
 Le modèle reproduit bien la tendance générale observée en conditions
 expérimentales (déclin de *P. caudatum* puis stabilisation de *P.
 aurelia*) mais illustre moins bien la période transitoire qui a lieu
-entre le 4ème et le 8ème jour. Ces écarts peuvent s'expliquer par les
+entre le 4ème et le 10ème jour. Ces écarts peuvent s'expliquer par les
 hypothèses simplificatrices du modèle [@begon2006] : milieu homogène et
 paramètres constants dans le temps qui ne representent pas un système de
 culture réel plus complexe.
@@ -241,9 +241,9 @@ seulement en compte l'erreur de mesure et non les autres sources
 d'incertitudes liées au processus biologique lui même [@mühlbauer2020].
 
 Des méthodes plus récentes permettent d'isoler ces biais ce qui éviterai
-de supposer que le modèle décrit une dynamique deterministe. Le modèle
-Lokta-Volterra reste donc une approximation, surtout valable autour de
-l'équilibre plutot qu'une description exacte de ce qui se passe
+de supposer que le modèle décrit une dynamique déterministe. Le modèle
+Lotka-Volterra reste donc une approximation, surtout valable autour de
+l'équilibre plutôt qu'une description exacte de ce qui se passe
 biologiquement.
 
 #### Perspectives
@@ -251,22 +251,22 @@ biologiquement.
 Plusieurs pistes nous permettraient d'aller plus loin :
 
 -   minimiser les biais en séparant le bruit d'observation du bruit de
-    processus, ce que suggère les auteurs de gauseR eux mêmes.
+    processus, ce que suggèrent les auteurs de gauseR eux mêmes.
 -   faire varier les coefficients d'interactions selon la taille ou la
     composition de population afin d'obtenir un modèle plus réalistes,
-    ce qui a déjà été propose dans la littérature selon
+    ce qui a déjà été proposé dans la littérature selon
     [@mühlbauer2020].
 
 #### Conclusion
 
 Pour conclure, cette étude reprend les données historiques de Gause
-(1934) pour estimer les paramètres d'un modèle de compétition de
-Lokta-Volterra et simuler la dynamique entre *P. caudatum* et *P.
+[@gause1934b] pour estimer les paramètres d'un modèle de compétition de
+Lotka-Volterra et simuler la dynamique entre *P. caudatum* et *P.
 aurelia*. Les résultats confirment le principe d'exclusion compétitive :
 dans un milieu clos avec une ressource limitante partagée, *P. aurelia*
 finit par être plus présente que *P. caudatum*. Le modèle capture bien
 la tendance générale mais reflète moins la réalité experimentale lors de
-la phase de transition (4ème au 8ème jour) ce qui rappelle les limites
+la phase de transition (4ème au 10ème jour) ce qui rappelle les limites
 des hypothèses posées au départ.
 
 #### Bibliographie
