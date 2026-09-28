@@ -657,7 +657,7 @@ terms_sig <- terms_sig[!is.na(terms_sig)]
 set.seed(1234)
 anova_margin_cca <- anova(cca_model, by = 'margin')
 terms_sig_margin <- rownames(anova_margin_cca)[anova_margin_cca$"Pr(>F)" <= 0.05]
-terms_sig_margin <- terms_sig[!is.na(terms_sig)]
+terms_sig_margin <- terms_sig_margin[!is.na(terms_sig_margin)]
 ```
 
 Le modèle canonique de correspondances a été construit à partir de l'ensemble des variables explicatives retenues :
