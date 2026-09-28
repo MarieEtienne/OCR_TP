@@ -757,7 +757,7 @@ Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux
 * Projections négatives, associées aux valeurs basses de OR → *Common.toad*, *Green.frogs* (cette dernière étant l'espèce la plus fortement associée à ce pôle)
 
 #### Conclusion CCA
-En conclusion....
+En conclusion, les variables environnementales retenues structurent de façon significative la composition de la communauté d'amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1]`), bien que le modèle n'explique qu'une part modérée de la variance totale (`r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)` %). Sur les deux premiers axes, deux tendances se dégagent : le *Triton crêté* est associé aux tranchées (`TR7`) et aux valeurs élevées de $OR$, tandis que le *Crapaud commun* et les *Grenouilles vertes* sont associés aux valeurs basses de $OR$. Ces résultats restent descriptifs et constituent des hypothèses à confirmer espèce par espèce avec les modèles de la @sec-glm.
 
 ### Modele linéaire généralisé {#sec-glm}
 
