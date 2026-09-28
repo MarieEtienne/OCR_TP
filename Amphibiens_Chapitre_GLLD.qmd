@@ -85,10 +85,8 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Grenouille verte <em>(Pelophylax spp.)</em></h3>
 
-Amphibien très aquatique, de 6 à 12 cm, au dos vert à brun marqué de taches
-sombres, souvent avec une ligne claire dorsale. On la trouve toute l'année
-dans ou près des plans d'eau, et les mâles chantent au printemps et en été.
-[@amphi_wikipedia_multivariate_statistics]
+La grenouille verte, dont le nom scientifique est *Pelophylax kl. esculentus*, est un amphibien très aquatique mesurant de 8 à 12 cm. Son dos, vert à brun, est parsemé de taches sombres et souvent parcouru d'une fine ligne claire. On la rencontre toute l'année dans les plans d'eau ou à proximité, et les mâles chantent au printemps et en été.
+[@amphi_lpo_grenouille_verte]
 
 </div>
 </div>
@@ -138,6 +136,7 @@ Elle fréquente surtout les bois et les lisières forestières.
 
 </div>
 
+  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
@@ -152,29 +151,9 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
 
-Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement
-d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones
-humides (étangs, mares, sous-bois).
+Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).
 
 </div>
-</div>
-</div>
-
-  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
-<div class="esp-fiche" markdown="1" id="common-toad">
-<div style="display:flex; gap:20px; align-items:flex-start;">
-  <div>
-    <img src="images/crapaud_commun.jpg" alt="Crapaud commun">
-    <p class="credit">
-      Par <a href="/https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
-      Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://fr.wikipedia.org/wiki/Crapaud_commun">Lien</a>
-    </p>
-  </div>
-  <div>
-      <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
-      <p>Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).</p>
-  </div>
 </div>
 </div>
 
