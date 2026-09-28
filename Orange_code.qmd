@@ -14,7 +14,7 @@ editor:
     wrap: 72
 ---
 
-![Temporary image of an orange tree](images/oranger.jpg)
+![A beautiful orange tree](images/oranger.jpg){#fig-oranger}
 
 ## Orange yield around the world
 
@@ -96,6 +96,10 @@ Here is a comparison of Guatemala's production with the global average
 to illustrate this point :
 
 ```{r}
+#| label: fig-example
+#| fig-cap: "Comparison of Orange yield between Guatemala and the World"
+#| eval: true
+
 #| echo: false
 guatemala <- subset(orange, Entity == "Guatemala")
 world <- subset(orange, Entity == "World")
@@ -119,7 +123,12 @@ legend(
   col = c("orange", "blue"),
   lwd = 2
 )
+
 ```
+
+We can see in the @fig-example that the Guatemala stands above the rest
+of the world. Even though it is only a mean of the orange world
+production.
 
 ## Possibility of usage
 
@@ -131,7 +140,9 @@ France_data <- Orange_data[Orange_data$Entity=="France",]
 
 As exposed by @MichaelIgolima2023ModifiedOP, the orange peel is able to
 absorb heavy metal via bio-adsorption. This is a good option for the
-future, seeing how much the orange production has increased.
+future, seeing how much the orange production has increased. Seeing
+@fig-oranger, we can imagine the potential in these orange peel, the
+tree can get to 10m
 
 ### References :
 
