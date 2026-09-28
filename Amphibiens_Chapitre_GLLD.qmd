@@ -43,6 +43,7 @@ Lors de cette étude, l’enjeu sera de relever les variables importantes et exp
 ### Apprendre plus sur les espèces étudiées
 Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette étude. Choisissez une espèce dans la liste pour consulter sa description et sa photo.
 
+
 ```{=html}
 <style>
   .esp-menu { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
@@ -55,7 +56,7 @@ Retrouvez ci-dessous les fiches synthétiques des espèces analysées dans cette
   .esp-fiche .credit { font-size: 0.7rem; color: #777; margin-top: 0.3rem; }
   @media (max-width: 700px) { .esp-fiche.actif { flex-direction: column; } .esp-fiche img { width: 100%; max-width: none; } }
 </style>
-
+```
 
 <div class="esp-menu">
 <label for="choix-espece"><strong>Choisissez une espèce :</strong></label><br>
@@ -96,65 +97,84 @@ dans ou près des plans d'eau, et les mâles chantent au printemps et en été.
 <!-- ===== FICHE : GRENOUILLES BRUNES ===== -->
 <div class="esp-fiche" id="brown-frogs">
 
-  <!-- Grenouille rousse -->
-  <div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:30px;">
-    <div>
-      <img src="images/grenouille_rousse_femelle.jpg" alt="Grenouille rousse">
->>>>>>> d4caa30 (improvement of the beta-diversity chart + issue in the list fixed)
-    <p class="credit">
-      Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> 
-      — Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://fr.wikipedia.org/wiki/Grenouille_rousse">Lien</a>
-    </p>
-  </div>
+<div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:30px;">
+<div>
+<img src="images/grenouille_rousse_femelle.jpg" alt="Grenouille rousse">
+<p class="credit">
+Par <a href="https://commons.wikimedia.org/wiki/User:LivingShadow">LivingShadow</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://fr.wikipedia.org/wiki/Grenouille_rousse">Lien</a>
+</p>
+</div>
+<div>
+<h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
 
-  <div>
-    <h3>Grenouille rousse <em>(Rana temporaria)</em></h3>
-    <p>
-      La grenouille rousse est une espèce commune des milieux humides, des prairies et des forêts. Son corps est trapu et sa couleur varie du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm. [@amphi_brunes]
-    </p>
-  </div>
-  </div>
+La grenouille rousse est une espèce commune des milieux humides,
+des prairies et des forêts. Son corps est trapu et sa couleur varie
+du brun clair au brun foncé. Elle mesure généralement entre 5 et 10 cm.
+[@amphi_brunes]
 
-  <!-- Grenouille agile -->
-  <div style="display:flex; gap:20px; align-items:flex-start;">
-   <div>
-    <img src="images/grenouille_agile.jpg" alt="Grenouille agile">
-    <p class="credit">
-      Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> 
-      — Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
-      <a href="https://fr.wikipedia.org/wiki/Rana_dalmatina">Lien</a>
-    </p>
-  </div>
+</div>
+</div>
 
-  <div>
-    <h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
-    <p>
-      Plus élancée que la grenouille rousse, la grenouille agile possède de longues pattes arrière qui lui permettent de réaliser de grands sauts. Elle fréquente surtout les bois et les lisières forestières.
-    </p>
-    </div>
-  </div>
->>>>>>> e567fb7 (changed the spicies list)
+<div style="display:flex; gap:20px; align-items:flex-start;">
+<div>
+<img src="images/grenouille_agile.jpg" alt="Grenouille agile">
+<p class="credit">
+Par <a href="https://commons.wikimedia.org/w/index.php?title=User:Heston_Benstead&action=edit&redlink=1">Heston_Benstead</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://fr.wikipedia.org/wiki/Rana_dalmatina">Lien</a>
+</p>
+</div>
+<div>
+<h3>Grenouille agile <em>(Rana dalmatina)</em></h3>
+
+Plus élancée que la grenouille rousse, la grenouille agile possède
+de longues pattes arrière qui lui permettent de réaliser de grands sauts.
+Elle fréquente surtout les bois et les lisières forestières.
+
+</div>
+</div>
 
 </div>
 
-
 <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
 <div class="esp-fiche" id="common-toad">
->>>>>>> d4caa30 (improvement of the beta-diversity chart + issue in the list fixed)
+<div style="display:flex; gap:20px; align-items:flex-start;">
+<div>
+<img src="images/crapaud_commun.jpg" alt="Crapaud commun">
+<p class="credit">
+Par <a href="https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
+Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
+<a href="https://fr.wikipedia.org/wiki/Crapaud_commun">Lien</a>
+</p>
+</div>
+<div>
+<h3>Crapaud commun <em>(Bufo bufo)</em></h3>
+
+Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement
+d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones
+humides (étangs, mares, sous-bois).
+
+</div>
+</div>
+</div>
+
+  <!-- ===== FICHE : CRAPAUD COMMUN ===== -->
+<div class="esp-fiche" markdown="1" id="common-toad">
 <div style="display:flex; gap:20px; align-items:flex-start;">
   <div>
     <img src="images/crapaud_commun.jpg" alt="Crapaud commun">
     <p class="credit">
-      Par <a href="https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
+      Par <a href="/https://commons.wikimedia.org/wiki/User:Aka">Aka</a> —
       Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
       <a href="https://fr.wikipedia.org/wiki/Crapaud_commun">Lien</a>
     </p>
   </div>
   <div>
       <h3>Crapaud commun <em>(Bufo bufo)</em></h3>
-Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).
-</div>
+      <p>Le crapaud commun est un amphibien robuste et trapu, se nourrit principalement d'escargots, de vers de terre ou autres petits insectes. Il vit dans les zones humides (étangs, mares, sous-bois).</p>
+  </div>
 </div>
 </div>
 
@@ -229,8 +249,7 @@ Le triton commun, lissotriton vulgaris, est l'espèce de triton la plus répandu
 <div class="esp-fiche" id="great-crested-newt">
 <div style="display:flex; gap:20px; align-items:flex-start;">
 <div>
-
-<img src="images/great_crested_newt.jpg" alt="Triton crêté">
+<img src="images/triton_crete.jpg" alt="Triton crêté">
 <p class="credit">
 Par <a href="//commons.wikimedia.org/w/index.php?title=User:Contrabaroness&action=edit&redlink=1">Contrabaroness</a> —
 Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>,
@@ -240,7 +259,6 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Triton crêté</h3>
 
->>>>>>> 4ef3e8e (resolved conflits)
 Triturus cristatus, de son nom commun le triton crêté, est une espèce de triton présente principalement dans le nord et l'est de l'Europe. A l'instar du triton commun, il possède une phase aquatique pendant le printemps dédiée à la reproduction et une phase terrestre le reste de l'année. Il est reconnaissable par sa grande taille (jusqu'à 18cm) et sa crête particulièrement développée chez le mâle pendant la période de reproduction.
 
 </div>
@@ -248,6 +266,7 @@ Triturus cristatus, de son nom commun le triton crêté, est une espèce de trit
 </div>
 </div>
 
+```{=html}
 <script>
   document.getElementById("choix-espece").addEventListener("change", function () {
     document.querySelectorAll(".esp-fiche").forEach(f => f.classList.remove("actif"));
