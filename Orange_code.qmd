@@ -14,7 +14,13 @@ editor:
     wrap: 72
 ---
 
-![A beautiful orange tree](images/oranger.jpg){#fig-oranger}
+::: {#image-intro layout-ncol="2"}
+![A beautiful orange tree](images/oranger.jpg){#fig-oranger
+width="300px"}
+
+![An orange grove](images/verger_orange.jpg){#fig-oranger
+width="300px%"}
+:::
 
 ## Orange yield around the world
 
