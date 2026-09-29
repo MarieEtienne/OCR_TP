@@ -866,7 +866,6 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 
 
 
-#########
 
 #### Analyse GLM : Quels facteurs influencent l'occurence des amphibiens à proximité des routes selon l'espèce ?
 
@@ -1090,3 +1089,9 @@ modelsummary(
 Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables TR significative. Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
 
 En conlusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
+
+
+## Conclusion
+
+En somme, si l'étude de la diversité montre que les groupes d'espèces d'amphibiens restent en grande partie semblables entre les deux autoroutes, malgré des différences d'abondance locale, l'Analyse Canonique des Correspondances montre que les variables environnementales influencent vraiment ces communautés à travers des affinités précises. Les modèles complémentaires nuancent ensuite ces résultats en montrant que la distance aux routes n'a pas d'effet global important. Par contre, des pressions humaines locales jouent un rôle clé dans leur répartition. Au final, même si les effets de ces projets routiers varient selon la sensibilité de chaque espèce, tous les amphibiens risquent d'être touchés. Cela montre qu'il est essentiel d'utiliser une approche ciblée et basée sur plusieurs facteurs pour guider les mesures de protection.
+Enfin, ces travaux ouvrent la voie à des analyses de connectivité fonctionnelle et génétique pour évaluer l'efficacité réelle des aménagements de mitigation, tout en intégrant les impacts du changement climatique sur la dynamique des zones humides face aux défis de conservation à long terme
