@@ -253,8 +253,8 @@ individu varie. Nous avons conserver uniquement les variables expliquant
 le mieux le poids sec et nous avons enlevé les variables apportant en
 autre de la redondance d'information.
 
-Le modèle a été validé, d'une par par **l'homogénéité des résidus**, et
-d'autre part par également la **normalité des résidus**.
+Le modèle a été validé, d'une part par **l'homogénéité des résidus**, et
+d'autre part également par la **normalité des résidus**.
 
 Par la suite, il serait intéréssant de comprendre, d'un point de vue
 biologique, physiologique ou génétique peut-être, comment s'effectue la
