@@ -14,6 +14,35 @@ execute:
 
 # Les Odonates de Bretagne
 
+## Introduction
+
+La Bretagne, région située à l'extrème Ouest de la France, est entourée
+au trois-quart par la mer et possède un paysage aux relièfes pronomcés.
+Fort de son sol majoritairement granitique, la majorité de l'eau
+bretonne est présente en surface et alimente un réseau hydrique très
+dense : 30 000 km de cours d'eau qui couvrent près de 70% du territoire
+breton constituants plus de 500 petits bassins versants \[OEB -
+Observatoire de l'Environnement en Bretagne\]. La Bretagen a donc été
+une région avec une quantité importante de zone humide. Seulement,
+d'après le \[RERZH\], près de 42% des zones humides de Bretagne auraient
+été détruitent du remembrement en 1960 à 2019. C'est donc un milieu
+naturel très menacé mais qui pourtant représente un service écologique
+important.EN effet, ces espace permettent la régulation hydrologique des
+cours d'eau, d'assurer leur qualité par rétention, de stocker du carbone
+et d'abrité une biodiversité riche et particulière \[RERZH\], \[Skinner
+& Zalewski, 1995\].
+
+Fort de ces connaissances, il est donc logique qu'une connaissance
+claire des communautés vivants et intéragissants avec les zones humides
+permettra une meilleure préservation de ces milieux.
+
+Les odonates étant un ordre emblématique de ces milieux et indicateurs
+de l'état de la biodiversité, il a été naturel de les choisir comme
+sujet de cette étude.
+
+C'est ainsi que nous pouvons nous demander comment les populations
+d’odonates varient-elles selon les zones biogéographiques ?
+
 ## Comment les populations d’odonates varient-elles selon les zones biogéographiques ?
 
 ```{r}
@@ -183,18 +212,3 @@ ggplot(df_all, aes(x = sites, y = richness)) +
 
 
 ```
-
-## Introduction
-
-La Bretagne, région située à l'extrème Ouest de la France, est entourée
-au trois-quart par la mer et possède un paysage aux relièfes pronomcés.
-Fort de son sol majoritairement granitique, la majorité de l'eau
-bretonne est présente en surface et alimente un réseau hydrique très
-dense : 30 000 km de cours d'eau qui couvrent près de 70% du territoire
-breton constituants plus de 500 petits bassins versants \[OEB -
-Observatoire de l'Environnement en Bretagne\]. La Bretagen a donc été
-une région avec une quantité importante de zone humide. Seulement,
-d'après le \[RERZH\], près de 42% des zones humides de Bretagne auraient
-été détruitent du remembrement en 1960 à 2019. C'est donc un milieu
-naturel très menacé mais qui pourtant représente un service écologique
-important.
