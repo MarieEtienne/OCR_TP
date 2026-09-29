@@ -59,6 +59,8 @@ require(dplyr)
 require(GGally)
 require(reshape2)
 library(here)
+require(ggvegan)
+
 
 
 path = here("Odonate_4km_bretagne.csv")
@@ -211,4 +213,86 @@ ggplot(df_all, aes(x = sites, y = richness)) +
   theme_minimal(base_size = 12)
 
 
+```
+
+### Analyse de redondance (rda)
+
+L'analyse de redondance permet d'expliquer une table grâce à une autre
+table. C'est comme faire une ACP mais au lieu d'avoir une seule variable
+réponse, nous en avons plusieurs. Nous allons essayer d'expliquer la
+présence et l'absence des espèces en fonction des zones
+biogéographiques.
+
+Nous allons commencer par sélectionner les variables qui nous
+intéressent parmis les variables de la table "data_eco".
+
+```{r}
+data_eco_rda <- data_eco[,c(1, 8:12)]
+```
+
+Pour que la RDA fonctionne nous allons devoir prétraiter les données.
+Nous avons besoin que nos 2 tables contiennent les mêmes sites, dans le
+même ordre.
+
+```{r}
+### Définition de fonction ###
+
+rewrite <- function(str){
+  # la fonction rewrite prend en argument une chaine de caractère de type "Com_XXXX" et si elle est trop courte (de longueur 8) la ralonge en ajoutant un 0
+  if (nchar(str) == 8) {
+      str <- paste0(str_split(str, "_")[[1]][1], "_0", str_split(str,"_")[[1]][2])
+  }
+  return(str)
+}
+
+
+### Execution ###
+# On réécrit les sites de data_eco
+data_eco_rda$Site <- apply(as.array(data_eco_rda$Site), MARGIN = 1, FUN = rewrite)
+# Puis on les réordone par ordre alphabétique
+data_eco_rda <- data_eco_rda[do.call(order, data_eco_rda), ]
+
+
+# On réécrit les sites de matrice_odo
+matrice_odo_rda <- matrice_odo
+rownames(matrice_odo_rda) <- apply(as.array(rownames(matrice_odo_rda)), MARGIN = 1, FUN = rewrite)
+# On récupère les sites de matrice_odo (qui étaient les noms de lignes) dans une variable
+matrice_odo_rda$Site <- rownames(matrice_odo_rda)
+# Puis on les réordone
+matrice_odo_rda <- matrice_odo_rda[do.call(order, matrice_odo_rda), ]
+
+
+# On remarque que certains sites apparaissent dans une table mais pas l'autre. Hors nous avons besoin d'une correspondance.
+data_eco_rda <- data_eco_rda %>% filter(Site %in% matrice_odo_rda$Site)
+matrice_odo_rda <- matrice_odo_rda %>% filter(Site %in% data_eco_rda$Site)
+
+# Enfin on retire la colonne Site des deux matrices
+matrice_odo_rda <- matrice_odo_rda %>% select(-Site)
+data_eco_rda <- data_eco_rda %>% select(-Site)
+```
+
+Nous avons maintenant deux matrices qui ont le même format. Nous allons
+pouvoir procéder à la rda.
+
+```{r}
+RDA <- rda(matrice_odo_rda ~. , data = data_eco_rda, scale = FALSE)
+RDA
+```
+
+```{r}
+RsquareAdj(RDA)
+```
+
+```{r}
+set.seed(123)
+anova(RDA, by = "axis")
+anova(RDA, by = "terms")
+anova(RDA, by = "margin")
+```
+
+```{r}
+autoplot(RDA,layers=c("sites","biplot"), arrows = FALSE)+
+  geom_hline(yintercept=0,linetype=2)+
+  geom_vline(xintercept=0,linetype=2)+
+  theme_bw()
 ```
