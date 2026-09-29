@@ -946,6 +946,8 @@ par(mfrow = c(1, 1))
 
 ##### Analyse GLM pour chaque espèce 
 
+Dans un premier temps, le modèle suivant est testé : $$ \text{Species X} \sim \text{SR} + \text{NR} + \text{TR} + \text{VR} + \text{SUR1} + \text{SUR2} + \text{SUR3} + \text{UR} + \text{OR} + \text{RR} + \text{CR} $$
+
 ```{r chapitre4-mod, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille verte 
 modele_GF <- glm(
@@ -1019,7 +1021,7 @@ Enfin, en ce qui concerne le crapaud commun, seule la variable TR est significat
 
 Pour conclure sur ces premiers modèles, il existe bien une différence entre espèce des variables ayant un effet sur l'occurence et cette différence peut en partie s'expliquer par le mode de vie comme démontré pour le cas de la grenouille rousse. 
 
-Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédent. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. 
+Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédent. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. Le modèle est le suivant : $$ \text{Species X} \sim \text{TR} + \text{SUR3} + \text{OR} + \text{RR} $$
 
 ```{r chapitre4-mod2, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille verte 
