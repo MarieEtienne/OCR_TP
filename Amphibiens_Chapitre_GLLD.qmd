@@ -174,7 +174,7 @@ Travail personnel, <a href="https://creativecommons.org/licenses/by-sa/3.0" titl
 Les Bombina spp., communément appelés les crapauds sonneurs,
 forment un genre de petits amphibiens de la famille des Bombinatoridae.
 Bien qu'on les appelle "crapauds", ils possèdent des caractéristiques biologiques
-uniques qui les distinguent à la fois des vrais crapauds et des grenouilles.
+uniques qui les distinguent à la fois des vrais crapauds et des grenouilles [@Hofman2007].
 
 </div>
 </div>
@@ -198,7 +198,7 @@ Hyla arborea, communément appelée la Rainette verte,
 est sans doute l'un des amphibiens les plus élégants d'Europe.
 Contrairement aux grenouilles vertes classiques (Pelophylax),
 elle appartient à la famille des Hylidae.
-Elle possède un mode de vie presque exclusivement arboricole.
+Elle possède un mode de vie presque exclusivement arboricole [@Andersen2004].
 
 </div>
 </div>
