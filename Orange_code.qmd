@@ -145,7 +145,7 @@ We can see in the @fig-example that the Guatemala stands above the rest
 of the world. Even though it is only a mean of the orange world
 production.
 
-#What are the causes of this much disparity ?
+## What are the causes of this much disparity ?
 
 We can see that the gap between the countries between the highest yield
 countries and lowest yield countries are more than 25 t/ha. This gap can
@@ -155,10 +155,10 @@ technically grow flowers, then produce fruits outside of their natural
 habitats, climate will still affect the crops, Citrus crops are
 vulnerable to cold and freezing, where youngs crops are dying at -12 °C,
 the best results were found at a temperature between 23 °C and 34°C
-(Amparo, 2021). Water will also need to be taken into account, as water
-stress tends to induce the start of flowering (Subhrajyoti, 2023).
-Yields will greatly depends on theses various factors linked to climate
-and explain somes of the differences we see here.
+(@cold_primo). Water will also need to be taken into account, as water
+stress tends to induce the start of flowering (@intechopen2024). Yields
+will greatly depends on theses various factors linked to climate and
+explain somes of the differences we see here.
 
 ## How are european yields evolving ?
 
