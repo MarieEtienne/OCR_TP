@@ -875,7 +875,6 @@ Ce chapitre consiste à explorer davantage les liens entre les variables environ
 <details>
 <summary><strong>Colinéarité</strong></summary>
 
-##### Colinéarité 
 Comme montré précédemment, les paires UR-FR et MR-CR sont associées à des coefficients de colinéarité supérieurs à 0,7. Toutes ces paires sont significativement colinéaires. De même que pour les précédentes analyses, les variables FR et MR sont retirées. De plus, la paire RR-BR ayant un coefficient de colinéarité de plus de 0,6 et étant très proche sur le plan de la signification écologique, la variable BR a aussi été retirée pour cette analyse.  
 
 ```{r chapitre4-cor, echo = FALSE, warning = FALSE, message = FALSE}
