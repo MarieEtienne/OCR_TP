@@ -1,25 +1,25 @@
 ---
 title: "projet"
 author: "Chloé BRES, Doryan GRAVELEAU & Maëlle HEBRAS"
-bibliography: references.bib
-execute: 
-  freeze: auto
-format:
-  html:
-    theme: cosmos
-    css: theme.css
-    toc: true
-    toc_float: true
 date: "16/09/2026"
 editor:
   markdown:
     canonical: true
     wrap: 72
+bibliography: references.bib
+execute: 
+  freeze: auto
+  format:
+  html:
+    theme: cosmo
+    css: theme.css
+    toc: true
+    toc_float: true
 ---
 
 # INTRODUCTION GENERALE
 
-## PRESENTATION DES DONNEES ET DES OBJECTIFS DE L'ANALYSE
+## Présentation des données et des objectifs de l'analyse
 
 Pour cet exercice, nous utiliserons les données d'une étude réalisée par
 Philippe Vernon - Université de Rennes 1 (1994) et qui concerne la
@@ -57,23 +57,48 @@ aptera* ?
 
 Les données figurent dans le fichier FlyWeight.txt.
 
-## METHODE UTILISEE
+## Méthode utilisée
 
-Comme l'ANOVA et la régression linéaire, l'ANCOVA (i.e. analysis de
-variance-covariance) est une méthode statistique très utilisée dans
-diverses disciplines. Elle permet de modéliser la relation entre une
-variable dépendante quantitative $Y$ selon plusieurs variables
-explicatives **quantitatives ET qualitatives** $X_{1}$,$X_{2}$...$X_{p}$
-(i.e. les variables indépendantes). Par exemple, nous pouvons utiliser
-une ANCOVA pour tester si la taille (variable quantitative), le sexe
-(variable qualitative), le statut reproductif (variable qualitative),
-l'habitat (variable qualitative), l'âge (variable quantitative) d'un
-cachalot expliquent en partie son poids (variable réponse). Comme
-l'ANCOVA inclut des variables explicatives quantitatives et
-qualitatives, cette méthode statistique se situe entre la régression
-linéaire et l'ANOVA.
+### Modèle mathématique
 
-# Analyse des données
+L'ANCOVA ou "Analysis of Covariance-Variance" est une méthode
+statistique visant à expliquer une variable quantitative $Y$, par
+plusieurs variables explicatives quantitatives **et** qualitatives. Il
+s'agit donc de l'association d'une ANOVA et d'un modèle de régression
+linéaire. Ce modèle linéaire multivarié peut ou non prendre en compte
+l'interaction entre les variables quantitatives et qualitatives. Dans sa
+représentation la plus complexe (avec interaction), Il s'écrit sous la
+forme de @eq-ANCOVA, avec $\mu$ la moyenne générale (ordonnée à
+l'origine), $\alpha_{i}$ l'effet du ième facteur (des variables
+qualitatives), $\beta$ est l'effet de la covariable (la pente de la
+droite de régression), $\gamma_{i}$ est le coefficient associé à
+l'interaction entre le facteur $i$ et la covariable et $\epsilon_{ij}$
+est l'erreur (i.e. les résidus). Ce modèle est fondé sur
+l'homoscédasticité (homogénéité de la variance), l'indépendance des
+observations et l'hypothèse que les résidus $\epsilon$ suivent une loi
+normale centrée ($\epsilon \sim \mathcal{N}(0,\sigma^2)$),
+
+$$ Y_{ij} = \mu + \alpha_{i}+ \beta.X_{ij}+\gamma_{j}.X_{ij}+ \epsilon_{ij}$$ {#eq-ANCOVA}
+
+### Application
+
+Avec le jeu de donnée expliqué ci-dessus, on cherche à expliquer le
+poids sec d'*Anatalanta aptera* ($Dry\:weight$) à l'aide des variables
+observées sur le terrain. Si l'on applique l'ANCOVA aux données étudiées
+ici, après simplification et ajustement du modèle on obtient
+l'@eq-appliquee :
+
+$$
+Dry\:weight = \mu + Habitat\:_i + Width.X_{ij} + Water\:Content.X_{ij} + [Habitat:Width].X_{ij} +
+[Habitat:WaterContent].X_{ij} + \epsilon_{ij}
+$$ {#eq-appliquee}
+
+avec $Habitat=\{Coast,Inland\}$, $[Habitat:Width]$ l'effet d'interaction
+entre l'habitat et la largeur de l'individu, et $[Habitat:WaterContent]$
+l'effet d'interaction entre l'habitat et la quantité d'eau de
+l'individu.
+
+# ANALYSE DES DONNÉES
 
 ## Configuration de la session
 
