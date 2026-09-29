@@ -265,22 +265,22 @@ associées aux autoroutes A1 et S52, une analyse de la diversité alpha a
 diversite_alpha = data[-1,-c(1,3:16)]
 colnames(diversite_alpha)[1] = "Autoroutes"
 
-diversite_alpha_long <- diversite_alpha %>%
+diversite_alpha_long = diversite_alpha %>%
   pivot_longer(cols = -Autoroutes,
                names_to = "Especes",
                values_to = "Presence")
 
-diversite_alpha_resume <- diversite_alpha_long %>%
+diversite_alpha_resume = diversite_alpha_long %>%
   group_by(Autoroutes, Especes) %>%
   summarise(Nb_amphibiens = sum(Presence, na.rm = TRUE),
             .groups = "drop")
 
-ordre_s52 <- diversite_alpha_resume %>%
+ordre_s52 = diversite_alpha_resume %>%
   filter(Autoroutes == "S52") %>%
   arrange(desc(Nb_amphibiens)) %>%
   pull(Especes)
 
-diversite_alpha_resume <- diversite_alpha_resume %>%
+diversite_alpha_resume = diversite_alpha_resume %>%
   mutate(Especes = factor(Especes, levels = ordre_s52))
 
 ```
@@ -292,75 +292,37 @@ diversite_alpha_resume <- diversite_alpha_resume %>%
 #| warning: false
 #| message: false
 
-ggplot(
-  diversite_alpha_resume,
-  aes(
-    x = Especes,
-    y = Nb_amphibiens,
-    fill = Autoroutes
-  )
-) +
-  geom_col(
-    position = position_dodge(width = 0.8),
-    colour = "black",
-    linewidth = 0.3
-  ) +
-  scale_fill_manual(
-    values = c(
-      "S52" = "#0072B2",  # bleu foncé
-      "A1"  = "#D55E00"   # orange foncé
-    )
-  ) +
-  scale_x_discrete(
-    labels = c(
-      "Green.frogs" = "Grenouille verte",
-      "Brown.frogs" = "Grenouille brune",
-      "Common.toad" = "Crapaud commun",
-      "Fire.bellied.toad" = "Crapaud sonneur",
-      "Tree.frog" = "Rainette arboricole",
-      "Common.newt" = "Triton commun",
-      "Great.crested.newt" = "Triton crêté"
-    )
-  ) +
-  scale_y_continuous(
-    breaks = seq(0, 140, by = 20),
-    expand = expansion(mult = c(0, 0.05))
-  ) +
-  labs(
-    x = "Espèces",
-    y = "Nombre d'individus",
-    fill = "Autoroute"
-  ) +
+ggplot(diversite_alpha_resume,aes(x = Especes,
+                                  y = Nb_amphibiens,
+                                  fill = Autoroutes)) +
+  geom_col(position = position_dodge(width = 0.8), 
+           colour = "black",
+           linewidth = 0.3) +
+  scale_fill_manual(values = c("S52" = "#0072B2", 
+                               "A1"  = "#D55E00")) +
+  scale_x_discrete(labels = c("Green.frogs" = "Grenouille verte",
+                              "Brown.frogs" = "Grenouille brune",
+                              "Common.toad" = "Crapaud commun",
+                              "Fire.bellied.toad" = "Crapaud sonneur",
+                              "Tree.frog" = "Rainette arboricole",
+                              "Common.newt" = "Triton commun",
+                              "Great.crested.newt" = "Triton crêté")) +
+  scale_y_continuous(breaks = seq(0, 140, by = 20),
+                     expand = expansion(mult = c(0, 0.05))) +
+  labs(x = "Espèces",
+       y = "Nombre d'individus",
+       fill = "Autoroute") +
   theme_classic() +
-  theme(
-    axis.text.x = element_text(
-      angle = 45,
-      hjust = 1,
-      size = 13
-    ),
-    axis.text.y = element_text(size = 13),
-    axis.title.x = element_text(
-      size = 16,
-      face = "bold"
-    ),
-    axis.title.y = element_text(
-      size = 16,
-      face = "bold"
-    ),
-    panel.grid.major.y = element_line(
-      color = "grey85",
-      linewidth = 0.5
-    ),
-    panel.grid.minor.y = element_blank(),
-    legend.position = "top",
-    legend.title = element_text(
-      size = 14,
-      face = "bold"
-    ),
-    legend.text = element_text(size = 13),
-    legend.key.size = grid::unit(0.8, "cm")
-  )
-
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 13),
+        axis.text.y = element_text(size = 13),
+        axis.title.x = element_text(size = 16, face = "bold"),
+        axis.title.y = element_text(size = 16, face = "bold"),
+        panel.grid.major.y = element_line(color = "grey85", linewidth = 0.5),
+        panel.grid.minor.y = element_blank(),
+        legend.position = "top",
+        legend.title = element_text(size = 14, face = "bold"),
+        legend.text = element_text(size = 13),
+        legend.key.size = grid::unit(0.8, "cm"))
 ```
 
 La répartition des observations met en évidence des abondances plus élevées le long de l'autoroute S52 que sur l'autoroute A1 pour l'ensemble des espèces étudiées (@fig-chp1-diversité_alpha). Les grenouilles brunes constituent le taxon le plus fréquemment observé sur les deux sites, tandis que le triton crêté apparaît comme l'espèce la plus rare.
@@ -371,24 +333,25 @@ Malgré ces différences quantitatives, le classement relatif des espèces reste
 Si la diversité alpha permet de caractériser les communautés localement, elle ne renseigne pas sur le degré de similitude entre les assemblages observés. Afin d'évaluer les différences de composition spécifique entre les relevés effectués sur les deux autoroutes, une analyse de la diversité bêta [@chen2010beta] a été réalisée à partir des distances de Jaccard calculées sur les données de présence-absence (@fig-chp1-diversité_beta).
 
 ```{r diversité beta, echo=FALSE, message=FALSE, warning=FALSE, results='hide',fig.show='asis'}
-especes <- diversite_alpha[, -1] # colonnes espèces
-autoroute <- diversite_alpha$Autoroutes
+especes = diversite_alpha[, -1] # colonnes espèces
+autoroute = diversite_alpha$Autoroutes
 
-dist_jaccard <- vegdist(especes,
+dist_jaccard = vegdist(especes,
                         method = "jaccard",
                         binary = TRUE)
-keep <- rowSums(especes) > 0
 
-especes2 <- especes[keep, ]
-autoroute2 <- autoroute[keep]
-nmds <- metaMDS(
-  especes2,
-  distance = "jaccard",
-  k = 2,
-  trymax = 100
-)
-nmds_data <- as.data.frame(nmds$points)
-nmds_data$Autoroutes <- autoroute2
+keep = rowSums(especes) > 0
+
+especes2 = especes[keep, ]
+autoroute2 = autoroute[keep]
+
+nmds = metaMDS(especes2,
+               distance = "jaccard",
+               k = 2,
+               trymax = 100)
+
+nmds_data = as.data.frame(nmds$points)
+nmds_data$Autoroutes = autoroute2
 ```
 
 ```{r}
@@ -397,85 +360,37 @@ nmds_data$Autoroutes <- autoroute2
 #| echo: false
 #| warning: false
 #| message: false
-ggplot(
-  nmds_data,
-  aes(
-    x = MDS1,
-    y = MDS2,
-    color = Autoroutes,
-    shape = Autoroutes
-  )
-) +
-  geom_point(
-    size = 3.5,
-    alpha = 1
-  ) +
-  scale_color_manual(
-    values = c(
-      "S52" = "#0072B2",  # bleu foncé
-      "A1"  = "#D55E00"   # orange foncé
-    )
-  ) +
-  scale_shape_manual(
-    values = c(
-      "S52" = 17,  # triangle plein
-      "A1"  = 16   # cercle plein
-    )
-  ) +
-  labs(
-    x = "NMDS1",
-    y = "NMDS2",
-    color = "Autoroute",
-    shape = "Autoroute"
-  ) +
+ggplot(nmds_data,aes(x = MDS1,
+                     y = MDS2,
+                     color = Autoroutes,
+                     shape = Autoroutes)) +
+  geom_point(size = 3.5,
+             alpha = 1) +
+  scale_color_manual(values = c("S52" = "#0072B2", 
+                                "A1"  = "#D55E00")) +
+  scale_shape_manual(values = c("S52" = 17, 
+                                "A1"  = 16  )) +
+  labs(x = "NMDS1",
+       y = "NMDS2",
+       color = "Autoroute",
+       shape = "Autoroute") +
   theme_classic() +
-  theme(
-    axis.text.x = element_text(size = 13),
-    axis.text.y = element_text(size = 13),
-    axis.title.x = element_text(size = 16, face = "bold"),
-    axis.title.y = element_text(size = 16, face = "bold"),
-
-    panel.grid.major.x = element_line(
-      color = "grey85",
-      linewidth = 0.5
-    ),
-    panel.grid.major.y = element_line(
-      color = "grey85",
-      linewidth = 0.5
-    ),
-    panel.grid.minor = element_blank(),
-
-    legend.position = "top",
-    legend.title = element_text(
-      size = 14,
-      face = "bold"
-    ),
-    legend.text = element_text(size = 13),
-    legend.key.size = unit(0.8, "cm"),
-
-    plot.background = element_rect(
-      fill = "white",
-      color = NA
-    ),
-    panel.background = element_rect(
-      fill = "white",
-      color = NA
-    ),
-    legend.background = element_rect(
-      fill = "white",
-      color = NA
-    ),
-    legend.key = element_rect(
-      fill = "white",
-      color = NA
-    )
-  ) +
-  guides(
-    color = guide_legend(
-      override.aes = list(size = 5)
-    )
-  )
-
+  theme(axis.text.x = element_text(size = 13),
+        axis.text.y = element_text(size = 13),
+        axis.title.x = element_text(size = 16, face = "bold"),
+        axis.title.y = element_text(size = 16, face = "bold"),
+        panel.grid.major.x = element_line(color = "grey85", linewidth = 0.5),
+        panel.grid.major.y = element_line(color = "grey85", linewidth = 0.5),
+        panel.grid.minor = element_blank(),
+        legend.position = "top",
+        legend.title = element_text(size = 14, face = "bold"),
+        legend.text = element_text(size = 13),
+        legend.key.size = unit(0.8, "cm"),
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA),
+        legend.background = element_rect(fill = "white", color = NA),
+        legend.key = element_rect(fill = "white", color = NA)) +
+  guides(color = guide_legend(override.aes = list(size = 5)))
 ```
 
 L'ordination NMDS [@souza2025nmds] obtenue à partir des distances de Jaccard montre un important chevauchement des relevés associés aux autoroutes A1 et S52 (@fig-chp1-diversité_beta). Les points représentant les deux groupes ne forment pas de clusters distincts, ce qui suggère une forte similarité dans la composition des communautés d'amphibiens.
