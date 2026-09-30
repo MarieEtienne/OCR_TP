@@ -489,22 +489,30 @@ corrplot::corrplot(cor_matrix_spearman, method = "color", type = "upper", addCoe
 
 ```{r}
 #| label: tbl-chp3-cor-num
-#| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques. Sélection basée sur un seuil de corrélation |r| > 0.70 (test de Spearman via `cor.test`). Les p-values ont été vérifiées et ajustées."
+#| tbl-cap: "Variables corrélées (Spearman) et sélection des variables numériques. Sélection basée sur un seuil de corrélation r$> 0,70$ et une p-value $< 0,05$."
 #| echo: false
+
+r_val <- format(round(unname(cor.result.num$estimate), 2), decimal.mark = ",")
+p_val <- if (cor.result.num$p.value < 0.001) {
+  "< 0,001"
+} else {
+  format(round(cor.result.num$p.value, 3), decimal.mark = ",")
+}
+
 tab <- data.frame(
   `Paire` = c("**RR** (distance aux routes) et **BR** (distance aux bâtiments)"),
-  `r` = c("$0.80$"),
-  `p` = c(cor.result.num$p.value), 
+  `r` = r_val,
+  `p` = p_val,
   `Lien écologique` = c("Routes et constructions sont associées dans les zones urbanisées et périurbaines."),
   `Conservée` = c("**RR**"),
   `Éliminée` = c("**BR**"),
   check.names = FALSE, stringsAsFactors = FALSE
 )
-knitr::kable(tab, align = c("l","c","l","c","c","l"))
+knitr::kable(tab, align = c("l","c","c","l","c","l"))
 ```
 
 ### Corrélations et sélection des variables catégorielles
-La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0,70$ : MR–CR. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
+La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0,70$ : `MR`–`CR`. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
 ```{r}
 #| label: fig-chp3-cor-cramer
@@ -531,7 +539,7 @@ tab <- data.frame(
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-Après cette sélection, les variables $BR$, $FR$ et $MR$ ont été écartées pour la suite de l'analyse. Il reste donc $SR$, $NR$, $OR$ et $RR$ pour les variables numériques et ordinales, et $TR$, $VR$, $SUR1$, $SUR2$, $SUR3$, $UR$ et $CR$ pour les variables catégorielles.
+près cette sélection, les variables `BR`, `FR` et `MR` ont été écartées pour la suite de l'analyse. Il reste donc `SR`, `NR`, `OR` et `RR` pour les variables numériques et ordinales, et `TR`, `VR`, `SUR1`, `SUR2`, `SUR3`, `UR` et `CR` pour les variables catégorielles.
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables éliminées
@@ -742,10 +750,10 @@ Concernant la variable catégorique $TR$ (type de réservoir d'eau) :
 
 Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux aires non développées) :
 
-* Valeurs élevées de OR → associées au *Triton crêté*, dont la projection sur ce gradient est nettement la plus forte
-* Projections positives mais modérées, traduisant une association plus faible aux valeurs élevées de OR → *Tree.frog*, *Fire.bellied.toad*, *Common.newt*
+* Valeurs élevées de `OR` → associées au *Triton crêté*, dont la projection sur ce gradient est nettement la plus forte
+* Projections positives mais modérées, traduisant une association plus faible aux valeurs élevées de `OR` → *Tree.frog*, *Fire.bellied.toad*, *Common.newt*
 * Projection proche de zéro → *Brown.frogs*, peu associée à ce gradient
-* Projections négatives, associées aux valeurs basses de OR → *Common.toad*, *Green.frogs* (cette dernière étant l'espèce la plus fortement associée à ce pôle)
+* Projections négatives, associées aux valeurs basses de `OR` → *Common.toad*, *Green.frogs* (cette dernière étant l'espèce la plus fortement associée à ce pôle)
 
 #### Conclusion CCA
 En conclusion, les variables environnementales retenues structurent de façon significative la composition de la communauté d'amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1]`), bien que le modèle n'explique qu'une part modérée de la variance totale (`r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)` %). Sur les deux premiers axes, deux tendances se dégagent : le *Triton crêté* est associé aux tranchées (`TR7`) et aux valeurs élevées de $OR$, tandis que le *Crapaud commun* et les *Grenouilles vertes* sont associés aux valeurs basses de $OR$. Ces résultats restent descriptifs et constituent des hypothèses à confirmer espèce par espèce avec les modèles de la @sec-glm.
@@ -1008,7 +1016,7 @@ par(mfrow = c(1, 1))
 ```
 
 ##### Analyse GLM pour chaque espèce 
-
+###### Modèle complet
 Dans un premier temps, le modèle suivant est testé : $$ \text{Species X} \sim \text{SR} + \text{NR} + \text{TR} + \text{VR} + \text{SUR1} + \text{SUR2} + \text{SUR3} + \text{UR} + \text{OR} + \text{RR} + \text{CR} $$
 
 Comme anticipé de par la très faible occurence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700) (@tbl-chp4-glm-complet). Par conséquent, les p-values associés à ces quatres modèles (*crapaud sonneur*, *rainette arboricole*, *triton commun*, *triton crêté*) ne sont pas interprétables. 
@@ -1091,16 +1099,7 @@ modelsummary(
   
 ```
 
-Comme anticipé de par la très faible occurrence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700). Par conséquent, les p-values associés à ces quatres modèles (crapaud sonneur, rainette arboricole, triton commun, triton crêté) ne sont pas interprétables. 
-
-En ce qui concerne les autres modèles (grenouille verte, grenouille rousse, crapaud commun), plusieurs variables ressortent comme significatives et varient selon les espèces. L'occurrence de la grenouille verte varie significativement selon le type de zone humide (TR), la troisième occupation du sol dominante (SUR3) et la distance minimale aux routes (RR). Plus cette dernière variable est élevée, plus la grenouille verte à de chances d'être présente ce qui signifie un potentiel impact direct des routes sur l'espèce.
-
-Pour la grenouille rousse, seul le pourcentage d'accès des zones humides aux aires non développées s'avère être une variable explicative de l'occurrence. Lorsque l'accès aux zones non développées est important, on peut s'attendre à davantage de présence pour cette espèce. Cela s'avère cohérent avec le mode de vie de cette dernière qui est très terrestre et se disperse davantage que la grenouille verte [@Guillemin1967] [@amphi_lpo_grenouille_verte]. Ainsi, partant du principe que la route diminue l'accès à ces zones non développées, la grenouille rousse est une autre victime potentiel du projet routier. 
-
-Enfin, en ce qui concerne le crapaud commun, seule la variable TR est significative avec un coefficient bêta de -0,088. Le type de zone humide a également un impact sur l'occurrence de cette espèce. Dans la mesure où la route peut justement impacter le type de zone humide à proximité, le projet routier peut avoir un impact sur son occurrence en ce sens. 
-
-Pour conclure sur ces premiers modèles, il existe bien une différence entre espèce des variables ayant un effet sur l'occurrence et cette différence peut en partie s'expliquer par le mode de vie comme démontré pour le cas de la grenouille rousse. 
-
+###### Modèle réduit
 Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédents. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. Le modèle est le suivant : $$ \text{Species X} \sim \text{TR} + \text{SUR3} + \text{OR} + \text{RR} $$
 
 Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables `TR` significative (@tbl-chp4-glm-reduit). Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
@@ -1176,10 +1175,6 @@ modelsummary(
   gof_omit = ".*"    
 )
 ```
-
-Les espèces n'ayant pas pu être traitées précédemment ont toutes les quatre la variables TR significative. Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est significative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurrence avec le pourcentage d'accès aux aires non dévelopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
-
-En conclusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
 
 ## Conclusion
 
