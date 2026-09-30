@@ -30,6 +30,8 @@ library(patchwork)
 library(broom)
 library(modelsummary) # modelsummary() est utilisé dans le chapitre 4
 library(ggpattern)
+library(ggvegan)
+library(ggrepel)
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
@@ -86,7 +88,7 @@ Travail personnel, <a href="http://creativecommons.org/publicdomain/zero/1.0/dee
 <div>
 <h3>Grenouille verte <em>(Pelophylax spp.)</em></h3>
 
-La grenouille verte, dont le nom scientifique est *Pelophylax kl. esculentus*, est un amphibien très aquatique mesurant de 8 à 12 cm. Son dos, vert à brun, est parsemé de taches sombres et souvent parcouru d'une fine ligne claire. On la rencontre toute l'année dans les plans d'eau ou à proximité, et les mâles chantent au printemps et en été.
+La grenouille verte, est un amphibien très aquatique mesurant de 8 à 12 cm. Son dos, vert à brun, est parsemé de taches sombres et souvent parcouru d'une fine ligne claire. On la rencontre toute l'année dans les plans d'eau ou à proximité, et les mâles chantent au printemps et en été.
 [@amphi_lpo_grenouille_verte]
 
 </div>
@@ -626,34 +628,81 @@ Sur la base de ces deux axes retenus, nous avons représenté graphiquement les 
 #| label: fig-cca-graph-final
 #| fig-cap: "Graphiques d'ordination de la CCA (espèces et variables) sur les premiers axes."
 #| echo: false
+#| warning: false
+#| message: false
 #| fig-width: 10
-#| fig-height: 4
+#| fig-height: 4.5
 
-{
-  par(mfrow = c(1, 2))
-  
-  # 1. Calcul des limites unifiées
-  factor_terms      <- terms_sig[sapply(terms_sig, function(v) is.factor(data_var_cca[[v]]))]
-  continuous_terms  <- setdiff(terms_sig, factor_terms)
-  bp_scores <- scores(cca_model, display = "bp", scaling = 2)
-  cn_scores <- scores(cca_model, display = "cn", scaling = 2)
-  bp_sel <- bp_scores[rownames(bp_scores) %in% continuous_terms, , drop = FALSE]
-  cn_sel <- cn_scores[sapply(rownames(cn_scores), function(rn) any(startsWith(rn, factor_terms))), , drop = FALSE]
-  lim <- max(abs(rbind(bp_sel, cn_sel))) * 1.2
-  
-  # 2. Panneau Espèces
-  plot(cca_model, display = "species", scaling = 2, main = "Espèces",
-       xlim = c(-lim, lim), ylim = c(-lim, lim))
-  
-  # 3. Panneau Variables
-  plot(cca_model, type = "n", scaling = 2, main = "Variables",
-       xlim = c(-lim, lim), ylim = c(-lim, lim))
-  abline(h = 0, v = 0, col = "grey80", lty = 2)
-  arrows(0, 0, bp_sel[, 1], bp_sel[, 2], length = 0.1, col = "red", lwd = 2)
-  text(bp_sel[, , drop = FALSE], labels = rownames(bp_sel), col = "red", pos = 4, font = 2)
-  points(cn_sel[, , drop = FALSE], pch = 17, col = "blue")
-  text(cn_sel[, , drop = FALSE], labels = rownames(cn_sel), col = "blue", pos = 4, cex = 0.8)
-}
+# 1. Extraire les scores avec ggvegan (même scaling que la version de base)
+sc <- fortify(cca_model, axes = 1:2, scaling = 2)
+
+# Harmoniser les noms de colonnes selon la version de ggvegan
+names(sc)[tolower(names(sc)) == "score"] <- "Score"
+names(sc)[tolower(names(sc)) == "label"] <- "Label"
+names(sc)[tolower(names(sc)) == "cca1"]  <- "CCA1"
+names(sc)[tolower(names(sc)) == "cca2"]  <- "CCA2"
+sc$Score <- tolower(sc$Score)
+# Vérification : noms des colonnes et types de scores disponibles
+names(sc)
+unique(sc$Score)
+
+# 2. Séparer les espèces, les vecteurs (variables numériques)
+#    et les centroïdes (variables catégorielles)
+noms_fr <- c("Green.frogs"        = "Grenouille verte",
+             "Brown.frogs"        = "Grenouille brune",
+             "Common.toad"        = "Crapaud commun",
+             "Fire.bellied.toad"  = "Crapaud sonneur",
+             "Tree.frog"          = "Rainette arboricole",
+             "Common.newt"        = "Triton commun",
+             "Great.crested.newt" = "Triton crêté")
+
+sp <- sc %>%
+  dplyr::filter(Score == "species") %>%
+  dplyr::mutate(Label = unname(noms_fr[Label]))
+
+bp <- sc %>% dplyr::filter(Score == "biplot", Label %in% continuous_terms)
+
+cn <- sc %>% dplyr::filter(Score == "centroids",
+                           sapply(Label, function(l) any(startsWith(l, factor_terms))))
+
+# 3. Limites unifiées pour les deux panneaux
+lim <- max(abs(c(bp$CCA1, bp$CCA2, cn$CCA1, cn$CCA2))) * 1.2
+
+theme_base <- theme_classic() +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title = element_text(face = "bold"))
+
+lignes_ref <- list(
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey80"),
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey80"),
+  coord_fixed(xlim = c(-lim, lim), ylim = c(-lim, lim))
+)
+
+# 4. Panneau espèces
+p_sp <- ggplot(sp, aes(CCA1, CCA2)) +
+  lignes_ref +
+  geom_point(colour = "darkgreen", size = 2.5) +
+  geom_text_repel(aes(label = Label), size = 3.5, colour = "darkgreen") +
+  labs(title = "Espèces", x = "CCA1", y = "CCA2") +
+  theme_base
+
+# 5. Panneau variables
+p_var <- ggplot() +
+  lignes_ref +
+  geom_segment(data = bp,
+               aes(x = 0, y = 0, xend = CCA1, yend = CCA2),
+               arrow = arrow(length = unit(0.25, "cm")),
+               colour = "red", linewidth = 0.9) +
+  geom_text_repel(data = bp, aes(CCA1, CCA2, label = Label),
+                  colour = "red", fontface = "bold") +
+  geom_point(data = cn, aes(CCA1, CCA2), colour = "blue", shape = 17, size = 2.5) +
+  geom_text_repel(data = cn, aes(CCA1, CCA2, label = Label),
+                  colour = "blue", size = 3) +
+  labs(title = "Variables", x = "CCA1", y = "CCA2") +
+  theme_base
+
+# 6. Assemblage avec patchwork
+p_sp + p_var
 ```
 
 
