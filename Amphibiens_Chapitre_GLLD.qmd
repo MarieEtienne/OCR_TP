@@ -50,7 +50,7 @@ data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 ## Introduction
 
 Le jeu de données utilisé pour les analyses suivantes provient de diverses sources comprenant des données de Système d'Information Géographique (SIG), d'imagerie satellitaire ainsi que de relevés naturalistes [@amphi_loboda_amphibian_dataset_2019]. Toutes ces données ont été réunies dans le cadre des Etudes d’Impact sur l’Environnement (EIE) pour deux projets routiers en Pologne et se concentrent sur un taxon bien particulier, les amphibiens. Plus précisément, le dataset associe des données environnementales liées aux routes à des données d'occurrence pour 7 espèces d’amphibiens. Ces 7 espèces sont : la grenouille verte, la grenouille brune/rousse, le crapaud commun, le crapaud sonneur, la rainette arboricole, le triton commun et le triton crêté. Concernant les données environnementales, elles se décomposent en 14 variables visant à caractériser les routes et leur association avec des zones humides proches. On peut citer entre autres : la surface des zones humides (SR), leur nombre (NR), leur distance minimale aux routes (RR) ou encore le type d’occupation du sol associé (SUR1/2/3). 
-L’inventaire a été réalisé à proximité de tronçons de deux autoroutes distinctes, l’A1 (Pyrzowice, Pologne) et la S52 (Bielsko-Biata, Pologne). Au total, 189 sites de reproduction ont été échantillonnés, 80 pour l’autoroute A1 et 109 pour l’autoroute S52. Le protocole a consisté en l’échantillonnage sur une bande de 500m autour du projet routier pendant le printemps 2010, de zones à présence supposée ou avérée d’amphibiens. Ainsi, le but est notamment de prédire la présence d’espèces d’amphibiens à proximité des zones humides et leur relation avec les projets routiers dans une optique de conservation. 
+L’inventaire a été réalisé à proximité de tronçons de deux autoroutes distinctes, l’A1 (Pyrzowice, Pologne) et la S52 (Bielsko-Biała, Pologne). Au total, 189 sites de reproduction ont été échantillonnés, 80 pour l’autoroute A1 et 109 pour l’autoroute S52. Le protocole a consisté en l’échantillonnage sur une bande de 500m autour du projet routier pendant le printemps 2010, de zones à présence supposée ou avérée d’amphibiens. Ainsi, le but est notamment de prédire la présence d’espèces d’amphibiens à proximité des zones humides et leur relation avec les projets routiers dans une optique de conservation. 
 Lors de cette étude, l’enjeu sera de relever les variables importantes et explicatives de la présence ou de l’absence des amphibiens et voir si celles-ci varient selon l’espèce. Pour cela, divers outils statistiques seront appliqués, allant des analyses multivariées (ACC) aux modèles linéaires généralisés (GLM). 
 
 ### Apprendre plus sur les espèces étudiées
@@ -337,9 +337,9 @@ ggplot(diversite_alpha_resume,aes(x = Especes,
         legend.key.size = grid::unit(0.8, "cm"))
 ```
 
-La répartition des observations met en évidence des abondances plus élevées le long de l'autoroute S52 que sur l'autoroute A1 pour l'ensemble des espèces étudiées (@fig-chp1-diversité_alpha). Les grenouilles brunes constituent le taxon le plus fréquemment observé sur les deux sites, tandis que le triton crêté apparaît comme l'espèce la plus rare.
+La répartition des observations met en évidence des abondances plus élevées le long de l'autoroute S52 que sur l'autoroute A1 pour l'ensemble des espèces étudiées (@fig-chp1-diversité_alpha). Les grenouilles brunes constituent le groupe le plus fréquemment observé sur les deux sites, tandis que le triton crêté apparaît comme l'espèce la plus rare.
 
-Malgré ces différences quantitatives, le classement relatif des espèces reste globalement similaire entre les deux autoroutes. Cette tendance suggère que les communautés présentes le long de l'A1 et de la S52 partagent une composition spécifique comparable, mais que les populations semblent plus abondantes sur la S52. Plusieurs facteurs peuvent expliquer ce résultat, notamment une qualité d'habitat plus favorable, une meilleure connectivité écologique [@clauzel2024connectivity] ou encore des différences dans les conditions d'échantillonnage. Des analyses statistiques complémentaires seraient toutefois nécessaires afin de déterminer si ces écarts sont significatifs.
+Malgré ces différences quantitatives, le classement relatif des espèces reste globalement similaire entre les deux autoroutes. Cette tendance suggère que les communautés présentes le long de l'A1 et de la S52 partagent une composition spécifique comparable, mais que les populations semblent plus abondantes sur la S52. Plusieurs facteurs peuvent expliquer ce résultat, notamment une qualité d'habitat plus favorable, une meilleure connectivité écologique [@clauzel2024connectivity] ou encore des différences dans les conditions d'échantillonnage (effort d'échantillonnage inégal, accessibilité des sites, observateurs différents). Des analyses statistiques complémentaires seraient toutefois nécessaires afin de déterminer si ces écarts sont significatifs.
 
 ### Diversité bêta : similitude des communautés entre autoroutes
 Si la diversité alpha permet de caractériser les communautés localement, elle ne renseigne pas sur le degré de similitude entre les assemblages observés. Afin d'évaluer les différences de composition spécifique entre les relevés effectués sur les deux autoroutes, une analyse de la diversité bêta [@chen2010beta] a été réalisée à partir des distances de Jaccard calculées sur les données de présence-absence (@fig-chp1-diversité_beta).
@@ -423,9 +423,9 @@ data_var_clean   <- data_var[valid_sites, ]
 representation <- round(100 * colMeans(data_amphi != 0), 1)
 ```
 
-Nous avions déjà explorer la diversité alpha et beta de nos amis amphibiens, mais pour réaliser des modèles il est nécessaire de préparer correctement le jeu de données. Il faut alors d'abord vérifier que toutes les espèces sont bien représentées, et puis écarter les sites où aucune espèce n'a été observée.
+Nous avions déjà exploré la diversité alpha et bêta de nos amis amphibiens, mais pour réaliser des modèles il est nécessaire de préparer correctement le jeu de données. Il faut alors d'abord vérifier que toutes les espèces sont bien représentées, puis écarter les sites où aucune espèce n'a été observée.
 
-Selon les analyses réalisés, toutes les espèces sont présentes, avec des fréquences d'occurrence allant de `r min(representation)` % à `r max(representation)` % comme indiqué dans @tbl-chp3-representation. En revanche, `r sum(!valid_sites)` sites ne comptent aucune observation : ils ont été donc supprimés, ce qui fait passer le jeu de données de `r nrow(data_var)` à `r nrow(data_var_clean)` échantillons.
+Selon les analyses réalisées, toutes les espèces sont présentes, avec des fréquences d'occurrence allant de `r min(representation)`% à `r max(representation)`% comme indiqué dans @tbl-chp3-representation. En revanche, `r sum(!valid_sites)` sites ne comptent aucune observation : ils ont été donc supprimés, ce qui fait passer le jeu de données de `r nrow(data_var)` à `r nrow(data_var_clean)` échantillons.
 
 ```{r}
 #| label: tbl-chp3-representation
@@ -546,11 +546,11 @@ data_cat_clean <- data_cat[, !colnames(data_cat) %in% vars_cat_drop,
 data_var_clean <- cbind(data_num_ord_clean, data_cat_clean)
 ```
 
-## Création des modèles pour étudier le jeu de donnée
+## Création des modèles pour étudier le jeu de données
 ### Analyse multivarié à deux tableaux: structuration de la composition de la communauté d'amphibiens
 Avec ce même jeu de données, on se demande **quelles variables structurent la composition et la diversité globale de la communauté d'amphibiens**. Pour cela, une approche appropriée est l'analyse multivariée.💡^[Les analyses multivariées permettent d'analyser simultanément de multiples variables afin de découvrir des modèles, des structures et des relations complexes qui ne peuvent être mis en évidence par l'analyse isolée de chaque variable (@amphi_wikipedia_multivariate_statistics).]
 
-Dans ce cas, ayant un jeu de données avec des informations sur la présence/absence des amphibiens et des variables catégorielles et numériques sur le contexte environnemental, une analyse canonique des correspondances (CCA) a été retenue 💡^[Cette méthode permet de contraindre l'ordination de la communauté d'amphibiens par un ensemble de variables explicatives, et ainsi d'identifier lesquelles structurent le plus la composition observée.].
+Dans ce cas, ayant un jeu de données avec des informations sur la présence/absence des amphibiens ainsi que des variables catégorielles et numériques sur le contexte environnemental, une analyse canonique des correspondances (CCA) a été retenue 💡^[Cette méthode permet de contraindre l'ordination de la communauté d'amphibiens par un ensemble de variables explicatives, et ainsi d'identifier lesquelles structurent le plus la composition observée.].
 
 #### Construction du modèle
 ```{r cca-graph, echo = FALSE, warning = FALSE, message = FALSE}
@@ -587,7 +587,7 @@ terms_sig_margin <- rownames(anova_margin_cca)[anova_margin_cca$"Pr(>F)" <= 0.05
 terms_sig_margin <- terms_sig_margin[!is.na(terms_sig_margin)]
 ```
 
-Le modèle canonique de correspondances a été construit à partir de l'ensemble des variables explicatives retenues :
+Le modèle canonique des correspondances a été construit à partir de l'ensemble des variables explicatives retenues :
 
 ```{r}
 #| echo: false
@@ -941,9 +941,9 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 
 
 
-#### Analyse GLM : Quels facteurs influencent l'occurence des amphibiens à proximité des routes selon l'espèce ?
+#### Analyse GLM : Quels facteurs influencent l'occurrence des amphibiens à proximité des routes selon l'espèce ?
 
-Ce chapitre consiste à explorer davantage les liens entre les variables environnementales et l'occurence des espèces d'amphibiens. Plus précisément, il tente de répondre à la question : Quels facteurs influencent l'occurrence des amphibiens à proximité des routes ? Pour y répondre, des GLM seront utilisés pour chaque espèce afin de voir si les variables concernées changent en fonction de celle-ci. 
+Ce chapitre consiste à explorer davantage les liens entre les variables environnementales et l'occurrence des espèces d'amphibiens. Plus précisément, il tente de répondre à la question : Quels facteurs influencent l'occurrence des amphibiens à proximité des routes ? Pour y répondre, des GLM seront utilisés pour chaque espèce afin de voir si les variables concernées changent en fonction de celle-ci. 
 
 <details>
 <summary><strong>Colinéarité</strong></summary>
@@ -973,7 +973,7 @@ dataClean <- data %>%
 
 ##### Visualisation des données 
 
-Préalablement à l'analyse GLM des occurences de chaque espèce, une visualisation des ratios de présence/absence selon les routes a été effectué. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces.  Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
+Préalablement à l'analyse GLM des occurrences de chaque espèce, une visualisation des ratios de présence/absence selon les routes a été effectué. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces.  Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
 
 ```{r chapitre4-mosaic, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -1084,17 +1084,17 @@ modelsummary(
   gof_omit = ".*" )
   
 ```
-Comme anticipé de par la très faible occurence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700). Par conséquent, les p-values associés à ces quatres modèles (crapaud sonneur, rainette arboricole, triton commun, triton crêté) ne sont pas interprétables. 
+Comme anticipé de par la très faible occurrence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700). Par conséquent, les p-values associés à ces quatres modèles (crapaud sonneur, rainette arboricole, triton commun, triton crêté) ne sont pas interprétables. 
 
-En ce qui concerne les autres modèles (grenouille verte, grenouille rousse, crapaud commun), plusieurs variables ressortent comme significatives et varient selon les espèces. L'occurence de la grenouille verte varie significativement selon le type de zone humide (TR), la troisième occupation du sol dominante (SUR3) et la distance minimale aux routes (RR). Plus cette dernière variable est élevée, plus la grenouille verte à de chances d'être présence ce qui signifie un potentiel impact direct des routes sur l'espèce.
+En ce qui concerne les autres modèles (grenouille verte, grenouille rousse, crapaud commun), plusieurs variables ressortent comme significatives et varient selon les espèces. L'occurrence de la grenouille verte varie significativement selon le type de zone humide (TR), la troisième occupation du sol dominante (SUR3) et la distance minimale aux routes (RR). Plus cette dernière variable est élevée, plus la grenouille verte à de chances d'être présente ce qui signifie un potentiel impact direct des routes sur l'espèce.
 
-Pour la grenouille rousse, seul le pourcentage d'accès des zones humides aux aires non développées s'avère être une variable explicative de l'occurence. Lorsque l'accès aux zones non dévelloppées est important, on peut s'attendre à davantage de présence pour cette espèce. Cela s'avère cohérent avec le mode de vie de cette dernière qui est très terrestre et se disperse davantage que la grenouille verte [@Guillemin1967] [@amphi_lpo_grenouille_verte]. Ainsi, partant du principe que la route diminue l'accès à ces zones non développées, la grenouille rousse est une autre victime potentiel du projet routier. 
+Pour la grenouille rousse, seul le pourcentage d'accès des zones humides aux aires non développées s'avère être une variable explicative de l'occurrence. Lorsque l'accès aux zones non développées est important, on peut s'attendre à davantage de présence pour cette espèce. Cela s'avère cohérent avec le mode de vie de cette dernière qui est très terrestre et se disperse davantage que la grenouille verte [@Guillemin1967] [@amphi_lpo_grenouille_verte]. Ainsi, partant du principe que la route diminue l'accès à ces zones non développées, la grenouille rousse est une autre victime potentiel du projet routier. 
 
-Enfin, en ce qui concerne le crapaud commun, seule la variable TR est significative avec un coefficient bêta de -0,088. Le type de zone humide a également un impact sur l'occurence de cette espèce. Dans la mesure où la route peut justement impacter le type de zone humide à proximité, le projet routier peut avoir un impact sur son occurence en ce sens. 
+Enfin, en ce qui concerne le crapaud commun, seule la variable TR est significative avec un coefficient bêta de -0,088. Le type de zone humide a également un impact sur l'occurrence de cette espèce. Dans la mesure où la route peut justement impacter le type de zone humide à proximité, le projet routier peut avoir un impact sur son occurrence en ce sens. 
 
-Pour conclure sur ces premiers modèles, il existe bien une différence entre espèce des variables ayant un effet sur l'occurence et cette différence peut en partie s'expliquer par le mode de vie comme démontré pour le cas de la grenouille rousse. 
+Pour conclure sur ces premiers modèles, il existe bien une différence entre espèce des variables ayant un effet sur l'occurrence et cette différence peut en partie s'expliquer par le mode de vie comme démontré pour le cas de la grenouille rousse. 
 
-Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédent. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. Le modèle est le suivant : $$ \text{Species X} \sim \text{TR} + \text{SUR3} + \text{OR} + \text{RR} $$
+Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédents. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. Le modèle est le suivant : $$ \text{Species X} \sim \text{TR} + \text{SUR3} + \text{OR} + \text{RR} $$
 
 ```{r chapitre4-mod2, echo = FALSE, warning = FALSE, message = FALSE}
 ### Modèle Grenouille verte 
@@ -1160,12 +1160,12 @@ modelsummary(
 )
 ```
 
-Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables TR significative. Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
+Les espèces n'ayant pas pu être traitées précédemment ont toutes les quatre la variables TR significative. Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est significative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurrence avec le pourcentage d'accès aux aires non dévelopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
 
-En conlusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
+En conclusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
 
 
 ## Conclusion
 
 En somme, si l'étude de la diversité montre que les groupes d'espèces d'amphibiens restent en grande partie semblables entre les deux autoroutes, malgré des différences d'abondance locale, l'Analyse Canonique des Correspondances montre que les variables environnementales influencent vraiment ces communautés à travers des affinités précises. Les modèles complémentaires nuancent ensuite ces résultats en montrant que la distance aux routes n'a pas d'effet global important. Par contre, des pressions humaines locales jouent un rôle clé dans leur répartition. Au final, même si les effets de ces projets routiers varient selon la sensibilité de chaque espèce, tous les amphibiens risquent d'être touchés. Cela montre qu'il est essentiel d'utiliser une approche ciblée et basée sur plusieurs facteurs pour guider les mesures de protection.
-Enfin, ces travaux ouvrent la voie à des analyses de connectivité fonctionnelle et génétique pour évaluer l'efficacité réelle des aménagements de mitigation, tout en intégrant les impacts du changement climatique sur la dynamique des zones humides face aux défis de conservation à long terme
+Enfin, ces travaux ouvrent la voie à des analyses de connectivité fonctionnelle et génétique pour évaluer l'efficacité réelle des aménagements de mitigation, tout en intégrant les impacts du changement climatique sur la dynamique des zones humides face aux défis de conservation à long terme.
