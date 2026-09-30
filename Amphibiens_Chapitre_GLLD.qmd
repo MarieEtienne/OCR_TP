@@ -4,6 +4,8 @@ lang: fr
 bibliography: references.bib
 number-sections: true
 number-depth: 6
+keep-md: false
+keep-ipynb: false
 format:
   html:
     embed-resources: true
