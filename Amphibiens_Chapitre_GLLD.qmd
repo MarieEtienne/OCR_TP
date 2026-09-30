@@ -644,9 +644,10 @@ names(sc)[tolower(names(sc)) == "label"] <- "Label"
 names(sc)[tolower(names(sc)) == "cca1"]  <- "CCA1"
 names(sc)[tolower(names(sc)) == "cca2"]  <- "CCA2"
 sc$Score <- tolower(sc$Score)
-# Vérification : noms des colonnes et types de scores disponibles
-names(sc)
-unique(sc$Score)
+
+# Variables significatives : facteurs (centroïdes) vs numériques (vecteurs)
+factor_terms     <- terms_sig[sapply(terms_sig, function(v) is.factor(data_var_cca[[v]]))]
+continuous_terms <- setdiff(terms_sig, factor_terms)
 
 # 2. Séparer les espèces, les vecteurs (variables numériques)
 #    et les centroïdes (variables catégorielles)
