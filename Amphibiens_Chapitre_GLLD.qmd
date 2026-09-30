@@ -597,9 +597,23 @@ format_var_latex <- function(v) {
 }
 
 vars <- attr(terms(cca_model), "term.labels")
-form_latex <- paste(sapply(vars, format_var_latex), collapse = " + ")
 
-cat(paste0("$$Y_{\\text{amphibiens}} \\sim ", form_latex, "$$"))
+# Nombre de variables par ligne
+n_par_ligne <- 4
+groupes <- split(vars, ceiling(seq_along(vars) / n_par_ligne))
+
+lignes <- sapply(seq_along(groupes), function(i) {
+  termes <- paste(sapply(groupes[[i]], format_var_latex), collapse = " + ")
+  if (i == 1) {
+    paste0("Y_{\\text{amphibiens}} &\\sim ", termes)
+  } else {
+    paste0("&\\quad + ", termes)
+  }
+})
+
+cat("$$\n\\begin{aligned}\n",
+    paste(lignes, collapse = " \\\\\n"),
+    "\n\\end{aligned}\n$$", sep = "")
 ```
 
 #### Significativité du modèle
