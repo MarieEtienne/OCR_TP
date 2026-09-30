@@ -19,7 +19,7 @@ editor:
     canonical: false
     wrap: 72
 ---
-```{r setup-et-import, message=FALSE, warning=FALSE, echo= FALSE}
+```{r setup-et-import, message=FALSE, warning=FALSE, include = FALSE, echo= FALSE}
 # Load libraries
 {
   # Paquets CRAN nécessaires
@@ -28,10 +28,15 @@ editor:
                     "ggrepel", "remotes")
   # Installer uniquement ceux qui manquent
   manquants <- paquets_cran[!paquets_cran %in% rownames(installed.packages())]
-  if (length(manquants) > 0) install.packages(manquants)
-  # ggvegan : disponible sur GitHub (pas sur CRAN)
+if (length(manquants) > 0) {
+  install.packages(
+  manquants,
+  repos = "https://cloud.r-project.org"
+  )
+}
+# ggvegan : disponible sur GitHub (pas sur CRAN)
   if (!requireNamespace("ggvegan", quietly = TRUE)) {
-    remotes::install_github("gavinsimpson/ggvegan")
+  remotes::install_github("gavinsimpson/ggvegan")
   }
   # Charger tous les paquets
   invisible(lapply(c(setdiff(paquets_cran, "remotes"), "ggvegan"),
@@ -40,6 +45,7 @@ editor:
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
 ```
+
 
 ## Introduction
 
