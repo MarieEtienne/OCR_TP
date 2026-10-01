@@ -102,4 +102,21 @@ La sélection de modèle repose sur le critère d'information d'Akaike
 [@akaike1974; @burnham2002] ; les analyses sont réalisées avec R
 [@rcore2024].
 
+# Données et variables
+
+Le jeu de données (`Data_abeilles.txt`) contient un spécimen par ligne.
+
+| Variable | Type | Description |
+|----|----|----|
+| `TailleR` | numérique (réponse) | Taille du spécimen (mesure corporelle, par ex. espace intertégulaire [@cane1987]) |
+| `genre` | facteur (10 niveaux) | Genre de l'abeille : *Andrena*, *Apis*, *Bombus*, *Halictus*, *Hylaeus*, *Lasioglossum*, *Nomada*, *Panurgus*, *Xylocopa*… Le genre intègre l'effet phylogénétique : il porte l'essentiel des différences de taille [@michener2007]. |
+| `sexe` | facteur (f / m) | Sexe du spécimen. Le dimorphisme sexuel de taille est fréquent chez les abeilles. |
+| `contexte_paysager` | facteur (4 niveaux) | Type de milieu : `seminat`, `suburb`, `urbain` et un niveau de référence (à vérifier avec `levels()`). Il résume un gradient d'urbanisation [@geslin2013; @fortel2014]. |
+| `Impermeabilisation500m` | numérique | Part de surface imperméabilisée (bâti, voirie) dans un rayon de 500 m autour du site : mesure continue d'urbanisation locale. |
+| `lectisme` | facteur | Degré de spécialisation alimentaire (régime floral large *polylectique* vs. restreint *oligolectique*). Un régime étroit rend l'espèce plus dépendante de la flore locale [@bartomeus2013]. |
+
+> **Note :** la colonne 8 a eté retirée dans le script
+> (`Abeilles[,-8]`). Elle correspondait à la mesure de la distance
+> intertégulaire et ne comprenait que des NA donc était inutilisable.
+
 **Bibliographie**
