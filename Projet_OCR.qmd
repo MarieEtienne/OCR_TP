@@ -142,4 +142,67 @@ levels(Abeilles_clean$contexte_paysager)
 table(Abeilles_clean$genre)
 ```
 
+## Modèles linéaires emboîtés
+
+On construit progressivement des modèles linéaires, en ajoutant une
+variable explicative à chaque étape.
+
+```{r}
+#| label: modeles
+# mod1 : genre seul
+mod1 <- lm(TailleR ~ genre, data = Abeilles_clean)
+summary(mod1)
+anova(mod1)
+```
+
+Le genre seul explique déjà **80,6 %** de la variance (R² = 0,806) : la
+taille dépend avant tout de la taxonomie (*Xylocopa* et *Bombus* sont
+bien plus grands, *Lasioglossum* et *Hylaeus* plus petits).
+
+```{r}
+# mod2 : + sexe
+mod2 <- lm(TailleR ~ genre + sexe, data = Abeilles_clean)
+summary(mod2)
+anova(mod2)
+```
+
+Les mâles sont en moyenne plus petits que les femelles (≈ −0,44 unité, p
+\< 0,001) ; le R² passe à 0,824.
+
+```{r}
+# mod3 : + contexte paysager
+mod3 <- lm(TailleR ~ genre + sexe + contexte_paysager, data = Abeilles_clean)
+summary(mod3)
+anova(mod3)
+```
+
+Le contexte paysager apporte une information significative (p ≈ 10⁻¹⁰) :
+les abeilles sont plus petites en milieu urbain et semi-naturel qu'au
+niveau de référence ; le milieu *suburb* ne s'en distingue pas.
+
+```{r}
+# mod4 : + imperméabilisation (effet additif)
+mod4 <- lm(TailleR ~ genre + sexe + contexte_paysager + Impermeabilisation500m,
+           data = Abeilles_clean)
+summary(mod4)
+anova(mod4)
+```
+
+L'imperméabilisation n'apporte rien une fois le contexte paysager pris
+en compte (p = 0,46) : les deux variables sont fortement liées (le
+contexte est en quelque sorte une version catégorielle de
+l'imperméabilisation).
+
+```{r}
+# mod5 : interaction contexte x imperméabilisation
+mod5 <- lm(TailleR ~ genre + sexe + contexte_paysager * Impermeabilisation500m,
+           data = Abeilles_clean)
+summary(mod5)
+anova(mod5)
+```
+
+L'interaction n'est pas significative (p = 0,85) et déstabilise le
+modèle (erreur standard de 1,41 pour le contexte « urbain »), ce qui
+traduit une colinéarité et un manque de données.
+
 **Bibliographie**
