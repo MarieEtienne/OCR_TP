@@ -17,7 +17,7 @@ Le tableau de données utilisé est issu de 4 tableaux publiés dans des journea
 
 Description variables : Taille, Milieu, année, mois, Type de capture, site, pourcentage impermabilisation, sexe, espèce
 
-Analyse GLM simple pour commencer et rechercher du meilleur modèle pour prédire la taille
+Analyse GLM simple pour commencer et recherche du meilleur modèle pour prédire la taille
 
 ```{r}
 tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/OCR_TP)
