@@ -237,4 +237,45 @@ add1(mod_gcs, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation
 Le modèle retenu est donc :
 **`TailleR ~ genre + contexte_paysager + sexe`**.
 
+## Modèle final
+
+```{r}
+#| label: final
+summary(mod_gcs)
+anova(mod_gcs)
+mod_gcs$coefficients
+```
+
+Le modèle explique **85,5 %** de la variance (R² ajusté = 0,848 ; erreur
+résiduelle = 0,354).
+
+Équation de prédiction (par rapport aux niveaux de référence) :
+
+$$\begin{aligned}
+\widehat{\text{Taille}} ={}& 2{,}24 + 0{,}98\,\text{Apis} + 1{,}59\,\text{Bombus} - 0{,}25\,\text{Halictus} - 0{,}41\,\text{Hyaleus} \\
+& - 0{,}49\,\text{Hylaeus} - 1{,}08\,\text{Lasioglossum} - 0{,}31\,\text{Nomada} - 0{,}20\,\text{Panurgus} + 3{,}40\,\text{Xylocopa} \\
+& - 0{,}29\,\text{seminat} + 0{,}08\,\text{suburb} - 0{,}42\,\text{urbain} - 0{,}33\,\text{sexe}_m
+\end{aligned}$$
+
+Chaque variable catégorielle vaut 1 si le spécimen appartient à la
+modalité, 0 sinon. Exemple d'usage de la fonction `predict()` :
+
+```{r}
+#| label: predict
+# Exemple (adapter les niveaux à ceux de votre jeu de données)
+nouveau <- data.frame(genre = "Bombus",
+                      contexte_paysager = "urbain",
+                      sexe = "m")
+predict(mod_gcs, newdata = nouveau, interval = "prediction")
+```
+
+## Vérification des conditions de validation du modèle
+
+```{r}
+#| label: diagnostics
+par(mfrow = c(2, 2))
+plot(mod_gcs)
+par(mfrow = c(1, 1))
+```
+
 **Bibliographie**
