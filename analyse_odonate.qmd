@@ -79,6 +79,8 @@ matrice_odo = read.table(
 
 ```
 
+!["Calopteryx Virgo"](images/P1080693-26e88.JPG){#fig-external}
+
 Estimation du nombre d'espèces total selon le nombre d'espèces:
 
 Estimer la richesse d'un écosysteme n'est pas une tache facile, malgré
