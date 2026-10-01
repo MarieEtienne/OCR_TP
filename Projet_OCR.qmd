@@ -61,7 +61,8 @@ maxforagingdistTailleR (distance maximale de butinage calculé grâce à
 TailleR, variable quantitative), Impermeabilisation500m (surface
 d'imperméabilisation sur 500m, variable quantitative).
 
-Analyse GLM simple pour commencer et recherche du meilleur modèle pour prédire la taille
+Analyse GLM simple pour commencer et recherche du meilleur modèle pour
+prédire la taille
 
 ```{r}
 #tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/")
@@ -75,5 +76,30 @@ GLMM + Graph Phrase de conclusion
 ```{r}
 #mod<- glmm(TailleR~ contexte_paysager + (1|sexe)+(1|mois_capture)+(1|nom_site)+(1|capture)+(1|annee),data=tab)
 ```
+
+# Introduction GLM analyse
+
+Les abeilles sauvages (Hymenoptera : Apoidea) assurent une part
+essentielle de la pollinisation des plantes à fleurs [@ollerton2011].
+Leur **taille corporelle** est un trait fonctionnel majeur : elle est
+corrélée à la distance de vol et donc à la capacité à exploiter des
+ressources dispersées dans le paysage [@greenleaf2007], et elle est
+généralement estimée par l'espace intertégulaire [@cane1987].
+
+L'urbanisation modifie profondément les ressources florales, les sites
+de nidification et la température locale (îlot de chaleur). Ces filtres
+environnementaux peuvent sélectionner des espèces, ou des individus, de
+taille différente [@banaszak2012; @cane2006; @hamblin2017]. Les
+résultats sont toutefois contrastés : certaines études rapportent des
+bourdons plus petits en ville [@eggenberger2019], d'autres des individus
+plus grands dans les habitats fragmentés [@warzecha2016].
+
+**Question de recherche :** *comment varie la taille des abeilles en
+fonction de leur genre, de leur sexe, de leur milieu de vie (contexte
+paysager) et de l'imperméabilisation du milieu ?*
+
+La sélection de modèle repose sur le critère d'information d'Akaike
+[@akaike1974; @burnham2002] ; les analyses sont réalisées avec R
+[@rcore2024].
 
 **Bibliographie**
