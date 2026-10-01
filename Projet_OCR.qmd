@@ -55,27 +55,6 @@ réalisé des mesures de distances intertégulaires (i.e. largeur des
 abeilles, ITD) dans cette deuxième expéricence pour chaque groupe
 d'espèces et par sexe. Cette distance est expérimée en milimètres.
 
-Description variables : Taille, Milieu, année, mois, Type de capture,
-site, pourcentage impermabilisation, sexe, espèce
-
-Le tableau de données est composé de 17 variables : l'année (variables
-semi-quantitative), nom_site (variable qualitative), date_collecte
-(variable \_), mois de capture (variable semi-quantitative), capture
-(type de capture, variable qualitative), genre (variable qualitative),
-sexe (variable qualitative), espèce (variable qualitative),
-contexte_paysager (variable qualitative), origine_tableau (variable
-qualitative), lectisme (variable qualitative), itd_moy_mesure_esp_sexe
-(variable quantitative continue), ITD (distance intertégulaire pour
-chaque individu, variable quantitative), TailleR (distance
-intertégulaire moyenne pour l'espèce du sexe considéré, et si disponible
-pour l'individu considéré, variable quantitative),
-maxforagingdistTailleR (distance maximale de butinage calculé grâce à
-TailleR, variable quantitative), Impermeabilisation500m (surface
-d'imperméabilisation sur 500m, variable quantitative).
-
-Analyse GLM simple pour commencer et recherche du meilleur modèle pour
-prédire la taille
-
 ```{r}
 #tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/")
 #summary(tab) # pour décrire variables (quantitatives, qualitatives, ...)
@@ -330,24 +309,26 @@ liberté passe de 2 à 1 une fois le genre introduit.
 
 ## Limites
 
-- **Non-indépendance des données.** Plusieurs spécimens proviennent du
-  même site et de la même espèce ; un modèle mixte avec site (et espèce)
-  en effet aléatoire serait plus rigoureux (package `lme4`/`glmmTMB`).
-- **Résolution taxonomique.** Le genre est un niveau grossier : mélange
-  de nombreuses espèces de tailles variées. Un modèle intraspécifique
-  serait nécessaire pour parler de plasticité ou de sélection plutôt que
-  de composition de communautés.
-- **Effectifs faibles** pour certains genres (*Xylocopa*,
-  *Lasioglossum*, *Hyaleus*, erreurs standards élevées) : estimations
-  peu précises. Les niveaux « Hyaleus » et « Hylaeus » sont probablement
-  une faute de frappe pour un même genre et devraient être fusionnés.
-- **Colinéarité** entre contexte et imperméabilisation (voir `mod5`) ;
-  la distance de vol/butinage n'est pas intégrée.
-- **AIC *forward*** : méthode pas à pas qui ne garantit pas le meilleur
-  modèle global ; comparer avec `step(direction = "both")` ou
-  `MuMIn::dredge()`.
-- Hypothèses du modèle linéaire (normalité, homoscédasticité des
-  résidus) à valider avec les graphiques de diagnostic.
+-   **Non-indépendance des données.** Plusieurs spécimens proviennent du
+    même site et de la même espèce ; un modèle mixte avec site (et
+    espèce) en effet aléatoire serait plus rigoureux (package
+    `lme4`/`glmmTMB`).
+-   **Résolution taxonomique.** Le genre est un niveau grossier :
+    mélange de nombreuses espèces de tailles variées. Un modèle
+    intraspécifique serait nécessaire pour parler de plasticité ou de
+    sélection plutôt que de composition de communautés.
+-   **Effectifs faibles** pour certains genres (*Xylocopa*,
+    *Lasioglossum*, *Hyaleus*, erreurs standards élevées) : estimations
+    peu précises. Les niveaux « Hyaleus » et « Hylaeus » sont
+    probablement une faute de frappe pour un même genre et devraient
+    être fusionnés.
+-   **Colinéarité** entre contexte et imperméabilisation (voir `mod5`) ;
+    la distance de vol/butinage n'est pas intégrée.
+-   **AIC *forward*** : méthode pas à pas qui ne garantit pas le
+    meilleur modèle global ; comparer avec `step(direction = "both")` ou
+    `MuMIn::dredge()`.
+-   Hypothèses du modèle linéaire (normalité, homoscédasticité des
+    résidus) à valider avec les graphiques de diagnostic.
 
 # Conclusion
 
