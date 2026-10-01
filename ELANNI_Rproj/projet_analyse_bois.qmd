@@ -129,14 +129,57 @@ groupe aléatoire.
 
 ```{r}
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
-```
 
-```{r}
 #Deleting Core_Type, Botanical_Class and Species as they're all the same now
 dta_Qrobur <- select(dta_Qrobur, -Species, -Core_Type, -Botanical_Class)
 ```
 
 ############################### 
+
+# ANALYSES STATISTIQUES
+
+## Exploration des données
+
+Valeurs abérantes
+
+```{r}
+boxplot(dta_Qrobur$WD0w,col='dodgerblue3',ylab='densité moyenne pondérée anhydre')
+```
+
+On observe qu'il y a une donnée extrême. On se permet de la supprimer.
+(justifier)
+
+```{r}
+dta_Qrobur <- subset(dta_Qrobur, WD0w != min(WD0w, na.rm=TRUE))
+```
+
+```{r}
+par(mfrow=c(3,1))
+# Scatter plot de la relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
+ggplot(data = dta_Qrobur, aes(x = DBH, y = WD0w)) +
+  geom_point() +
+  geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + #Adding a smooth line based on generalized additive models
+  xlab(label = "Diameter at breast height (m)") +
+  ylab(label = bquote('Wood density anhydre'(kg.m^-3)))
+
+# Scatter plot de la relation entre l'âge et densité moyenne pondérée anhydre chez Quercus robur
+ggplot(data = dta_Qrobur, aes(x = Age, y = WD0w)) +
+  geom_point() +
+  geom_smooth(method = "lm") + #Adding the linear regression line
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") + #Adding the Y=X line
+  xlab(label = bquote('Age en années')) +
+  ylab(label = bquote('Densité moyenne pondérée du bois anhydre kg.m^-3'))
+
+# Map of the average wood density (weighted mean basic wood density) on each NFI forest plot (using approximate coordinates, as the exact coordinates of the NFI plots are not available for statistical confidentiality reasons)
+france = map_data('france') #Extracting the map of France using the map_data function of maps package
+dta_Qrobur_map = dta_Qrobur[, .(mean = mean(WD0w)), by = c("Plot_ID", "X", "Y")] #Creating a new table with the average wood density (weighted mean basic wood density) for each NFI forest plot
+ggplot(data = france, aes(x = long,y = lat, group = group)) + #Drawing the map
+  geom_polygon(fill = "white", colour = "black") +
+  geom_point(data = dta_Qrobur_map, size = 0.5, aes(x = X, y = Y, group = 1, colour = mean)) +
+  scale_color_gradient2(low = "green", mid = "red", high = "darkred", midpoint = 800)
+```
+
+# Autre
 
 PREPARING THE WORKING SPACE
 
