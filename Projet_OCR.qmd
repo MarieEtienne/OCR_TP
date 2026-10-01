@@ -119,4 +119,27 @@ Le jeu de données (`Data_abeilles.txt`) contient un spécimen par ligne.
 > (`Abeilles[,-8]`). Elle correspondait à la mesure de la distance
 > intertégulaire et ne comprenait que des NA donc était inutilisable.
 
+# Analyses
+
+## Import et nettoyage
+
+On importe le fichier (séparateur décimal `,`, chaînes converties en
+facteurs), on retire la colonne 8, puis les lignes comportant des
+valeurs manquantes. Les modèles sont ainsi tous ajustés sur le **même
+jeu de 271 observations**, condition indispensable pour comparer les
+AIC.
+
+```{r}
+#| label: import
+Abeilles <- read.table("Data_abeilles.txt", header = TRUE, dec = ",",
+                       stringsAsFactors = TRUE)
+Abeilles <- Abeilles[, -8]
+Abeilles_clean <- na.omit(Abeilles)
+
+# Niveaux de référence (intercept) et effectifs
+levels(Abeilles_clean$genre)
+levels(Abeilles_clean$contexte_paysager)
+table(Abeilles_clean$genre)
+```
+
 **Bibliographie**
