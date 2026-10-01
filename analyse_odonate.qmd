@@ -217,11 +217,17 @@ ggplot(df_all, aes(x = sites, y = richness)) +
 
 ### Analyse de redondance (rda)
 
-L'analyse de redondance permet d'expliquer une table grâce à une autre
-table. C'est comme faire une ACP mais au lieu d'avoir une seule variable
-réponse, nous en avons plusieurs. Nous allons essayer d'expliquer la
-présence et l'absence des espèces en fonction des zones
-biogéographiques.
+L'analyse de redondance permet d'expliquer une table réponse grâce à une
+autre matrice explicative [@RDA1977]. C'est comme faire une ACP mais au
+lieu d'avoir une seule variable réponse, nous en avons plusieurs dans
+une table. Classiquement, la RDA nous permet de modéliser l’effet des
+variables environnementales sur l’ensemble de la communauté. Comme dans
+une ACP, nous essayons de créeer une combinaison linéraires des varibles
+exlpicatives pour décrire les variations des variables réponse.
+
+Nous allons essayer d'expliquer la présence et l'absence des espèces en
+fonction des zones biogéographiques et des autres paramètres écologiques
+(proportion de zones humides et taux d'anthropisation).
 
 Nous allons commencer par sélectionner les variables qui nous
 intéressent parmis les variables de la table "data_eco".
@@ -276,23 +282,23 @@ pouvoir procéder à la rda.
 
 ```{r}
 RDA <- rda(matrice_odo_rda ~. , data = data_eco_rda, scale = FALSE)
-RDA
+print(RDA)
+print(RsquareAdj(RDA))
 ```
 
-```{r}
-RsquareAdj(RDA)
-```
+On obtient une inertie contrainte et un R² très mauvais. Le modèle
+construit à partir des 6 varibles explique donc très peu (8%) de la
+variation présente dans les données.
 
 ```{r}
 set.seed(123)
-anova(RDA, by = "axis")
 anova(RDA, by = "terms")
-anova(RDA, by = "margin")
 ```
 
-```{r}
-autoplot(RDA,layers=c("sites","biplot"), arrows = FALSE)+
-  geom_hline(yintercept=0,linetype=2)+
-  geom_vline(xintercept=0,linetype=2)+
-  theme_bw()
-```
+L'anova sur les varibles nous permet de voir que seules les variables
+anthropisation moyenne, antropsation écart type et biogemax ont un effet
+significatif (très faible mais significatif).
+
+Au vu du nombre de sites étudiés, il est logique que 6 variables ne
+suffisent à pour expliquer la variation observée. Il faudra donc plus de
+données pour obtenir une anaylse interessante.
