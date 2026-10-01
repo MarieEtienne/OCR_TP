@@ -40,11 +40,12 @@ dta_Qrobur$Species=as.factor(dta_Qrobur$Species)
 dta_Qrobur$Core_Type=as.factor(dta_Qrobur$Core_Type)
 
 #Removing the NA for the Age
-dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
+dta_Qrobur1 = dta_Qrobur%>% filter(!is.na(Age))
+dta_NA_Age = dta_Qrobur%>% filter(is.na(Age))
 
 # Vérification de la présence de données manquantes
 colSums(is.na(dta_Qrobur))
-
+colSums(is.na(dta_Qrobur1))
 
 ```
 
@@ -92,10 +93,12 @@ ANALYSING INTERACTIONS BETWEEN Xs VARIABLES
 
 VERIFYING ANY COLINEARITY
 
-TRYING MODELISATION Objectif : on cherche les variables qui expliquent
-la variation de densité du bois (*WD0w*) parmis les variables suivantes
-: - *X*, *Y*, et *Z* : les données de localisation de l'arbre observé -
-*Core-Type* - *Core_Length* - *Age* - *DBH* - *H* - *TM* - *P*
+TRYING MODELISATION
+
+Objectif : on cherche les variables qui expliquent la variation de
+densité du bois (*WD0w*) parmis les variables suivantes : - *X*, *Y*, et
+*Z* : les données de localisation de l'arbre observé - *Core-Type* -
+*Core_Length* - *Age* - *DBH* - *H* - *TM* - *P*
 
 ```{r}
 # Model formulation
