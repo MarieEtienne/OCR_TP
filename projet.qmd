@@ -59,6 +59,11 @@ Les données figurent dans le fichier FlyWeight.txt.
 
 ## Méthode utilisée
 
+La reproductibilité scientifique, comme décrit dans l'article en
+bibliographie [ici](@article%7Balston2021beginner%7D), est essentielle
+lors de l'analyse des données. Une méthode d'analyse est présenté ici,
+l'ANCOVA
+
 ### Modèle mathématique
 
 L'ANCOVA ou "Analysis of Covariance-Variance" est une méthode
