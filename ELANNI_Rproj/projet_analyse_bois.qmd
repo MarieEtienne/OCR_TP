@@ -119,18 +119,21 @@ Sélection de l'espèce *Quercus robur*.
 
 ```{r}
 dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
-#Transforming Core_Type, Botanical_Class, Species into factors
-dta_Qrobur$Botanical_Class=as.factor(dta_Qrobur$Botanical_Class)
-dta_Qrobur$Species=as.factor(dta_Qrobur$Species)
-dta_Qrobur$Core_Type=as.factor(dta_Qrobur$Core_Type)
-
 ```
 
 Retrait des observations avec des données manquantes dans la variable
-**AGE**.
+**AGE**. Elles représentent une faible partie des données, pour
+lesquelles l'échantillonnage a été réalisé différemment (carotte
+périphérique). Faute d'informations, on suppose que cela concerne un
+groupe aléatoire.
 
 ```{r}
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
+```
+
+```{r}
+#Deleting Core_Type, Botanical_Class and Species as they're all the same now
+dta_Qrobur <- select(dta_Qrobur, -Species, -Core_Type, -Botanical_Class)
 ```
 
 ############################### 
