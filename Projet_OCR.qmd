@@ -205,4 +205,36 @@ L'interaction n'est pas significative (p = 0,85) et déstabilise le
 modèle (erreur standard de 1,41 pour le contexte « urbain »), ce qui
 traduit une colinéarité et un manque de données.
 
+## Sélection de modèle par AIC (procédure *forward*)
+
+Pour confirmer ces résultats, on applique une sélection ascendante : on
+part du modèle nul et on ajoute à chaque étape la variable qui **diminue
+le plus l'AIC**. On s'arrête quand aucun ajout ne l'améliore.
+
+```{r}
+#| label: aic
+# Étape 0 : modèle nul
+mod0 <- lm(TailleR ~ 1, data = Abeilles_clean)
+add1(mod0, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> genre : AIC le plus bas (-478,7)
+
+# Étape 1 : genre
+mod_genre <- lm(TailleR ~ genre, data = Abeilles_clean)
+add1(mod_genre, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> contexte_paysager : AIC le plus bas (-535,1)
+
+# Étape 2 : genre + contexte
+mod_gc <- lm(TailleR ~ genre + contexte_paysager, data = Abeilles_clean)
+add1(mod_gc, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> sexe : AIC le plus bas (-549,6)
+
+# Étape 3 : genre + contexte + sexe
+mod_gcs <- lm(TailleR ~ genre + contexte_paysager + sexe, data = Abeilles_clean)
+add1(mod_gcs, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> aucun ajout ne fait baisser l'AIC (-547,8 et -548,2 > -549,6) : on s'arrête
+```
+
+Le modèle retenu est donc :
+**`TailleR ~ genre + contexte_paysager + sexe`**.
+
 **Bibliographie**
