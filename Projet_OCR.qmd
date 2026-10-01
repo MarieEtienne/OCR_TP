@@ -1,8 +1,11 @@
 ---
 title: "Projet_OCR"
 author: "Eudes Damien Emilie"
-bibliography: REF.bib
-              references.bib
+
+bibliography:
+  - REF.bib
+  - references.bib
+
 format:
   html:
     toc: true
@@ -10,8 +13,9 @@ format:
     number-sections: true
     code-fold: show
     embed-resources: true
+
 editor:
-  markdown: 
+  markdown:
     canonical: true
     wrap: 72
 ---
