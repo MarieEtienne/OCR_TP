@@ -1,5 +1,6 @@
 ---
-title: "analyse_données_bois"
+title: "ANALYSE DENSITE DU BOIS"
+subtitle: "Projet OCR"
 author: "Nicolas Chevillon, Anaëlle Baron, Eli Desnyder"
 creation_date: "2026-09-16 10:20:40 CEST "
 modification_date: "2026-09-18 16:12:17 CEST"
@@ -15,6 +16,124 @@ css: theme.css
 toc: true
 toc_float: true
 ---
+
+# DESCRIPTION DU JEU DE DONNEES
+
+## Contexte
+
+La densité du bois étant un prédicteur précis des propriétés mécaniques
+du matériau bois, sa variabilité a reçu une attention particulière pour
+les applications industrielles (Zobel).
+
+## Structure du jeu de données
+
+Dans cette proposition de méthodes statistiques, nous travaillons
+uniquement sur le fichier *xdm_individual_density_data.csv*. Ce fichier
+contient les valeurs mesurées sur des carottes d'arbres, les
+caractéristiques de l'arbre et de l'environnement dans lequel il se
+trouvait.
+
+Les variables sont les suivantes :
+
+-   **Tree_ID** : Numéro d'identification de l'arbre
+
+-   **X** : Coordonnée de longitude du centre de la maille de 1km²
+
+-   **Y** : Coordonnée de latitude du centre de la maille de 1km²
+
+-   **Z** : Elévation au-dessus du niveau de la mer en m de la maille
+
+-   **Botanical_Class** : Classe botanique de l'espèce de l'arbre
+    (conifère ou feuillu)
+
+-   **Species** : Nom latin de l'espèce de l'arbre
+
+-   **Core_Type** : Type de carotte échantillonée (carotte
+    incrémentielle ou périphérique)
+
+-   **Core_Length** : Longueur des carottes incrémentielles
+    échantillonnés à l’état vert, telle qu’estimée à partir du nombre
+    d’images CT-scan le long du noyau, du pas de scanner (0,625 mm) et
+    du rétrécissement de la longueur du noyau en bois
+
+-   **Age** : Age de l'arbre en années, estimé par comptage des anneaux
+    de l'arbre (uniquement pour les carottes incrémentielles)
+
+-   **DBH** : Diamètre du tronc à hauteur de poitrine (1.3 m) in m
+
+-   **H** : Hauteur de l'arbre en m
+
+-   **TM** : Température annuelle moyenne à l’emplacement de la parcelle
+    forestière en °C (normale de la période 1991-2020 fournie par
+    l’Institut météorologique français Météo France)
+
+-   **P** : Précipitation annuelle totale à l’emplacement de la parcelle
+    forestière en mm (normale de la période 1991-2020 fournie par
+    l’institut météorologique français Météo France)
+
+-   **WD0** : Densité moyenne du bois anhydre en kg/m3
+
+-   **WD0w** : Densité moyenne pondérée du bois anhydre en kg/m3
+
+-   **WDb** : Moyenne basique de la densité du bois en kg/m3
+
+-   **WDbw** : Masse volumique de base moyenne pondérée du bois en kg/m3
+
+-   **WS** : Coefficient de rétrécissement volumétrique en % utilisé
+    pour convertir une densité quelconque en densité de base, tel qu’il
+    ressort d’une revue de la littérature
+
+-   **Scanner_name** : Nom du modèle de scanner utilisé pour mesurer la
+    densité du bois (GE BrightSpeed Excel ou GE Revolution EVO)
+
+Le jeu de données original contient une diversité de 156 espèces. Par la
+suite, nous nous sommes limité à l'espèce *Quercus robur*, le chêne
+pédonculé.
+
+Comme données de réponse pour la densité des arbres, on s'intéresse à la
+variable **WD0w**. Ainsi on évite la variabilité que peut amener
+l'humidité.
+
+## Importation des données
+
+Préparation de l'espace de travail
+
+```{r}
+library(data.table)
+library(ggplot2)
+library(maps)
+library(dplyr)
+```
+
+Importation du jeu de données
+
+```{r}
+XDM_individual_density_data = data.table(read.table("xdm_individual_density_data.csv",
+                                                    sep = ",", dec= ".", header = TRUE))
+
+```
+
+## Prétraitement des données
+
+Sélection de l'espèce *Quercus robur*.
+
+```{r}
+dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
+#Transforming Core_Type, Botanical_Class, Species into factors
+dta_Qrobur$Botanical_Class=as.factor(dta_Qrobur$Botanical_Class)
+dta_Qrobur$Species=as.factor(dta_Qrobur$Species)
+dta_Qrobur$Core_Type=as.factor(dta_Qrobur$Core_Type)
+
+```
+
+Retrait des observations avec des données manquantes dans la variable
+**AGE**.
+
+```{r}
+dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
+```
+
+############################### 
 
 PREPARING THE WORKING SPACE
 
@@ -102,7 +221,7 @@ densité du bois (*WD0w*) parmis les variables suivantes : - *X*, *Y*, et
 
 ```{r}
 # Model formulation
-mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM+P
+mod1<-lm(WD0w ~ X+Y+Z
          ,data=dta_Qrobur)
 # Then we check for significance
 drop1(mod1,test="F")
