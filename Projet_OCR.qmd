@@ -8,7 +8,7 @@ editor:
     wrap: 72
 ---
 
-Introduction :
+**Introduction :**
 
 Les abeilles sauvages subissent de nombreuses pressions anthopique ce
 qui place 172 des espèces d'abeilles européennes dans un statut "menacé"
@@ -20,9 +20,8 @@ la taille. En effet, les espèces les plus petites nécessitent moins de
 ressources pour se développer
 (@https://doi.org/10.1111/1365-2656.13051).
 
-Rajouter bibliographie **Problématique : Comment varie la taille des
-abeilles sauvages selon le paysage (urbain, semi urbain, agricole et
-semi naturel) ?**
+**Problématique : Comment varie la taille des abeilles sauvages selon le
+paysage (urbain, semi urbain, agricole et semi naturel) ?**
 
 Le tableau de données utilisé est issu de 4 tableaux publiés dans des
 journeaux relus par des pairs. Les expériences ont toutes été réalisées
@@ -41,14 +40,29 @@ expérience à Paris et en milieux semi-naturel entre mars et octobre en
 expréience uniquement à Paris dans 12 sites différents entre mars et
 octobre en 2019 et 2020 avec des coupelles et des filets. Zaninotto a
 réalisé des mesures de distances intertégulaires (i.e. largeur des
-abeilles) dans cette deuxième expéricence pour chaque groupe d'espèces
-et par sexe. Cette distance est expérimée en milimètres.
+abeilles, ITD) dans cette deuxième expéricence pour chaque groupe
+d'espèces et par sexe. Cette distance est expérimée en milimètres.
 
 Description variables : Taille, Milieu, année, mois, Type de capture,
 site, pourcentage impermabilisation, sexe, espèce
 
+Le tableau de données est composé de 17 variables : l'année (variables
+semi-quantitative), nom_site (variable qualitative), date_collecte
+(variable \_), mois de capture (variable semi-quantitative), capture
+(type de capture, variable qualitative), genre (variable qualitative),
+sexe (variable qualitative), espèce (variable qualitative),
+contexte_paysager (variable qualitative), origine_tableau (variable
+qualitative), lectisme (variable qualitative), itd_moy_mesure_esp_sexe
+(variable quantitative continue), ITD (distance intertégulaire pour
+chaque individu, variable quantitative), TailleR (distance
+intertégulaire moyenne pour l'espèce du sexe considéré, et si disponible
+pour l'individu considéré, variable quantitative),
+maxforagingdistTailleR (distance maximale de butinage calculé grâce à
+TailleR, variable quantitative), Impermeabilisation500m (surface
+d'imperméabilisation sur 500m, variable quantitative).
+
 ```{r}
-#tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/OCR_TP")
+#tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/")
 #summary(tab) # pour décrire variables (quantitatives, qualitatives, ...)
 ```
 
@@ -57,7 +71,7 @@ année) effet fixe : taille Mettre l'équation Mettre le résultat de la
 GLMM + Graph Phrase de conclusion
 
 ```{r}
-#mod<- glmm()
+#mod<- glmm(TailleR~ contexte_paysager + (1|sexe)+(1|mois_capture)+(1|nom_site)+(1|capture)+(1|annee),data=tab)
 ```
 
 **Bibliographie**
