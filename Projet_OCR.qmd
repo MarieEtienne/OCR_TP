@@ -278,4 +278,86 @@ plot(mod_gcs)
 par(mfrow = c(1, 1))
 ```
 
+# Discussion
+
+**Le genre domine la variation de taille.** Il représente 80,6 % de la
+somme des carrés totale, contre 4,0 % pour le contexte paysager et 0,9 %
+pour le sexe (résiduelle : 14,5 %). C'est attendu : la taille est un
+trait fortement conservé phylogénétiquement, et les écarts entre genres
+(de *Lasioglossum* à *Xylocopa*) sont considérables [@michener2007;
+@bartomeus2013]. Cette variation interspécifique doit être contrôlée
+pour pouvoir détecter des effets environnementaux plus fins.
+
+**Le sexe.** Les mâles sont plus petits que les femelles de 0,33 unité
+environ à genre et milieu égaux. Ce dimorphisme est courant chez les
+abeilles, et il justifie de toujours intégrer le sexe dans les analyses
+de taille.
+
+**Le contexte paysager.** À genre et sexe égaux, les abeilles sont plus
+petites en milieu urbain (−0,42) et semi-naturel (−0,29) qu'au niveau de
+référence. Le sens de l'effet urbain concorde avec les bourdons plus
+petits observés en ville [@eggenberger2019] et avec l'hypothèse de
+l'îlot de chaleur : des températures plus élevées favorisent des
+individus plus petits, dont les limites thermiques diffèrent
+[@hamblin2017]. Une autre explication tient à la ressource : les petites
+abeilles ont un rayon de vol réduit [@greenleaf2007] et sont moins
+pénalisées dans un paysage fragmenté où les fleurs sont proches mais
+rares ; à l'inverse, les grandes espèces voient leur abondance baisser
+avec l'urbanisation [@banaszak2012; @cane2006; @fortel2014]. À
+l'inverse, @warzecha2016 observent des individus plus grands avec la
+fragmentation : le sens de l'effet dépend donc du contexte et de
+l'échelle.
+
+**L'imperméabilisation et le lectisme ne sont pas retenus.**
+L'imperméabilisation n'améliore ni le modèle additif (p = 0,46) ni
+l'interaction (p = 0,85) : son information est déjà contenue dans le
+contexte paysager. Le lectisme n'améliore pas l'AIC non plus ; il est en
+outre confondu avec le genre (la plupart des genres ont un régime
+alimentaire homogène), ce qui explique que son nombre de degrés de
+liberté passe de 2 à 1 une fois le genre introduit.
+
+## Limites
+
+- **Non-indépendance des données.** Plusieurs spécimens proviennent du
+  même site et de la même espèce ; un modèle mixte avec site (et espèce)
+  en effet aléatoire serait plus rigoureux (package `lme4`/`glmmTMB`).
+- **Résolution taxonomique.** Le genre est un niveau grossier : mélange
+  de nombreuses espèces de tailles variées. Un modèle intraspécifique
+  serait nécessaire pour parler de plasticité ou de sélection plutôt que
+  de composition de communautés.
+- **Effectifs faibles** pour certains genres (*Xylocopa*,
+  *Lasioglossum*, *Hyaleus*, erreurs standards élevées) : estimations
+  peu précises. Les niveaux « Hyaleus » et « Hylaeus » sont probablement
+  une faute de frappe pour un même genre et devraient être fusionnés.
+- **Colinéarité** entre contexte et imperméabilisation (voir `mod5`) ;
+  la distance de vol/butinage n'est pas intégrée.
+- **AIC *forward*** : méthode pas à pas qui ne garantit pas le meilleur
+  modèle global ; comparer avec `step(direction = "both")` ou
+  `MuMIn::dredge()`.
+- Hypothèses du modèle linéaire (normalité, homoscédasticité des
+  résidus) à valider avec les graphiques de diagnostic.
+
+# Conclusion
+
+La taille des abeilles de l'échantillon est expliquée à 85 % par un
+modèle combinant **le genre** (effet dominant), **le contexte paysager**
+et **le sexe**. Les mâles sont plus petits que les femelles, et les
+abeilles tendent à être plus petites en milieu urbain et semi-naturel.
+L'imperméabilisation à 500 m et le lectisme n'apportent pas
+d'information supplémentaire. Ces résultats suggèrent que l'urbanisation
+filtre les abeilles selon leur taille, mais des modèles mixtes intégrant
+le site et l'espèce, ainsi que la distance de butinage, seraient
+nécessaires pour confirmer ce résultat.
+
+# Références {.unnumbered}
+
+::: {#refs}
+:::
+
+# Reproductibilité {.unnumbered}
+
+```{r}
+sessionInfo()
+```
+
 **Bibliographie**
