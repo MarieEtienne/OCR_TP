@@ -337,8 +337,8 @@ step (mod0, mod1, direction = "forward")
 step (mod1, mod0, direction = "backward")
 
 # 3) Stepwise(2 directions)
-step(mod1, mod0, direction = "both")
+step(mod1, mod0, direction = "both")#AIC = 43723
 ```
 
-WD0w \~ X + P + Core_Length + Age + DBH + TM #AIC = 43723 A VERIFIER
-INSERER FORMULE CONSERVEE
+{Modele final} = /WD0w/ \~ {X} + {P} + {Core_Length} + {Age} + {DBH} +
+{TM} A VERIFIER INSERER FORMULE CONSERVEE
