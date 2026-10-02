@@ -273,7 +273,8 @@ densité du bois (*WD0w*) parmis les variables suivantes : - *X*, *Y*, et
 ```{r}
 
 # Model formulation ---- 
-mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM+P         ,data=dta_Qrobur)
+
+mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM ,data=dta_Qrobur)
 # Then we check for significance
 drop1(mod1,test="F")
 summary(mod1)
@@ -285,7 +286,26 @@ anova(mod1, mod1_petit)#pas vraiment de difference significative entre les 2 mod
 RsquareAdj(mod1)#modele avec les 9 variables
 RsquareAdj(mod1_petit)#entre 13% et 12.9: peu de changement avec les 4 variables retirees
 
+```
 
+Les variables longitude, Longueur des carottes, Age, Diamètre du tronc à
+hauteur de poitrine, et précipitation semblent avoir les effets les plus
+significatifs. On va maintenant continuer la sélection de variables avec
+les méthodes de sélection de modèle stepwise avec le critère
+d'information d'Akaike (AIC)
+
+```{r}
+#modele nul
+mod0 <- lm(WD0w ~ 1, data = dta_Qrobur)
+#1)Ascendante 
+step (mod0, mod1, direction = "forward")
+
+#lm(formula = WD0w ~ X + P + Core_Length + Age + DBH + TM, data = dta_Qrobur) # AIC = 110846.2
+#2) Descendante 
+step (mod1, mod0, direction = "backward")
+#3) Stepwise : 2 directions
+step(mod1, mod0, direction = "both") 
+#WD0w ~ X + P + Core_Length + Age + DBH + TM #AIC = 43723
 ```
 
 EXPLORATION OF THE DATASET
@@ -346,7 +366,6 @@ barplot(XDM_Q.robur_density_data$Botanical_Class)
 sum(XDM_Q.robur_density_data == dta_Qrobur, na.rm = TRUE)
 nrow(XDM_Q.robur_density_data)*ncol(XDM_Q.robur_density_data)
 sum(is.na (XDM_Q.robur_density_data$Age)) #les NA correspondent à la diff entre dimtot du tab et le nb de TRUE 
-
 
 ```
 
