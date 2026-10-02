@@ -1,14 +1,26 @@
 ---
 title: "Projet_OCR"
 author: "Eudes Damien Emilie"
-bibliography: REF.bib
+
+bibliography:
+  - REF.bib
+  - references.bib
+
+format:
+  html:
+    toc: true
+    toc-title: "Sommaire"
+    number-sections: true
+    code-fold: show
+    embed-resources: true
+
 editor:
-  markdown: 
+  markdown:
     canonical: true
     wrap: 72
 ---
 
-Introduction :
+**Introduction :**
 
 Les abeilles sauvages subissent de nombreuses pressions anthopique ce
 qui place 172 des espèces d'abeilles européennes dans un statut "menacé"
@@ -20,9 +32,8 @@ la taille. En effet, les espèces les plus petites nécessitent moins de
 ressources pour se développer
 (@https://doi.org/10.1111/1365-2656.13051).
 
-Rajouter bibliographie **Problématique : Comment varie la taille des
-abeilles sauvages selon le paysage (urbain, semi urbain, agricole et
-semi naturel) ?**
+**Problématique : Comment varie la taille des abeilles sauvages selon le
+paysage (urbain, semi urbain, agricole et semi naturel) ?**
 
 Le tableau de données utilisé est issu de 4 tableaux publiés dans des
 journeaux relus par des pairs. Les expériences ont toutes été réalisées
@@ -41,14 +52,32 @@ expérience à Paris et en milieux semi-naturel entre mars et octobre en
 expréience uniquement à Paris dans 12 sites différents entre mars et
 octobre en 2019 et 2020 avec des coupelles et des filets. Zaninotto a
 réalisé des mesures de distances intertégulaires (i.e. largeur des
-abeilles) dans cette deuxième expéricence pour chaque groupe d'espèces
-et par sexe. Cette distance est expérimée en milimètres.
+abeilles, ITD) dans cette deuxième expéricence pour chaque groupe
+d'espèces et par sexe. Cette distance est expérimée en milimètres.
 
 Description variables : Taille, Milieu, année, mois, Type de capture,
 site, pourcentage impermabilisation, sexe, espèce
 
+Le tableau de données est composé de 17 variables : l'année (variables
+semi-quantitative), nom_site (variable qualitative), date_collecte
+(variable \_), mois de capture (variable semi-quantitative), capture
+(type de capture, variable qualitative), genre (variable qualitative),
+sexe (variable qualitative), espèce (variable qualitative),
+contexte_paysager (variable qualitative), origine_tableau (variable
+qualitative), lectisme (variable qualitative), itd_moy_mesure_esp_sexe
+(variable quantitative continue), ITD (distance intertégulaire pour
+chaque individu, variable quantitative), TailleR (distance
+intertégulaire moyenne pour l'espèce du sexe considéré, et si disponible
+pour l'individu considéré, variable quantitative),
+maxforagingdistTailleR (distance maximale de butinage calculé grâce à
+TailleR, variable quantitative), Impermeabilisation500m (surface
+d'imperméabilisation sur 500m, variable quantitative).
+
+Analyse GLM simple pour commencer et recherche du meilleur modèle pour
+prédire la taille
+
 ```{r}
-#tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/OCR_TP")
+#tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/")
 #summary(tab) # pour décrire variables (quantitatives, qualitatives, ...)
 ```
 
@@ -57,7 +86,288 @@ année) effet fixe : taille Mettre l'équation Mettre le résultat de la
 GLMM + Graph Phrase de conclusion
 
 ```{r}
-#mod<- glmm()
+#mod<- glmm(TailleR~ contexte_paysager + (1|sexe)+(1|mois_capture)+(1|nom_site)+(1|capture)+(1|annee),data=tab)
 ```
 
-**Bibliographie**
+# Introduction GLM analyse
+
+Les abeilles sauvages (Hymenoptera : Apoidea) assurent une part
+essentielle de la pollinisation des plantes à fleurs [@ollerton2011].
+Leur **taille corporelle** est un trait fonctionnel majeur : elle est
+corrélée à la distance de vol et donc à la capacité à exploiter des
+ressources dispersées dans le paysage [@greenleaf2007], et elle est
+généralement estimée par l'espace intertégulaire [@cane1987].
+
+L'urbanisation modifie profondément les ressources florales, les sites
+de nidification et la température locale (îlot de chaleur). Ces filtres
+environnementaux peuvent sélectionner des espèces, ou des individus, de
+taille différente [@banaszak2012; @cane2006; @hamblin2017]. Les
+résultats sont toutefois contrastés : certaines études rapportent des
+bourdons plus petits en ville [@eggenberger2019], d'autres des individus
+plus grands dans les habitats fragmentés [@warzecha2016].
+
+**Question de recherche :** *comment varie la taille des abeilles en
+fonction de leur genre, de leur sexe, de leur milieu de vie (contexte
+paysager) et de l'imperméabilisation du milieu ?*
+
+La sélection de modèle repose sur le critère d'information d'Akaike
+[@akaike1974; @burnham2002] ; les analyses sont réalisées avec R
+[@rcore2024].
+
+# Données et variables
+
+Le jeu de données (`Data_abeilles.txt`) contient un spécimen par ligne.
+
+| Variable | Type | Description |
+|----|----|----|
+| `TailleR` | numérique (réponse) | Taille du spécimen (mesure corporelle, par ex. espace intertégulaire [@cane1987]) |
+| `genre` | facteur (10 niveaux) | Genre de l'abeille : *Andrena*, *Apis*, *Bombus*, *Halictus*, *Hylaeus*, *Lasioglossum*, *Nomada*, *Panurgus*, *Xylocopa*… Le genre intègre l'effet phylogénétique : il porte l'essentiel des différences de taille [@michener2007]. |
+| `sexe` | facteur (f / m) | Sexe du spécimen. Le dimorphisme sexuel de taille est fréquent chez les abeilles. |
+| `contexte_paysager` | facteur (4 niveaux) | Type de milieu : `seminat`, `suburb`, `urbain` et un niveau de référence (à vérifier avec `levels()`). Il résume un gradient d'urbanisation [@geslin2013; @fortel2014]. |
+| `Impermeabilisation500m` | numérique | Part de surface imperméabilisée (bâti, voirie) dans un rayon de 500 m autour du site : mesure continue d'urbanisation locale. |
+| `lectisme` | facteur | Degré de spécialisation alimentaire (régime floral large *polylectique* vs. restreint *oligolectique*). Un régime étroit rend l'espèce plus dépendante de la flore locale [@bartomeus2013]. |
+
+> **Note :** la colonne 8 a eté retirée dans le script
+> (`Abeilles[,-8]`). Elle correspondait à la mesure de la distance
+> intertégulaire et ne comprenait que des NA donc était inutilisable.
+
+# Analyses
+
+## Import et nettoyage
+
+On importe le fichier (séparateur décimal `,`, chaînes converties en
+facteurs), on retire la colonne 8, puis les lignes comportant des
+valeurs manquantes. Les modèles sont ainsi tous ajustés sur le **même
+jeu de 271 observations**, condition indispensable pour comparer les
+AIC.
+
+```{r}
+#| label: import
+Abeilles <- read.table("Data_abeilles.txt", header = TRUE, dec = ",",
+                       stringsAsFactors = TRUE)
+Abeilles <- Abeilles[, -8]
+Abeilles_clean <- na.omit(Abeilles)
+
+# Niveaux de référence (intercept) et effectifs
+levels(Abeilles_clean$genre)
+levels(Abeilles_clean$contexte_paysager)
+table(Abeilles_clean$genre)
+```
+
+## Modèles linéaires emboîtés
+
+On construit progressivement des modèles linéaires, en ajoutant une
+variable explicative à chaque étape.
+
+```{r}
+#| label: modeles
+# mod1 : genre seul
+mod1 <- lm(TailleR ~ genre, data = Abeilles_clean)
+summary(mod1)
+anova(mod1)
+```
+
+Le genre seul explique déjà **80,6 %** de la variance (R² = 0,806) : la
+taille dépend avant tout de la taxonomie (*Xylocopa* et *Bombus* sont
+bien plus grands, *Lasioglossum* et *Hylaeus* plus petits).
+
+```{r}
+# mod2 : + sexe
+mod2 <- lm(TailleR ~ genre + sexe, data = Abeilles_clean)
+summary(mod2)
+anova(mod2)
+```
+
+Les mâles sont en moyenne plus petits que les femelles (≈ −0,44 unité, p
+\< 0,001) ; le R² passe à 0,824.
+
+```{r}
+# mod3 : + contexte paysager
+mod3 <- lm(TailleR ~ genre + sexe + contexte_paysager, data = Abeilles_clean)
+summary(mod3)
+anova(mod3)
+```
+
+Le contexte paysager apporte une information significative (p ≈ 10⁻¹⁰) :
+les abeilles sont plus petites en milieu urbain et semi-naturel qu'au
+niveau de référence ; le milieu *suburb* ne s'en distingue pas.
+
+```{r}
+# mod4 : + imperméabilisation (effet additif)
+mod4 <- lm(TailleR ~ genre + sexe + contexte_paysager + Impermeabilisation500m,
+           data = Abeilles_clean)
+summary(mod4)
+anova(mod4)
+```
+
+L'imperméabilisation n'apporte rien une fois le contexte paysager pris
+en compte (p = 0,46) : les deux variables sont fortement liées (le
+contexte est en quelque sorte une version catégorielle de
+l'imperméabilisation).
+
+```{r}
+# mod5 : interaction contexte x imperméabilisation
+mod5 <- lm(TailleR ~ genre + sexe + contexte_paysager * Impermeabilisation500m,
+           data = Abeilles_clean)
+summary(mod5)
+anova(mod5)
+```
+
+L'interaction n'est pas significative (p = 0,85) et déstabilise le
+modèle (erreur standard de 1,41 pour le contexte « urbain »), ce qui
+traduit une colinéarité et un manque de données.
+
+## Sélection de modèle par AIC (procédure *forward*)
+
+Pour confirmer ces résultats, on applique une sélection ascendante : on
+part du modèle nul et on ajoute à chaque étape la variable qui **diminue
+le plus l'AIC**. On s'arrête quand aucun ajout ne l'améliore.
+
+```{r}
+#| label: aic
+# Étape 0 : modèle nul
+mod0 <- lm(TailleR ~ 1, data = Abeilles_clean)
+add1(mod0, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> genre : AIC le plus bas (-478,7)
+
+# Étape 1 : genre
+mod_genre <- lm(TailleR ~ genre, data = Abeilles_clean)
+add1(mod_genre, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> contexte_paysager : AIC le plus bas (-535,1)
+
+# Étape 2 : genre + contexte
+mod_gc <- lm(TailleR ~ genre + contexte_paysager, data = Abeilles_clean)
+add1(mod_gc, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> sexe : AIC le plus bas (-549,6)
+
+# Étape 3 : genre + contexte + sexe
+mod_gcs <- lm(TailleR ~ genre + contexte_paysager + sexe, data = Abeilles_clean)
+add1(mod_gcs, ~ genre + sexe + lectisme + contexte_paysager + Impermeabilisation500m)
+# -> aucun ajout ne fait baisser l'AIC (-547,8 et -548,2 > -549,6) : on s'arrête
+```
+
+Le modèle retenu est donc :
+**`TailleR ~ genre + contexte_paysager + sexe`**.
+
+## Modèle final
+
+```{r}
+#| label: final
+summary(mod_gcs)
+anova(mod_gcs)
+mod_gcs$coefficients
+```
+
+Le modèle explique **85,5 %** de la variance (R² ajusté = 0,848 ; erreur
+résiduelle = 0,354).
+
+Équation de prédiction (par rapport aux niveaux de référence) :
+
+$$\begin{aligned}
+\widehat{\text{Taille}} ={}& 2{,}24 + 0{,}98\,\text{Apis} + 1{,}59\,\text{Bombus} - 0{,}25\,\text{Halictus} - 0{,}41\,\text{Hyaleus} \\
+& - 0{,}49\,\text{Hylaeus} - 1{,}08\,\text{Lasioglossum} - 0{,}31\,\text{Nomada} - 0{,}20\,\text{Panurgus} + 3{,}40\,\text{Xylocopa} \\
+& - 0{,}29\,\text{seminat} + 0{,}08\,\text{suburb} - 0{,}42\,\text{urbain} - 0{,}33\,\text{sexe}_m
+\end{aligned}$$
+
+Chaque variable catégorielle vaut 1 si le spécimen appartient à la
+modalité, 0 sinon. Exemple d'usage de la fonction `predict()` :
+
+```{r}
+#| label: predict
+# Exemple (adapter les niveaux à ceux de votre jeu de données)
+nouveau <- data.frame(genre = "Bombus",
+                      contexte_paysager = "urbain",
+                      sexe = "m")
+predict(mod_gcs, newdata = nouveau, interval = "prediction")
+```
+
+## Vérification des conditions de validation du modèle
+
+```{r}
+#| label: diagnostics
+par(mfrow = c(2, 2))
+plot(mod_gcs)
+par(mfrow = c(1, 1))
+```
+
+# Discussion
+
+**Le genre domine la variation de taille.** Il représente 80,6 % de la
+somme des carrés totale, contre 4,0 % pour le contexte paysager et 0,9 %
+pour le sexe (résiduelle : 14,5 %). C'est attendu : la taille est un
+trait fortement conservé phylogénétiquement, et les écarts entre genres
+(de *Lasioglossum* à *Xylocopa*) sont considérables [@michener2007;
+@bartomeus2013]. Cette variation interspécifique doit être contrôlée
+pour pouvoir détecter des effets environnementaux plus fins.
+
+**Le sexe.** Les mâles sont plus petits que les femelles de 0,33 unité
+environ à genre et milieu égaux. Ce dimorphisme est courant chez les
+abeilles, et il justifie de toujours intégrer le sexe dans les analyses
+de taille.
+
+**Le contexte paysager.** À genre et sexe égaux, les abeilles sont plus
+petites en milieu urbain (−0,42) et semi-naturel (−0,29) qu'au niveau de
+référence. Le sens de l'effet urbain concorde avec les bourdons plus
+petits observés en ville [@eggenberger2019] et avec l'hypothèse de
+l'îlot de chaleur : des températures plus élevées favorisent des
+individus plus petits, dont les limites thermiques diffèrent
+[@hamblin2017]. Une autre explication tient à la ressource : les petites
+abeilles ont un rayon de vol réduit [@greenleaf2007] et sont moins
+pénalisées dans un paysage fragmenté où les fleurs sont proches mais
+rares ; à l'inverse, les grandes espèces voient leur abondance baisser
+avec l'urbanisation [@banaszak2012; @cane2006; @fortel2014]. À
+l'inverse, @warzecha2016 observent des individus plus grands avec la
+fragmentation : le sens de l'effet dépend donc du contexte et de
+l'échelle.
+
+**L'imperméabilisation et le lectisme ne sont pas retenus.**
+L'imperméabilisation n'améliore ni le modèle additif (p = 0,46) ni
+l'interaction (p = 0,85) : son information est déjà contenue dans le
+contexte paysager. Le lectisme n'améliore pas l'AIC non plus ; il est en
+outre confondu avec le genre (la plupart des genres ont un régime
+alimentaire homogène), ce qui explique que son nombre de degrés de
+liberté passe de 2 à 1 une fois le genre introduit.
+
+## Limites
+
+- **Non-indépendance des données.** Plusieurs spécimens proviennent du
+  même site et de la même espèce ; un modèle mixte avec site (et espèce)
+  en effet aléatoire serait plus rigoureux (package `lme4`/`glmmTMB`).
+- **Résolution taxonomique.** Le genre est un niveau grossier : mélange
+  de nombreuses espèces de tailles variées. Un modèle intraspécifique
+  serait nécessaire pour parler de plasticité ou de sélection plutôt que
+  de composition de communautés.
+- **Effectifs faibles** pour certains genres (*Xylocopa*,
+  *Lasioglossum*, *Hyaleus*, erreurs standards élevées) : estimations
+  peu précises. Les niveaux « Hyaleus » et « Hylaeus » sont probablement
+  une faute de frappe pour un même genre et devraient être fusionnés.
+- **Colinéarité** entre contexte et imperméabilisation (voir `mod5`) ;
+  la distance de vol/butinage n'est pas intégrée.
+- **AIC *forward*** : méthode pas à pas qui ne garantit pas le meilleur
+  modèle global ; comparer avec `step(direction = "both")` ou
+  `MuMIn::dredge()`.
+- Hypothèses du modèle linéaire (normalité, homoscédasticité des
+  résidus) à valider avec les graphiques de diagnostic.
+
+# Conclusion
+
+La taille des abeilles de l'échantillon est expliquée à 85 % par un
+modèle combinant **le genre** (effet dominant), **le contexte paysager**
+et **le sexe**. Les mâles sont plus petits que les femelles, et les
+abeilles tendent à être plus petites en milieu urbain et semi-naturel.
+L'imperméabilisation à 500 m et le lectisme n'apportent pas
+d'information supplémentaire. Ces résultats suggèrent que l'urbanisation
+filtre les abeilles selon leur taille, mais des modèles mixtes intégrant
+le site et l'espèce, ainsi que la distance de butinage, seraient
+nécessaires pour confirmer ce résultat.
+
+# Références {.unnumbered}
+
+::: {#refs}
+:::
+
+# Reproductibilité {.unnumbered}
+
+```{r}
+sessionInfo()
+```
