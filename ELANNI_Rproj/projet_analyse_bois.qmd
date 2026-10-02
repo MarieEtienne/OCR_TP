@@ -329,17 +329,17 @@ variables étudiées ici *Mod_1* et on teste les méthodes ascendantes,
 descendantes ou stepwise les 2 directions en même temps, pour
 sélectionner les variables que l'on conservera dans le modèle final.
 
-$Mod_0$ = $WD0w$ \tilde $1$
+$Mod_0$ : $WD0w$ = $f$ ($1$)
 
-$Mod_1$ = $WD0w$ \tilde $X$ + $Y$ + $Z$ +$P$ + $Core_Length$ + $Age$ +
-$DBH$ + $H$ + $TM$
+$Mod_1$ : $WD0w$ = $f$ ( $X$ + $Y$ + $Z$ +$P$ + $Core Length$ + $Age$ +
+$DBH$ + $H$ + $TM$)
 
 ```{r}
 # Modele nul
 mod0 <- lm(WD0w ~ 1, data = dta_Qrobur)
 
 # 1) Ascendante 
-step (mod0, mod1, direction = "forward")
+step (mod1, mod0, direction = "forward")
 
 #2) Descendante 
 step (mod1, mod0, direction = "backward")
@@ -355,5 +355,5 @@ Coefficients: (Intercept) X P Core_Length Age DBH\
 717.52260 -6.08585 0.02407 0.05378 -0.42193 22.85171\
 TM 2.92965
 
-Modèle final : $WD0w$ \tilde $X$ + $P$ + $Core_Length$ + $Age$ + $DBH$ +
-$TM$
+Modèle final : $WD0w$ = $f$ ($X$ + $P$ + $Core Length$ + $Age$ + $DBH$ +
+$TM$)
