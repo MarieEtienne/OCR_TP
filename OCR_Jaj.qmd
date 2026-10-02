@@ -1,6 +1,6 @@
 ---
 title: "OCR Jaj"
-author: "Agathe, Julia, Jenny"
+author: "Rivière Agathe, Braga Julia et Rondot Jenny"
 editor: 
   markdown: 
     canonical: true
@@ -53,11 +53,10 @@ ressources) et un effet de compétition interspécifique.
 $$\begin{aligned}
 \frac{dN_1}{dt} &= N_1 (r_1 + a_{11} \cdot N_1 + a_{12} \cdot N_2) \\
 \frac{dN_2}{dt} &= N_2 (r_2 + a_{21} \cdot N_1 + a_{22} \cdot N_2)
-\end{aligned}$$
-Où : $N_1$ et $N_2$ désignent les effectifs des deux espèces, $r_1$ et
-$r_2$ leurs taux de croissance intrinsèques, et $a_{ij}$ les
-coefficients d'interaction (intra- et interspécifiques) entre les
-espèces $i$ et $j$.
+\end{aligned}$$ Où : $N_1$ et $N_2$ désignent les effectifs des deux
+espèces, $r_1$ et $r_2$ leurs taux de croissance intrinsèques, et
+$a_{ij}$ les coefficients d'interaction (intra- et interspécifiques)
+entre les espèces $i$ et $j$.
 
 ### Hypothèses
 
