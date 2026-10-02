@@ -19,8 +19,8 @@ bibliography: references.bib
 
 Dans les années 1920, Alfred J.Lotka (1925) [@lotka1925a] et Vito
 Volterra (1926) [@volterra1926a] ont publié leur premières théories
-concernant les intéractions entre espèces, suggérant que la stucture
-dynamique et complexe des écosystèmes pouvaient être résumées dans de
+concernant les interactions entre espèces, suggérant que la stucture
+dynamique et complexe des écosystèmes pouvait être résumée dans de
 simples équations mathématiques [@mühlbauer2020].
 
 Gause[@gause1934b], suivant les théories de A. Lotka et V. Volterra, a
@@ -50,13 +50,12 @@ d'auto-limitation (plus une espèce est abondante, plus sa propre
 croissance est freinée par la compétition intraspécifique pour les
 ressources) et un effet de compétition interspécifique.
 
-$$
-\begin{aligned}
+$$\begin{aligned}
 \frac{dN_1}{dt} &= N_1 (r_1 + a_{11} \cdot N_1 + a_{12} \cdot N_2) \\
 \frac{dN_2}{dt} &= N_2 (r_2 + a_{21} \cdot N_1 + a_{22} \cdot N_2)
-\end{aligned}
-$$ Où : où $N_1$ et $N_2$ désignent les effectifs des deux espèces,
-$r_1$ et $r_2$ leurs taux de croissance intrinsèques, et $a_{ij}$ les
+\end{aligned}$$
+Où : $N_1$ et $N_2$ désignent les effectifs des deux espèces, $r_1$ et
+$r_2$ leurs taux de croissance intrinsèques, et $a_{ij}$ les
 coefficients d'interaction (intra- et interspécifiques) entre les
 espèces $i$ et $j$.
 
@@ -64,18 +63,18 @@ espèces $i$ et $j$.
 
 L'objectif de cette étude est de modéliser le comportement des deux
 espèces lorsqu'elles sont en interaction pour un même milieu. Le modèle
-de compétition de Lotka-Volterra repose sur plisueurs hypothèses
+de compétition de Lotka-Volterra repose sur plusieurs hypothèses
 simplificatrices [@begon2006] :
 
--   Sans compétiteur, chaque population croît selon une dynamique
-    logistique limitée par sa propre capacité de charge
--   Les deux espèces sont en compétition pour les mêmes ressources
-    limitantes
--   L'environnement est homogène et constant au cours du temps
--   Les paramètres du modèle sont constants au cours du temps et ne
-    dépendent pas de l'âge ou de l'état physiologique des individus
--   Les populations sont suffisamment grandes pour écarter les effets
-    stochastiques liés
+- Sans compétiteur, chaque population croît selon une dynamique
+  logistique limitée par sa propre capacité de charge
+- Les deux espèces sont en compétition pour les mêmes ressources
+  limitantes
+- L'environnement est homogène et constant au cours du temps
+- Les paramètres du modèle sont constants au cours du temps et ne
+  dépendent pas de l'âge ou de l'état physiologique des individus
+- Les populations sont suffisamment grandes pour écarter les effets
+  stochastiques liés
 
 Sur la base de ces hypothèses, on s'attend à observer soit une
 coexistence stable des deux espèces soit l'exclusion compétitive de
@@ -223,7 +222,7 @@ plus fort que l'inverse. *P.aurelia* est donc une meilleure compétitrice
 pour cette ressource. On retrouve le principe d'exclusion compétitive :
 deux espèces qui occupent la même niche et dépendent de la même
 ressource limitante ne peuvent pas coexister durablement, la plus
-compétitive finit pas éliminer l'autre.
+compétitive finit par éliminer l'autre.
 
 #### Limites du modèle
 
@@ -232,7 +231,7 @@ expérimentales (déclin de *P. caudatum* puis stabilisation de *P.
 aurelia*) mais illustre moins bien la période transitoire qui a lieu
 entre le 4ème et le 10ème jour. Ces écarts peuvent s'expliquer par les
 hypothèses simplificatrices du modèle [@begon2006] : milieu homogène et
-paramètres constants dans le temps qui ne representent pas un système de
+paramètres constants dans le temps qui ne représentent pas un système de
 culture réel plus complexe.
 
 Les auteurs du package gauseR mettent eux même en lumière une limite
@@ -240,22 +239,21 @@ importante : la méthode d'ajustement des moindres carrés utilisée prend
 seulement en compte l'erreur de mesure et non les autres sources
 d'incertitudes liées au processus biologique lui même [@mühlbauer2020].
 
-Des méthodes plus récentes permettent d'isoler ces biais ce qui éviterai
-de supposer que le modèle décrit une dynamique déterministe. Le modèle
-Lotka-Volterra reste donc une approximation, surtout valable autour de
-l'équilibre plutôt qu'une description exacte de ce qui se passe
-biologiquement.
+Des méthodes plus récentes permettent d'isoler ces biais ce qui
+éviterait de supposer que le modèle décrit une dynamique déterministe.
+Le modèle Lotka-Volterra reste donc une approximation, surtout valable
+autour de l'équilibre plutôt qu'une description exacte de ce qui se
+passe biologiquement.
 
 #### Perspectives
 
 Plusieurs pistes nous permettraient d'aller plus loin :
 
--   minimiser les biais en séparant le bruit d'observation du bruit de
-    processus, ce que suggèrent les auteurs de gauseR eux mêmes.
--   faire varier les coefficients d'interactions selon la taille ou la
-    composition de population afin d'obtenir un modèle plus réalistes,
-    ce qui a déjà été proposé dans la littérature selon
-    [@mühlbauer2020].
+- minimiser les biais en séparant le bruit d'observation du bruit de
+  processus, ce que suggèrent les auteurs de gauseR eux mêmes.
+- faire varier les coefficients d'interactions selon la taille ou la
+  composition de population afin d'obtenir un modèle plus réalistes, ce
+  qui a déjà été proposé dans la littérature selon [@mühlbauer2020].
 
 #### Conclusion
 
