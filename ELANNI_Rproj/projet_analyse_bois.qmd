@@ -35,56 +35,56 @@ trouvait.
 
 Les variables sont les suivantes :
 
-- **Tree_ID** : Numéro d'identification de l'arbre
+-   **Tree_ID** : Numéro d'identification de l'arbre
 
-- **X** : Coordonnée de longitude du centre de la maille de 1km²
+-   **X** : Coordonnée de longitude du centre de la maille de 1km²
 
-- **Y** : Coordonnée de latitude du centre de la maille de 1km²
+-   **Y** : Coordonnée de latitude du centre de la maille de 1km²
 
-- **Z** : Elévation au-dessus du niveau de la mer en m de la maille
+-   **Z** : Elévation au-dessus du niveau de la mer en m de la maille
 
-- **Botanical_Class** : Classe botanique de l'espèce de l'arbre
-  (conifère ou feuillu)
+-   **Botanical_Class** : Classe botanique de l'espèce de l'arbre
+    (conifère ou feuillu)
 
-- **Species** : Nom latin de l'espèce de l'arbre
+-   **Species** : Nom latin de l'espèce de l'arbre
 
-- **Core_Type** : Type de carotte échantillonée (carotte incrémentielle
-  ou périphérique)
+-   **Core_Type** : Type de carotte échantillonée (carotte
+    incrémentielle ou périphérique)
 
-- **Core_Length** : Longueur des carottes incrémentielles échantillonnés
-  à l’état vert, telle qu’estimée à partir du nombre d’images CT-scan le
-  long du noyau, du pas de scanner (0,625 mm) et du rétrécissement de la
-  longueur du noyau en bois
+-   **Core_Length** : Longueur des carottes incrémentielles
+    échantillonnés à l’état vert, telle qu’estimée à partir du nombre
+    d’images CT-scan le long du noyau, du pas de scanner (0,625 mm) et
+    du rétrécissement de la longueur du noyau en bois
 
-- **Age** : Age de l'arbre en années, estimé par comptage des anneaux de
-  l'arbre (uniquement pour les carottes incrémentielles)
+-   **Age** : Age de l'arbre en années, estimé par comptage des anneaux
+    de l'arbre (uniquement pour les carottes incrémentielles)
 
-- **DBH** : Diamètre du tronc à hauteur de poitrine (1.3 m) in m
+-   **DBH** : Diamètre du tronc à hauteur de poitrine (1.3 m) in m
 
-- **H** : Hauteur de l'arbre en m
+-   **H** : Hauteur de l'arbre en m
 
-- **TM** : Température annuelle moyenne à l’emplacement de la parcelle
-  forestière en °C (normale de la période 1991-2020 fournie par
-  l’Institut météorologique français Météo France)
+-   **TM** : Température annuelle moyenne à l’emplacement de la parcelle
+    forestière en °C (normale de la période 1991-2020 fournie par
+    l’Institut météorologique français Météo France)
 
-- **P** : Précipitation annuelle totale à l’emplacement de la parcelle
-  forestière en mm (normale de la période 1991-2020 fournie par
-  l’institut météorologique français Météo France)
+-   **P** : Précipitation annuelle totale à l’emplacement de la parcelle
+    forestière en mm (normale de la période 1991-2020 fournie par
+    l’institut météorologique français Météo France)
 
-- **WD0** : Densité moyenne du bois anhydre en kg/m3
+-   **WD0** : Densité moyenne du bois anhydre en kg/m3
 
-- **WD0w** : Densité moyenne pondérée du bois anhydre en kg/m3
+-   **WD0w** : Densité moyenne pondérée du bois anhydre en kg/m3
 
-- **WDb** : Moyenne basique de la densité du bois en kg/m3
+-   **WDb** : Moyenne basique de la densité du bois en kg/m3
 
-- **WDbw** : Masse volumique de base moyenne pondérée du bois en kg/m3
+-   **WDbw** : Masse volumique de base moyenne pondérée du bois en kg/m3
 
-- **WS** : Coefficient de rétrécissement volumétrique en % utilisé pour
-  convertir une densité quelconque en densité de base, tel qu’il ressort
-  d’une revue de la littérature
+-   **WS** : Coefficient de rétrécissement volumétrique en % utilisé
+    pour convertir une densité quelconque en densité de base, tel qu’il
+    ressort d’une revue de la littérature
 
-- **Scanner_name** : Nom du modèle de scanner utilisé pour mesurer la
-  densité du bois (GE BrightSpeed Excel ou GE Revolution EVO)
+-   **Scanner_name** : Nom du modèle de scanner utilisé pour mesurer la
+    densité du bois (GE BrightSpeed Excel ou GE Revolution EVO)
 
 Le jeu de données original contient une diversité de 156 espèces. Par la
 suite, nous nous sommes limité à l'espèce *Quercus robur*, le chêne
@@ -132,7 +132,7 @@ groupe aléatoire.
 ```{r}
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
 
-#Deleting Core_Type, Botanical_Class and Species as they're all the same now
+#Suppression des colonnes Core_Type, Botanical_Class et Species qui n'ont désormais qu'une seule valeur
 dta_Qrobur <- select(dta_Qrobur, -Species, -Core_Type, -Botanical_Class)
 ```
 
@@ -157,28 +157,28 @@ dta_Qrobur <- subset(dta_Qrobur, WD0w != min(WD0w, na.rm=TRUE))
 
 ```{r}
 par(mfrow=c(3,1))
-# Scatter plot de la relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
+# Nuage de points de la relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
 ggplot(data = dta_Qrobur, aes(x = DBH, y = WD0w)) +
   geom_point() +
-  geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + #Adding a smooth line based on generalized additive models
-  xlab(label = "Diameter at breast height (m)") +
-  ylab(label = bquote('Wood density anhydre'(kg.m^-3)))
+  geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + # Ajout d'une fonction lisse avec un modèle additif généralisé
+  xlab(label = "Diamètre du tronc à hauteur de poitrine (m)") +
+  ylab(label = bquote('Densité moyenne pondérée anhydre'(kg.m^-3)))
 
-# Scatter plot de la relation entre l'âge et densité moyenne pondérée anhydre chez Quercus robur
+# Nuage de points de la relation entre l'âge et la densité moyenne pondérée anhydre chez Quercus robur
 ggplot(data = dta_Qrobur, aes(x = Age, y = WD0w)) +
   geom_point() +
-  geom_smooth(method = "lm") + #Adding the linear regression line
-  geom_abline(slope = 1, intercept = 0, linetype = "dotted") + #Adding the Y=X line
-  xlab(label = bquote('Age en années')) +
-  ylab(label = bquote('Densité moyenne pondérée du bois anhydre kg.m^-3'))
+  geom_smooth(method = "lm") + # Ajout d'une droite de régression
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") + # Ajout de la droite Y=X
+  xlab(label = bquote('Âge (années)')) +
+  ylab(label = bquote('Densité moyenne pondérée du bois anhydre (kg.m^-3)'))
 
-# Map of the average wood density (weighted mean basic wood density) on each NFI forest plot (using approximate coordinates, as the exact coordinates of the NFI plots are not available for statistical confidentiality reasons)
-france = map_data('france') #Extracting the map of France using the map_data function of maps package
-dta_Qrobur_map = dta_Qrobur[, .(mean = mean(WD0w)), by = c("Plot_ID", "X", "Y")] #Creating a new table with the average wood density (weighted mean basic wood density) for each NFI forest plot
-ggplot(data = france, aes(x = long,y = lat, group = group)) + #Drawing the map
+# Carte de la densité moyenne pondérée anhydre avec les coordonnées de chaque individu Quercus robur
+france = map_data('france') # Extraction de la carte de France avec le package maps
+dta_Qrobur_map = dta_Qrobur[, .(mean = mean(WD0w)), by = c("Plot_ID", "X", "Y")] # Création d'une nouvelle table avec la densité moyenne pondérée anhydre
+ggplot(data = france, aes(x = long,y = lat, group = group)) + # Afficher la carte
   geom_polygon(fill = "white", colour = "black") +
   geom_point(data = dta_Qrobur_map, size = 0.5, aes(x = X, y = Y, group = 1, colour = mean)) +
-  scale_color_gradient2(low = "green", mid = "red", high = "darkred", midpoint = 800)
+  scale_color_gradient2(low = "blue", mid = "red", high = "darkred", midpoint = 800)
 ```
 
 # Autre
