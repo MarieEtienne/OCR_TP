@@ -10,5 +10,3 @@ OCR_TP.Rproj
 
 **/*.quarto_ipynb
 
-_site/
-_freeze/
