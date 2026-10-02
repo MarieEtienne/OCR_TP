@@ -297,3 +297,17 @@ significatif (très faible mais significatif).
 Au vu du nombre de sites étudiés, il est logique que 6 variables ne
 suffisent à pour expliquer la variation observée. Il faudra donc plus de
 données pour obtenir une anaylse interessante.
+
+## Conclusion et limites de l'étude
+
+Cette étude montre que les espèces sont relativement réparties de
+manière homogène sur tout le territoire. En effet, la plus part des
+espèces sont réparties sur toutes les zones géographiques : Littoral,
+Relief, Méridional et Plaine. La zone méridionale semble tout de même
+plus spécialisée que les autres. Il y a aussi une grande présences
+d'espèces au sein des zones humides de même qu'une certaine spécificité.
+
+La science participative inclue certaines limites comme le risque
+d'avoir des taxons plus populaires que d'autres et donc un biais de
+comptage ou de reconnaissance ainsi qu'un biais de sites plus observés
+que d'autre au voisinnage des grandes villes par exemple.
