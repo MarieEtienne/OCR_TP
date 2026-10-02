@@ -55,6 +55,7 @@ réalisé des mesures de distances intertégulaires (i.e. largeur des
 abeilles, ITD) dans cette deuxième expéricence pour chaque groupe
 d'espèces et par sexe. Cette distance est expérimée en milimètres.
 
+<<<<<<< HEAD
 ```{r}
 #tab <- read.xlsx("/Users/emiliecordier/Downloads/M2 MODE/")
 #summary(tab) # pour décrire variables (quantitatives, qualitatives, ...)
@@ -352,3 +353,24 @@ nécessaires pour confirmer ce résultat.
 ```{r}
 sessionInfo()
 ```
+=======
+Description variables : Taille, Milieu, année, mois, Type de capture,
+site, pourcentage impermabilisation, sexe, espèce
+
+Le tableau de données est composé de 17 variables : l'année (variables
+semi-quantitative), nom_site (variable qualitative), date_collecte (date
+de la collecte), mois de capture (variable semi-quantitative), capture
+(type de capture, variable qualitative), genre (variable qualitative),
+sexe (variable qualitative), espèce (variable qualitative),
+contexte_paysager (variable qualitative), origine_tableau (variable
+qualitative), lectisme (variable qualitative), itd_moy_mesure_esp_sexe
+(variable quantitative continue), ITD (distance intertégulaire pour
+chaque individu, variable quantitative), TailleR (distance
+intertégulaire moyenne pour l'espèce du sexe considéré, et si disponible
+pour l'individu considéré, variable quantitative),
+maxforagingdistTailleR (distance maximale de butinage calculé grâce à
+TailleR, variable quantitative), Impermeabilisation500m (surface
+d'imperméabilisation sur 500m, variable quantitative).
+
+**Bibliographie**
+>>>>>>> 6ba4191 (suppression de GLMM)
