@@ -116,6 +116,15 @@ XDM_individual_density_data = data.table(read.table("xdm_individual_density_data
 
 ```
 
+Exportation le fichier de data *Quercus Robur* en fichier .csv.
+
+```{r}
+write.csv (dta_Qrobur, "dta_Qrobur.csv" ,row.names= FALSE )
+#par default :eparateur = virgule ; decimal = point
+dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
+         dec = "."
+```
+
 ## D. Prétraitement des données
 
 Sélection de l'espèce *Quercus robur*.
@@ -333,14 +342,3 @@ step(mod1, mod0, direction = "both")
 
 WD0w \~ X + P + Core_Length + Age + DBH + TM #AIC = 43723 A VERIFIER
 INSERER FORMULE CONSERVEE
-
-# BROUILLON
-
-Extraire en .csv
-
-```{r}
-#Exporter le fichier de data Quercus Robur en fichier csv ----
-write.csv (dta_Qrobur, "dta_Qrobur.csv" ,row.names= FALSE )#par default :eparateur = virgule ; decimal = point
-dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
-         dec = "."
-```
