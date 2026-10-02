@@ -323,7 +323,16 @@ significatifs.
 
 On va maintenant continuer la sélection de variables avec les méthodes
 de sélection de modèle *stepwise* avec le critère d'information d'Akaike
-(*AIC*).
+(*AIC*). Pour cela, on part du modèle avec le moins de variables
+explicatifs *Mod_0* , et on crée un modèle maximal avec toutes les 9
+variables étudiées ici *Mod_1* et on teste les méthodes ascendantes,
+descendantes ou stepwise les 2 directions en même temps, pour
+sélectionner les variables que l'on conservera dans le modèle final.
+
+$Mod_0$ = $WD0w$ \tilde $1$
+
+$Mod_1$ = $WD0w$ \tilde $X$ + $Y$ + $Z$ +$P$ + $Core_Length$ + $Age$ +
+$DBH$ + $H$ + $TM$
 
 ```{r}
 # Modele nul
@@ -345,3 +354,6 @@ dta_Qrobur)
 Coefficients: (Intercept) X P Core_Length Age DBH\
 717.52260 -6.08585 0.02407 0.05378 -0.42193 22.85171\
 TM 2.92965
+
+Modèle final : $WD0w$ \tilde $X$ + $P$ + $Core_Length$ + $Age$ + $DBH$ +
+$TM$
