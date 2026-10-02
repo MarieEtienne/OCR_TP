@@ -116,15 +116,6 @@ XDM_individual_density_data = data.table(read.table("xdm_individual_density_data
 
 ```
 
-Exportation le fichier de data *Quercus Robur* en fichier .csv.
-
-```{r}
-write.csv (dta_Qrobur, "dta_Qrobur.csv" ,row.names= FALSE )
-#par default :eparateur = virgule ; decimal = point
-dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
-         dec = "."
-```
-
 ## D. Prétraitement des données
 
 Sélection de l'espèce *Quercus robur*.
@@ -142,8 +133,17 @@ groupe aléatoire.
 ```{r}
 dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
 
-#Deleting Core_Type, Botanical_Class and Species as they're all the same now
+#Suppression des colonnes Core_Type, Botanical_Class et Species qui n'ont désormais qu'une seule valeur
 dta_Qrobur <- select(dta_Qrobur, -Species, -Core_Type, -Botanical_Class)
+```
+
+Exportation le fichier de data *Quercus Robur* en fichier .csv.
+
+```{r}
+write.csv (dta_Qrobur, "dta_Qrobur.csv" ,row.names= FALSE )
+#par default :eparateur = virgule ; decimal = point
+dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
+         dec = "."
 ```
 
 # 2. ANALYSES STATISTIQUES
@@ -169,28 +169,28 @@ dta_Qrobur <- subset(dta_Qrobur, WD0w != min(WD0w, na.rm=TRUE))
 
 ```{r}
 par(mfrow=c(3,1))
-# Scatter plot de la relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
+# Nuage de points de la relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
 ggplot(data = dta_Qrobur, aes(x = DBH, y = WD0w)) +
   geom_point() +
-  geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + #Adding a smooth line based on generalized additive models
-  xlab(label = "Diameter at breast height (m)") +
-  ylab(label = bquote('Wood density anhydre'(kg.m^-3)))
+  geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + # Ajout d'une fonction lisse avec un modèle additif généralisé
+  xlab(label = "Diamètre du tronc à hauteur de poitrine (m)") +
+  ylab(label = bquote('Densité moyenne pondérée anhydre'(kg.m^-3)))
 
-# Scatter plot de la relation entre l'âge et densité moyenne pondérée anhydre chez Quercus robur
+# Nuage de points de la relation entre l'âge et la densité moyenne pondérée anhydre chez Quercus robur
 ggplot(data = dta_Qrobur, aes(x = Age, y = WD0w)) +
   geom_point() +
-  geom_smooth(method = "lm") + #Adding the linear regression line
-  geom_abline(slope = 1, intercept = 0, linetype = "dotted") + #Adding the Y=X line
-  xlab(label = bquote('Age en années')) +
-  ylab(label = bquote('Densité moyenne pondérée du bois anhydre kg.m^-3'))
+  geom_smooth(method = "lm") + # Ajout d'une droite de régression
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") + # Ajout de la droite Y=X
+  xlab(label = bquote('Âge (années)')) +
+  ylab(label = bquote('Densité moyenne pondérée du bois anhydre (kg.m^-3)'))
 
-# Map of the average wood density (weighted mean basic wood density) on each NFI forest plot (using approximate coordinates, as the exact coordinates of the NFI plots are not available for statistical confidentiality reasons)
-france = map_data('france') #Extracting the map of France using the map_data function of maps package
-dta_Qrobur_map = dta_Qrobur[, .(mean = mean(WD0w)), by = c("Plot_ID", "X", "Y")] #Creating a new table with the average wood density (weighted mean basic wood density) for each NFI forest plot
-ggplot(data = france, aes(x = long,y = lat, group = group)) + #Drawing the map
+# Carte de la densité moyenne pondérée anhydre avec les coordonnées de chaque individu Quercus robur
+france = map_data('france') # Extraction de la carte de France avec le package maps
+dta_Qrobur_map = dta_Qrobur[, .(mean = mean(WD0w)), by = c("Plot_ID", "X", "Y")] # Création d'une nouvelle table avec la densité moyenne pondérée anhydre
+ggplot(data = france, aes(x = long,y = lat, group = group)) + # Afficher la carte
   geom_polygon(fill = "white", colour = "black") +
   geom_point(data = dta_Qrobur_map, size = 0.5, aes(x = X, y = Y, group = 1, colour = mean)) +
-  scale_color_gradient2(low = "green", mid = "red", high = "darkred", midpoint = 800)
+  scale_color_gradient2(low = "blue", mid = "red", high = "darkred", midpoint = 800)
 ```
 
 Exploration des variables catégorielles.
@@ -224,7 +224,6 @@ abline (b=1.300e+01, a=-1.953e-16, col = "blue")
 abline (h = 800)
 
 #Dimensions
-barplot(WD0w ~Age, data = dta_Qrobur, col = "green4")
 plot(WD0w ~H, data = dta_Qrobur, col = "purple3")
 plot(WD0w ~TM, data = dta_Qrobur, col = "blue3")
 ```
@@ -232,16 +231,16 @@ plot(WD0w ~TM, data = dta_Qrobur, col = "blue3")
 Exploration de la variable réponse **WD0w**
 
 ```{r}
-summary(XDM_Q.robur_density_data$WD0w)
+summary(dta_Qrobur$WD0w)
 
-plot(XDM_Q.robur_density_data$WD0w)
+plot(dta_Qrobur$WD0w)
 
-hist(XDM_individual_density_data$WDbw, breaks = 50, probability = T, main = "Distribution de la densité du bois")
+hist(dta_Qrobur$WDbw, breaks = 50, probability = T, main = "Distribution de la densité du bois")
 
 # Test de loi normale
-qqnorm(XDM_Q.robur_density_data$WD0w,
+qqnorm(dta_Qrobur$WD0w,
        main = "Q-Q plot")
-qqline(XDM_Q.robur_density_data$WD0w,
+qqline(dta_Qrobur$WD0w,
        col = "red",
        lwd = 2)
 ```
@@ -250,35 +249,35 @@ Observation de relation linéaire entre l'âge de l'arbre (**Age**) et sa
 hauteur (**H**).
 
 ```{r}
-ggplot(data = XDM_Q.robur_density_data, aes(x = Age, y = H)) + geom_point() + geom_smooth(method = "lm")
-summary(lm(H ~ Age, data = XDM_Q.robur_density_data))
+ggplot(data = dta_Qrobur, aes(x = Age, y = H)) + geom_point() + geom_smooth(method = "lm")
+summary(lm(H ~ Age, data = dta_Qrobur))
 ```
 
 Observation de la densité du bois en fonction de la hauteur de l'arbre
 (**H**).
 
 ```{r}
-ggplot(data = XDM_individual_density_data, aes(x = WD0w, y = H)) + geom_point()
+ggplot(data = dta_Qrobur, aes(x = WD0w, y = H)) + geom_point()
 ```
 
 Observation de la densité du bois en fonction des précipitations
 annuelles (**P**).
 
 ```{r}
-ggplot(data = XDM_Q.robur_density_data, aes(x = WD0w, y = P)) + geom_point()
+ggplot(data = dta_Qrobur, aes(x = WD0w, y = P)) + geom_point()
 ```
 
 Observation de la densité du bois en fonction des températures annuelles
 (**TM**).
 
 ```{r}
-ggplot(data = XDM_Q.robur_density_data, aes(x = WD0w, y = TM)) + geom_point()
+ggplot(data = dta_Qrobur, aes(x = WD0w, y = TM)) + geom_point()
 ```
 
 Test de corrélation entre les variables explicatives
 
 ```{r}
-vars <- XDM_Q.robur_density_data[, c("WD0w", "X", "Y", "Z", "Core_Length", "Age", "DBH", "H", "TM", "P")]
+vars <- dta_Qrobur[, c("WD0w", "X", "Y", "Z", "Core_Length", "Age", "DBH", "H", "TM", "P")]
 
 ggpairs(vars)
 ```
@@ -340,5 +339,9 @@ step (mod1, mod0, direction = "backward")
 step(mod1, mod0, direction = "both")#AIC = 43723
 ```
 
-{Modele final} = /WD0w/ \~ {X} + {P} + {Core_Length} + {Age} + {DBH} +
-{TM} A VERIFIER INSERER FORMULE CONSERVEE
+Call: lm(formula = WD0w \~ X + P + Core_Length + Age + DBH + TM, data =
+dta_Qrobur)
+
+Coefficients: (Intercept) X P Core_Length Age DBH\
+717.52260 -6.08585 0.02407 0.05378 -0.42193 22.85171\
+TM 2.92965
