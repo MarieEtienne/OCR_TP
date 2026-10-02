@@ -1,5 +1,5 @@
 ---
-title: "OCR_Orange"
+title: "Orange yields analysis"
 author: "Collot, Millard, Ferreira Gomes"
 bibliography: orangeref.bib
 format:
