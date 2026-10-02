@@ -1,5 +1,5 @@
 ---
-title: "OCR Jaj"
+title: "La compétition interspécifique chez les paramécies"
 author: "Rivière Agathe, Braga Julia et Rondot Jenny"
 editor: 
   markdown: 
