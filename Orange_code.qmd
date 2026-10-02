@@ -199,7 +199,9 @@ legend(
 ```
 
 As can be seen, the figures @fig-lm illustrate the linear model, which
-we already knew models an increasing trend in yields.
+we already knew models an increasing trend in yields. The formula of the
+linear model is written as :
+$$\bar{y} = \ 1.331* 10^{-1} x - 2.469 * 10^{2}  $$ {#eq-lm}
 
 ## Possibility of usage
 
