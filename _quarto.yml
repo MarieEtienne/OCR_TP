@@ -17,7 +17,8 @@ website:
           href: r_chapter.qmd
         - text: "Penguins example"
           href: Penguins_chapter.qmd       
-        
+       - text: "Basic ancova example"
+          href: ANCOVA_Chloe_Doryan_Maelle.qmd
         
 
     right:
