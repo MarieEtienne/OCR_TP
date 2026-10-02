@@ -1,5 +1,5 @@
 ---
-title: "projet"
+title: "Projet Ancova"
 author: "Chloé BRES, Doryan GRAVELEAU & Maëlle HEBRAS"
 date: "16/09/2026"
 editor:
@@ -110,16 +110,12 @@ l'individu.
 ```{r}
 #Configuration de la session et chargement des packages R
 rm(list=ls()) # Nettoie l'espace de travail
-library(knitr)
-opts_chunk$set(echo = FALSE, comment = "", cache = TRUE, fig.align = "center")
-library(rmarkdown) 
-library(markdown)
 library(ggplot2) # Package pour les graphiques
 ```
 
 ## Importation du jeu de données
 
-```{r global data, echo=TRUE,include=TRUE}
+```{r}
 # Importation des données
 dataFly <- read.table("FlyWeight.txt", dec=".", header = TRUE)
 dataFly$Sex<-as.factor(dataFly$Sex)
@@ -139,7 +135,7 @@ valeurs manquantes.
 
 ### Vérification de l'échantillonnage
 
-```{r datafact, include=TRUE}
+```{r}
 #| label: tbl-echantillonnage
 #| tbl-cap: "Répartition des individus en fonction du sexe et de l'habitat."
 
@@ -155,7 +151,7 @@ Comme l'indique le @tbl-echantillonnage, nous avons un échantillonnage
 
 ### Vérification de la colinéarité des variables explicatives
 
-```{r datacolin, include=TRUE, fig.height=5, fig.width=5}
+```{r, fig.height=5, fig.width=5}
 #| label: fig-colinearite
 #| fig-cap: "Matrice de dispersion pour évaluer la colinéarité des variables explicatives."
 # Représentation des graphiques pour chaque paire de covariables continues 
@@ -168,7 +164,7 @@ teneur en eau.
 
 ## Construction du modèle
 
-```{r, include = TRUE}
+```{r}
 #| label: tbl-anova
 #| tbl-cap: "Analyse de la variance (ANOVA) des variables du modèle."
 # Formulation du modèle
@@ -217,7 +213,7 @@ performant que le simple hasard pour prédire le poids sec.
 
 ### Normalité des résidus
 
-```{r ResidNorm, include=TRUE, fig.height=3, fig.width=6}
+```{r, fig.height=3, fig.width=6}
 #| label: fig-normalite
 #| fig-cap: "Vérification de la normalité des résidus du modèle."
 par(mfrow=c(1,2))
@@ -233,7 +229,7 @@ normale au niveau des extrémités mais cela ne pose pas de problèmes.
 
 ### Homogénéité de la variance
 
-```{r Residhomo, include=TRUE, fig.height=5, fig.width=5}
+```{r, fig.height=5, fig.width=5}
 #| label: fig-homogeneite
 #| fig-cap: "Analyse graphique de l'homogénéité de la variance des résidus."
 par(mfrow=c(2,2))
