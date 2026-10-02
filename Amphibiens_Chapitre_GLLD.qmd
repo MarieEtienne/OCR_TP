@@ -22,36 +22,18 @@ editor:
 ---
 ```{r setup-et-import, message=FALSE, warning=FALSE, include = FALSE, echo= FALSE}
 # Load libraries
-{
-  # Paquets CRAN nécessaires
-  paquets_cran <- c("tidyverse", "car", "vegan", "corrplot", "lme4", "broom",
-                    "rcompanion", "patchwork", "modelsummary", "ggpattern",
-                    "ggrepel", "remotes")
-  
-  # Installer uniquement ceux qui manquent
-  manquants <- paquets_cran[!paquets_cran %in% rownames(installed.packages())]
-  if (length(manquants) > 0) {
-    install.packages(
-      manquants,
-      repos = "https://cloud.r-project.org"
-    )
-  }
-  
-  # ggvegan : disponible sur GitHub (pas sur CRAN)
-  if (!requireNamespace("ggvegan", quietly = TRUE)) {
-    remotes::install_github(
-      "gavinsimpson/ggvegan",
-      auth_token = Sys.getenv("GITHUB_TOKEN")
-    )
-  }
-  
-  # Charger tous los paquets
-  invisible(lapply(
-    c(setdiff(paquets_cran, "remotes"), "ggvegan"),
-    library,
-    character.only = TRUE
-  ))
-}
+library(tidyverse)
+library(car)
+library(vegan)
+library(corrplot)
+library(lme4)
+library(broom)
+library(rcompanion)
+library(patchwork)
+library(modelsummary)
+library(ggpattern)
+library(ggrepel)
+library(ggvegan)
 
 # Import dataset
 data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
