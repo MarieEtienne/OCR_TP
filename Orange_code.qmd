@@ -18,7 +18,7 @@ editor:
 ![A beautiful orange tree](images/oranger.jpg){#fig-oranger
 width="300px"}
 
-![An orange grove](images/verger_orange.jpg){#fig-oranger width="400px"}
+![An orange grove](images/verger_orange.jpg){width="400px"}
 :::
 
 ## Orange yield around the world
