@@ -21,22 +21,24 @@ editor:
     wrap: 72
 ---
 ```{r setup-et-import, message=FALSE, warning=FALSE, include = FALSE, echo= FALSE}
-# Load libraries
-library(tidyverse)
-library(car)
-library(vegan)
-library(corrplot)
-library(lme4)
-library(broom)
-library(rcompanion)
-library(patchwork)
-library(modelsummary)
-library(ggpattern)
-library(ggrepel)
-library(ggvegan)
+# Load libraries - check presence
+required_pkgs <- c("tidyverse","car","vegan","corrplot","lme4","broom",
+                   "rcompanion","patchwork","modelsummary","ggpattern",
+                   "ggrepel","ggvegan")
+missing_pkgs <- setdiff(required_pkgs, rownames(installed.packages()))
+if (length(missing_pkgs) > 0) {
+  stop("Missing R packages: ", paste(missing_pkgs, collapse = ", "),
+       ". Ensure CI installs them before rendering (e.g. add install step or run renv::restore()).")
+}
 
-# Import dataset
-data <- read.csv("Data/Dataset_Amphibiens.csv", skip = 1, header = TRUE)
+# Import dataset - try several common candidate paths (case sensitive)
+candidates <- c("ata/Dataset_Amphibiens.csv", "data/Dataset_Amphibiens.csv", "Dataset_Amphibiens.csv")
+found <- candidates[file.exists(candidates)]
+if (length(found) == 0) {
+  stop("Required dataset not found. Checked paths: ", paste(candidates, collapse = "; "),
+       ". Make sure the CSV is committed to the repository with the correct path and casing.")
+}
+data <- read.csv(found[1], skip = 1, header = TRUE)
 ```
 
 
@@ -960,7 +962,7 @@ dataClean <- data %>%
 
 Préalablement à l'analyse GLM des occurrences de chaque espèce, une visualisation des ratios de présence/absence selon les routes a été effectué. Les espèces d'amphibiens présentent des ratios très variables entre eux. Les espèces de tritons sont très peu observés comparativement aux autres espèces.  Entre les routes, les ratios différent légèrement avec systématiquement plus de présence au sein de S52.
 
-```{r chapitre4-mosaic}
+```{r}
 #| label: fig-chp4-mosaic
 #| fig-cap: "Diagrammes en mosaïque des proportions de présence (1) et d'absence (0) de chaque espèce d'amphibiens selon l'autoroute (A1 ou S52)."
 #| echo: false
