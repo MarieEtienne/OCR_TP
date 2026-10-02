@@ -1,5 +1,6 @@
 ---
-title: "Amphibiens_Chapitre_GLLD"
+title: "Étude d’impact d’un projet routier sur des Amphibiens"
+author: "GOURBILLON Candys, DELANNOY Mathéo, LENQUETTE Anael, LAPORTE Paul"
 lang: fr
 bibliography: references.bib
 number-sections: true
