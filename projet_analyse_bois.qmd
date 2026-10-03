@@ -1,0 +1,359 @@
+---
+title: "ANALYSE DENSITE DU BOIS"
+subtitle: "Projet OCR"
+author: "Nicolas Chevillon, Anaëlle Baron, Eli Desnyder"
+creation_date: "2026-09-16 10:20:40 CEST "
+modification_date: "2026-10-01 15:17:18 CEST"
+bibliography: ../references.bib
+execute: 
+  freeze: auto
+editor:
+  markdown:
+    canonical: true
+    wrap: 72
+format: html
+css: theme.css
+toc: true
+toc_float: true
+---
+
+# 1. DESCRIPTION DU JEU DE DONNEES
+
+## A. Contexte
+
+La densité du bois étant un prédicteur précis des propriétés mécaniques
+du matériau bois, sa variabilité a reçu une attention particulière pour
+les applications industrielles (Zobel 1989).
+
+## B. Structure du jeu de données
+
+Dans cette proposition de méthodes statistiques, nous travaillons
+uniquement sur le fichier *xdm_individual_density_data.csv*. Ce fichier
+contient les valeurs mesurées sur des carottes d'arbres, les
+caractéristiques de l'arbre et de l'environnement dans lequel il se
+trouvait.
+
+Les variables sont les suivantes :
+
+- **Tree_ID** : Numéro d'identification de l'arbre
+
+- **X** : Coordonnée de longitude du centre de la maille de 1km²
+
+- **Y** : Coordonnée de latitude du centre de la maille de 1km²
+
+- **Z** : Elévation au-dessus du niveau de la mer en m de la maille
+
+- **Botanical_Class** : Classe botanique de l'espèce de l'arbre
+  (conifère ou feuillu)
+
+- **Species** : Nom latin de l'espèce de l'arbre
+
+- **Core_Type** : Type de carotte échantillonée (carotte incrémentielle
+  ou périphérique)
+
+- **Core_Length** : Longueur des carottes incrémentielles échantillonnés
+  à l’état vert, telle qu’estimée à partir du nombre d’images CT-scan le
+  long du noyau, du pas de scanner (0,625 mm) et du rétrécissement de la
+  longueur du noyau en bois
+
+- **Age** : Age de l'arbre en années, estimé par comptage des anneaux de
+  l'arbre (uniquement pour les carottes incrémentielles)
+
+- **DBH** : Diamètre du tronc à hauteur de poitrine (1.3 m) in m
+
+- **H** : Hauteur de l'arbre en m
+
+- **TM** : Température annuelle moyenne à l’emplacement de la parcelle
+  forestière en °C (normale de la période 1991-2020 fournie par
+  l’Institut météorologique français Météo France)
+
+- **P** : Précipitation annuelle totale à l’emplacement de la parcelle
+  forestière en mm (normale de la période 1991-2020 fournie par
+  l’institut météorologique français Météo France)
+
+- **WD0** : Densité moyenne du bois anhydre en kg/m3
+
+- **WD0w** : Densité moyenne pondérée du bois anhydre en kg/m3
+
+- **WDb** : Moyenne basique de la densité du bois en kg/m3
+
+- **WDbw** : Masse volumique de base moyenne pondérée du bois en kg/m3
+
+- **WS** : Coefficient de rétrécissement volumétrique en % utilisé pour
+  convertir une densité quelconque en densité de base, tel qu’il ressort
+  d’une revue de la littérature
+
+- **Scanner_name** : Nom du modèle de scanner utilisé pour mesurer la
+  densité du bois (GE BrightSpeed Excel ou GE Revolution EVO)
+
+Le jeu de données original contient une diversité de 156 espèces. Par la
+suite, nous nous sommes limité à l'espèce *Quercus robur*, le chêne
+pédonculé. On passe de 110k à 5 300 observations.
+
+Comme données de réponse pour la densité des arbres, on s'intéresse à la
+variable **WD0w**. Ainsi on évite la variabilité que peut amener
+l'humidité.
+
+## C. Importation des données
+
+Préparation de l'espace de travail
+
+```{r}
+library(data.table)
+library(ggplot2)
+library(maps)
+library(dplyr)
+library(vegan) # Analyse stat
+library(tidyverse)
+library(GGally) # Test de correlation
+```
+
+Importation du jeu de données
+
+```{r}
+XDM_individual_density_data = data.table(read.table("xdm_individual_density_data.csv",
+                                                    sep = ",", dec= ".", header = TRUE))
+
+```
+
+## D. Prétraitement des données
+
+Sélection de l'espèce *Quercus robur*.
+
+```{r}
+dta_Qrobur = filter(XDM_individual_density_data, XDM_individual_density_data$Species == "Quercus robur")
+```
+
+Retrait des observations avec des données manquantes dans la variable
+**AGE**. Elles représentent une faible partie des données, pour
+lesquelles l'échantillonnage a été réalisé différemment (carotte
+périphérique). Faute d'informations, on suppose que cela concerne un
+groupe aléatoire.
+
+```{r}
+dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
+
+#Suppression des colonnes Core_Type, Botanical_Class et Species qui n'ont désormais qu'une seule valeur
+dta_Qrobur <- select(dta_Qrobur, -Species, -Core_Type, -Botanical_Class)
+```
+
+Exportation le fichier de data *Quercus Robur* en fichier .csv.
+
+```{r}
+write.csv (dta_Qrobur, "dta_Qrobur.csv" ,row.names= FALSE )
+#par default :eparateur = virgule ; decimal = point
+dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
+         dec = "."
+```
+
+# 2. ANALYSES STATISTIQUES
+
+## A. Exploration des données
+
+```{r}
+summary(dta_Qrobur)
+```
+
+Valeurs abberantes
+
+```{r}
+boxplot(dta_Qrobur$WD0w,col='dodgerblue3',ylab='densité moyenne pondérée anhydre')
+```
+
+On observe qu'il y a une donnée extrême. On se permet de la supprimer.
+(justifier)
+
+```{r}
+dta_Qrobur <- subset(dta_Qrobur, WD0w != min(WD0w, na.rm=TRUE))
+```
+
+```{r}
+par(mfrow=c(3,1))
+# Nuage de points de la relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
+ggplot(data = dta_Qrobur, aes(x = DBH, y = WD0w)) +
+  geom_point() +
+  geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + # Ajout d'une fonction lisse avec un modèle additif généralisé
+  xlab(label = "Diamètre du tronc à hauteur de poitrine (m)") +
+  ylab(label = bquote('Densité moyenne pondérée anhydre'(kg.m^-3)))
+
+# Nuage de points de la relation entre l'âge et la densité moyenne pondérée anhydre chez Quercus robur
+ggplot(data = dta_Qrobur, aes(x = Age, y = WD0w)) +
+  geom_point() +
+  geom_smooth(method = "lm") + # Ajout d'une droite de régression
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") + # Ajout de la droite Y=X
+  xlab(label = bquote('Âge (années)')) +
+  ylab(label = bquote('Densité moyenne pondérée du bois anhydre (kg.m^-3)'))
+
+# Carte de la densité moyenne pondérée anhydre avec les coordonnées de chaque individu Quercus robur
+france = map_data('france') # Extraction de la carte de France avec le package maps
+dta_Qrobur_map = dta_Qrobur[, .(mean = mean(WD0w)), by = c("Plot_ID", "X", "Y")] # Création d'une nouvelle table avec la densité moyenne pondérée anhydre
+ggplot(data = france, aes(x = long,y = lat, group = group)) + # Afficher la carte
+  geom_polygon(fill = "white", colour = "black") +
+  geom_point(data = dta_Qrobur_map, size = 0.5, aes(x = X, y = Y, group = 1, colour = mean)) +
+  scale_color_gradient2(low = "blue", mid = "red", high = "darkred", midpoint = 800)
+```
+
+Exploration des variables catégorielles.
+
+On observe les effectifs par modalité pour chaque facteur.
+
+```{r}
+table(dta_Qrobur$Scanner_name)
+table(dta_Qrobur$Tree_ID)
+table(dta_Qrobur$Botanical_Class)
+```
+
+```{r}
+boxplot (WD0w~Tree_ID,  data = dta_Qrobur, col = "plum4",notch = TRUE)
+boxplot (WD0w~Scanner_name,  data = dta_Qrobur, col = "chocolate3", notch = TRUE)
+```
+
+Exploration des variables qualitatives.
+
+```{r}
+summary (dta_Qrobur$WS)
+
+# Focus sur Core_length
+plot(dta_Qrobur$WD0w ~dta_Qrobur$Core_Length, col = "brown")
+test_modlin1 <- lm (dta_Qrobur$WS~dta_Qrobur$Core_Length)
+abline(test_modlin1)
+plot(test_modlin1)
+summary (test_modlin1)
+
+abline (b=1.300e+01, a=-1.953e-16, col = "blue")
+abline (h = 800)
+
+#Dimensions
+plot(WD0w ~H, data = dta_Qrobur, col = "purple3")
+plot(WD0w ~TM, data = dta_Qrobur, col = "blue3")
+```
+
+Exploration de la variable réponse **WD0w**
+
+```{r}
+summary(dta_Qrobur$WD0w)
+
+plot(dta_Qrobur$WD0w)
+
+hist(dta_Qrobur$WDbw, breaks = 50, probability = T, main = "Distribution de la densité du bois")
+
+# Test de loi normale
+qqnorm(dta_Qrobur$WD0w,
+       main = "Q-Q plot")
+qqline(dta_Qrobur$WD0w,
+       col = "red",
+       lwd = 2)
+```
+
+Observation de relation linéaire entre l'âge de l'arbre (**Age**) et sa
+hauteur (**H**).
+
+```{r}
+ggplot(data = dta_Qrobur, aes(x = Age, y = H)) + geom_point() + geom_smooth(method = "lm")
+summary(lm(H ~ Age, data = dta_Qrobur))
+```
+
+Observation de la densité du bois en fonction de la hauteur de l'arbre
+(**H**).
+
+```{r}
+ggplot(data = dta_Qrobur, aes(x = WD0w, y = H)) + geom_point()
+```
+
+Observation de la densité du bois en fonction des précipitations
+annuelles (**P**).
+
+```{r}
+ggplot(data = dta_Qrobur, aes(x = WD0w, y = P)) + geom_point()
+```
+
+Observation de la densité du bois en fonction des températures annuelles
+(**TM**).
+
+```{r}
+ggplot(data = dta_Qrobur, aes(x = WD0w, y = TM)) + geom_point()
+```
+
+Test de corrélation entre les variables explicatives
+
+```{r}
+vars <- dta_Qrobur[, c("WD0w", "X", "Y", "Z", "Core_Length", "Age", "DBH", "H", "TM", "P")]
+
+ggpairs(vars)
+```
+
+## B. Sélection de variables
+
+Objectif : on cherche les variables qui expliquent la variation de
+densité du bois (*WD0w*) parmis les variables suivantes : - *X*, *Y*, et
+*Z* : les données de localisation de l'arbre observé - *Core-Type* -
+*Core_Length* - *Age* - *DBH* - *H* - *TM* - *P*
+
+Formulation du modèle
+
+```{r}
+# Writing the model formula
+mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM,
+         data=dta_Qrobur)
+# Then we check for significance
+drop1(mod1,test="F")
+summary(mod1)
+```
+
+Effet des variables **X**, **P**, **Core_length** et **Age** (et
+**DBH**) semblent être les plus significatives. On veut comparer avec
+les modeles sans les variables non significatives.
+
+```{r}
+mod1_petit <- lm (WD0w ~ X+ + Core_Length + Age + DBH+ P, data = dta_Qrobur)
+anova(mod1, mod1_petit)
+
+RsquareAdj(mod1) # Modele avec les 9 variables
+RsquareAdj(mod1_petit) # Entre 13% et 12.9% : peu de changement avec les 4 variables retirees
+
+```
+
+Il n'y pas vraiment de différence significative entre les 2 modèles (on
+est a la limite).
+
+Les variables **X** (longitude), **Core_length** (longueur des
+carottes), **Age** (âge), **DBH** (diamètre du tronc à hauteur de
+poitrine), et **P** (précipitation) semblent avoir les effets les plus
+significatifs.
+
+On va maintenant continuer la sélection de variables avec les méthodes
+de sélection de modèle *stepwise* avec le critère d'information d'Akaike
+(*AIC*). Pour cela, on part du modèle avec le moins de variables
+explicatifs *Mod_0* , et on crée un modèle maximal avec toutes les 9
+variables étudiées ici *Mod_1* et on teste les méthodes ascendantes,
+descendantes ou stepwise les 2 directions en même temps, pour
+sélectionner les variables que l'on conservera dans le modèle final.
+
+$Mod_0$ : $WD0w$ = $f$ ($1$)
+
+$Mod_1$ : $WD0w$ = $f$ ( $X$ + $Y$ + $Z$ +$P$ + $Core Length$ + $Age$ +
+$DBH$ + $H$ + $TM$)
+
+```{r}
+# Modele nul
+mod0 <- lm(WD0w ~ 1, data = dta_Qrobur)
+
+# 1) Ascendante 
+step (mod1, mod0, direction = "forward")
+
+#2) Descendante 
+step (mod1, mod0, direction = "backward")
+
+# 3) Stepwise(2 directions)
+step(mod1, mod0, direction = "both")#AIC = 43723
+```
+
+Call: lm(formula = WD0w \~ X + P + Core_Length + Age + DBH + TM, data =
+dta_Qrobur)
+
+Coefficients: (Intercept) X P Core_Length Age DBH\
+717.52260 -6.08585 0.02407 0.05378 -0.42193 22.85171\
+TM 2.92965
+
+Modèle final : $WD0w$ = $f$ ($X$ + $P$ + $Core Length$ + $Age$ + $DBH$ +
+$TM$)
