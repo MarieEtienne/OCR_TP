@@ -18,7 +18,7 @@ bibliography: references.bib
 ### Contexte
 
 Dans les années 1920, Alfred J.Lotka (1925) [@lotka1925a] et Vito
-Volterra (1926) [@volterra1926a] ont publié leur premières théories
+Volterra (1926) [@volterra1926a] ont publié leurs premières théories
 concernant les interactions entre espèces, suggérant que la stucture
 dynamique et complexe des écosystèmes pouvait être résumée dans de
 simples équations mathématiques [@mühlbauer2020].
@@ -39,8 +39,11 @@ micromètres.](https://rsscience.com/wp-content/uploads/2020/06/Paramecium-cauda
 *Paramecium aurelia* (à droite). *P. caudatum* présente une forme
 allongée, arrondie à l'extrémité antérieure et pointue à l'extrémité
 postérieure, tandis que *P. aurelia* présente une forme plus ovoïde.
-Barres d'échelle : 100 μm. Crédits photo : *P. caudatum* (Deuterostome,
-Wikimedia Commons), *P. aurelia* (Barfooz, Wikimedia Commons).
+Barres d'échelle : 100 μm. Crédits photo : *P. caudatum*
+([Deuterostome](https://en.wikipedia.org/wiki/File:Paramecium_caudatum_Ehrenberg,_1833.jpg),
+Wikimedia Commons), *P. aurelia*
+([Barfooz](https://en.wikipedia.org/wiki/File:Paramecium.jpg), Wikimedia
+Commons).
 
 ### Équations
 
@@ -248,9 +251,9 @@ passe biologiquement.
 
 Plusieurs pistes nous permettraient d'aller plus loin :
 
-- minimiser les biais en séparant le bruit d'observation du bruit de
+- Minimiser les biais en séparant le bruit d'observation du bruit de
   processus, ce que suggèrent les auteurs de gauseR eux mêmes.
-- faire varier les coefficients d'interactions selon la taille ou la
+- Faire varier les coefficients d'interactions selon la taille ou la
   composition de population afin d'obtenir un modèle plus réalistes, ce
   qui a déjà été proposé dans la littérature selon [@mühlbauer2020].
 
@@ -262,7 +265,7 @@ Lotka-Volterra et simuler la dynamique entre *P. caudatum* et *P.
 aurelia*. Les résultats confirment le principe d'exclusion compétitive :
 dans un milieu clos avec une ressource limitante partagée, *P. aurelia*
 finit par être plus présente que *P. caudatum*. Le modèle capture bien
-la tendance générale mais reflète moins la réalité experimentale lors de
+la tendance générale mais reflète moins la réalité expérimentale lors de
 la phase de transition (4ème au 10ème jour) ce qui rappelle les limites
 des hypothèses posées au départ.
 
