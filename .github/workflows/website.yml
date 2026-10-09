@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install R packages
         run: |
-          Rscript -e "install.packages(c('RefManageR', 'wesanderson', 'palmerpenguins'))"
+          Rscript -e "install.packages(c('RefManageR', 'wesanderson', 'palmerpenguins', 'vegan'))"
       - name: Generate slides
         run: "quarto render"
       - name: GitHub Pages action
