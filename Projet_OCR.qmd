@@ -22,7 +22,7 @@ editor:
 
 **Introduction :**
 
-Les abeilles sauvages subissent de nombreuses pressions anthopique ce
+Les abeilles sauvages subissent de nombreuses pressions anthropique ce
 qui place 172 des espèces d'abeilles européennes dans un statut "menacé"
 (@doi/10.2779/521877). L'utilisation du paysage fait partie des
 pressions majeures sur ce groupe, par exemple, l'imperméabilisation des
