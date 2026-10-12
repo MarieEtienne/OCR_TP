@@ -3,8 +3,13 @@ OCR_TP.Rproj
 .Rhistory
 .RData
 .Ruserdata
-
 *.html
+boxplot_WD0-vs-Scannername_orange.png
+boxplot_WD0w-vs-Tree_ID_violet.png
+boxplot_WD0w-vs-Tree_ID_violet_2.png
+dta_Qrobur.csv
+_site/
+_freeze/
 
 /.quarto/
 
