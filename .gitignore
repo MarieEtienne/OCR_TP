@@ -10,5 +10,14 @@ OCR_TP.Rproj
 
 **/*.quarto_ipynb
 
-_site/
+<<<<<<< HEAD
+
+OCR_TP.Rproj
 _freeze/
+_site/
+
+=======
+OCR_TP.Rproj
+_freeze/
+_site/
+>>>>>>> a18d4590b63aa6993d6fe3c48d57992604e738f4
