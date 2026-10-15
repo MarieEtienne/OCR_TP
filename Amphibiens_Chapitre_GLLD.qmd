@@ -22,14 +22,16 @@ editor:
 ---
 ```{r setup-et-import, message=FALSE, warning=FALSE, include = FALSE, echo= FALSE}
 # Load libraries - check presence
-required_pkgs <- c("tidyverse","car","vegan","corrplot","lme4","broom",
-                   "rcompanion","patchwork","modelsummary","ggpattern",
-                   "ggrepel","ggvegan")
+required_pkgs <- c("tidyverse", "car", "vegan", "corrplot", "lme4", "broom","rcompanion", "patchwork", "modelsummary", "ggpattern","ggrepel", "ggvegan")
+
 missing_pkgs <- setdiff(required_pkgs, rownames(installed.packages()))
+
 if (length(missing_pkgs) > 0) {
-  stop("Missing R packages: ", paste(missing_pkgs, collapse = ", "),
-       ". Ensure CI installs them before rendering (e.g. add install step or run renv::restore()).")
+message("Installing the following missing packages: ", paste(missing_pkgs, collapse = ", "))
+install.packages(missing_pkgs, dependencies = TRUE)
 }
+
+invisible(lapply(required_pkgs, library, character.only = TRUE))
 
 # Import dataset - try several common candidate paths (case sensitive)
 candidates <- c("ata/Dataset_Amphibiens.csv", "data/Dataset_Amphibiens.csv", "Dataset_Amphibiens.csv")
@@ -534,7 +536,7 @@ tab <- data.frame(
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-près cette sélection, les variables `BR`, `FR` et `MR` ont été écartées pour la suite de l'analyse. Il reste donc `SR`, `NR`, `OR` et `RR` pour les variables numériques et ordinales, et `TR`, `VR`, `SUR1`, `SUR2`, `SUR3`, `UR` et `CR` pour les variables catégorielles.
+Après cette sélection, les variables `BR` et `MR` ont été écartées pour la suite de l'analyse. Il reste donc `SR`, `NR`, `OR`, `FR` et `RR` pour les variables numériques et ordinales, et `TR`, `VR`, `SUR1`, `SUR2`, `SUR3`, `UR` et `CR` pour les variables catégorielles.
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables éliminées
@@ -590,6 +592,9 @@ set.seed(1234)
 anova_margin_cca <- anova(cca_model, by = 'margin')
 terms_sig_margin <- rownames(anova_margin_cca)[anova_margin_cca$"Pr(>F)" <= 0.05]
 terms_sig_margin <- terms_sig_margin[!is.na(terms_sig_margin)]
+
+
+
 ```
 
 Le modèle canonique des correspondances a été construit à partir de l'ensemble des variables explicatives retenues :
@@ -690,12 +695,19 @@ sp <- sc %>%
   dplyr::filter(Score == "species") %>%
   dplyr::mutate(Label = unname(noms_fr[Label]))
 
-bp <- sc %>% dplyr::filter(Score == "biplot", Label %in% continuous_terms)
+mult_factor <- 1  
+
+bp <- sc %>% 
+  dplyr::filter(Score == "biplot", Label %in% continuous_terms) %>%
+  dplyr::mutate(
+    CCA1 = CCA1 * mult_factor,
+    CCA2 = CCA2 * mult_factor
+  )
 
 cn <- sc %>% dplyr::filter(Score == "centroids",
-                           sapply(Label, function(l) any(startsWith(l, factor_terms))))
+                            sapply(Label, function(l) any(startsWith(l, factor_terms))))
 
-# 3. Limites unifiées pour les deux panneaux
+# 3. Limites unifiées pour les deux panneaux (inclut maintenant les bp amplifiés)
 lim <- max(abs(c(bp$CCA1, bp$CCA2, cn$CCA1, cn$CCA2))) * 1.2
 
 theme_base <- theme_classic() +
@@ -716,7 +728,7 @@ p_sp <- ggplot(sp, aes(CCA1, CCA2)) +
   labs(title = "Espèces", x = "CCA1", y = "CCA2") +
   theme_base
 
-# 5. Panneau variables
+# 5. Panneau variables (utiliza automáticamente los bp escalados)
 p_var <- ggplot() +
   lignes_ref +
   geom_segment(data = bp,
@@ -739,19 +751,14 @@ p_sp + p_var
 Concernant la variable catégorique $TR$ (type de réservoir d'eau) :
 
 * `TR7` → correspond aux tranchées ; associée au *Triton crêté*
-* `TR15` → catégorie non identifiée ; associée aux *Brown.frogs* et au *Common.toad*
+* `TR15` → catégorie non identifiée ; associée aux *Grenouille brunes* et au *Crapaud commun*
 * `TR2` → correspond aux réservoirs récemment formés, non soumis à une naturalisation ; aucune espèce associée, la catégorie étant trop éloignée des centroïdes
 * `TR1`, `TR5`, `TR11` → correspondent respectivement à des réservoirs à caractère naturel, à des réservoirs hydrauliques techniques et à une catégorie non identifiée ; aucune association discutée, ces sous-catégories étant très proches de l'origine (contribution négligeable au modèle), leur position n'est donc pas interprétable de façon fiable
 
-Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux aires non développées) :
-
-* Valeurs élevées de `OR` → associées au *Triton crêté*, dont la projection sur ce gradient est nettement la plus forte
-* Projections positives mais modérées, traduisant une association plus faible aux valeurs élevées de `OR` → *Tree.frog*, *Fire.bellied.toad*, *Common.newt*
-* Projection proche de zéro → *Brown.frogs*, peu associée à ce gradient
-* Projections négatives, associées aux valeurs basses de `OR` → *Common.toad*, *Green.frogs* (cette dernière étant l'espèce la plus fortement associée à ce pôle)
+Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux aires non développées) : Nous pouvons observer que la qualité de projection n'est pas optimale, ce qui conduit à privilégier les résultats des modèles linéaires généralisés (@sec-glm).
 
 #### Conclusion CCA
-En conclusion, les variables environnementales retenues structurent de façon significative la composition de la communauté d'amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1]`), bien que le modèle n'explique qu'une part modérée de la variance totale (`r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)` %). Sur les deux premiers axes, deux tendances se dégagent : le *Triton crêté* est associé aux tranchées (`TR7`) et aux valeurs élevées de $OR$, tandis que le *Crapaud commun* et les *Grenouilles vertes* sont associés aux valeurs basses de $OR$. Ces résultats restent descriptifs et constituent des hypothèses à confirmer espèce par espèce avec les modèles de la @sec-glm.
+En conclusion, les variables environnementales retenues structurent de façon significative la composition de la communauté d'amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1])`, bien que le modèle n'explique qu'une part modérée de la variance totale (r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1) %). Sur les deux premiers axes, deux tendances se dégagent : le triton crêté est associé aux tranchées (`TR7`), tandis que les *grenouilles brunes* et le *crapaud commun* sont associés à une catégorie non identifiée (`TR15`). Ces résultats restent descriptifs et, malheureusement, en raison de la mauvaise qualité de projection et des variables associées à des catégories non identifiées, ils constituent des hypothèses à confirmer espèce par espèce avec les modèles de la @sec-glm.
 
 ### Modele linéaire généralisé {#sec-glm}
 
