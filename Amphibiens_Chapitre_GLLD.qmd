@@ -22,16 +22,27 @@ editor:
 ---
 ```{r setup-et-import, message=FALSE, warning=FALSE, include = FALSE, echo= FALSE}
 # Load libraries - check presence
-required_pkgs <- c("tidyverse", "car", "vegan", "corrplot", "lme4", "broom","rcompanion", "patchwork", "modelsummary", "ggpattern","ggrepel", "ggvegan","knitr","kableExtra","dplyr")
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+required_pkgs <- c("tidyverse", "car", "vegan", "corrplot", "lme4", "broom",
+                   "rcompanion", "patchwork", "modelsummary", "ggpattern",
+                   "ggrepel", "knitr", "kableExtra", "dplyr")
 
 missing_pkgs <- setdiff(required_pkgs, rownames(installed.packages()))
 
 if (length(missing_pkgs) > 0) {
-message("Installing the following missing packages: ", paste(missing_pkgs, collapse = ", "))
-install.packages(missing_pkgs, dependencies = TRUE)
+  message("Installing the following missing packages: ", paste(missing_pkgs, collapse = ", "))
+  install.packages(missing_pkgs, dependencies = TRUE)
 }
 
-invisible(lapply(required_pkgs, library, character.only = TRUE))
+# ggvegan: not on CRAN, so it is installed from GitHub
+if (!requireNamespace("ggvegan", quietly = TRUE)) {
+  if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+  message("Installing ggvegan from GitHub")
+  remotes::install_github("gavinsimpson/ggvegan", upgrade = "never")
+}
+
+invisible(lapply(c(required_pkgs, "ggvegan"), library, character.only = TRUE))
 
 # Import dataset - try several common candidate paths (case sensitive)
 candidates <- c("ata/Dataset_Amphibiens.csv", "data/Dataset_Amphibiens.csv", "Dataset_Amphibiens.csv")
