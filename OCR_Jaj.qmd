@@ -100,7 +100,7 @@ mixture.
 
 ```{r}
 #| label: load-data
-data("gause_1934_book_app_t03")
+data("gause_1934_science_f02_03")
 
 mixturedat <- gause_1934_science_f02_03[gause_1934_science_f02_03$Treatment == "Mixture", ]
 
@@ -145,6 +145,12 @@ Extraction des paramètres estimés du modèle de Lotka-Volterra et des
 effectifs initiaux des deux espèces à partir des résultats de
 l’ajustement.
 
+Les valeurs des taux de croissance intrinsèques ($r_1$ et $r_2$) et des
+coefficients d'interaction ($a_{ij}$) traduisent la dynamique propre de
+chaque espèce. En particulier, les coefficients négatifs confirment
+l'effet auto-limitant et la friction de la compétition interspécifique
+sur les populations.
+
 #### Simulation du modèle de compétition
 
 ```{r}
@@ -165,8 +171,8 @@ compet <- function(t, N, param){
 ```{r}
 #| label: run-simulation
 parametres <- c(r1 = r1, r2 = r2, a11 = a11, a12 = a12, a21 = a21, a22 = a22)
-N0 <- c(species$P_caudatum[1], species$P_aurelia[1])
-temps_sim <- seq(0, max(time), by = 0.1)
+N0 <- c(N0_1, N0_2)
+temps_sim <- seq(0, 60, by = 0.1)
 
 sol <- ode(y = N0, times = temps_sim, func = compet, parms = parametres)
 ```
@@ -177,33 +183,55 @@ numériquement à l’aide de la fonction `ode()`.
 
 ```{r}
 #| label: plot-result
-#| fig-cap: "Simulation du modèle de compétition Lotka-Volterra comparée aux données de Gause (1934)"
+library(ggplot2)
 
-plot(sol[,1], sol[,2], type = "l", col = "black", lwd = 2,
-     xlab = "Jour", ylab = "Volume standardisé",
-     xlim = c(0,25),
-     ylim = c(0,200))
-lines(sol[,1], sol[,3], col = "red", lwd = 2)
+# Transformation du résultat de l'ode en data.frame propre pour ggplot
+df_sim <- data.frame(
+  Jour = sol[,1],
+  P_caudatum = sol[,2],
+  P_aurelia = sol[,3]
+)
 
-points(time, species$P_caudatum, pch = 1)
-points(time, species$P_aurelia, pch = 2, col = "red")
+# Données observées (expérimentales)
+df_obs <- data.frame(
+  Jour = time,
+  P_caudatum = species$P_caudatum,
+  P_aurelia = species$P_aurelia
+)
 
-legend("topleft", 
-       legend = c("P. caudatum (simulé)", "P. aurelia (simulé)",
-                  "P. caudatum (observé)", "P. aurelia (observé)"),
-       col = c("black", "red", "black", "red"), 
-       lty = c(1, 1, NA, NA), 
-       pch = c(NA, NA, 1, 2),
-       cex=0.7)
+# Tracé avec ggplot2
+ggplot() +
+  # Courbes simulées (lignes)
+  geom_line(data = df_sim, aes(x = Jour, y = P_caudatum, color = "P. caudatum (simulé)"), linewidth = 1) +
+  geom_line(data = df_sim, aes(x = Jour, y = P_aurelia, color = "P. aurelia (simulé)"), linewidth = 1) +
+  
+  # Points observés (données de Gause)
+  geom_point(data = df_obs, aes(x = Jour, y = P_caudatum, color = "P. caudatum (observé)"), shape = 1, size = 2) +
+  geom_point(data = df_obs, aes(x = Jour, y = P_aurelia, color = "P. aurelia (observé)"), shape = 2, size = 2) +
+  
+  # Personnalisation des couleurs et de la légende
+  scale_color_manual(name = "Légende", 
+                     values = c("P. caudatum (simulé)" = "black", 
+                                "P. aurelia (simulé)" = "red", 
+                                "P. caudatum (observé)" = "black", 
+                                "P. aurelia (observé)" = "red")) +
+  
+  # Thème et axes
+  labs(x = "Jour", y = "Volume standardisé", 
+       title = "Modélisation de la compétition de Lotka-Volterra à long terme") +
+  xlim(0, 60) +
+  ylim(0, 200) +
+  theme_minimal()
 ```
 
 **Figure 2.** Compétition de type Lotka-Volterra entre *Paramecium
 caudatum* et *Paramecium aurelia*, représentée par l’évolution du volume
-normalisé selon la taille des populations au cours de 24 jours de
-culture en population mixte, d’après [@gause1934a]. Les points
-représentent les observations expérimentales et les lignes correspondent
-aux courbes simulées à partir des équations du modèle de compétition de
-Lotka-Volterra, définies dans la fonction `compet`.
+normalisé selon la taille des populations au cours de 60 jours de
+simulation (et 24 jours de culture en population mixte), d’après
+[@gause1934a]. Les points représentent les observations expérimentales
+et les lignes correspondent aux courbes simulées à partir des équations
+du modèle de compétition de Lotka-Volterra, définies dans la fonction
+`compet`.
 
 ## Discussion
 
