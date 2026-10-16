@@ -670,7 +670,7 @@ terms_sig_margin <- terms_sig_margin[!is.na(terms_sig_margin)]
 
 ```
 
-Le modèle canonique des correspondances a été construit à partir de l'ensemble des variables explicatives retenues :
+Le modèle canonique des correspondances a été construit à partir de l'ensemble des variables explicatives retenues (@eq-modele-cca).
 
 ```{r}
 #| echo: false
@@ -702,7 +702,7 @@ lignes <- sapply(seq_along(groupes), function(i) {
 
 cat("$$\n\\begin{aligned}\n",
     paste(lignes, collapse = " \\\\\n"),
-    "\n\\end{aligned}\n$$", sep = "")
+    "\n\\end{aligned}\n$$ {#eq-modele-cca}", sep = "")
 ```
 
 #### Significativité du modèle
@@ -831,7 +831,7 @@ Concernant la variable catégorique $TR$ (type de réservoir d'eau) :
 Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux aires non développées) : Nous pouvons observer que la qualité de projection n'est pas optimale, ce qui conduit à privilégier les résultats des modèles linéaires généralisés (@sec-glm).
 
 #### Conclusion CCA
-En conclusion, les variables environnementales retenues structurent de façon significative la composition de la communauté d'amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r format.pval(anova_cca$"Pr(>F)"[1], digits = 3, eps = 0.001)`, bien que le modèle n'explique qu'une part modérée de la variance totale (r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1) %). Sur les deux premiers axes, deux tendances se dégagent : le triton crêté est associé aux tranchées (`TR7`), tandis que les *grenouilles brunes* et le *crapaud commun* sont associés à une catégorie non identifiée (`TR15`). Ces résultats restent descriptifs et, malheureusement, en raison de la mauvaise qualité de projection et des variables associées à des catégories non identifiées, ils constituent des hypothèses à confirmer espèce par espèce avec les modèles de la @sec-glm.
+En conclusion, les variables environnementales retenues structurent de façon significative la composition de la communauté d'amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r format.pval(anova_cca$"Pr(>F)"[1], digits = 3, eps = 0.001)`, bien que le modèle n'explique qu'une part modérée de la variance totale (`r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1)` %). Sur les deux premiers axes, deux tendances se dégagent : le triton crêté est associé aux tranchées (`TR7`), tandis que les *grenouilles brunes* et le *crapaud commun* sont associés à une catégorie non identifiée (`TR15`). Ces résultats restent descriptifs et, malheureusement, en raison de la mauvaise qualité de projection et des variables associées à des catégories non identifiées, ils constituent des hypothèses à confirmer espèce par espèce avec les modèles de la @sec-glm.
 
 ### Modèle linéaire généralisé {#sec-glm}
 
@@ -910,7 +910,7 @@ ggplot(data_pie, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = Modali
 
 On établit alors le modèle suivant : 
   
-$$\text{logit}(p_i) = \beta_0 + \beta_1 \text{FR}_i + \sum_{k} \beta_{\text{RR}_k} \cdot \mathbb{I}(\text{RR}_i = k)$$
+$$\text{logit}(p_i) = \beta_0 + \beta_1 \text{FR}_i + \sum_{k} \beta_{\text{RR}_k} \cdot \mathbb{I}(\text{RR}_i = k)$$ {#eq-modele-logistique}
   où :
   
 - $p_i$ correspond à la probabilité de présence sur le site $i$ ;
@@ -1016,7 +1016,13 @@ p_fr + p_rr
 ```
 Le modèle logistique ajusté s'écrit :
   
-$$\text{logit}(p_i) = -0.4472 + 0.1313 \times \text{FR}_i + 0.1210 \times \text{RR}_{1,i} + 0.0597 \times \text{RR}_{2,i} + 0.2694 \times \text{RR}_{5,i} - 0.0667 \times \text{RR}_{9,i} + 0.4472 \times \text{RR}_{10,i}$$
+$$
+\begin{aligned}
+\text{logit}(p_i) = &-0.4472 + 0.1313 \times \text{FR}_i + 0.1210 \times \text{RR}_{1,i} + \\
+&0.0597 \times \text{RR}_{2,i} + 0.2694 \times \text{RR}_{5,i} - \\
+&0.0667 \times \text{RR}_{9,i} + 0.4472 \times \text{RR}_{10,i}
+\end{aligned}
+$$ {#eq-modele-logistique-ajuste}
   
 où le coefficient associé à $FR$ est significatif, tandis que celui associé à $RR$ est positif mais non significatif au seuil de 5 %.
 
@@ -1092,7 +1098,15 @@ par(mfrow = c(1, 1))
 
 ##### Analyse GLM pour chaque espèce 
 ###### Modèle complet
-Dans un premier temps, le modèle suivant est testé : $$ \text{Species X} \sim \text{SR} + \text{NR} + \text{TR} + \text{VR} + \text{SUR1} + \text{SUR2} + \text{SUR3} + \text{UR} + \text{OR} + \text{RR} + \text{CR} $$
+Dans un premier temps, le modèle suivant est testé : 
+
+$$
+\begin{aligned}
+\text{Species X} \sim &\text{SR} + \text{NR} + \text{TR} + \text{VR} + \\
+&\text{SUR1} + \text{SUR2} + \text{SUR3} + \text{UR} + \\
+&\text{OR} + \text{RR} + \text{CR}
+\end{aligned}
+$$ {#eq-modele-complet}
 
 Comme anticipé de par la très faible occurence de certaines espèces et le nombre élevé de variables (13), certains modèles présentent des erreurs types anormalement élevées (>700) (@tbl-chp4-glm-complet). Par conséquent, les p-values associés à ces quatres modèles (*crapaud sonneur*, *rainette arboricole*, *triton commun*, *triton crêté*) ne sont pas interprétables. 
 
@@ -1175,7 +1189,7 @@ modelsummary(
 ```
 
 ###### Modèle réduit
-Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédents. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. Le modèle est le suivant : $$ \text{Species X} \sim \text{TR} + \text{SUR3} + \text{OR} + \text{RR} $$
+Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédents. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. Le modèle est le suivant : $$ \text{Species X} \sim \text{TR} + \text{SUR3} + \text{OR} + \text{RR} $$ {#eq-modele-reduit}
 
 Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables `TR` significative (@tbl-chp4-glm-reduit). Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
 
