@@ -2,6 +2,7 @@
 title: "Projet Ancova"
 author: "Chloé BRES, Doryan GRAVELEAU & Maëlle HEBRAS"
 date: "16/09/2026"
+lang: fr
 editor:
   markdown:
     canonical: true
@@ -174,6 +175,7 @@ mod1<-lm(DryWeight~ Habitat
         + Habitat:Width
         + Habitat:WaterContent  
         ,data=dataFly)
+ok <- summary(mod1)
 # Vérification de la significativité
 knitr::kable(drop1(mod1,test="F"))
 # Coefficients du modèle
@@ -181,22 +183,23 @@ summary(mod1)
 ```
 
 Le @tbl-anova présente le modèle candidat qui contient toutes les
-variables explicatives X qui ont un effet sur le poids sec d'*Anatalanta
-aptera*, la variable à expliquer Y. Ainsi, aucune autre variable n'est à
-retirer de ce modèle.
+interactions des variables explicatives X qui ont un effet sur le poids
+sec d'*Anatalanta aptera*, la variable à expliquer Y. Ainsi, aucune
+autre variable n'est à retirer de ce modèle.
 
 En ce qui concerne les coefficients, l'intercept prend en compte
-l'habitat côtier qui correspond donc à l'habitat de référence. Les
-individus de l'habitat "Inland" ont une base de poids sec
-significativement plus faible (Beta \~ -2.43; p-value \< 0.05) que ceux
-de l'habitat de référence. Dans l'habitat de référence, la largeur n'a
-pas d'effet significatif (p-value \> 0.05) sur le poids sec.
-Contrairement à la teneur en eau qui augmente très significativement
-(p-value \< 0.05) le poids sec (+0.31 g pour chaque unité de teneur en
-eau ajoutée).
+l'habitat côtier qui correspond donc à l'habitat de référence.
+Théoriquement, les individus de l'habitat "Inland" ont une base de poids
+sec significativement plus faible (Beta \~ `r round(coef(mod1)[2], 2)` ;
+p-value = `r round(ok$coefficients[2, 4], 3)`) que ceux de l'habitat de
+référence. Dans l'habitat de référence, la largeur n'a pas d'effet
+significatif (p-value \> 0.05) sur le poids sec. Contrairement à la
+teneur en eau dans l'habitat de référence (côtier) qui augmente très
+significativement (p-value \< 0.05) le poids sec (+0.31 g pour chaque
+unité de teneur en eau ajoutée).
 
-La pente réelle pour l'habitat Inland est calculée selon l'équation
-suivante: $$
+La pente réelle de la largeur pour l'habitat inland est calculée selon
+l'équation suivante: $$
 \text{Pente}_{\text{Inland}} = 0.217 + 2.343 = 2.56
 $$ {#eq-pente-inland}
 
@@ -206,8 +209,8 @@ pour l'habitat de référence, elle a un fort effet positif (p-value \<
 
 Pour finir, Le modèle explique 61.3 % (R²=0.613) de la variance du poids
 sec. C'est un score plutôt bon pour des données biologiques. Le modèle
-global est robuste et significatif (p-value \< 0.05). Il est bien plus
-performant que le simple hasard pour prédire le poids sec.
+est significativement robuste quant à la prédiction du poids sec avec
+une erreur alpha inférieur à 0.05.
 
 ## Validation du modèle
 
@@ -269,7 +272,83 @@ abline(h = 0)
 
 Comme l'illustre la @fig-homogeneite, l'homogénéité de la variance n'est
 pas entièrement respectée, il faudrait faire une transformation
-logarithmique des données pour homogénéiser plus. \`\`\`
+logarithmique des données pour homogénéiser plus.
+
+## Transformation logarithmique des données
+
+```{r}
+# Nouveau modèle avec la variable Y transformée en log
+mod_log<-lm(log(DryWeight)~ Habitat
+        + Width
+        + WaterContent
+        + Habitat:Width
+        + Habitat:WaterContent  
+        ,data=dataFly)
+
+# Afficher le résumé
+summary(mod_log)
+```
+
+Nous remarquons que les mêmes variables sont significatives lorsque nous
+transformons la variable y "poids sec" en logarithme.
+
+```{r, fig.height=3, fig.width=6}
+#| label: fig-normalite-bis
+#| fig-cap: "Vérification de la normalité des résidus du modèle."
+par(mfrow=c(1,2))
+# Histograme
+hist(mod_log$residuals,col='dodgerblue3',xlab="residuals",main="Check Normality")
+# Quantile-Quantile plot
+qqnorm(mod_log$residuals,pch=16,col='dodgerblue3',xlab='')
+qqline(mod_log$residuals,col='red',lwd=2)
+```
+
+Nous pouvons voir sur la @fig-normalite-bis que les points sont répartis
+de façon un peu plus homogène autour de la droite rouge, ce qui signifie
+que les résidus suivent plus une distribution normale lorsque la
+variable y est transformée en logarithme.
+
+```{r, fig.height=5, fig.width=5}
+#| label: fig-homogeneite-bis
+#| fig-cap: "Analyse graphique de l'homogénéité de la variance des résidus."
+par(mfrow=c(2,2))
+
+# résidus vs prédictions
+plot(residuals(mod_log)~fitted(mod_log)
+      , col='dodgerblue3'
+      , pch=16)
+abline(h = 0)
+
+# résidus contre le facteur Habitat
+boxplot(residuals(mod_log)~ dataFly$Habitat, 
+         varwidth = TRUE,
+         col="brown",
+         ylab = "Residuals",
+         xlab = "Habitat",
+         main = "")
+
+# résidus contre la Largeur
+plot(residuals(mod_log)~ dataFly$Width, 
+         pch=16,
+         col="dodgerblue3",
+         ylab = "Residuals",
+         xlab = "Width",
+         main = "")
+abline(h = 0)
+
+# résidus contre la Teneur en eau
+plot(residuals(mod_log)~ dataFly$WaterContent, 
+         pch=16,
+         col="dodgerblue3",
+         ylab = "Residuals",
+         xlab = "Water Content",
+         main = "")
+abline(h = 0)
+```
+
+La @fig-homogeneite-bis illustre bien que la transformation
+logarithmique a parfaitement stabilisé la variance des résidus, ce qui
+résout les éventuels problèmes d'hétéroscédasticité du modèle initial.
 
 # CONCLUSION
 
