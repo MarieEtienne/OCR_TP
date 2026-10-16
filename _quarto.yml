@@ -16,7 +16,9 @@ website:
         - text: "Basic quarto cross ref example"
           href: r_chapter.qmd
         - text: "Penguins example"
-          href: Penguins_chapter.qmd       
+          href: Penguins_chapter.qmd      
+        - text: "Étude d'impact d'un projet routier sur des Amphibiens"
+          href: Amphibiens_Chapitre_GLLD.qmd 
         
         
 
