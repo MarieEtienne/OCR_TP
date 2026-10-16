@@ -554,7 +554,7 @@ data_var_clean <- cbind(data_num_ord_clean, data_cat_clean)
 ```
 
 ## Création des modèles pour étudier le jeu de données
-### Analyse multivarié à deux tableaux: structuration de la composition de la communauté d'amphibiens
+### Analyse multivariée à deux tableaux: structuration de la composition de la communauté d'amphibiens
 Avec ce même jeu de données, on se demande **quelles variables structurent la composition et la diversité globale de la communauté d'amphibiens**. Pour cela, une approche appropriée est l'analyse multivariée.💡^[Les analyses multivariées permettent d'analyser simultanément de multiples variables afin de découvrir des modèles, des structures et des relations complexes qui ne peuvent être mis en évidence par l'analyse isolée de chaque variable (@amphi_wikipedia_multivariate_statistics).]
 
 Dans ce cas, ayant un jeu de données avec des informations sur la présence/absence des amphibiens ainsi que des variables catégorielles et numériques sur le contexte environnemental, une analyse canonique des correspondances (CCA) a été retenue 💡^[Cette méthode permet de contraindre l'ordination de la communauté d'amphibiens par un ensemble de variables explicatives, et ainsi d'identifier lesquelles structurent le plus la composition observée.].
