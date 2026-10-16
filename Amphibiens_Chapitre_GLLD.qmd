@@ -833,7 +833,7 @@ Concernant la variable numérique $OR$ (pourcentage d'accès des réservoirs aux
 #### Conclusion CCA
 En conclusion, les variables environnementales retenues structurent de façon significative la composition de la communauté d'amphibiens (F = `r round(anova_cca$F[1], 2)`, p = `r anova_cca$"Pr(>F)"[1])`, bien que le modèle n'explique qu'une part modérée de la variance totale (r round((cca_model$CCA$tot.chi / cca_model$tot.chi) * 100, 1) %). Sur les deux premiers axes, deux tendances se dégagent : le triton crêté est associé aux tranchées (`TR7`), tandis que les *grenouilles brunes* et le *crapaud commun* sont associés à une catégorie non identifiée (`TR15`). Ces résultats restent descriptifs et, malheureusement, en raison de la mauvaise qualité de projection et des variables associées à des catégories non identifiées, ils constituent des hypothèses à confirmer espèce par espèce avec les modèles de la @sec-glm.
 
-### Modele linéaire généralisé {#sec-glm}
+### Modèle linéaire généralisé {#sec-glm}
 
 
 #### Analyse de l'influence des activités humaines sur la présence des amphibiens
@@ -1179,7 +1179,7 @@ Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé
 
 Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables `TR` significative (@tbl-chp4-glm-reduit). Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
 
-En conlusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
+En conclusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
 
 ```{r}
 #| label: tbl-chp4-glm-reduit
