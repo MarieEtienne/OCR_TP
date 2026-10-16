@@ -7,8 +7,10 @@ OCR_TP.Rproj
 *.html
 
 /.quarto/
-
 **/*.quarto_ipynb
-
 _site/
 _freeze/
+projet_files/
+projet_cache/
+
+**/*.quarto_ipynb
