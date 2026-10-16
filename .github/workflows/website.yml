@@ -21,6 +21,8 @@ jobs:
         run: |
           Rscript -e "install.packages(c('RefManageR', 'wesanderson', 'palmerpenguins'))"
           Rscript -e "install.packages(c('lme4','car','broom','rcompanion','patchwork','modelsummary','ggpattern', 'vegan','ggvegan', 'ggrepel', 'corrplot'))"    
+      - name: Generate slides
+        run: "quarto render"
       - name: GitHub Pages action
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v3
