@@ -1,6 +1,7 @@
 ---
 title: "La compétition interspécifique chez les paramécies"
 author: "Rivière Agathe, Braga Julia et Rondot Jenny"
+lang: fr
 editor: 
   markdown: 
     canonical: true
@@ -85,9 +86,10 @@ $a_{ij}$ les coefficients d'interaction (intra- et interspécifiques)
 entre les espèces $i$ et $j$.
 
 Notons que, dans cette écriture, les coefficient $a_{ij}$ sont négatifs
+
 : ils servent à limiter la croissance de chaque espèce, soit par
-auto-limitation ($i = j$), soit par l'effet compétitif de l'autre espèce
-($i \neq j$).
+  auto-limitation ($i = j$), soit par l'effet compétitif de l'autre
+  espèce ($i \neq j$).
 
 ### Hypothèses
 
