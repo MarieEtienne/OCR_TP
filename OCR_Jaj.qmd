@@ -18,23 +18,23 @@ bibliography: references.bib
 
 ### Contexte
 
-Dans les années 1920, Alfred J.Lotka (1925) [@lotka1925a] et Vito
-Volterra (1926) [@volterra1926a] ont publié leurs premières théories
-concernant les interactions entre espèces, suggérant que la stucture
-dynamique et complexe des écosystèmes pouvait être résumée dans de
-simples équations mathématiques [@mühlbauer2020].
+Dans les années 1920, Alfred J. Lotka [-@lotka1925a] et Vito Volterra
+[-@volterra1926a] ont publié leurs premières théories concernant les
+interactions entre espèces, suggérant que la structure dynamique et
+complexe des écosystèmes pouvait être résumée dans de simples équations
+mathématiques [@mühlbauer2020].
 
-Gause [@gause1934b], s'appuyant sur les théories de A. Lotka et V.
+Gause [-@gause1934b], s'appuyant sur les théories de A. Lotka et V.
 Volterra, a étudié expérimentalement la compétition entre deux espèces
-de protozoaires ciliées, *Paramecium caudatum* et *Paramecium aurelia*,
+de protozoaires ciliés, *Paramecium caudatum* et *Paramecium aurelia*,
 cultivées séparément puis en mélange. Lorsque les deux espèces sont
 mises en culture ensemble, elles entrent en compétition pour les mêmes
 ressources, ce qui conduit au déclin progressif d'une des deux espèces :
-*P. caudatum* au profit de *P.aurelia*. Ce processus, appelé **exclusion
-compétitive**, a été mis en évidence expérimentalement pour la première
-fois au cours de cette expérience et est donc généralement attribué à
-Gause (d’où son nom de « principe de Gause »), mais il a été formalisé
-progressivement, notamment par Hardin en (1960).
+*P. caudatum* au profit de *P. aurelia*. Ce processus, appelé
+**exclusion compétitive**, a été mis en évidence expérimentalement pour
+la première fois au cours de cette expérience et est donc généralement
+attribué à Gause (d’où son nom de « principe de Gause »), mais il a été
+formalisé progressivement, notamment par Hardin [-@hardin1960].
 
 ![Morphologie de P. caudatum à gauche et P. aurelia à droite, échelle :
 100
@@ -51,23 +51,24 @@ Commons).
 
 Le principe d’exclusion compétitive ne se limite pas aux protozoaires et
 s'observe aussi dans les milieux naturels. Sur les côtes écossaises,
-Connell a étudié la répartition de deux espèces de balanes de la zone
-intertidale : *Chthamalus stellatus*, présente dans la partie haute, et
-*Balanus balanoides*, présente dans la partie basse. Lorsqu’il retirait
-expérimentalement Balanus de la zone basse, Chthamalus parvenait à s’y
-installer et à survivre, alors qu’elle en était absente en conditions
-naturelles. Balanus l’en exclut en effet par compétition pour l’espace,
-en croissant plus vite et en la recouvrant ou en la délogeant. À
-l’inverse, Balanus ne peut pas coloniser la zone haute, car elle y
-supporte mal la dessiccation lors des marées basses. La répartition
-observée résulte ainsi de l’action à la fois de la compétition et des
-contraintes physiques. Cette étude permet en outre d'illustrer la
-distinction entre **niche fondamentale**, qui est l’ensemble des
-conditions où une espèce pourrait vivre, et **niche réalisée**, qui est
-la part qu’elle occupe réellement en présence de ses compétiteurs.
+Connell [-@connell1961] a étudié la répartition de deux espèces de
+balanes de la zone intertidale : *Chthamalus stellatus*, présente dans
+la partie haute, et *Balanus balanoides*, présente dans la partie basse.
+Lorsqu’il retirait expérimentalement Balanus de la zone basse,
+Chthamalus parvenait à s’y installer et à survivre, alors qu’elle en
+était absente en conditions naturelles. Balanus l’en exclut en effet par
+compétition pour l’espace, en croissant plus vite et en la recouvrant ou
+en la délogeant. À l’inverse, Balanus ne peut pas coloniser la zone
+haute, car elle y supporte mal la dessiccation lors des marées basses.
+La répartition observée résulte ainsi de l’action à la fois de la
+compétition et des contraintes physiques. Cette étude permet en outre
+d'illustrer la distinction entre **niche fondamentale**, qui est
+l’ensemble des conditions où une espèce pourrait vivre, et **niche
+réalisée**, qui est la part qu’elle occupe réellement en présence de ses
+compétiteurs.
 
-Cependant dans cette étude nous nous concentrons sur le processus
-d'exclusion compétitive décrit expérimentalement par Gause.
+Dans cette étude, nous cherchons à reproduire par modélisation le
+processus d’exclusion compétitive décrit expérimentalement par Gause.
 
 ### Équations
 
@@ -85,11 +86,11 @@ espèces, $r_1$ et $r_2$ leurs taux de croissance intrinsèques, et
 $a_{ij}$ les coefficients d'interaction (intra- et interspécifiques)
 entre les espèces $i$ et $j$.
 
-Notons que, dans cette écriture, les coefficient $a_{ij}$ sont négatifs
+Notons que, dans cette écriture, les coefficients $a_{ij}$ sont négatifs
 
-: ils servent à limiter la croissance de chaque espèce, soit par
-  auto-limitation ($i = j$), soit par l'effet compétitif de l'autre
-  espèce ($i \neq j$).
+:   ils servent à limiter la croissance de chaque espèce, soit par
+    auto-limitation ($i = j$), soit par l'effet compétitif de l'autre
+    espèce ($i \neq j$).
 
 ### Hypothèses
 
@@ -98,15 +99,15 @@ espèces de paramécies lorsqu'elles sont en interaction pour un même
 milieu. Le modèle de compétition de Lotka-Volterra repose sur plusieurs
 hypothèses simplificatrices [@begon2006] :
 
-- Sans compétiteur, chaque population croît selon une dynamique
-  logistique limitée par sa propre capacité de charge
-- Les deux espèces sont en compétition pour les mêmes ressources
-  limitantes
-- L'environnement est homogène et constant au cours du temps
-- Les paramètres du modèle sont constants au cours du temps et ne
-  dépendent pas de l'âge ou de l'état physiologique des individus
-- Les populations sont suffisamment grandes pour écarter les effets
-  stochastiques liés aux petites populations
+-   Sans compétiteur, chaque population croît selon une dynamique
+    logistique limitée par sa propre capacité de charge
+-   Les deux espèces sont en compétition pour les mêmes ressources
+    limitantes
+-   L'environnement est homogène et constant au cours du temps
+-   Les paramètres du modèle sont constants au cours du temps et ne
+    dépendent pas de l'âge ou de l'état physiologique des individus
+-   Les populations sont suffisamment grandes pour écarter les effets
+    stochastiques liés aux petites populations
 
 Sur la base de ces hypothèses, on s'attend à observer soit une
 coexistence stable des deux espèces soit l'exclusion compétitive de
@@ -258,7 +259,7 @@ ggplot() +
 caudatum* et *Paramecium aurelia*, représentée par l’évolution du volume
 normalisé selon la taille des populations au cours de 60 jours de
 simulation (et 24 jours de culture en population mixte), d’après
-[@gause1934a]. Les points représentent les observations expérimentales
+[@gause1934b]. Les points représentent les observations expérimentales
 et les lignes correspondent aux courbes simulées à partir des équations
 du modèle de compétition de Lotka-Volterra, définies dans la fonction
 `compet`.
@@ -267,64 +268,78 @@ du modèle de compétition de Lotka-Volterra, définies dans la fonction
 
 #### Interprétation des dynamiques de population
 
-Les résultats de notre simulation confirment ce qui a été observé
-expérimentalement : quand les deux espèces partagent le même milieu,
-elles finissent par entrer en compétition directe pour la ressource. En
-effet, *Paramecium caudatum* décline progressivement tandis que
-*Paramecium aurelia* prend le dessus et se stabilise autour des 140
-unités de volume à la fin de l'expérience (Figure 2).
+Les résultats de notre simulation reproduisent la dynamique observée par
+Gause : en culture mixte, *Paramecium caudatum* décline progressivement
+tandis que *Paramecium aurelia* prend le dessus et se stabilise autour
+de 140 unités de volume dans la simulation (Figure 2).
 
 Les paramètres estimés montrent que chaque espèce freine sa propre
-croissance (auto-limitation) mais aussi celle de l'autre, ce que prévoit
-la théorie de Lotka-Volterra [@mühlbauer2020]. Si *P.aurelia* prend
-l'avantage, c'est parce que son effet inhibiteur sur *P.caudatum* est
-plus fort que l'inverse. *P.aurelia* est donc une meilleure compétitrice
-pour cette ressource. On retrouve le principe d'exclusion compétitive :
-deux espèces qui occupent la même niche et dépendent de la même
-ressource limitante ne peuvent pas coexister durablement, la plus
-compétitive finit par éliminer l'autre.
+croissance (auto-limitation) mais aussi celle de l’autre, ce que prévoit
+la théorie de Lotka-Volterra [@mühlbauer2020]. Si *P. aurelia* prend
+l’avantage, c’est parce que son effet inhibiteur sur *P. caudatum* est
+plus fort que l’inverse. *P. aurelia* est donc une meilleure
+compétitrice pour cette ressource.
+
+Toutefois, la simulation ne montre pas une disparition complète de *P.
+caudatum* : sa courbe se stabilise à un faible effectif (Figure 2). Avec
+les paramètres estimés, le modèle suggère donc plutôt un maintien à
+faible effectif qu’une exclusion stricte, ce qui nuance le principe
+d’exclusion compétitive tel qu’il est décrit à partir de l’expérience de
+Gause.
 
 #### Limites du modèle
 
 Le modèle reproduit bien la tendance générale observée en conditions
-expérimentales (déclin de *P. caudatum* puis stabilisation de *P.
+expérimentales (déclin de *P. caudatum*, puis stabilisation de *P.
 aurelia*) mais illustre moins bien la période transitoire qui a lieu
-entre le 4ème et le 10ème jour. Ces écarts peuvent s'expliquer par les
+entre le 4ᵉ et le 10ᵉ jour. Ces écarts peuvent s’expliquer par les
 hypothèses simplificatrices du modèle [@begon2006] : milieu homogène et
-paramètres constants dans le temps qui ne représentent pas un système de
-culture réel plus complexe.
+paramètres constants dans le temps, qui ne représentent pas un système
+de culture réel plus complexe.
 
-Les auteurs du package gauseR mettent eux même en lumière une limite
+Par ailleurs, les observations s’arrêtant au jour 24, on ne peut pas
+savoir si *P. caudatum* se stabilise réellement à faible effectif ou
+continue de décliner.
+
+Les auteurs du package gauseR mettent eux-mêmes en lumière une limite
 importante : la méthode d'ajustement des moindres carrés utilisée prend
 seulement en compte l'erreur de mesure et non les autres sources
-d'incertitudes liées au processus biologique lui même [@mühlbauer2020].
+d'incertitudes liées au processus biologique lui-même [@mühlbauer2020].
 
-Des méthodes plus récentes permettent d'isoler ces biais ce qui
+Des méthodes plus récentes permettent d'isoler ces biais, ce qui
 éviterait de supposer que le modèle décrit une dynamique déterministe.
-Le modèle Lotka-Volterra reste donc une approximation, surtout valable
-autour de l'équilibre plutôt qu'une description exacte de ce qui se
-passe biologiquement.
+Le modèle de Lotka-Volterra reste donc une approximation, surtout
+valable autour de l'équilibre, plutôt qu'une description exacte de ce
+qui se passe biologiquement.
 
 #### Perspectives
 
 Plusieurs pistes nous permettraient d'aller plus loin :
 
-- Minimiser les biais en séparant le bruit d'observation du bruit de
-  processus, ce que suggèrent les auteurs de gauseR eux mêmes.
-- Faire varier les coefficients d'interactions selon la taille ou la
-  composition de population afin d'obtenir un modèle plus réalistes, ce
-  qui a déjà été proposé dans la littérature selon [@mühlbauer2020].
+-   Minimiser les biais en séparant le bruit d'observation du bruit de
+    processus, ce que suggèrent les auteurs de *gauseR* eux-mêmes.
+-   Faire varier les coefficients d'interaction selon la taille ou la
+    composition de population afin d'obtenir un modèle plus réaliste, ce
+    qui a déjà été proposé dans la littérature [@mühlbauer2020].
 
 #### Conclusion
 
 Pour conclure, cette étude reprend les données historiques de Gause
-[@gause1934b] pour estimer les paramètres d'un modèle de compétition de
-Lotka-Volterra et simuler la dynamique entre *P. caudatum* et *P.
-aurelia*. Les résultats confirment le principe d'exclusion compétitive :
-dans un milieu clos avec une ressource limitante partagée, *P. aurelia*
-finit par être plus présente que *P. caudatum*. Le modèle capture bien
-la tendance générale mais reflète moins la réalité expérimentale lors de
-la phase de transition (4ème au 10ème jour) ce qui rappelle les limites
-des hypothèses posées au départ.
+[@gause1934b] pour estimer les paramètres d’un modèle de compétition de
+Lotka-Volterra et simuler la dynamique entre *P. caudatum* et *P.
+aurelia*. Les résultats montrent une compétition asymétrique en faveur
+de *P. aurelia*. Toutefois, la simulation ne conduit pas à la
+disparition de *P. caudatum* : le modèle suggère un maintien à faible
+effectif plutôt qu’une exclusion stricte. Le modèle capture bien la
+tendance générale mais reflète moins la réalité expérimentale lors de la
+phase de transition (4ᵉ au 10ᵉ jour), ce qui rappelle les limites des
+hypothèses posées au départ.
+
+Des approches plus récentes complètent ce cadre. La théorie moderne de
+la coexistence [@barabás2018a] permet de distinguer ce qui relève des
+différences de niche de ce qui relève des différences d’aptitude entre
+espèces, ce qui est précisément la question posée ici. Les modèles de
+consommation de ressources, développés en écologie microbienne,
+pourraient aussi aider à expliquer les écarts de la phase transitoire.
 
 #### Bibliographie
