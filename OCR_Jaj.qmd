@@ -1,0 +1,336 @@
+---
+title: "La compétition interspécifique chez les paramécies"
+author: "Rivière Agathe, Braga Julia et Rondot Jenny"
+lang: fr
+editor: 
+  markdown: 
+    canonical: true
+    wrap: 72
+format:
+  html:
+    theme: cosmo
+    css: theme.css
+    toc: true
+bibliography: references.bib
+---
+
+## Introduction
+
+### Contexte
+
+Dans les années 1920, Alfred J. Lotka [-@lotka1925a] et Vito Volterra
+[-@volterra1926a] ont publié leurs premières théories concernant les
+interactions entre espèces, suggérant que la structure dynamique et
+complexe des écosystèmes pouvait être résumée dans de simples équations
+mathématiques [@mühlbauer2020].
+
+Gause [-@gause1934b], s'appuyant sur les théories de A. Lotka et V.
+Volterra, a étudié expérimentalement la compétition entre deux espèces
+de protozoaires ciliés, *Paramecium caudatum* et *Paramecium aurelia*,
+cultivées séparément puis en mélange (@fig-morpho). Lorsque les deux
+espèces sont mises en culture ensemble, elles entrent en compétition
+pour les mêmes ressources, ce qui conduit au déclin progressif d'une des
+deux espèces : *P. caudatum* au profit de *P. aurelia*. Ce processus,
+appelé **exclusion compétitive**, a été mis en évidence
+expérimentalement pour la première fois au cours de cette expérience et
+est donc généralement attribué à Gause (d’où son nom de « principe de
+Gause »), mais il a été formalisé progressivement, notamment par Hardin
+[-@hardin1960].
+
+![Morphologie de *Paramecium caudatum* (à gauche) et *Paramecium
+aurelia* (à droite). *P. caudatum* présente une forme allongée, arrondie
+à l'extrémité antérieure et pointue à l'extrémité postérieure, tandis
+que *P. aurelia* présente une forme plus ovoïde. Barres d'échelle : 100
+μm. Crédits photo : *P. caudatum*
+([Deuterostome](https://en.wikipedia.org/wiki/File:Paramecium_caudatum_Ehrenberg,_1833.jpg),
+Wikimedia Commons), *P. aurelia*
+([Barfooz](https://en.wikipedia.org/wiki/File:Paramecium.jpg), Wikimedia
+Commons).](https://rsscience.com/wp-content/uploads/2020/06/Paramecium-caudatum-and-aurelia.jpg){#fig-morpho
+fig-alt="Photographies de P. caudatum à gauche et P. aurelia à droite, avec une échelle de 100 micromètres"}
+
+Le principe d’exclusion compétitive ne se limite pas aux protozoaires et
+s'observe aussi dans les milieux naturels. Sur les côtes écossaises,
+Connell [-@connell1961] a étudié la répartition de deux espèces de
+balanes de la zone intertidale : *Chthamalus stellatus*, présente dans
+la partie haute, et *Balanus balanoides*, présente dans la partie basse.
+Lorsqu’il retirait expérimentalement Balanus de la zone basse,
+Chthamalus parvenait à s’y installer et à survivre, alors qu’elle en
+était absente en conditions naturelles. Balanus l’en exclut en effet par
+compétition pour l’espace, en croissant plus vite et en la recouvrant ou
+en la délogeant. À l’inverse, Balanus ne peut pas coloniser la zone
+haute, car elle y supporte mal la dessiccation lors des marées basses.
+La répartition observée résulte ainsi de l’action à la fois de la
+compétition et des contraintes physiques. Cette étude permet en outre
+d'illustrer la distinction entre **niche fondamentale**, qui est
+l’ensemble des conditions où une espèce pourrait vivre, et **niche
+réalisée**, qui est la part qu’elle occupe réellement en présence de ses
+compétiteurs.
+
+Dans cette étude, nous cherchons à reproduire par modélisation le
+processus d’exclusion compétitive décrit expérimentalement par Gause.
+
+### Équations
+
+Le modèle de compétition de Lotka-Volterra décrit l'évolution temporelle
+des effectifs des deux espèces, en intégrant à la fois un effet
+d'auto-limitation (plus une espèce est abondante, plus sa propre
+croissance est freinée par la compétition intraspécifique pour les
+ressources) et un effet de compétition interspécifique.
+
+$$\begin{aligned}
+\frac{dN_1}{dt} &= N_1 (r_1 + a_{11} \cdot N_1 + a_{12} \cdot N_2) \\
+\frac{dN_2}{dt} &= N_2 (r_2 + a_{21} \cdot N_1 + a_{22} \cdot N_2)
+\end{aligned}$$ Où : $N_1$ et $N_2$ désignent les effectifs des deux
+espèces, $r_1$ et $r_2$ leurs taux de croissance intrinsèques, et
+$a_{ij}$ les coefficients d'interaction (intra- et interspécifiques)
+entre les espèces $i$ et $j$.
+
+Notons que, dans cette écriture, les coefficients $a_{ij}$ sont
+négatifs, ils servent à limiter la croissance de chaque espèce, soit par
+auto-limitation ($i = j$), soit par l'effet compétitif de l'autre espèce
+($i \neq j$).
+
+### Hypothèses
+
+L'objectif de cette étude est de modéliser le comportement des deux
+espèces de paramécies lorsqu'elles sont en interaction pour un même
+milieu. Le modèle de compétition de Lotka-Volterra repose sur plusieurs
+hypothèses simplificatrices [@begon2006] :
+
+- Sans compétiteur, chaque population croît selon une dynamique
+  logistique limitée par sa propre capacité de charge
+- Les deux espèces sont en compétition pour les mêmes ressources
+  limitantes
+- L'environnement est homogène et constant au cours du temps
+- Les paramètres du modèle sont constants au cours du temps et ne
+  dépendent pas de l'âge ou de l'état physiologique des individus
+- Les populations sont suffisamment grandes pour écarter les effets
+  stochastiques liés aux petites populations
+
+Sur la base de ces hypothèses, on s'attend à observer soit une
+coexistence stable des deux espèces soit l'exclusion compétitive de
+l'une par l'autre selon les valeurs relatives des coefficients
+d'interaction intra et inter-spécifiques.
+
+## Résultats
+
+#### Chargement des données
+
+```{r}
+#| label: setup
+library(gauseR)
+library(deSolve)
+```
+
+On utilise les données originales de l'expérience de compétition de
+Gause (1934), republiées dans le package `gauseR` [@mühlbauer2020],
+entre *Paramecium caudatum* et *Paramecium aurelia* cultivées en
+mixture.
+
+```{r}
+#| label: load-data
+data("gause_1934_science_f02_03")
+
+mixturedat <- gause_1934_science_f02_03[gause_1934_science_f02_03$Treatment == "Mixture", ]
+
+time <- mixturedat$Day
+species <- data.frame(mixturedat$Volume_Species1, mixturedat$Volume_Species2)
+colnames(species) <- c("P_caudatum", "P_aurelia")
+
+head(species)
+```
+
+#### Estimation des paramètres
+
+On utilise `gause_wrapper()` uniquement pour estimer les paramètres
+($r_1$, $r_2$, $a_{11}$, $a_{12}$, $a_{21}$, $a_{22}$).
+
+```{r}
+#| label: fit-params
+gause_out <- gause_wrapper(time = time, species = species, doplot = FALSE)
+gause_out$parameter_intervals
+```
+
+#### Extraction des paramètres
+
+```{r}
+#| label: extract-params
+params <- gause_out$parameter_intervals$mu
+names(params) <- rownames(gause_out$parameter_intervals)
+
+N0_1 <- params["P_caudatum0"]
+N0_2 <- params["P_aurelia0"]
+r1   <- params["r1"]
+r2   <- params["r2"]
+a11  <- params["a11"]
+a12  <- params["a12"]
+a21  <- params["a21"]
+a22  <- params["a22"]
+
+c(r1, r2, a11, a12, a21, a22)
+```
+
+Extraction des paramètres estimés du modèle de Lotka-Volterra et des
+effectifs initiaux des deux espèces à partir des résultats de
+l’ajustement.
+
+Les valeurs des taux de croissance intrinsèques ($r_1$ et $r_2$) et des
+coefficients d'interaction ($a_{ij}$) traduisent la dynamique propre de
+chaque espèce. En particulier, les coefficients négatifs confirment
+l'effet auto-limitant et la friction de la compétition interspécifique
+sur les populations.
+
+#### Simulation du modèle de compétition
+
+```{r}
+#| label: model-def
+compet <- function(t, N, param){
+  r1  <- param[1]; r2  <- param[2]
+  a11 <- param[3]; a12 <- param[4]
+  a21 <- param[5]; a22 <- param[6]
+  N1 <- N[1]; N2 <- N[2]
+  
+  dN1 <- N1 * (r1 + a11 * N1 + a12 * N2)
+  dN2 <- N2 * (r2 + a21 * N1 + a22 * N2)
+  
+  list(c(dN1, dN2))
+}
+```
+
+```{r}
+#| label: run-simulation
+parametres <- c(r1 = r1, r2 = r2, a11 = a11, a12 = a12, a21 = a21, a22 = a22)
+N0 <- c(N0_1, N0_2)
+temps_sim <- seq(0, 60, by = 0.1)
+
+sol <- ode(y = N0, times = temps_sim, func = compet, parms = parametres)
+```
+
+Le modèle de compétition de Lotka-Volterra a été implémenté manuellement
+à partir des équations présentées par [@mühlbauer2020], puis résolu
+numériquement à l’aide de la fonction `ode()`.
+
+```{r}
+#| label: fig-lotka-volterra
+#| fig-cap: "Compétition de type Lotka-Volterra entre *Paramecium caudatum* et *Paramecium aurelia*, représentée par l'évolution du volume normalisé selon la taille des populations au cours de 60 jours de simulation (et 24 jours de culture en population mixte), d'après [@gause1934b]. Les points représentent les observations expérimentales et les lignes correspondent aux courbes simulées à partir des équations du modèle de compétition de Lotka-Volterra, définies dans la fonction `compet`."
+library(ggplot2)
+
+# Transformation du résultat de l'ode en data.frame propre pour ggplot
+df_sim <- data.frame(
+  Jour = sol[,1],
+  P_caudatum = sol[,2],
+  P_aurelia = sol[,3]
+)
+
+# Données observées (expérimentales)
+df_obs <- data.frame(
+  Jour = time,
+  P_caudatum = species$P_caudatum,
+  P_aurelia = species$P_aurelia
+)
+
+# Tracé avec ggplot2
+ggplot() +
+  # Courbes simulées (lignes)
+  geom_line(data = df_sim, aes(x = Jour, y = P_caudatum, color = "P. caudatum (simulé)"), linewidth = 1) +
+  geom_line(data = df_sim, aes(x = Jour, y = P_aurelia, color = "P. aurelia (simulé)"), linewidth = 1) +
+  
+  # Points observés (données de Gause)
+  geom_point(data = df_obs, aes(x = Jour, y = P_caudatum, color = "P. caudatum (observé)"), shape = 1, size = 2) +
+  geom_point(data = df_obs, aes(x = Jour, y = P_aurelia, color = "P. aurelia (observé)"), shape = 2, size = 2) +
+  
+  # Personnalisation des couleurs et de la légende
+  scale_color_manual(name = "Légende", 
+                     values = c("P. caudatum (simulé)" = "black", 
+                                "P. aurelia (simulé)" = "red", 
+                                "P. caudatum (observé)" = "black", 
+                                "P. aurelia (observé)" = "red")) +
+  
+  # Thème et axes
+  labs(x = "Jour", y = "Volume standardisé", 
+       title = "Modélisation de la compétition de Lotka-Volterra à long terme") +
+  xlim(0, 60) +
+  ylim(0, 200) +
+  theme_minimal()
+
+```
+
+## Discussion
+
+#### Interprétation des dynamiques de population
+
+Les résultats de notre simulation reproduisent la dynamique observée par
+Gause : en culture mixte, *Paramecium caudatum* décline progressivement
+tandis que *Paramecium aurelia* prend le dessus et se stabilise autour
+de 140 unités de volume dans la simulation (@fig-lotka-volterra).
+
+Les paramètres estimés montrent que chaque espèce freine sa propre
+croissance (auto-limitation) mais aussi celle de l’autre, ce que prévoit
+la théorie de Lotka-Volterra [@mühlbauer2020]. Si *P. aurelia* prend
+l’avantage, c’est parce que son effet inhibiteur sur *P. caudatum* est
+plus fort que l’inverse. *P. aurelia* est donc une meilleure
+compétitrice pour cette ressource.
+
+Toutefois, la simulation ne montre pas une disparition complète de *P.
+caudatum* : sa courbe se stabilise à un faible effectif
+(@fig-lotka-volterra). Avec les paramètres estimés, le modèle suggère
+donc plutôt un maintien à faible effectif qu’une exclusion stricte, ce
+qui nuance le principe d’exclusion compétitive tel qu’il est décrit à
+partir de l’expérience de Gause.
+
+#### Limites du modèle
+
+Le modèle reproduit bien la tendance générale observée en conditions
+expérimentales (déclin de *P. caudatum*, puis stabilisation de *P.
+aurelia*) mais illustre moins bien la période transitoire qui a lieu
+entre le 4ᵉ et le 10ᵉ jour. Ces écarts peuvent s’expliquer par les
+hypothèses simplificatrices du modèle [@begon2006] : milieu homogène et
+paramètres constants dans le temps, qui ne représentent pas un système
+de culture réel plus complexe.
+
+Par ailleurs, les observations s’arrêtant au jour 24, on ne peut pas
+savoir si *P. caudatum* se stabilise réellement à faible effectif ou
+continue de décliner.
+
+Les auteurs du package gauseR mettent eux-mêmes en lumière une limite
+importante : la méthode d'ajustement des moindres carrés utilisée prend
+seulement en compte l'erreur de mesure et non les autres sources
+d'incertitudes liées au processus biologique lui-même [@mühlbauer2020].
+
+Des méthodes plus récentes permettent d'isoler ces biais, ce qui
+éviterait de supposer que le modèle décrit une dynamique déterministe.
+Le modèle de Lotka-Volterra reste donc une approximation, surtout
+valable autour de l'équilibre, plutôt qu'une description exacte de ce
+qui se passe biologiquement.
+
+#### Perspectives
+
+Plusieurs pistes nous permettraient d'aller plus loin :
+
+- Minimiser les biais en séparant le bruit d'observation du bruit de
+  processus, ce que suggèrent les auteurs de *gauseR* eux-mêmes.
+- Faire varier les coefficients d'interaction selon la taille ou la
+  composition de population afin d'obtenir un modèle plus réaliste, ce
+  qui a déjà été proposé dans la littérature [@mühlbauer2020].
+
+#### Conclusion
+
+Pour conclure, cette étude reprend les données historiques de Gause
+[@gause1934b] pour estimer les paramètres d’un modèle de compétition de
+Lotka-Volterra et simuler la dynamique entre *P. caudatum* et *P.
+aurelia*. Les résultats montrent une compétition asymétrique en faveur
+de *P. aurelia*. Toutefois, la simulation ne conduit pas à la
+disparition de *P. caudatum* : le modèle suggère un maintien à faible
+effectif plutôt qu’une exclusion stricte. Le modèle capture bien la
+tendance générale mais reflète moins la réalité expérimentale lors de la
+phase de transition (4ᵉ au 10ᵉ jour), ce qui rappelle les limites des
+hypothèses posées au départ.
+
+Des approches plus récentes complètent ce cadre. La théorie moderne de
+la coexistence [@barabás2018a] permet de distinguer ce qui relève des
+différences de niche de ce qui relève des différences d’aptitude entre
+espèces, ce qui est précisément la question posée ici. Les modèles de
+consommation de ressources, développés en écologie microbienne,
+pourraient aussi aider à expliquer les écarts de la phase transitoire.
+
+#### Bibliographie
