@@ -23,14 +23,15 @@ concernant les interactions entre espèces, suggérant que la stucture
 dynamique et complexe des écosystèmes pouvait être résumée dans de
 simples équations mathématiques [@mühlbauer2020].
 
-Gause[@gause1934b], suivant les théories de A. Lotka et V. Volterra, a
+Gause [@gause1934b], suivant les théories de A. Lotka et V. Volterra, a
 étudié expérimentalement la compétition entre deux espèces de
 protozoaires ciliées, *Paramecium caudatum* et *Paramecium aurelia*,
 cultivées séparément puis en mélange. Lorsque les deux espèces sont
 mises en culture ensemble, elles entrent en compétition pour les mêmes
 ressources, ce qui conduit au déclin progressif d'une des deux espèces :
-*P. caudatum* au profit de *P.aurelia*. Cette expérience constitue l'une
-des illustrations historiques du principe d'exclusion compétitive.
+*P. caudatum* au profit de *P.aurelia*. On appelle ce processus
+l'exclusion compétitive et cette expérience constitue l'unedes
+illustrations historiques de ce principe.
 
 ![Morphologie de P. caudatum à gauche et P. aurelia à droite, échelle :
 100
