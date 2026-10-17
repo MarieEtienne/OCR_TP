@@ -23,15 +23,17 @@ concernant les interactions entre espèces, suggérant que la stucture
 dynamique et complexe des écosystèmes pouvait être résumée dans de
 simples équations mathématiques [@mühlbauer2020].
 
-Gause [@gause1934b], suivant les théories de A. Lotka et V. Volterra, a
-étudié expérimentalement la compétition entre deux espèces de
-protozoaires ciliées, *Paramecium caudatum* et *Paramecium aurelia*,
+Gause [@gause1934b], s'appuyant sur les théories de A. Lotka et V.
+Volterra, a étudié expérimentalement la compétition entre deux espèces
+de protozoaires ciliées, *Paramecium caudatum* et *Paramecium aurelia*,
 cultivées séparément puis en mélange. Lorsque les deux espèces sont
 mises en culture ensemble, elles entrent en compétition pour les mêmes
 ressources, ce qui conduit au déclin progressif d'une des deux espèces :
-*P. caudatum* au profit de *P.aurelia*. On appelle ce processus
-l'exclusion compétitive et cette expérience constitue l'unedes
-illustrations historiques de ce principe.
+*P. caudatum* au profit de *P.aurelia*. Ce processus, appelé **exclusion
+compétitive**, a été mis en évidence expérimentalement pour la première
+fois au cours de cette expérience et est donc généralement attribué à
+Gause (d’où son nom de « principe de Gause »), mais il a été formalisé
+progressivement, notamment par Hardin en (1960).
 
 ![Morphologie de P. caudatum à gauche et P. aurelia à droite, échelle :
 100
@@ -45,6 +47,26 @@ Barres d'échelle : 100 μm. Crédits photo : *P. caudatum*
 Wikimedia Commons), *P. aurelia*
 ([Barfooz](https://en.wikipedia.org/wiki/File:Paramecium.jpg), Wikimedia
 Commons).
+
+Le principe d’exclusion compétitive ne se limite pas aux protozoaires et
+s'observe aussi dans les milieux naturels. Sur les côtes écossaises,
+Connell a étudié la répartition de deux espèces de balanes de la zone
+intertidale : *Chthamalus stellatus*, présente dans la partie haute, et
+*Balanus balanoides*, présente dans la partie basse. Lorsqu’il retirait
+expérimentalement Balanus de la zone basse, Chthamalus parvenait à s’y
+installer et à survivre, alors qu’elle en était absente en conditions
+naturelles. Balanus l’en exclut en effet par compétition pour l’espace,
+en croissant plus vite et en la recouvrant ou en la délogeant. À
+l’inverse, Balanus ne peut pas coloniser la zone haute, car elle y
+supporte mal la dessiccation lors des marées basses. La répartition
+observée résulte ainsi de l’action à la fois de la compétition et des
+contraintes physiques. Cette étude permet en outre d'illustrer la
+distinction entre **niche fondamentale**, qui est l’ensemble des
+conditions où une espèce pourrait vivre, et **niche réalisée**, qui est
+la part qu’elle occupe réellement en présence de ses compétiteurs.
+
+Cependant dans cette étude nous nous concentrons sur le processus
+d'exclusion compétitive décrit expérimentalement par Gause.
 
 ### Équations
 
@@ -62,12 +84,17 @@ espèces, $r_1$ et $r_2$ leurs taux de croissance intrinsèques, et
 $a_{ij}$ les coefficients d'interaction (intra- et interspécifiques)
 entre les espèces $i$ et $j$.
 
+Notons que, dans cette écriture, les coefficient $a_{ij}$ sont négatifs
+: ils servent à limiter la croissance de chaque espèce, soit par
+auto-limitation ($i = j$), soit par l'effet compétitif de l'autre espèce
+($i \neq j$).
+
 ### Hypothèses
 
 L'objectif de cette étude est de modéliser le comportement des deux
-espèces lorsqu'elles sont en interaction pour un même milieu. Le modèle
-de compétition de Lotka-Volterra repose sur plusieurs hypothèses
-simplificatrices [@begon2006] :
+espèces de paramécies lorsqu'elles sont en interaction pour un même
+milieu. Le modèle de compétition de Lotka-Volterra repose sur plusieurs
+hypothèses simplificatrices [@begon2006] :
 
 - Sans compétiteur, chaque population croît selon une dynamique
   logistique limitée par sa propre capacité de charge
@@ -77,7 +104,7 @@ simplificatrices [@begon2006] :
 - Les paramètres du modèle sont constants au cours du temps et ne
   dépendent pas de l'âge ou de l'état physiologique des individus
 - Les populations sont suffisamment grandes pour écarter les effets
-  stochastiques liés
+  stochastiques liés aux petites populations
 
 Sur la base de ces hypothèses, on s'attend à observer soit une
 coexistence stable des deux espèces soit l'exclusion compétitive de
