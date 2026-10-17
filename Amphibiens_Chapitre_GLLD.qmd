@@ -593,7 +593,7 @@ knitr::kable(tab, align = c("l","c","c","l","c","l"))
 ```
 
 ### Corrélations et sélection des variables catégorielles
-La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0,70$ : `MR`–`CR`. Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
+La matrice des V de Cramér (@fig-chp3-cor-cramer) révèle deux associations supérieures à $0,70$ : `MR`–`CR` (@tbl-intro-desc-va). Les variables retenues sont indiquées dans le @tbl-chp3-cor-cat.
 
 ```{r}
 #| label: fig-chp3-cor-cramer
@@ -620,7 +620,7 @@ tab <- data.frame(
 knitr::kable(tab, align = c("l","c","l","c","c","l"))
 ```
 
-Après cette sélection, les variables `BR` et `MR` ont été écartées pour la suite de l'analyse. Il reste donc `SR`, `NR`, `OR`, `FR` et `RR` pour les variables numériques et ordinales, et `TR`, `VR`, `SUR1`, `SUR2`, `SUR3`, `UR` et `CR` pour les variables catégorielles.
+Après cette sélection, les variables `BR` et `MR` ont été écartées pour la suite de l'analyse. Il reste donc `SR`, `NR`, `OR`, `FR` et `RR` pour les variables numériques et ordinales, et `TR`, `VR`, `SUR1`, `SUR2`, `SUR3`, `UR` et `CR` pour les variables catégorielles (@tbl-intro-desc-va).
 
 ```{r chapitre3-drop-vars, echo = FALSE, warning = FALSE, message = FALSE}
 # Variables éliminées
@@ -857,7 +857,7 @@ On va d'abord chercher à identifier les variables explicatives correspondantes 
 
 Les variables retenues pour notre analyse des pressions anthropiques sont les suivantes : - FR : importance de la pêche au sein des réservoirs - RR : distance minimale du réservoir aux routes - BR : distance minimale du réservoir aux buildings - MR : état du réservoir (propre, légèrement pollué, lourdement pollué) - CR : type de berge du réservoir (naturelle, bétonnée)
 
-Avec la matrice de corrélation (voir la @sec-cor), on peut observer que les paramètres RR et BR ont une corrélation absolue supérieure à 0.7, on supprime donc le paramètre BR. Pour vérifier la distribution des données et repérer d'éventuels effectifs trop faibles par modalité, un diagramme de proportions a été réalisé pour chaque variable.
+Avec la matrice de corrélation (voir la @sec-cor), on peut observer que les paramètres RR et BR (@tbl-intro-desc-va) ont une corrélation absolue supérieure à 0.7, on supprime donc le paramètre BR. Pour vérifier la distribution des données et repérer d'éventuels effectifs trop faibles par modalité, un diagramme de proportions a été réalisé pour chaque variable.
 
 
 ```{r répartiton-glm-influence-humaine, echo = FALSE, warning = FALSE, message = FALSE}
@@ -1045,7 +1045,7 @@ En conclusion, le modèle ne met pas en évidence d'effet global significatif de
 
 Ce chapitre consiste à explorer davantage les liens entre les variables environnementales et l'occurrence des espèces d'amphibiens. Plus précisément, il tente de répondre à la question : Quels facteurs influencent l'occurrence des amphibiens à proximité des routes ? Pour y répondre, des GLM seront utilisés pour chaque espèce afin de voir si les variables concernées changent en fonction de celle-ci. 
 
-Comme montré précédemment (@sec-cor), les paires UR-FR et MR-CR sont associées à des coefficients de colinéarité supérieurs à 0,7. De même que pour les précédentes analyses, les variables FR et MR sont retirées. De plus, la variable BR a également été retirée pour cette analyse étant corrélée à RR et présentant une signification écologique très proche, ce qui permet de simplifier les modèles.
+Comme montré précédemment (@sec-cor), les paires UR-FR et MR-CR sont associées à des coefficients de colinéarité supérieurs à 0,7. De même que pour les précédentes analyses, les variables FR et MR (@tbl-intro-desc-va) sont retirées. De plus, la variable BR a également été retirée pour cette analyse étant corrélée à RR et présentant une signification écologique très proche, ce qui permet de simplifier les modèles.
 
 ```{r chapitre4-stand, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -1202,7 +1202,7 @@ modelsummary(
 ###### Modèle réduit
 Pour aller plus loin et à titre exploratoire, un modèle réduit a été testé reprenant les variables significatives des modèles valides précédents. L'objectif est de permettre une comparaison entre la totalité des espèces sur des modèles plus adaptés aux données. Le modèle est le suivant : $$ \text{Species X} \sim \text{TR} + \text{SUR3} + \text{OR} + \text{RR} $$ {#eq-modele-reduit}
 
-Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables `TR` significative (@tbl-chp4-glm-reduit). Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
+Les espèces n'ayant pas pu être traitée précédemment ont toutes les quatres la variables `TR` (@tbl-intro-desc-va) significative (@tbl-chp4-glm-reduit). Les variations inter-espèces se trouvent chez le crapaud sonneur et le triton commun où la variable OR est signifcative. Dans ce cas, cette différence ne peut pas s'expliquer par une plus grande capacité de dispersion car ce n'est en réalité pas le cas. En revanche, ces deux espèces sont très sensibles au dessèchement et aux obstacles, et dépendent de micro-habitats contistituant des refuges [@amphi_Skorinov2008]. Ainsi, cette augmentation de l'occurence avec le pourcentage d'accès aux aires non dévellopées pourrait s'expliquer par cette sensibilité aux zones pas assez naturelles. 
 
 En conclusion, le projet routier pourrait avoir des conséquences différentes selon l'espèce. Certaines apparaissent comme éventuellement plus sensibles et d'autres moins mais la totalité pourrait être impactée. 
 
