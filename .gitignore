@@ -1,3 +1,4 @@
+OCR_TP.Rproj
 .Rproj.user
 .Rhistory
 .RData
@@ -8,3 +9,6 @@
 /.quarto/
 
 **/*.quarto_ipynb
+
+_site/
+_freeze/
