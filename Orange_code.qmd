@@ -1,6 +1,6 @@
 ---
 title: "Orange yields analysis"
-author: "Collot, Millard, Ferreira Gomes"
+author: "Collot Titouan, Millard Gaethan, Ferreira Gomes Gustavo"
 bibliography: references.bib
 format:
   html:
@@ -25,9 +25,8 @@ width="300px"}
 
 Found on the **ourworldindata.org**, the data set (@dataset2025) that we
 are using, gives information about the yield of different countries,
-their year of yield from 1861 to 2024, plus the data set contains the
-code to the different part of the world. The yield is in tonnes per
-hectare.
+their year of yield from 1861 to 2024, plus the dataset contains codes
+for different parts of the world. The yield is in tonnes per hectare.
 
 ## Data Summary
 
@@ -42,8 +41,8 @@ summary(orange)
 
 ```
 
-As The summary of the dataset shows, yield range from 0.2871 to 81.9037
-tonnes per hecatres. This minimum is related to French Polynesia in 2023
+As the summary of the dataset shows, yield range from 0.2871 to 81.9037
+tonnes per hectares. This minimum is related to French Polynesia in 2023
 and the maximum is related to Caribbean in 1983.
 
 ## The World's Largest and Smallest Orange Producers
@@ -131,26 +130,25 @@ legend(
 
 ```
 
-We can see in the @fig-example that the Guatemala stands above the rest
-of the world. Even though it is only a mean of the orange world
-production.
+We can see in the @fig-example that Guatemala stands above the rest of
+the world. Even though it is only a mean of the orange world production.
 
-## What are the causes of this much disparity ?
+## What are the causes of this much disparity?
 
-We can see that the gap between the countries between the highest yield
-countries and lowest yield countries are more than 25 t/ha. This gap can
-be explained biologicaly, when looking at litterature, we know that
-Citrus plants are tropical/subtropical crop, and even if they can
-technically grow flowers, then produce fruits outside of their natural
-habitats, climate will still affect the crops, Citrus crops are
-vulnerable to cold and freezing, where youngs crops are dying at -12 °C,
-the best results were found at a temperature between 23 °C and 34°C
-(@cold_primo). Water will also need to be taken into account, as water
-stress tends to induce the start of flowering (@intechopen2024). Yields
-will greatly depends on theses various factors linked to climate and
-explain somes of the differences we see here.
+We can see that the gap between the countries with the highest and
+lowest yields is more than 25 t/ha. This gap can be explained
+biologically, when looking at literature, we know that Citrus plants are
+tropical/subtropical crop, and even if they can technically grow
+flowers, then produce fruits outside of their natural habitats, climate
+will still affect the crops, Citrus crops are vulnerable to cold and
+freezing, where young crops die at -12 °C, the best results were found
+at a temperature between 23 °C and 34°C (@cold_primo). Water will also
+need to be taken into account, as water stress tends to induce the start
+of flowering (@intechopen2024). Yields will greatly depend on these
+various factors linked to climate and explain some of the differences we
+see here.
 
-## How are european yields evolving ?
+## How are European yields evolving ?
 
 ```{r}
 #| echo: false
@@ -167,11 +165,10 @@ summary(lm_model)
 ```
 
 The extremely low p-values (\<0.001) for Intercept and the Year variable
-confirms that the evolution of European Yields can be modeled by a
-linear regression. This model explains approximately 75% of the
-variability in yields (R²=0.753), and the estimate for the Year variable
-shows that yields tend to increase in Europe
-($\hat{\beta}_1 \approx 0.133$).
+confirm that the evolution of European Yields can be modeled by a linear
+regression. This model explains approximately 75% of the variability in
+yields (R²=0.753), and the estimate for the Year variable shows that
+yields tend to increase in Europe ($\hat{\beta}_1 \approx 0.133$).
 
 ```{r}
 #| echo: false
@@ -198,18 +195,18 @@ legend(
 )
 ```
 
-As can be seen, the figures @fig-lm illustrate the linear model, which
-we already knew models an increasing trend in yields. The formula of the
+As can be seen, the figure @fig-lm illustrate the linear model, which we
+already knew models an increasing trend in yields. The formula of the
 linear model is written as :
 $$\bar{y} = \ 1.331* 10^{-1} x - 2.469 * 10^{2}  $$ {#eq-lm}
 
 ## Possibility of usage
 
 As exposed by @MichaelIgolima2023ModifiedOP, the orange peel is able to
-absorb heavy metal via bio-adsorption. This is a good option for the
+absorb heavy metals via bio-adsorption. This is a good option for the
 future, seeing how much the orange production has increased. Seeing
-@fig-oranger, we can imagine the potential in these orange peel, the
-tree can get to 10m
+@fig-oranger, we can imagine the potential in this orange peel, the tree
+can get to 10m.
 
 ### References :
 
