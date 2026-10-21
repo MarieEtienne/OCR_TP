@@ -152,7 +152,6 @@ see here.
 
 ```{r}
 #| echo: false
-Orange_data <- read.csv("orange-yields.csv")
 europe_data <- orange[orange$Entity=="Europe",]
 ```
 
