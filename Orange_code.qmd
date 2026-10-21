@@ -41,9 +41,13 @@ summary(orange)
 
 ```
 
-As the summary of the dataset shows, yield range from 0.2871 to 81.9037
-tonnes per hectares. This minimum is related to French Polynesia in 2023
-and the maximum is related to Caribbean in 1983.
+As variables, we have - the entity (country name), a qualitative
+variable - the code (country abbreviation), a qualitative variable - the
+year, a discrete quantitative variable - the yield, a continue
+quantitative variable As the summary of the dataset shows, yield range
+from 0.2871 to 81.9037 tonnes per hectares. This minimum is related to
+French Polynesia in 2023 and the maximum is related to Caribbean in
+1983.
 
 ## The World's Largest and Smallest Orange Producers
 
@@ -148,7 +152,7 @@ of flowering (@intechopen2024). Yields will greatly depend on these
 various factors linked to climate and explain some of the differences we
 see here.
 
-## How are European yields evolving ?
+## How are European yields evolving?
 
 ```{r}
 #| echo: false
@@ -164,10 +168,11 @@ summary(lm_model)
 ```
 
 The extremely low p-values (\<0.001) for Intercept and the Year variable
-confirm that the evolution of European Yields can be modeled by a linear
-regression. This model explains approximately 75% of the variability in
-yields (R²=0.753), and the estimate for the Year variable shows that
-yields tend to increase in Europe ($\hat{\beta}_1 \approx 0.133$).
+confirms that the evolution of European Yields can be modeled by a
+linear regression. This model explains approximately 75% of the
+variability in yields (R²=0.753), and the estimate for the Year variable
+shows that yields tend to increase in Europe
+($\hat{\beta}_1 \approx 0.133$).
 
 ```{r}
 #| echo: false
@@ -204,8 +209,7 @@ $$\bar{y} = \ 1.331* 10^{-1} x - 2.469 * 10^{2}  $$ {#eq-lm}
 As exposed by @MichaelIgolima2023ModifiedOP, the orange peel is able to
 absorb heavy metals via bio-adsorption. This is a good option for the
 future, seeing how much the orange production has increased. Seeing
-@fig-oranger, we can imagine the potential in this orange peel, the tree
-can get to 10m.
+@fig-oranger, we can imagine the potential in the orange peel.
 
 ### References :
 
