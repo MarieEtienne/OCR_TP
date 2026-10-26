@@ -41,7 +41,7 @@ Les variables sont les suivantes :
 
 -   **Y** : Coordonnée de latitude du centre de la maille de 1km²
 
--   **Z** : Elévation au-dessus du niveau de la mer en m de la maille
+-   **Z** : Élévation au-dessus du niveau de la mer en m de la maille
 
 -   **Botanical_Class** : Classe botanique de l'espèce de l'arbre
     (conifère ou feuillu)
@@ -74,6 +74,7 @@ Les variables sont les suivantes :
 -   **WD0** : Densité moyenne du bois anhydre en kg/m3
 
 -   **WD0w** : Densité moyenne pondérée du bois anhydre en kg/m3
+    (c'est-à-dire un bois qui ne contient pas d'eau)
 
 -   **WDb** : Moyenne basique de la densité du bois en kg/m3
 
@@ -87,7 +88,7 @@ Les variables sont les suivantes :
     densité du bois (GE BrightSpeed Excel ou GE Revolution EVO)
 
 Le jeu de données original contient une diversité de 156 espèces. Par la
-suite, nous nous sommes limité à l'espèce *Quercus robur*, le chêne
+suite, nous nous sommes limités à l'espèce *Quercus robur*, le chêne
 pédonculé. On passe de 110k à 5 300 observations.
 
 Comme données de réponse pour la densité des arbres, on s'intéresse à la
@@ -137,11 +138,11 @@ dta_Qrobur = dta_Qrobur%>% filter(!is.na(Age))
 dta_Qrobur <- select(dta_Qrobur, -Species, -Core_Type, -Botanical_Class)
 ```
 
-Exportation le fichier de data *Quercus Robur* en fichier .csv.
+Exportation du fichier de data *Quercus Robur* en fichier .csv.
 
 ```{r}
 write.csv (dta_Qrobur, "dta_Qrobur.csv" ,row.names= FALSE )
-#par default :eparateur = virgule ; decimal = point
+#par default :séparateur = virgule ; décimale = point
 dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
          dec = "."
 ```
@@ -154,14 +155,15 @@ dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
 summary(dta_Qrobur)
 ```
 
-Valeurs abberantes
+Valeurs aberrantes
 
 ```{r}
 boxplot(dta_Qrobur$WD0w,col='dodgerblue3',ylab='densité moyenne pondérée anhydre')
 ```
 
-On observe qu'il y a une donnée extrême. On se permet de la supprimer.
-(justifier)
+On observe qu'il y a une donnée extrême. Elle n'est pas cohérente avec
+les autres valeurs de densité. C'est certainement une erreur et on se
+permet de la supprimer.
 
 ```{r}
 dta_Qrobur <- subset(dta_Qrobur, WD0w != min(WD0w, na.rm=TRUE))
@@ -169,14 +171,14 @@ dta_Qrobur <- subset(dta_Qrobur, WD0w != min(WD0w, na.rm=TRUE))
 
 ```{r}
 par(mfrow=c(3,1))
-# Nuage de points de la relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
+# Relation entre le diamètre de l'arbre et la densité moyenne pondérée anhydre chez Quercus robur
 ggplot(data = dta_Qrobur, aes(x = DBH, y = WD0w)) +
   geom_point() +
   geom_smooth(method = "gam", formula = y ~ s(x, k = 10)) + # Ajout d'une fonction lisse avec un modèle additif généralisé
   xlab(label = "Diamètre du tronc à hauteur de poitrine (m)") +
   ylab(label = bquote('Densité moyenne pondérée anhydre'(kg.m^-3)))
 
-# Nuage de points de la relation entre l'âge et la densité moyenne pondérée anhydre chez Quercus robur
+# Relation entre l'âge et la densité moyenne pondérée anhydre chez Quercus robur
 ggplot(data = dta_Qrobur, aes(x = Age, y = WD0w)) +
   geom_point() +
   geom_smooth(method = "lm") + # Ajout d'une droite de régression
@@ -292,10 +294,10 @@ densité du bois (*WD0w*) parmis les variables suivantes : - *X*, *Y*, et
 Formulation du modèle
 
 ```{r}
-# Writing the model formula
+# Écriture du modèle
 mod1<-lm(WD0w ~ X+Y+Z+P+Core_Length+Age+DBH+H+TM,
          data=dta_Qrobur)
-# Then we check for significance
+# Test de significativité
 drop1(mod1,test="F")
 summary(mod1)
 ```
@@ -305,16 +307,16 @@ Effet des variables **X**, **P**, **Core_length** et **Age** (et
 les modeles sans les variables non significatives.
 
 ```{r}
-mod1_petit <- lm (WD0w ~ X+ + Core_Length + Age + DBH+ P, data = dta_Qrobur)
+mod1_petit <- lm (WD0w ~ X + Core_Length + Age + DBH+ P, data = dta_Qrobur)
 anova(mod1, mod1_petit)
 
-RsquareAdj(mod1) # Modele avec les 9 variables
-RsquareAdj(mod1_petit) # Entre 13% et 12.9% : peu de changement avec les 4 variables retirees
+RsquareAdj(mod1) # Modèle avec les 9 variables
+RsquareAdj(mod1_petit) # Entre 13% et 12.9% : peu de changement avec les 4 variables retirées
 
 ```
 
 Il n'y pas vraiment de différence significative entre les 2 modèles (on
-est a la limite).
+est à la limite).
 
 Les variables **X** (longitude), **Core_length** (longueur des
 carottes), **Age** (âge), **DBH** (diamètre du tronc à hauteur de
@@ -324,9 +326,9 @@ significatifs.
 On va maintenant continuer la sélection de variables avec les méthodes
 de sélection de modèle *stepwise* avec le critère d'information d'Akaike
 (*AIC*). Pour cela, on part du modèle avec le moins de variables
-explicatifs *Mod_0* , et on crée un modèle maximal avec toutes les 9
+explicatives *Mod_0* , et on crée un modèle maximal avec toutes les 9
 variables étudiées ici *Mod_1* et on teste les méthodes ascendantes,
-descendantes ou stepwise les 2 directions en même temps, pour
+descendantes ou stepwise (les 2 directions en même temps), pour
 sélectionner les variables que l'on conservera dans le modèle final.
 
 $Mod_0$ : $WD0w$ = $f$ ($1$)
@@ -335,7 +337,7 @@ $Mod_1$ : $WD0w$ = $f$ ( $X$ + $Y$ + $Z$ +$P$ + $Core Length$ + $Age$ +
 $DBH$ + $H$ + $TM$)
 
 ```{r}
-# Modele nul
+# Modèle nul
 mod0 <- lm(WD0w ~ 1, data = dta_Qrobur)
 
 # 1) Ascendante 
