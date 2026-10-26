@@ -45,6 +45,12 @@ C'est ainsi que nous pouvons formuler la problématique suivante :
 
 ## Comment les populations d’odonates varient-elles selon les zones biogéographiques ?
 
+Le jeu de données sur lequel cette étude se base provient d'une campagne
+de science participative menée de 2016 à 2026 par l'association Bretagne
+Vivante. Il a permis de recenser 57 espèces d'odonates ainsi que 2688
+communautés selon un maillage de 4 km². Cette étude se divise en 4 zones
+biogéographiques : Littorale, Relief, Méridonale et Plaine.
+
 ```{r}
 #| message: false
 #| warning: false
@@ -304,7 +310,7 @@ Cette étude montre que les espèces sont relativement réparties de
 manière homogène sur tout le territoire. En effet, la plus part des
 espèces sont réparties sur toutes les zones géographiques : Littoral,
 Relief, Méridional et Plaine. La zone méridionale semble tout de même
-plus spécialisée que les autres. Il y a aussi une grande présences
+plus spécialisée que les autres. Il y a aussi une grande présence
 d'espèces au sein des zones humides de même qu'une certaine spécificité.
 
 La science participative inclue certaines limites comme le risque
