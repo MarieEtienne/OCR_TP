@@ -143,8 +143,7 @@ Exportation du fichier de data *Quercus Robur* en fichier .csv.
 ```{r}
 write.csv (dta_Qrobur, "dta_Qrobur.csv" ,row.names= FALSE )
 #par default :séparateur = virgule ; décimale = point
-dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"",
-         dec = "."
+# dta_Qrobur_v2 <- read.csv("dta_Qrobur.csv")#sep = ",", quote = "\"", dec = "."
 ```
 
 # 2. ANALYSES STATISTIQUES
