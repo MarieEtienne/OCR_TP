@@ -303,7 +303,7 @@ summary(mod1)
 
 Effet des variables **X**, **P**, **Core_length** et **Age** (et
 **DBH**) semblent être les plus significatives. On veut comparer avec
-les modeles sans les variables non significatives.
+les modèles sans les variables non significatives.
 
 ```{r}
 mod1_petit <- lm (WD0w ~ X + Core_Length + Age + DBH+ P, data = dta_Qrobur)
