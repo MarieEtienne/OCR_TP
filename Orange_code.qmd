@@ -212,11 +212,17 @@ summary(lm_model)
 ```
 
 The extremely low p-values (\<0.001) for Intercept and the Year variable
-confirms that the evolution of European Yields can be modeled by a
-linear regression. This model explains approximately 75% of the
-variability in yields (R²=0.753), and the estimate for the Year variable
-shows that yields tend to increase in Europe
-($\hat{\beta}_1 \approx 0.133$).
+shows that the evolution of European Yields can be modeled by a linear
+regression. This model explains approximately 75% of the variability in
+yields (R²=0.753), and the estimate for the Year variable shows that
+yields tend to increase in Europe ($\hat{\beta}_1 \approx 0.133$).
+
+This result should be viewed with caution. Indeed, yields from a
+previous year can have an impact on the following year. This model does
+not take into account climatic hazards and a country’s economic
+decisions. Furthermore, as we have seen in the case of Guatemala, yields
+can change very quickly; therefore, this analysis should be considered
+only as a trend over the period studied.
 
 ```{r}
 #| echo: false
