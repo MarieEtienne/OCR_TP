@@ -214,8 +214,9 @@ summary(lm_model)
 The extremely low p-values (\<0.001) for Intercept and the Year variable
 shows that the evolution of European Yields can be modeled by a linear
 regression. This model explains approximately 75% of the variability in
-yields (R²=0.753), and the estimate for the Year variable shows that
-yields tend to increase in Europe ($\hat{\beta}_1 \approx 0.133$).
+yields (R²=`r round(summary(lm_model)$r.squared, 3)`), and the estimate
+for the Year variable shows that yields tend to increase in Europe
+($\hat{\beta}_1 \approx`r round(coef(lm_model)["Year"], 3)`$).
 
 This result should be viewed with caution. Indeed, yields from a
 previous year can have an impact on the following year. This model does
@@ -252,7 +253,7 @@ legend(
 As can be seen, the figure @fig-lm illustrate the linear model, which we
 already knew models an increasing trend in yields. The formula of the
 linear model is written as :
-$$\bar{y} = \ 1.331* 10^{-1} x - 2.469 * 10^{2}  $$ {#eq-lm}
+$$\hat{y} = `r round(coef(lm_model)["Year"], 3)` x `r round(coef(lm_model)["(Intercept)"], 2)`$$ {#eq-lm}
 
 ## Possibility of usage
 
