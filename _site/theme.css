@@ -1,0 +1,37 @@
+h1 {
+    font-size: 2em;
+    color: #33658A;
+ 
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #C94326;
+}
+
+h3 {
+    font-size: 1.5em;
+    color: #F7A913;
+}
+
+
+.callout-important  {
+    color: #C94326; /* your desired text color */
+    font-size: 2em;
+    background-color: #FFFFF9; /* light red background */
+    border-left: 50px solid #F7A913;
+    border-bottom: 2px solid #0c324e; /* red bottom border */
+}
+
+
+/* color for equations*/
+.jaune {color: #F1D763;}
+.jauneb{color: #fdc455}
+.orange {color: #F7A913;}
+.rouge{color: #C94326}
+.vert{color: #1F908E}
+.bleu{color: #33658A}
+.bleuf{color: #0c324e}
+.clair{color: #99b6b2}
+.alea{color: #398d55}
+.fixe{color: #33658a}

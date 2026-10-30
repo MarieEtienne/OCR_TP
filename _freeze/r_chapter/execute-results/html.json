@@ -1,0 +1,17 @@
+{
+  "hash": "c1da5fc32eaeada68c64f37c4f52ea64",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Basic overview of Markdown potentials with R and Quarto\"\ngroup: \"Marie-Pierre Etienne\" \nbibliography: references.bib\nexecute: \n  freeze: auto\nformat:\n  html:\n    theme: cosmo\n    css: theme.css\n    toc: true\n    toc_float: true\n---\n\n\n\nThis chapter is a simple example using R\n\nYou can import R package using the code\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: package 'ggplot2' was built under R version 4.4.3\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   4.0.3     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors\n```\n\n\n:::\n:::\n\n\n\nand then describe the purpose of your chapter as well as executing R command.\n\nYou can also add images \n\n![Gentoo penguins](images/6123849122_b66af201ea_c.jpg}\n\nFor example a basic summary of a dataset is given by \n\n\n::: {.cell}\n\n```{.r .cell-code}\ndf <- read.table(\"https://gist.githubusercontent.com/slopp/ce3b90b9168f2f921784de84fa445651/raw/4ecf3041f0ed4913e7c230758733948bc561f434/penguins.csv\", sep = \",\" , header = TRUE)\n```\n:::\n\n\nand produce a graph\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndf %>% ggplot() +\n\taes(x=species, y = body_mass_g) +\n\tgeom_boxplot()  \n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: Removed 2 rows containing non-finite outside the scale range\n(`stat_boxplot()`).\n```\n\n\n:::\n\n::: {.cell-output-display}\n![](r_chapter_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n\nJust for curiosity, you could add an image of Gentoo penguins\n\nYou can also add images \n\n![Gentoo penguins](images/6123849122_b66af201ea_c.jpg){#fig-gentoo}\n\nYou can refer to one image using cross-reference. For example,  @fig-gentoo is a photo of a gentoo penguin with chicks by Liam Quinn.\n\n\n\nYou can also add reference associated with models. For example, if you want to study how the body mass  differ between species you should use a one way analysis of variance as described in  @eq-onewayanova\n\n$$Y_{sk} = \\mu + \\alpha_s + E_{sk},\n$$ {#eq-onewayanova}\n\nwhere $s$ standes for species and $k$ denotes each individual.\n\nA useful citation about reproducible reserach @alston2021beginner",
+    "supporting": [
+      "r_chapter_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "hash": "58afe650a17ddb31137fe3fb2750227b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Exploration données sur les manchots\"\nauthor: \"Mp Etienne\" \nbibliography: references.bib\nexecute: \n  freeze: auto\nformat:\n  html:\n    theme: cosmo\n    css: theme.css\n    toc: true\n    toc_float: true\n---\n\n\n\n\n\nPourquoi manchot se traduit Penguins en anglais ?\n\n\n\n(O)>\n( )\n W\n\n(O)>\n( )\n W\n\n\n(O)>\n( )\n W\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: package 'ggplot2' was built under R version 4.4.3\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   4.0.3     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors\n```\n\n\n:::\n:::\n\nles magnifiques pingouins :\n(O)>\n( )\n W\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndata <- read.table(\"penguins_raw.csv\", sep = \",\" , header = TRUE)\n```\n:::\n\n\n\n\nA citation @alston2021beginner\n\n\n\n### References\n\n::: {#refs}\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
