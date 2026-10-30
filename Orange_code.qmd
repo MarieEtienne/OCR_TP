@@ -255,6 +255,23 @@ already knew models an increasing trend in yields. The formula of the
 linear model is written as :
 $$\hat{y} = `r round(coef(lm_model)["Year"], 3)` x `r round(coef(lm_model)["(Intercept)"], 2)`$$ {#eq-lm}
 
+```{r}
+#| echo: false
+#| label: fig-res-lm
+#| fig-cap: "Residuals from the linear model"
+#| eval: true
+
+plot(europe_data$Year, residuals(lm_model),
+     xlab = "Year", 
+     ylab = "Residuals (t/ha)",
+     main = "Residuals of the Linear Model",
+     pch = 19, col = "blue")
+abline(h = 0, col = "red", lty = 2)
+```
+
+As the figure @fig-res-lm shows, the residuals are random and
+homogeneous.
+
 ## Possibility of usage
 
 As exposed by @MichaelIgolima2023ModifiedOP, the orange peel is able to
