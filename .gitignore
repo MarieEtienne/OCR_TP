@@ -13,5 +13,3 @@ _site/
 site_libs/
 projet_files/
 projet_cache/
-
-**/*.quarto_ipynb
