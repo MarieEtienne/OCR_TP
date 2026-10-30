@@ -137,6 +137,50 @@ legend(
 We can see in the @fig-example that Guatemala stands above the rest of
 the world. Even though it is only a mean of the orange world production.
 
+Following this reasoning, we can then recompile the list by limiting the
+data to 2010 to reflect a more current context
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+orange_countries <- orange %>%
+  filter(!is.na(Code) & nchar(Code) == 3)
+
+country_means <- orange_countries %>%
+  filter(Year >= 2010) %>%
+  group_by(Entity) %>%
+  summarise(
+    Average_Yield = mean(Yield_t_per_ha, na.rm = TRUE)
+  ) %>%
+  rename(Country = Entity)
+
+top_3 <- country_means %>%
+  arrange(desc(Average_Yield)) %>%
+  head(3)
+
+bottom_3 <- country_means %>%
+  arrange(Average_Yield) %>%
+  head(3)
+
+cat(
+  "=============================================\n",
+  "TOP 3 COUNTRIES WITH HIGHEST YIELDS SINCE 2010\n",
+  "=============================================\n",
+  sep = ""
+)
+print(as.data.frame(top_3))
+
+cat(
+  "\n=============================================\n",
+  "TOP 3 COUNTRIES WITH LOWEST YIELDS SINCE 2010\n",
+  "=============================================\n",
+  sep = ""
+)
+print(as.data.frame(bottom_3))
+```
+
 ## What are the causes of this much disparity?
 
 We can see that the gap between the countries with the highest and
