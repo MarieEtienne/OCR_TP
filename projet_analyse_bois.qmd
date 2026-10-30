@@ -7,6 +7,8 @@ modification_date: "2026-10-01 15:17:18 CEST"
 bibliography: references.bib
 execute: 
   freeze: auto
+  warning: false
+  message: false
 editor:
   markdown:
     canonical: true
@@ -23,7 +25,8 @@ toc_float: true
 
 La densité du bois étant un prédicteur précis des propriétés mécaniques
 du matériau bois, sa variabilité a reçu une attention particulière pour
-les applications industrielles (Zobel 1989).
+les applications industrielles [@cuny_xylodensmap_2025;
+@timell_wood_1989].
 
 ## B. Structure du jeu de données
 
@@ -89,7 +92,9 @@ Les variables sont les suivantes :
 
 Le jeu de données original contient une diversité de 156 espèces. Par la
 suite, nous nous sommes limités à l'espèce *Quercus robur*, le chêne
-pédonculé. On passe de 110k à 5 300 observations.
+pédonculé. On passe de 110k à 5 300 observations. Le chêne pédonculé est
+une espèce commune en Europe, sur laquelle des analyses de densité du
+bois ont déjà été menées [@jakubowski_allocation_2021].
 
 Comme données de réponse pour la densité des arbres, on s'intéresse à la
 variable **WD0w**. Ainsi on évite la variabilité que peut amener
@@ -261,18 +266,17 @@ Observation de la densité du bois en fonction de la hauteur de l'arbre
 ggplot(data = dta_Qrobur, aes(x = WD0w, y = H)) + geom_point()
 ```
 
-Observation de la densité du bois en fonction des précipitations
-annuelles (**P**).
+La littérature montre une relation entre les conditions climatiqueset
+les variations de densité du bois [@you_variation_2021;
+@larocque_importance_1997]. On représente donc la densité du bois en
+fonction des précipitations annuelles (**P**) et des températures
+annuelles (**TM**).
 
 ```{r}
 ggplot(data = dta_Qrobur, aes(x = WD0w, y = P)) + geom_point()
-```
 
-Observation de la densité du bois en fonction des températures annuelles
-(**TM**).
-
-```{r}
 ggplot(data = dta_Qrobur, aes(x = WD0w, y = TM)) + geom_point()
+
 ```
 
 Test de corrélation entre les variables explicatives
