@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Chloé BRES, Doryan GRAVELEAU &amp; Maëlle HEBRAS">
+
+<title>Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-90539fa014f6d502141c6e43781dcb97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer",
+    "search-label": "Recherche"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="theme.scss">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Recherche"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Basculer la navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/MarieEtienne/stats-reminders"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./instructions.html"> 
+<span class="menu-text">Instructions</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-two-examples" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Two examples</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-two-examples">    
+        <li>
+    <a class="dropdown-item" href="./r_chapter.html">
+ <span class="dropdown-text">Basic quarto cross ref example</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Penguins_chapter.html">
+ <span class="dropdown-text">Penguins example</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Amphibiens_Chapitre_GLLD.html">
+ <span class="dropdown-text">Étude d’impact d’un projet routier sur des Amphibiens</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ANCOVA_Chloe_Doryan_Maelle.html">
+ <span class="dropdown-text">Basic ancova example</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-linear-model" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Linear Model</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-linear-model">    
+        <li class="dropdown-header">lm1.qmd</li>
+        <li class="dropdown-header">lm2.qmd</li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-factorial-analysis" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Factorial Analysis</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-factorial-analysis">    
+        <li class="dropdown-header">pca.qmd</li>
+        <li class="dropdown-header">cca.qmd</li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-differential-equation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Differential Equation</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-differential-equation">    
+        <li class="dropdown-header">ode.qmd</li>
+        <li class="dropdown-header">pde.qmd</li>
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul>
+  <li><a href="#introduction-generale" id="toc-introduction-generale" class="nav-link active" data-scroll-target="#introduction-generale">INTRODUCTION GENERALE</a>
+  <ul class="collapse">
+  <li><a href="#présentation-des-données-et-des-objectifs-de-lanalyse" id="toc-présentation-des-données-et-des-objectifs-de-lanalyse" class="nav-link" data-scroll-target="#présentation-des-données-et-des-objectifs-de-lanalyse">Présentation des données et des objectifs de l’analyse</a></li>
+  <li><a href="#méthode-utilisée" id="toc-méthode-utilisée" class="nav-link" data-scroll-target="#méthode-utilisée">Méthode utilisée</a>
+  <ul class="collapse">
+  <li><a href="#modèle-mathématique" id="toc-modèle-mathématique" class="nav-link" data-scroll-target="#modèle-mathématique">Modèle mathématique</a></li>
+  <li><a href="#application" id="toc-application" class="nav-link" data-scroll-target="#application">Application</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#analyse-des-données" id="toc-analyse-des-données" class="nav-link" data-scroll-target="#analyse-des-données">ANALYSE DES DONNÉES</a>
+  <ul class="collapse">
+  <li><a href="#configuration-de-la-session" id="toc-configuration-de-la-session" class="nav-link" data-scroll-target="#configuration-de-la-session">Configuration de la session</a></li>
+  <li><a href="#importation-du-jeu-de-données" id="toc-importation-du-jeu-de-données" class="nav-link" data-scroll-target="#importation-du-jeu-de-données">Importation du jeu de données</a></li>
+  <li><a href="#exploration-des-données" id="toc-exploration-des-données" class="nav-link" data-scroll-target="#exploration-des-données">Exploration des données</a>
+  <ul class="collapse">
+  <li><a href="#vérification-de-léchantillonnage" id="toc-vérification-de-léchantillonnage" class="nav-link" data-scroll-target="#vérification-de-léchantillonnage">Vérification de l’échantillonnage</a></li>
+  <li><a href="#vérification-de-la-colinéarité-des-variables-explicatives" id="toc-vérification-de-la-colinéarité-des-variables-explicatives" class="nav-link" data-scroll-target="#vérification-de-la-colinéarité-des-variables-explicatives">Vérification de la colinéarité des variables explicatives</a></li>
+  </ul></li>
+  <li><a href="#construction-du-modèle" id="toc-construction-du-modèle" class="nav-link" data-scroll-target="#construction-du-modèle">Construction du modèle</a></li>
+  <li><a href="#validation-du-modèle" id="toc-validation-du-modèle" class="nav-link" data-scroll-target="#validation-du-modèle">Validation du modèle</a>
+  <ul class="collapse">
+  <li><a href="#normalité-des-résidus" id="toc-normalité-des-résidus" class="nav-link" data-scroll-target="#normalité-des-résidus">Normalité des résidus</a></li>
+  <li><a href="#homogénéité-de-la-variance" id="toc-homogénéité-de-la-variance" class="nav-link" data-scroll-target="#homogénéité-de-la-variance">Homogénéité de la variance</a></li>
+  </ul></li>
+  <li><a href="#transformation-logarithmique-des-données" id="toc-transformation-logarithmique-des-données" class="nav-link" data-scroll-target="#transformation-logarithmique-des-données">Transformation logarithmique des données</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">CONCLUSION</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Auteur·rice</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chloé BRES, Doryan GRAVELEAU &amp; Maëlle HEBRAS </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Date de publication</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">9 avril 2027</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-generale" class="level1">
+<h1>INTRODUCTION GENERALE</h1>
+<section id="présentation-des-données-et-des-objectifs-de-lanalyse" class="level2">
+<h2 class="anchored" data-anchor-id="présentation-des-données-et-des-objectifs-de-lanalyse">Présentation des données et des objectifs de l’analyse</h2>
+<p>Pour cet exercice, nous utiliserons les <a href="https://www.academia.edu/53458343/Peuplement_dipt%C3%A9rologique_des_substrats_enrichis_en_milieu_insulaire_subantarctique_%C3%8Eles_Crozet_Etude_des_Sphaeroceridae_du_genre_Anatalanta">données</a> d’une étude réalisée par Philippe Vernon - Université de Rennes 1 (1994) et qui concerne la mouche <em>Anatalanta aptera</em>, une mouche aptère vivant dans les colonies d’oiseaux marins des îles subantarctiques. Au début des années 90, P. Vernon a collecté de nombreux individus sur l’archipel de Crozet. Il a ainsi échantillonné sur le littoral et à l’intérieur des terres (i.e.&nbsp;paysage de relief). L’objectif principal de cette étude est de déterminer les variables expliquant le poids sec d’<em>Anatalanta aptera</em>. Le poids sec, désignant le poids de l’animal après qu’il ait été séché dans une étuve, représente la matière organique et inorganique totale contenues chez un individu. Cette métrique serait plus précise que la mesure du poids : le poids sec est une mesure fiable de la croissance et est un bon indicateur du contenu énergétique d’un individu.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Anatalanta_aptera_1.jpg" class="img-fluid figure-img"></p>
+<figcaption>Image illustrative de Anatalanta aptera</figcaption>
+</figure>
+</div>
+<p>Après l’échantillonnage, P. Vernon a identifié et mesuré en laboratoire les traits d’histoire de vie suivants :<br>
+- <strong>Sex</strong> = le sexe d’un individu donné, variable qualitative<br>
+- <strong>Habitat</strong> = l’habitat d’un individu donné (‘Coast’ or ‘Inland’), variable qualitative<br>
+- <strong>Length</strong> = la longueur d’un individu donné, variable quantitative<br>
+- <strong>Width</strong> = la largeur d’un individu donné, variable quantitative<br>
+- <strong>WaterContent</strong> = le poids en eau d’un individu donné, variable quantitative<br>
+- <strong>FatContent</strong> = le poids lipidiques d’un individu donné, variable quantitative<br>
+- <strong>DryWeight</strong> = le poids sec d’un individu donné, variable quantitative</p>
+<p>La variable réponse est le poids sec et les autres variables sont supposées être des variables explicatives. La question sous-jacente à cette étude est : quelles variables quantitatives (i.e.&nbsp;covariables) et qualitatives (i.e.&nbsp;facteurs) déterminent le poids sec chez <em>Anatalanta aptera</em> ?</p>
+<p>Les données figurent dans le fichier FlyWeight.txt.</p>
+</section>
+<section id="méthode-utilisée" class="level2">
+<h2 class="anchored" data-anchor-id="méthode-utilisée">Méthode utilisée</h2>
+<p>La reproductibilité scientifique, comme décrit dans <a href="@article{alston2021beginner}">l’article</a>, est essentielle lors de l’analyse des données. Une méthode d’analyse est présenté ici, l’ANCOVA</p>
+<section id="modèle-mathématique" class="level3">
+<h3 class="anchored" data-anchor-id="modèle-mathématique">Modèle mathématique</h3>
+<p>L’ANCOVA ou “Analysis of Covariance-Variance” est une méthode statistique visant à expliquer une variable quantitative <span class="math inline">\(Y\)</span>, par plusieurs variables explicatives quantitatives <strong>et</strong> qualitatives. Il s’agit donc de l’association d’une ANOVA et d’un modèle de régression linéaire. Ce modèle linéaire multivarié peut ou non prendre en compte l’interaction entre les variables quantitatives et qualitatives. Dans sa représentation la plus complexe (avec interaction), Il s’écrit sous la forme de <a href="#eq-ANCOVA" class="quarto-xref">Équation&nbsp;1</a>, avec <span class="math inline">\(\mu\)</span> la moyenne générale (ordonnée à l’origine), <span class="math inline">\(\alpha_{i}\)</span> l’effet du ième facteur (des variables qualitatives), <span class="math inline">\(\beta\)</span> est l’effet de la covariable (la pente de la droite de régression), <span class="math inline">\(\gamma_{i}\)</span> est le coefficient associé à l’interaction entre le facteur <span class="math inline">\(i\)</span> et la covariable et <span class="math inline">\(\epsilon_{ij}\)</span> est l’erreur (i.e.&nbsp;les résidus). Ce modèle est fondé sur l’homoscédasticité (homogénéité de la variance), l’indépendance des observations et l’hypothèse que les résidus <span class="math inline">\(\epsilon\)</span> suivent une loi normale centrée (<span class="math inline">\(\epsilon \sim \mathcal{N}(0,\sigma^2)\)</span>),</p>
+<p><span id="eq-ANCOVA"><span class="math display">\[ Y_{ij} = \mu + \alpha_{i}+ \beta.X_{ij}+\gamma_{j}.X_{ij}+ \epsilon_{ij} \tag{1}\]</span></span></p>
+</section>
+<section id="application" class="level3">
+<h3 class="anchored" data-anchor-id="application">Application</h3>
+<p>Avec le jeu de donnée expliqué ci-dessus, on cherche à expliquer le poids sec d’<em>Anatalanta aptera</em> (<span class="math inline">\(Dry\:weight\)</span>) à l’aide des variables observées sur le terrain. Si l’on applique l’ANCOVA aux données étudiées ici, après simplification et ajustement du modèle on obtient l’<a href="#eq-appliquee" class="quarto-xref">Équation&nbsp;2</a> :</p>
+<p><span id="eq-appliquee"><span class="math display">\[
+Dry\:weight = \mu + Habitat\:_i + Width.X_{ij} + Water\:Content.X_{ij} + [Habitat:Width].X_{ij} +
+[Habitat:WaterContent].X_{ij} + \epsilon_{ij}
+\tag{2}\]</span></span></p>
+<p>avec <span class="math inline">\(Habitat=\{Coast,Inland\}\)</span>, <span class="math inline">\([Habitat:Width]\)</span> l’effet d’interaction entre l’habitat et la largeur de l’individu, et <span class="math inline">\([Habitat:WaterContent]\)</span> l’effet d’interaction entre l’habitat et la quantité d’eau de l’individu.</p>
+</section>
+</section>
+</section>
+<section id="analyse-des-données" class="level1">
+<h1>ANALYSE DES DONNÉES</h1>
+<section id="configuration-de-la-session" class="level2">
+<h2 class="anchored" data-anchor-id="configuration-de-la-session">Configuration de la session</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Configuration de la session et chargement des packages R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>()) <span class="co"># Nettoie l'espace de travail</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># Package pour les graphiques</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importation-du-jeu-de-données" class="level2">
+<h2 class="anchored" data-anchor-id="importation-du-jeu-de-données">Importation du jeu de données</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importation des données</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dataFly <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"FlyWeight.txt"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dataFly<span class="sc">$</span>Sex<span class="ot">&lt;-</span><span class="fu">as.factor</span>(dataFly<span class="sc">$</span>Sex)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dataFly<span class="sc">$</span>Habitat<span class="ot">&lt;-</span><span class="fu">as.factor</span>(dataFly<span class="sc">$</span>Habitat)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dataFly)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   320 obs. of  8 variables:
+ $ FlyNumber   : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Sex         : Factor w/ 2 levels "Female","Male": 2 2 2 2 2 2 2 2 2 2 ...
+ $ Habitat     : Factor w/ 2 levels "Coast","Inland": 1 1 1 1 1 1 1 1 1 1 ...
+ $ Length      : num  1.4 1.55 1.52 1.44 1.77 1.69 1.79 1.65 1.58 1.62 ...
+ $ Width       : num  1.24 1.39 1.26 1.18 1.46 1.41 1.46 1.41 1.32 1.4 ...
+ $ WaterContent: num  5.9 7.1 6.8 5.3 8.2 7.6 8.2 7.2 6.5 8.8 ...
+ $ FatContent  : num  0.3 0.2 0 0.2 0.1 0 0 0.3 0.1 0.2 ...
+ $ DryWeight   : num  2.2 3 2.2 2 3.1 2.6 2.8 3.1 2.2 2.6 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification de la présence de données manquantes</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(dataFly))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   FlyNumber          Sex      Habitat       Length        Width WaterContent 
+           0            0            0            0            0            0 
+  FatContent    DryWeight 
+           0            0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Aucune donnée manquante</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Toutes les variables ont la bonne catégorie associée et n’ont pas de valeurs manquantes.</p>
+</section>
+<section id="exploration-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-des-données">Exploration des données</h2>
+<section id="vérification-de-léchantillonnage" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-de-léchantillonnage">Vérification de l’échantillonnage</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un tableau croisé</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tableau_echantillon <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Sexe =</span> dataFly<span class="sc">$</span>Sex, <span class="at">Habitat =</span> dataFly<span class="sc">$</span>Habitat)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Génération du tableau formaté</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tableau_echantillon)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-echantillonnage" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-echantillonnage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Répartition des individus en fonction du sexe et de l’habitat.
+</figcaption>
+<div aria-describedby="tbl-echantillonnage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Coast</th>
+<th style="text-align: right;">Inland</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">80</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Comme l’indique le <a href="#tbl-echantillonnage" class="quarto-xref">Table&nbsp;1</a>, nous avons un échantillonnage équilibré.</p>
+</section>
+<section id="vérification-de-la-colinéarité-des-variables-explicatives" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-de-la-colinéarité-des-variables-explicatives">Vérification de la colinéarité des variables explicatives</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Représentation des graphiques pour chaque paire de covariables continues </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dataFly[,<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>],<span class="at">pch=</span><span class="dv">16</span>,<span class="at">col=</span><span class="st">'dodgerblue3'</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-colinearite" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-colinearite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ANCOVA_Chloe_Doryan_Maelle_files/figure-html/fig-colinearite-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colinearite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Matrice de dispersion pour évaluer la colinéarité des variables explicatives.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Comme observé sur la <a href="#fig-colinearite" class="quarto-xref">Figure&nbsp;1</a>, nous retirons la variable longueur car celle-ci est fortement corrélée aux variables largeur et teneur en eau.</p>
+</section>
+</section>
+<section id="construction-du-modèle" class="level2">
+<h2 class="anchored" data-anchor-id="construction-du-modèle">Construction du modèle</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formulation du modèle</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mod1<span class="ot">&lt;-</span><span class="fu">lm</span>(DryWeight<span class="sc">~</span> Habitat</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> Width</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> WaterContent</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> Habitat<span class="sc">:</span>Width</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> Habitat<span class="sc">:</span>WaterContent  </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">data=</span>dataFly)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ok <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod1)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification de la significativité</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">drop1</span>(mod1,<span class="at">test=</span><span class="st">"F"</span>))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients du modèle</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = DryWeight ~ Habitat + Width + WaterContent + Habitat:Width + 
+    Habitat:WaterContent, data = dataFly)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.86592 -0.25639 -0.01119  0.23329  1.91099 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                 0.05228    0.66459   0.079 0.937354    
+HabitatInland              -2.43270    0.78331  -3.106 0.002072 ** 
+Width                       0.21761    0.64964   0.335 0.737865    
+WaterContent                0.31332    0.04925   6.362 7.02e-10 ***
+HabitatInland:Width         2.34365    0.73427   3.192 0.001557 ** 
+HabitatInland:WaterContent -0.21378    0.05437  -3.932 0.000104 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.5239 on 314 degrees of freedom
+Multiple R-squared:  0.6129,    Adjusted R-squared:  0.6067 
+F-statistic: 99.42 on 5 and 314 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="tbl-anova" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-anova-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Analyse de la variance (ANOVA) des variables du modèle.
+</figcaption>
+<div aria-describedby="tbl-anova-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 4%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Sum of Sq</th>
+<th style="text-align: right;">RSS</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">F value</th>
+<th style="text-align: right;">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><none></none></td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">86.18718</td>
+<td style="text-align: right;">-407.7759</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Habitat:Width</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.796303</td>
+<td style="text-align: right;">88.98348</td>
+<td style="text-align: right;">-399.5585</td>
+<td style="text-align: right;">10.18758</td>
+<td style="text-align: right;">0.0015570</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Habitat:WaterContent</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.244102</td>
+<td style="text-align: right;">90.43128</td>
+<td style="text-align: right;">-394.3938</td>
+<td style="text-align: right;">15.46225</td>
+<td style="text-align: right;">0.0001036</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Le <a href="#tbl-anova" class="quarto-xref">Table&nbsp;2</a> présente le modèle candidat qui contient toutes les interactions des variables explicatives X qui ont un effet sur le poids sec d’<em>Anatalanta aptera</em>, la variable à expliquer Y. Ainsi, aucune autre variable n’est à retirer de ce modèle.</p>
+<p>En ce qui concerne les coefficients, l’intercept prend en compte l’habitat côtier qui correspond donc à l’habitat de référence. Théoriquement, les individus de l’habitat “Inland” ont une base de poids sec significativement plus faible (Beta ~ -2.43 ; p-value = 0.002) que ceux de l’habitat de référence. Dans l’habitat de référence, la largeur n’a pas d’effet significatif (p-value &gt; 0.05) sur le poids sec.&nbsp;Contrairement à la teneur en eau dans l’habitat de référence (côtier) qui augmente très significativement (p-value &lt; 0.05) le poids sec (+0.31 g pour chaque unité de teneur en eau ajoutée).</p>
+<p>La pente réelle de la largeur pour l’habitat inland est calculée selon l’équation suivante: <span id="eq-pente-inland"><span class="math display">\[
+\text{Pente}_{\text{Inland}} = 0.217 + 2.343 = 2.56
+\tag{3}\]</span></span></p>
+<p>Pour les interactions, bien que la largeur n’ai pas d’effet significatif pour l’habitat de référence, elle a un fort effet positif (p-value &lt; 0.05) dans l’habitat Inland, d’après l’<a href="#eq-pente-inland" class="quarto-xref">Équation&nbsp;3</a>.</p>
+<p>Pour finir, Le modèle explique 61.3 % (R²=0.613) de la variance du poids sec.&nbsp;C’est un score plutôt bon pour des données biologiques. Le modèle est significativement robuste quant à la prédiction du poids sec avec une erreur alpha inférieur à 0.05.</p>
+</section>
+<section id="validation-du-modèle" class="level2">
+<h2 class="anchored" data-anchor-id="validation-du-modèle">Validation du modèle</h2>
+<section id="normalité-des-résidus" class="level3">
+<h3 class="anchored" data-anchor-id="normalité-des-résidus">Normalité des résidus</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograme</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mod1<span class="sc">$</span>residuals,<span class="at">col=</span><span class="st">'dodgerblue3'</span>,<span class="at">xlab=</span><span class="st">"residuals"</span>,<span class="at">main=</span><span class="st">"Check Normality"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Quantile-Quantile plot</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(mod1<span class="sc">$</span>residuals,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">col=</span><span class="st">'dodgerblue3'</span>,<span class="at">xlab=</span><span class="st">''</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(mod1<span class="sc">$</span>residuals,<span class="at">col=</span><span class="st">'red'</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-normalite" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-normalite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ANCOVA_Chloe_Doryan_Maelle_files/figure-html/fig-normalite-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normalite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Vérification de la normalité des résidus du modèle.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Comme le montre la <a href="#fig-normalite" class="quarto-xref">Figure&nbsp;2</a>, les résidus dévient un peu de la loi normale au niveau des extrémités mais cela ne pose pas de problèmes.</p>
+</section>
+<section id="homogénéité-de-la-variance" class="level3">
+<h3 class="anchored" data-anchor-id="homogénéité-de-la-variance">Homogénéité de la variance</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus vs prédictions</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod1)<span class="sc">~</span><span class="fu">fitted</span>(mod1)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      , <span class="at">col=</span><span class="st">'dodgerblue3'</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      , <span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus contre le facteur Habitat</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">residuals</span>(mod1)<span class="sc">~</span> dataFly<span class="sc">$</span>Habitat, </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">varwidth =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">col=</span><span class="st">"brown"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Habitat"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">""</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus contre la Largeur</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod1)<span class="sc">~</span> dataFly<span class="sc">$</span>Width, </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch=</span><span class="dv">16</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">col=</span><span class="st">"dodgerblue3"</span>,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Width"</span>,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">""</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus contre la Teneur en eau</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod1)<span class="sc">~</span> dataFly<span class="sc">$</span>WaterContent, </span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch=</span><span class="dv">16</span>,</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">col=</span><span class="st">"dodgerblue3"</span>,</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Water Content"</span>,</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">""</span>)</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-homogeneite" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-homogeneite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ANCOVA_Chloe_Doryan_Maelle_files/figure-html/fig-homogeneite-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-homogeneite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Analyse graphique de l’homogénéité de la variance des résidus.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Comme l’illustre la <a href="#fig-homogeneite" class="quarto-xref">Figure&nbsp;3</a>, l’homogénéité de la variance n’est pas entièrement respectée, il faudrait faire une transformation logarithmique des données pour homogénéiser plus.</p>
+</section>
+</section>
+<section id="transformation-logarithmique-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="transformation-logarithmique-des-données">Transformation logarithmique des données</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nouveau modèle avec la variable Y transformée en log</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mod_log<span class="ot">&lt;-</span><span class="fu">lm</span>(<span class="fu">log</span>(DryWeight)<span class="sc">~</span> Habitat</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> Width</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> WaterContent</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> Habitat<span class="sc">:</span>Width</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> Habitat<span class="sc">:</span>WaterContent  </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">data=</span>dataFly)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher le résumé</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_log)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(DryWeight) ~ Habitat + Width + WaterContent + 
+    Habitat:Width + Habitat:WaterContent, data = dataFly)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.82085 -0.10290  0.01249  0.11388  0.62537 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                -0.11227    0.26059  -0.431 0.666905    
+HabitatInland              -1.75760    0.30715  -5.722 2.45e-08 ***
+Width                       0.16730    0.25473   0.657 0.511800    
+WaterContent                0.11252    0.01931   5.827 1.40e-08 ***
+HabitatInland:Width         1.38749    0.28792   4.819 2.25e-06 ***
+HabitatInland:WaterContent -0.08297    0.02132  -3.892 0.000121 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.2054 on 314 degrees of freedom
+Multiple R-squared:  0.703, Adjusted R-squared:  0.6982 
+F-statistic: 148.6 on 5 and 314 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Nous remarquons que les mêmes variables sont significatives lorsque nous transformons la variable y “poids sec” en logarithme.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograme</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mod_log<span class="sc">$</span>residuals,<span class="at">col=</span><span class="st">'dodgerblue3'</span>,<span class="at">xlab=</span><span class="st">"residuals"</span>,<span class="at">main=</span><span class="st">"Check Normality"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Quantile-Quantile plot</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(mod_log<span class="sc">$</span>residuals,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">col=</span><span class="st">'dodgerblue3'</span>,<span class="at">xlab=</span><span class="st">''</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(mod_log<span class="sc">$</span>residuals,<span class="at">col=</span><span class="st">'red'</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-normalite-bis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-normalite-bis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ANCOVA_Chloe_Doryan_Maelle_files/figure-html/fig-normalite-bis-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normalite-bis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Vérification de la normalité des résidus du modèle.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Nous pouvons voir sur la <a href="#fig-normalite-bis" class="quarto-xref">Figure&nbsp;4</a> que les points sont répartis de façon un peu plus homogène autour de la droite rouge, ce qui signifie que les résidus suivent plus une distribution normale lorsque la variable y est transformée en logarithme.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus vs prédictions</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod_log)<span class="sc">~</span><span class="fu">fitted</span>(mod_log)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>      , <span class="at">col=</span><span class="st">'dodgerblue3'</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      , <span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus contre le facteur Habitat</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">residuals</span>(mod_log)<span class="sc">~</span> dataFly<span class="sc">$</span>Habitat, </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">varwidth =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">col=</span><span class="st">"brown"</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Habitat"</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">""</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus contre la Largeur</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod_log)<span class="sc">~</span> dataFly<span class="sc">$</span>Width, </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch=</span><span class="dv">16</span>,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">col=</span><span class="st">"dodgerblue3"</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Width"</span>,</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">""</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># résidus contre la Teneur en eau</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod_log)<span class="sc">~</span> dataFly<span class="sc">$</span>WaterContent, </span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch=</span><span class="dv">16</span>,</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">col=</span><span class="st">"dodgerblue3"</span>,</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Water Content"</span>,</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">""</span>)</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-homogeneite-bis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-homogeneite-bis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ANCOVA_Chloe_Doryan_Maelle_files/figure-html/fig-homogeneite-bis-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-homogeneite-bis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Analyse graphique de l’homogénéité de la variance des résidus.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La <a href="#fig-homogeneite-bis" class="quarto-xref">Figure&nbsp;5</a> illustre bien que la transformation logarithmique a parfaitement stabilisé la variance des résidus, ce qui résout les éventuels problèmes d’hétéroscédasticité du modèle initial.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>CONCLUSION</h1>
+<p>Grâce à l’ANCOVA, nous avons réussi à proposer un modèle permettant d’expliquer selon quelles variables et interactions le poids sec d’un individu varie. Nous avons conservé uniquement les variables expliquant le mieux le poids sec et nous avons enlevé les variables apportant en outre de la redondance d’information.</p>
+<p>Le modèle a été validé, d’une part par <strong>l’homogénéité des résidus</strong>, et d’autre part également par la <strong>normalité des résidus</strong>.</p>
+<p>Par la suite, il serait intéréssant de comprendre, d’un point de vue biologique, physiologique ou génétique peut-être, comment s’effectue la variation du poids chez les individus. Sur le plan génétique, on pourrait se demander dans quelle mesure la variabilité observée est d’origine héréditaire. Sur le plan physiologique, on pourrait chercher à comprendre comment les individus répartissent leurs ressources entre croissance, reproduction et stockage, et comment cela se traduit par des différences de poids.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copié");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copié");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -7,6 +7,139 @@
     "text": "Pourquoi manchot se traduit Penguins en anglais ?\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n(O)&gt; ( ) W\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.2\n✔ ggplot2   4.0.3     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nles magnifiques pingouins : (O)&gt; ( ) W\n\ndata &lt;- read.table(\"penguins_raw.csv\", sep = \",\" , header = TRUE)\n\nA citation Alston and Rick (2021)\n\nReferences\n\n\nAlston, Jesse M, and Jessica A Rick. 2021. “A Beginner’s Guide to Conducting Reproducible Research.” Bulletin of the Ecological Society of America 102 (2): 1–14."
   },
   {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "",
+    "text": "Pour cet exercice, nous utiliserons les données d’une étude réalisée par Philippe Vernon - Université de Rennes 1 (1994) et qui concerne la mouche Anatalanta aptera, une mouche aptère vivant dans les colonies d’oiseaux marins des îles subantarctiques. Au début des années 90, P. Vernon a collecté de nombreux individus sur l’archipel de Crozet. Il a ainsi échantillonné sur le littoral et à l’intérieur des terres (i.e. paysage de relief). L’objectif principal de cette étude est de déterminer les variables expliquant le poids sec d’Anatalanta aptera. Le poids sec, désignant le poids de l’animal après qu’il ait été séché dans une étuve, représente la matière organique et inorganique totale contenues chez un individu. Cette métrique serait plus précise que la mesure du poids : le poids sec est une mesure fiable de la croissance et est un bon indicateur du contenu énergétique d’un individu.\n\n\n\nImage illustrative de Anatalanta aptera\n\n\nAprès l’échantillonnage, P. Vernon a identifié et mesuré en laboratoire les traits d’histoire de vie suivants :\n- Sex = le sexe d’un individu donné, variable qualitative\n- Habitat = l’habitat d’un individu donné (‘Coast’ or ‘Inland’), variable qualitative\n- Length = la longueur d’un individu donné, variable quantitative\n- Width = la largeur d’un individu donné, variable quantitative\n- WaterContent = le poids en eau d’un individu donné, variable quantitative\n- FatContent = le poids lipidiques d’un individu donné, variable quantitative\n- DryWeight = le poids sec d’un individu donné, variable quantitative\nLa variable réponse est le poids sec et les autres variables sont supposées être des variables explicatives. La question sous-jacente à cette étude est : quelles variables quantitatives (i.e. covariables) et qualitatives (i.e. facteurs) déterminent le poids sec chez Anatalanta aptera ?\nLes données figurent dans le fichier FlyWeight.txt.\n\n\n\nLa reproductibilité scientifique, comme décrit dans l’article, est essentielle lors de l’analyse des données. Une méthode d’analyse est présenté ici, l’ANCOVA\n\n\nL’ANCOVA ou “Analysis of Covariance-Variance” est une méthode statistique visant à expliquer une variable quantitative \\(Y\\), par plusieurs variables explicatives quantitatives et qualitatives. Il s’agit donc de l’association d’une ANOVA et d’un modèle de régression linéaire. Ce modèle linéaire multivarié peut ou non prendre en compte l’interaction entre les variables quantitatives et qualitatives. Dans sa représentation la plus complexe (avec interaction), Il s’écrit sous la forme de Équation 1, avec \\(\\mu\\) la moyenne générale (ordonnée à l’origine), \\(\\alpha_{i}\\) l’effet du ième facteur (des variables qualitatives), \\(\\beta\\) est l’effet de la covariable (la pente de la droite de régression), \\(\\gamma_{i}\\) est le coefficient associé à l’interaction entre le facteur \\(i\\) et la covariable et \\(\\epsilon_{ij}\\) est l’erreur (i.e. les résidus). Ce modèle est fondé sur l’homoscédasticité (homogénéité de la variance), l’indépendance des observations et l’hypothèse que les résidus \\(\\epsilon\\) suivent une loi normale centrée (\\(\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\)),\n\\[ Y_{ij} = \\mu + \\alpha_{i}+ \\beta.X_{ij}+\\gamma_{j}.X_{ij}+ \\epsilon_{ij} \\tag{1}\\]\n\n\n\nAvec le jeu de donnée expliqué ci-dessus, on cherche à expliquer le poids sec d’Anatalanta aptera (\\(Dry\\:weight\\)) à l’aide des variables observées sur le terrain. Si l’on applique l’ANCOVA aux données étudiées ici, après simplification et ajustement du modèle on obtient l’Équation 2 :\n\\[\nDry\\:weight = \\mu + Habitat\\:_i + Width.X_{ij} + Water\\:Content.X_{ij} + [Habitat:Width].X_{ij} +\n[Habitat:WaterContent].X_{ij} + \\epsilon_{ij}\n\\tag{2}\\]\navec \\(Habitat=\\{Coast,Inland\\}\\), \\([Habitat:Width]\\) l’effet d’interaction entre l’habitat et la largeur de l’individu, et \\([Habitat:WaterContent]\\) l’effet d’interaction entre l’habitat et la quantité d’eau de l’individu."
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#présentation-des-données-et-des-objectifs-de-lanalyse",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#présentation-des-données-et-des-objectifs-de-lanalyse",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "",
+    "text": "Pour cet exercice, nous utiliserons les données d’une étude réalisée par Philippe Vernon - Université de Rennes 1 (1994) et qui concerne la mouche Anatalanta aptera, une mouche aptère vivant dans les colonies d’oiseaux marins des îles subantarctiques. Au début des années 90, P. Vernon a collecté de nombreux individus sur l’archipel de Crozet. Il a ainsi échantillonné sur le littoral et à l’intérieur des terres (i.e. paysage de relief). L’objectif principal de cette étude est de déterminer les variables expliquant le poids sec d’Anatalanta aptera. Le poids sec, désignant le poids de l’animal après qu’il ait été séché dans une étuve, représente la matière organique et inorganique totale contenues chez un individu. Cette métrique serait plus précise que la mesure du poids : le poids sec est une mesure fiable de la croissance et est un bon indicateur du contenu énergétique d’un individu.\n\n\n\nImage illustrative de Anatalanta aptera\n\n\nAprès l’échantillonnage, P. Vernon a identifié et mesuré en laboratoire les traits d’histoire de vie suivants :\n- Sex = le sexe d’un individu donné, variable qualitative\n- Habitat = l’habitat d’un individu donné (‘Coast’ or ‘Inland’), variable qualitative\n- Length = la longueur d’un individu donné, variable quantitative\n- Width = la largeur d’un individu donné, variable quantitative\n- WaterContent = le poids en eau d’un individu donné, variable quantitative\n- FatContent = le poids lipidiques d’un individu donné, variable quantitative\n- DryWeight = le poids sec d’un individu donné, variable quantitative\nLa variable réponse est le poids sec et les autres variables sont supposées être des variables explicatives. La question sous-jacente à cette étude est : quelles variables quantitatives (i.e. covariables) et qualitatives (i.e. facteurs) déterminent le poids sec chez Anatalanta aptera ?\nLes données figurent dans le fichier FlyWeight.txt."
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#méthode-utilisée",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#méthode-utilisée",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "",
+    "text": "La reproductibilité scientifique, comme décrit dans l’article, est essentielle lors de l’analyse des données. Une méthode d’analyse est présenté ici, l’ANCOVA\n\n\nL’ANCOVA ou “Analysis of Covariance-Variance” est une méthode statistique visant à expliquer une variable quantitative \\(Y\\), par plusieurs variables explicatives quantitatives et qualitatives. Il s’agit donc de l’association d’une ANOVA et d’un modèle de régression linéaire. Ce modèle linéaire multivarié peut ou non prendre en compte l’interaction entre les variables quantitatives et qualitatives. Dans sa représentation la plus complexe (avec interaction), Il s’écrit sous la forme de Équation 1, avec \\(\\mu\\) la moyenne générale (ordonnée à l’origine), \\(\\alpha_{i}\\) l’effet du ième facteur (des variables qualitatives), \\(\\beta\\) est l’effet de la covariable (la pente de la droite de régression), \\(\\gamma_{i}\\) est le coefficient associé à l’interaction entre le facteur \\(i\\) et la covariable et \\(\\epsilon_{ij}\\) est l’erreur (i.e. les résidus). Ce modèle est fondé sur l’homoscédasticité (homogénéité de la variance), l’indépendance des observations et l’hypothèse que les résidus \\(\\epsilon\\) suivent une loi normale centrée (\\(\\epsilon \\sim \\mathcal{N}(0,\\sigma^2)\\)),\n\\[ Y_{ij} = \\mu + \\alpha_{i}+ \\beta.X_{ij}+\\gamma_{j}.X_{ij}+ \\epsilon_{ij} \\tag{1}\\]\n\n\n\nAvec le jeu de donnée expliqué ci-dessus, on cherche à expliquer le poids sec d’Anatalanta aptera (\\(Dry\\:weight\\)) à l’aide des variables observées sur le terrain. Si l’on applique l’ANCOVA aux données étudiées ici, après simplification et ajustement du modèle on obtient l’Équation 2 :\n\\[\nDry\\:weight = \\mu + Habitat\\:_i + Width.X_{ij} + Water\\:Content.X_{ij} + [Habitat:Width].X_{ij} +\n[Habitat:WaterContent].X_{ij} + \\epsilon_{ij}\n\\tag{2}\\]\navec \\(Habitat=\\{Coast,Inland\\}\\), \\([Habitat:Width]\\) l’effet d’interaction entre l’habitat et la largeur de l’individu, et \\([Habitat:WaterContent]\\) l’effet d’interaction entre l’habitat et la quantité d’eau de l’individu."
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#configuration-de-la-session",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#configuration-de-la-session",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "Configuration de la session",
+    "text": "Configuration de la session\n\n#Configuration de la session et chargement des packages R\nrm(list=ls()) # Nettoie l'espace de travail\nlibrary(ggplot2) # Package pour les graphiques"
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#importation-du-jeu-de-données",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#importation-du-jeu-de-données",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "Importation du jeu de données",
+    "text": "Importation du jeu de données\n\n# Importation des données\ndataFly &lt;- read.table(\"FlyWeight.txt\", dec=\".\", header = TRUE)\ndataFly$Sex&lt;-as.factor(dataFly$Sex)\ndataFly$Habitat&lt;-as.factor(dataFly$Habitat)\nstr(dataFly)\n\n'data.frame':   320 obs. of  8 variables:\n $ FlyNumber   : int  1 2 3 4 5 6 7 8 9 10 ...\n $ Sex         : Factor w/ 2 levels \"Female\",\"Male\": 2 2 2 2 2 2 2 2 2 2 ...\n $ Habitat     : Factor w/ 2 levels \"Coast\",\"Inland\": 1 1 1 1 1 1 1 1 1 1 ...\n $ Length      : num  1.4 1.55 1.52 1.44 1.77 1.69 1.79 1.65 1.58 1.62 ...\n $ Width       : num  1.24 1.39 1.26 1.18 1.46 1.41 1.46 1.41 1.32 1.4 ...\n $ WaterContent: num  5.9 7.1 6.8 5.3 8.2 7.6 8.2 7.2 6.5 8.8 ...\n $ FatContent  : num  0.3 0.2 0 0.2 0.1 0 0 0.3 0.1 0.2 ...\n $ DryWeight   : num  2.2 3 2.2 2 3.1 2.6 2.8 3.1 2.2 2.6 ...\n\n# Vérification de la présence de données manquantes\ncolSums(is.na(dataFly))\n\n   FlyNumber          Sex      Habitat       Length        Width WaterContent \n           0            0            0            0            0            0 \n  FatContent    DryWeight \n           0            0 \n\n#Aucune donnée manquante\n\nToutes les variables ont la bonne catégorie associée et n’ont pas de valeurs manquantes."
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#exploration-des-données",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#exploration-des-données",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "Exploration des données",
+    "text": "Exploration des données\n\nVérification de l’échantillonnage\n\n# Création d'un tableau croisé\ntableau_echantillon &lt;- table(Sexe = dataFly$Sex, Habitat = dataFly$Habitat)\n\n# Génération du tableau formaté\nknitr::kable(tableau_echantillon)\n\n\n\nTable 1: Répartition des individus en fonction du sexe et de l’habitat.\n\n\n\n\n\n\n\nCoast\nInland\n\n\n\n\nFemale\n80\n80\n\n\nMale\n80\n80\n\n\n\n\n\n\n\n\nComme l’indique le Table 1, nous avons un échantillonnage équilibré.\n\n\nVérification de la colinéarité des variables explicatives\n\n# Représentation des graphiques pour chaque paire de covariables continues \nplot(dataFly[,4:7],pch=16,col='dodgerblue3')\n\n\n\n\n\n\n\nFigure 1: Matrice de dispersion pour évaluer la colinéarité des variables explicatives.\n\n\n\n\n\nComme observé sur la Figure 1, nous retirons la variable longueur car celle-ci est fortement corrélée aux variables largeur et teneur en eau."
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#construction-du-modèle",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#construction-du-modèle",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "Construction du modèle",
+    "text": "Construction du modèle\n\n# Formulation du modèle\nmod1&lt;-lm(DryWeight~ Habitat\n        + Width\n        + WaterContent\n        + Habitat:Width\n        + Habitat:WaterContent  \n        ,data=dataFly)\nok &lt;- summary(mod1)\n# Vérification de la significativité\nknitr::kable(drop1(mod1,test=\"F\"))\n# Coefficients du modèle\nsummary(mod1)\n\n\nCall:\nlm(formula = DryWeight ~ Habitat + Width + WaterContent + Habitat:Width + \n    Habitat:WaterContent, data = dataFly)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.86592 -0.25639 -0.01119  0.23329  1.91099 \n\nCoefficients:\n                           Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                 0.05228    0.66459   0.079 0.937354    \nHabitatInland              -2.43270    0.78331  -3.106 0.002072 ** \nWidth                       0.21761    0.64964   0.335 0.737865    \nWaterContent                0.31332    0.04925   6.362 7.02e-10 ***\nHabitatInland:Width         2.34365    0.73427   3.192 0.001557 ** \nHabitatInland:WaterContent -0.21378    0.05437  -3.932 0.000104 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.5239 on 314 degrees of freedom\nMultiple R-squared:  0.6129,    Adjusted R-squared:  0.6067 \nF-statistic: 99.42 on 5 and 314 DF,  p-value: &lt; 2.2e-16\n\n\n\n\nTable 2: Analyse de la variance (ANOVA) des variables du modèle.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDf\nSum of Sq\nRSS\nAIC\nF value\nPr(&gt;F)\n\n\n\n\n\nNA\nNA\n86.18718\n-407.7759\nNA\nNA\n\n\nHabitat:Width\n1\n2.796303\n88.98348\n-399.5585\n10.18758\n0.0015570\n\n\nHabitat:WaterContent\n1\n4.244102\n90.43128\n-394.3938\n15.46225\n0.0001036\n\n\n\n\n\n\n\n\nLe Table 2 présente le modèle candidat qui contient toutes les interactions des variables explicatives X qui ont un effet sur le poids sec d’Anatalanta aptera, la variable à expliquer Y. Ainsi, aucune autre variable n’est à retirer de ce modèle.\nEn ce qui concerne les coefficients, l’intercept prend en compte l’habitat côtier qui correspond donc à l’habitat de référence. Théoriquement, les individus de l’habitat “Inland” ont une base de poids sec significativement plus faible (Beta ~ -2.43 ; p-value = 0.002) que ceux de l’habitat de référence. Dans l’habitat de référence, la largeur n’a pas d’effet significatif (p-value &gt; 0.05) sur le poids sec. Contrairement à la teneur en eau dans l’habitat de référence (côtier) qui augmente très significativement (p-value &lt; 0.05) le poids sec (+0.31 g pour chaque unité de teneur en eau ajoutée).\nLa pente réelle de la largeur pour l’habitat inland est calculée selon l’équation suivante: \\[\n\\text{Pente}_{\\text{Inland}} = 0.217 + 2.343 = 2.56\n\\tag{3}\\]\nPour les interactions, bien que la largeur n’ai pas d’effet significatif pour l’habitat de référence, elle a un fort effet positif (p-value &lt; 0.05) dans l’habitat Inland, d’après l’Équation 3.\nPour finir, Le modèle explique 61.3 % (R²=0.613) de la variance du poids sec. C’est un score plutôt bon pour des données biologiques. Le modèle est significativement robuste quant à la prédiction du poids sec avec une erreur alpha inférieur à 0.05."
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#validation-du-modèle",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#validation-du-modèle",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "Validation du modèle",
+    "text": "Validation du modèle\n\nNormalité des résidus\n\npar(mfrow=c(1,2))\n# Histograme\nhist(mod1$residuals,col='dodgerblue3',xlab=\"residuals\",main=\"Check Normality\")\n# Quantile-Quantile plot\nqqnorm(mod1$residuals,pch=16,col='dodgerblue3',xlab='')\nqqline(mod1$residuals,col='red',lwd=2)\n\n\n\n\n\n\n\nFigure 2: Vérification de la normalité des résidus du modèle.\n\n\n\n\n\nComme le montre la Figure 2, les résidus dévient un peu de la loi normale au niveau des extrémités mais cela ne pose pas de problèmes.\n\n\nHomogénéité de la variance\n\npar(mfrow=c(2,2))\n\n# résidus vs prédictions\nplot(residuals(mod1)~fitted(mod1)\n      , col='dodgerblue3'\n      , pch=16)\nabline(h = 0)\n\n# résidus contre le facteur Habitat\nboxplot(residuals(mod1)~ dataFly$Habitat, \n         varwidth = TRUE,\n         col=\"brown\",\n         ylab = \"Residuals\",\n         xlab = \"Habitat\",\n         main = \"\")\n\n# résidus contre la Largeur\nplot(residuals(mod1)~ dataFly$Width, \n         pch=16,\n         col=\"dodgerblue3\",\n         ylab = \"Residuals\",\n         xlab = \"Width\",\n         main = \"\")\nabline(h = 0)\n\n# résidus contre la Teneur en eau\nplot(residuals(mod1)~ dataFly$WaterContent, \n         pch=16,\n         col=\"dodgerblue3\",\n         ylab = \"Residuals\",\n         xlab = \"Water Content\",\n         main = \"\")\nabline(h = 0)\n\n\n\n\n\n\n\nFigure 3: Analyse graphique de l’homogénéité de la variance des résidus.\n\n\n\n\n\nComme l’illustre la Figure 3, l’homogénéité de la variance n’est pas entièrement respectée, il faudrait faire une transformation logarithmique des données pour homogénéiser plus."
+  },
+  {
+    "objectID": "ANCOVA_Chloe_Doryan_Maelle.html#transformation-logarithmique-des-données",
+    "href": "ANCOVA_Chloe_Doryan_Maelle.html#transformation-logarithmique-des-données",
+    "title": "Détermination des variables dans les variations du poids des individus chez Anatalanta aptera par la méthode ANCOVA",
+    "section": "Transformation logarithmique des données",
+    "text": "Transformation logarithmique des données\n\n# Nouveau modèle avec la variable Y transformée en log\nmod_log&lt;-lm(log(DryWeight)~ Habitat\n        + Width\n        + WaterContent\n        + Habitat:Width\n        + Habitat:WaterContent  \n        ,data=dataFly)\n\n# Afficher le résumé\nsummary(mod_log)\n\n\nCall:\nlm(formula = log(DryWeight) ~ Habitat + Width + WaterContent + \n    Habitat:Width + Habitat:WaterContent, data = dataFly)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.82085 -0.10290  0.01249  0.11388  0.62537 \n\nCoefficients:\n                           Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                -0.11227    0.26059  -0.431 0.666905    \nHabitatInland              -1.75760    0.30715  -5.722 2.45e-08 ***\nWidth                       0.16730    0.25473   0.657 0.511800    \nWaterContent                0.11252    0.01931   5.827 1.40e-08 ***\nHabitatInland:Width         1.38749    0.28792   4.819 2.25e-06 ***\nHabitatInland:WaterContent -0.08297    0.02132  -3.892 0.000121 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.2054 on 314 degrees of freedom\nMultiple R-squared:  0.703, Adjusted R-squared:  0.6982 \nF-statistic: 148.6 on 5 and 314 DF,  p-value: &lt; 2.2e-16\n\n\nNous remarquons que les mêmes variables sont significatives lorsque nous transformons la variable y “poids sec” en logarithme.\n\npar(mfrow=c(1,2))\n# Histograme\nhist(mod_log$residuals,col='dodgerblue3',xlab=\"residuals\",main=\"Check Normality\")\n# Quantile-Quantile plot\nqqnorm(mod_log$residuals,pch=16,col='dodgerblue3',xlab='')\nqqline(mod_log$residuals,col='red',lwd=2)\n\n\n\n\n\n\n\nFigure 4: Vérification de la normalité des résidus du modèle.\n\n\n\n\n\nNous pouvons voir sur la Figure 4 que les points sont répartis de façon un peu plus homogène autour de la droite rouge, ce qui signifie que les résidus suivent plus une distribution normale lorsque la variable y est transformée en logarithme.\n\npar(mfrow=c(2,2))\n\n# résidus vs prédictions\nplot(residuals(mod_log)~fitted(mod_log)\n      , col='dodgerblue3'\n      , pch=16)\nabline(h = 0)\n\n# résidus contre le facteur Habitat\nboxplot(residuals(mod_log)~ dataFly$Habitat, \n         varwidth = TRUE,\n         col=\"brown\",\n         ylab = \"Residuals\",\n         xlab = \"Habitat\",\n         main = \"\")\n\n# résidus contre la Largeur\nplot(residuals(mod_log)~ dataFly$Width, \n         pch=16,\n         col=\"dodgerblue3\",\n         ylab = \"Residuals\",\n         xlab = \"Width\",\n         main = \"\")\nabline(h = 0)\n\n# résidus contre la Teneur en eau\nplot(residuals(mod_log)~ dataFly$WaterContent, \n         pch=16,\n         col=\"dodgerblue3\",\n         ylab = \"Residuals\",\n         xlab = \"Water Content\",\n         main = \"\")\nabline(h = 0)\n\n\n\n\n\n\n\nFigure 5: Analyse graphique de l’homogénéité de la variance des résidus.\n\n\n\n\n\nLa Figure 5 illustre bien que la transformation logarithmique a parfaitement stabilisé la variance des résidus, ce qui résout les éventuels problèmes d’hétéroscédasticité du modèle initial."
+  },
+  {
+    "objectID": "instructions.html",
+    "href": "instructions.html",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "",
+    "text": "Team project for groups of 3 students. Create examples demonstrating statistical/mathematical methods applied to ecological questions.\nRepository: https://github.com/MarieEtienne/stats-reminder\n\n\n\n\n\n\nDeliverables\n\n\n\nEach team creates 1 example among one of the major theme:\n\nLinear models\nDifferential equations\n\nMultivariate analysis\n\nEach student should devote time to the review process ass well\nThe repository will close on December 1st at 1PM and only the work merged on master will be reviewed and evaluated.\nFinal mark for this assignment will consider\n\nMastering git workflow (commit, pull push , handling conflict, Pull Request, optimmaly rebase to have a clean history)\nTaking part of the reviewing process to increase global quality of the project\n\nDuring the last lab on git, November 5th, students will have a test to evaluate the overall understanding of git process\nThe final grad will be based on both evaluation"
+  },
+  {
+    "objectID": "instructions.html#sec-overview",
+    "href": "instructions.html#sec-overview",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "",
+    "text": "Team project for groups of 3 students. Create examples demonstrating statistical/mathematical methods applied to ecological questions.\nRepository: https://github.com/MarieEtienne/stats-reminder\n\n\n\n\n\n\nDeliverables\n\n\n\nEach team creates 1 example among one of the major theme:\n\nLinear models\nDifferential equations\n\nMultivariate analysis\n\nEach student should devote time to the review process ass well\nThe repository will close on December 1st at 1PM and only the work merged on master will be reviewed and evaluated.\nFinal mark for this assignment will consider\n\nMastering git workflow (commit, pull push , handling conflict, Pull Request, optimmaly rebase to have a clean history)\nTaking part of the reviewing process to increase global quality of the project\n\nDuring the last lab on git, November 5th, students will have a test to evaluate the overall understanding of git process\nThe final grad will be based on both evaluation"
+  },
+  {
+    "objectID": "instructions.html#sec-requirements",
+    "href": "instructions.html#sec-requirements",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Project requirements",
+    "text": "Project requirements\n\nContent\nEach .qmd example must include:\n\nClear ecological question with real/realistic data\nProper cross-references: sections (@sec-methods), figures (@fig-plot), tables (@tbl-results) or equations (@eq-model)\nCitations and bibliography\nWell-documented code and results\n\n\n\nGit Workflow\n\nOne branch per example: team-[names]-[method]-[description]\nUpdate _quarto.yml to include your examples in the website structure (see Section 3.3)\nOptimally Rebase before PR to ensure linear history (see Section 3.4)\nPR requirements (see Section 4.2):\n\n✅ No merge conflicts\n✅ Automated checks pass\n✅ One peer review\n✅ At least one discussion thread"
+  },
+  {
+    "objectID": "instructions.html#sec-workflow",
+    "href": "instructions.html#sec-workflow",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Git Workflow",
+    "text": "Git Workflow\n\nSetup\n# Clone repository\ngit clone https://github.com/MarieEtienne/stats-reminder.git\ncd stats-reminder\n\n# Create team branch\ngit switch -b teamA\ngit push origin teamA\n\n\nCreate one branch per task\n# From your team branch, create example branches\ngit switch teamA\ngit switch -b teamA-intro\n\n# Work on your .qmd file\ngit add linear_model_teamA.qmd\ngit commit -m \"Add linear model example\"\n....\ngit fetch origin teamA\ngit rebase teamA \n\n# If conflicts: resolve, then\ngit add &lt;resolved-files&gt;\ngit rebase --continue\n\n# switch to team branch and update the branch with this neaw linear history\ngit switch teamA\ngit merge teamA-intro\n\n\nUpdating _quarto.yml\nAdd your examples to the website structure:\nwebsite:\n  navbar:\n    left:\n      - text: \"Team Examples\"\n        menu:\n          - text: \"Team Smith\"\n            menu:\n              - text: \"Plant Growth (Linear)\"\n                href: linear_model_teamA.qmd\n              - text: \"Predator-Prey (Diff Eq)\"\n                href: team-smith-diffeq-predator.qmd\n\n\n\nUpdate Before PR\n\n\n\n\n\n\nWarning\n\n\n\nAlways rebase on master before creating PR to ensure clean linear history and avoid conflicts.\n\n\ngit switch teamA\ngit switch -c teamA_PR #create a new branch to avoid destruction\n\n# Fetch and rebase\ngit fetch origin master\ngit rebase origin/master\n\n# If conflicts: resolve, then\ngit add &lt;resolved-files&gt;\ngit rebase --continue\n\n# push teamA_PR and ask for PR in github, there should be no conflict\ngit push origin teamA_PR"
+  },
+  {
+    "objectID": "instructions.html#sec-pull-requests",
+    "href": "instructions.html#sec-pull-requests",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Pull Requests",
+    "text": "Pull Requests\n\nCreating a PR\n\nGo to repository → Pull requests → New pull request\nBase: master, Compare: teamA_PR\nWrite clear description (method, question, team)\n\n\n\nPR Requirements\nAll must be met before merge:\n\n✅ No conflicts (rebase if needed, see Section 3.4)\n✅ Automated checks pass (builds website successfully)\n✅ One review from peer/instructor\n✅ One discussion thread (respond to reviewer comments)\n\nAfter merge, the website automatically deploys to GitHub Pages.\nBe careful that, history in teamA and teamA_PR differ, and teamA_PR is the one to be merged. So if you want to add more contents to your project, remove local and remote teamA branch (and teamA_PR once merge into master) and starts a new branch from the current master branch"
+  },
+  {
+    "objectID": "instructions.html#sec-markdown",
+    "href": "instructions.html#sec-markdown",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Cross-References & Citations",
+    "text": "Cross-References & Citations\n\nCross-References\n## Methods {#sec-methods}\n\nThe model (@eq-linear) uses data shown in @fig-scatter and @tbl-summary.\n\n$$ y = \\beta_0 + \\beta_1 x $$ {#eq-linear}\n\n```{r}\n#| label: fig-scatter\n#| fig-cap: \"Relationship between variables\"\nplot(x, y)\n```\n\nAs described in @sec-methods...\n\n\nCitations\nCreate references.bib:\n@article{smith2020,\n  author = {Smith, J.},\n  title = {Statistical Methods},\n  journal = {Ecology},\n  year = {2020}\n}\nIn your YAML:\nbibliography: references.bib\nIn text:\nAccording to @smith2020, the method..."
+  },
+  {
+    "objectID": "instructions.html#sec-rules",
+    "href": "instructions.html#sec-rules",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Important Rules",
+    "text": "Important Rules\n\n\n\n\n\n\nImportant\n\n\n\n\nMaster is protected - you cannot push directly\nUse rebase not merge (see Section 3.4) as much as possible, that is the good practice\nPass all checks before requesting merge"
+  },
+  {
+    "objectID": "instructions.html#sec-troubleshooting",
+    "href": "instructions.html#sec-troubleshooting",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Common Issues",
+    "text": "Common Issues\nBuild failing: Check logs for syntax errors in .qmd, missing packages, broken cross-references, or invalid _quarto.yml.\nCan’t push to master: Expected! Create a branch instead (see Section 3.2)."
+  },
+  {
+    "objectID": "instructions.html#sec-checklist",
+    "href": "instructions.html#sec-checklist",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Checklist",
+    "text": "Checklist\nBefore submitting PR:\n\n_quarto.yml updated\nCross-references used throughout\nCitations included\nNo conflicts\nRebased on master\nPR created with clear description\nChecks passing\nReview requested"
+  },
+  {
+    "objectID": "instructions.html#sec-resources",
+    "href": "instructions.html#sec-resources",
+    "title": "Stats Reminder Project - Instructions",
+    "section": "Resources",
+    "text": "Resources\n\nQuarto Cross-References\nGit Rebase Tutorial\nCreating Pull Requests\n\nQuestions? Check GitHub Issues or contact the instructor. Good luck! 🚀"
+  },
+  {
     "objectID": "Amphibiens_Chapitre_GLLD.html",
     "href": "Amphibiens_Chapitre_GLLD.html",
     "title": "Étude d’impact d’un projet routier sur des Amphibiens",
@@ -103,75 +236,5 @@
     "title": "Statistics to explore environmental questions",
     "section": "Technical Notes",
     "text": "Technical Notes\n\nIf using RStudio’s visual editor, be aware it can produce messy diffs on .qmd files — prefer the source editor when committing, or review your diff carefully before committing\nKeep the repository structure consistent with what your group agreed on at the start of the project"
-  },
-  {
-    "objectID": "instructions.html",
-    "href": "instructions.html",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "",
-    "text": "Team project for groups of 3 students. Create examples demonstrating statistical/mathematical methods applied to ecological questions.\nRepository: https://github.com/MarieEtienne/stats-reminder\n\n\n\n\n\n\nDeliverables\n\n\n\nEach team creates 1 example among one of the major theme:\n\nLinear models\nDifferential equations\n\nMultivariate analysis\n\nEach student should devote time to the review process ass well\nThe repository will close on December 1st at 1PM and only the work merged on master will be reviewed and evaluated.\nFinal mark for this assignment will consider\n\nMastering git workflow (commit, pull push , handling conflict, Pull Request, optimmaly rebase to have a clean history)\nTaking part of the reviewing process to increase global quality of the project\n\nDuring the last lab on git, November 5th, students will have a test to evaluate the overall understanding of git process\nThe final grad will be based on both evaluation"
-  },
-  {
-    "objectID": "instructions.html#sec-overview",
-    "href": "instructions.html#sec-overview",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "",
-    "text": "Team project for groups of 3 students. Create examples demonstrating statistical/mathematical methods applied to ecological questions.\nRepository: https://github.com/MarieEtienne/stats-reminder\n\n\n\n\n\n\nDeliverables\n\n\n\nEach team creates 1 example among one of the major theme:\n\nLinear models\nDifferential equations\n\nMultivariate analysis\n\nEach student should devote time to the review process ass well\nThe repository will close on December 1st at 1PM and only the work merged on master will be reviewed and evaluated.\nFinal mark for this assignment will consider\n\nMastering git workflow (commit, pull push , handling conflict, Pull Request, optimmaly rebase to have a clean history)\nTaking part of the reviewing process to increase global quality of the project\n\nDuring the last lab on git, November 5th, students will have a test to evaluate the overall understanding of git process\nThe final grad will be based on both evaluation"
-  },
-  {
-    "objectID": "instructions.html#sec-requirements",
-    "href": "instructions.html#sec-requirements",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Project requirements",
-    "text": "Project requirements\n\nContent\nEach .qmd example must include:\n\nClear ecological question with real/realistic data\nProper cross-references: sections (@sec-methods), figures (@fig-plot), tables (@tbl-results) or equations (@eq-model)\nCitations and bibliography\nWell-documented code and results\n\n\n\nGit Workflow\n\nOne branch per example: team-[names]-[method]-[description]\nUpdate _quarto.yml to include your examples in the website structure (see Section 3.3)\nOptimally Rebase before PR to ensure linear history (see Section 3.4)\nPR requirements (see Section 4.2):\n\n✅ No merge conflicts\n✅ Automated checks pass\n✅ One peer review\n✅ At least one discussion thread"
-  },
-  {
-    "objectID": "instructions.html#sec-workflow",
-    "href": "instructions.html#sec-workflow",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Git Workflow",
-    "text": "Git Workflow\n\nSetup\n# Clone repository\ngit clone https://github.com/MarieEtienne/stats-reminder.git\ncd stats-reminder\n\n# Create team branch\ngit switch -b teamA\ngit push origin teamA\n\n\nCreate one branch per task\n# From your team branch, create example branches\ngit switch teamA\ngit switch -b teamA-intro\n\n# Work on your .qmd file\ngit add linear_model_teamA.qmd\ngit commit -m \"Add linear model example\"\n....\ngit fetch origin teamA\ngit rebase teamA \n\n# If conflicts: resolve, then\ngit add &lt;resolved-files&gt;\ngit rebase --continue\n\n# switch to team branch and update the branch with this neaw linear history\ngit switch teamA\ngit merge teamA-intro\n\n\nUpdating _quarto.yml\nAdd your examples to the website structure:\nwebsite:\n  navbar:\n    left:\n      - text: \"Team Examples\"\n        menu:\n          - text: \"Team Smith\"\n            menu:\n              - text: \"Plant Growth (Linear)\"\n                href: linear_model_teamA.qmd\n              - text: \"Predator-Prey (Diff Eq)\"\n                href: team-smith-diffeq-predator.qmd\n\n\n\nUpdate Before PR\n\n\n\n\n\n\nWarning\n\n\n\nAlways rebase on master before creating PR to ensure clean linear history and avoid conflicts.\n\n\ngit switch teamA\ngit switch -c teamA_PR #create a new branch to avoid destruction\n\n# Fetch and rebase\ngit fetch origin master\ngit rebase origin/master\n\n# If conflicts: resolve, then\ngit add &lt;resolved-files&gt;\ngit rebase --continue\n\n# push teamA_PR and ask for PR in github, there should be no conflict\ngit push origin teamA_PR"
-  },
-  {
-    "objectID": "instructions.html#sec-pull-requests",
-    "href": "instructions.html#sec-pull-requests",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Pull Requests",
-    "text": "Pull Requests\n\nCreating a PR\n\nGo to repository → Pull requests → New pull request\nBase: master, Compare: teamA_PR\nWrite clear description (method, question, team)\n\n\n\nPR Requirements\nAll must be met before merge:\n\n✅ No conflicts (rebase if needed, see Section 3.4)\n✅ Automated checks pass (builds website successfully)\n✅ One review from peer/instructor\n✅ One discussion thread (respond to reviewer comments)\n\nAfter merge, the website automatically deploys to GitHub Pages.\nBe careful that, history in teamA and teamA_PR differ, and teamA_PR is the one to be merged. So if you want to add more contents to your project, remove local and remote teamA branch (and teamA_PR once merge into master) and starts a new branch from the current master branch"
-  },
-  {
-    "objectID": "instructions.html#sec-markdown",
-    "href": "instructions.html#sec-markdown",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Cross-References & Citations",
-    "text": "Cross-References & Citations\n\nCross-References\n## Methods {#sec-methods}\n\nThe model (@eq-linear) uses data shown in @fig-scatter and @tbl-summary.\n\n$$ y = \\beta_0 + \\beta_1 x $$ {#eq-linear}\n\n```{r}\n#| label: fig-scatter\n#| fig-cap: \"Relationship between variables\"\nplot(x, y)\n```\n\nAs described in @sec-methods...\n\n\nCitations\nCreate references.bib:\n@article{smith2020,\n  author = {Smith, J.},\n  title = {Statistical Methods},\n  journal = {Ecology},\n  year = {2020}\n}\nIn your YAML:\nbibliography: references.bib\nIn text:\nAccording to @smith2020, the method..."
-  },
-  {
-    "objectID": "instructions.html#sec-rules",
-    "href": "instructions.html#sec-rules",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Important Rules",
-    "text": "Important Rules\n\n\n\n\n\n\nImportant\n\n\n\n\nMaster is protected - you cannot push directly\nUse rebase not merge (see Section 3.4) as much as possible, that is the good practice\nPass all checks before requesting merge"
-  },
-  {
-    "objectID": "instructions.html#sec-troubleshooting",
-    "href": "instructions.html#sec-troubleshooting",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Common Issues",
-    "text": "Common Issues\nBuild failing: Check logs for syntax errors in .qmd, missing packages, broken cross-references, or invalid _quarto.yml.\nCan’t push to master: Expected! Create a branch instead (see Section 3.2)."
-  },
-  {
-    "objectID": "instructions.html#sec-checklist",
-    "href": "instructions.html#sec-checklist",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Checklist",
-    "text": "Checklist\nBefore submitting PR:\n\n_quarto.yml updated\nCross-references used throughout\nCitations included\nNo conflicts\nRebased on master\nPR created with clear description\nChecks passing\nReview requested"
-  },
-  {
-    "objectID": "instructions.html#sec-resources",
-    "href": "instructions.html#sec-resources",
-    "title": "Stats Reminder Project - Instructions",
-    "section": "Resources",
-    "text": "Resources\n\nQuarto Cross-References\nGit Rebase Tutorial\nCreating Pull Requests\n\nQuestions? Check GitHub Issues or contact the instructor. Good luck! 🚀"
   }
 ]
