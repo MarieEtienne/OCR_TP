@@ -223,8 +223,8 @@ autre matrice explicative [@RDA1977]. C'est comme faire une ACP mais au
 lieu d'avoir une seule variable réponse, nous en avons plusieurs dans
 une table. Classiquement, la RDA nous permet de modéliser l’effet des
 variables environnementales sur l’ensemble de la communauté. Comme dans
-une ACP, nous essayons de créeer une combinaison linéraires des varibles
-exlpicatives pour décrire les variations des variables réponse.
+une ACP, nous essayons de créer une combinaison linéraires des varibles
+explicatives pour décrire les variations des variables réponse.
 
 Nous allons essayer d'expliquer la présence et l'absence des espèces en
 fonction des zones biogéographiques et des autres paramètres écologiques
@@ -281,6 +281,11 @@ data_eco_rda <- data_eco_rda %>% select(-Site)
 Nous avons maintenant deux matrices qui ont le même format. Nous allons
 pouvoir procéder à la rda.
 
+$$Y = A_{mean} + A_{σ} + B_{max} + ZH_{sum} + ZH_{mean}$$ Avec Y, les
+colones de matrice_odo_rda, A l'anthropisation (moyenne et écrat type),
+Bmax la zone biogéographique majoritaire, et ZH les surfaces de zone
+humides (moyenne et somme)
+
 ```{r}
 RDA <- rda(matrice_odo_rda ~. , data = data_eco_rda, scale = FALSE)
 print(RDA)
@@ -288,7 +293,7 @@ print(RsquareAdj(RDA))
 ```
 
 On obtient une inertie contrainte et un R² très mauvais. Le modèle
-construit à partir des 6 varibles explique donc très peu (8%) de la
+construit à partir des 6 variables explique donc très peu (8%) de la
 variation présente dans les données.
 
 ```{r}
@@ -297,12 +302,13 @@ anova(RDA, by = "terms")
 ```
 
 L'anova sur les varibles nous permet de voir que seules les variables
-anthropisation moyenne, antropsation écart type et biogemax ont un effet
-significatif (très faible mais significatif).
+anthropisation moyenne, anthropisation écart type et biogemax (littoral,
+releif, plaine et méridional) ont un effet significatif (très faible
+mais significatif).
 
 Au vu du nombre de sites étudiés, il est logique que 6 variables ne
-suffisent à pour expliquer la variation observée. Il faudra donc plus de
-données pour obtenir une anaylse interessante.
+suffisent pas à pour expliquer la variation observée. Il faudra donc
+plus de données pour obtenir une anaylse plus interessante.
 
 ## Conclusion et limites de l'étude
 
