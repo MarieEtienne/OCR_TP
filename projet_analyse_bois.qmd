@@ -28,6 +28,9 @@ du matériau bois, sa variabilité a reçu une attention particulière pour
 les applications industrielles [@cuny_xylodensmap_2025;
 @timell_wood_1989].
 
+L'objectif de ce projet est d'expliquer la variation de la densité du
+bois en fonction des données environnementales.
+
 ## B. Structure du jeu de données
 
 Dans cette proposition de méthodes statistiques, nous travaillons
