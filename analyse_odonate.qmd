@@ -64,12 +64,11 @@ require(factoextra)
 require(dplyr)
 require(GGally)
 require(reshape2)
-library(here)
 require(ggvegan)
 
 
 matrice_odo = read.table(
-  here("Matrice_Odonate.csv"),
+  "Matrice_Odonate.csv",
   sep = ";",
   header = T,
   row.names = 1
@@ -185,7 +184,7 @@ différences d'échantillonage entre les différents massifs.
 #| fig-width: 12
 #| fig-height: 4
 
-data_eco = read.table(here("Communauté_4km²_biogeo_ZH.csv"),
+data_eco = read.table("Communauté_4km²_biogeo_ZH.csv",
                        sep = ";", header = T, fileEncoding = "latin3")
 
 df_all = data.frame()
