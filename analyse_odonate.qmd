@@ -1,0 +1,324 @@
+---
+title: "Analyse odonate"
+subtitle: "Répartition des Odonates de Bretagne"
+author: "Lafargue Sacha, Sécher Ewen, David Méline"
+bibliography: references.bib
+editor:
+  markdown:
+    canonical: true
+    wrap: 72
+execute:
+  warning: false
+  message: false
+---
+
+# Les Odonates de Bretagne
+
+## Introduction
+
+La Bretagne, région située à l'extrême ouest de la France, est entourée
+aux trois-quarts par la mer et possède un paysage aux reliefs prononcés.
+Fort de son sol majoritairement granitique, la majorité de l'eau
+bretonne est présente en surface et alimente un réseau hydrique très
+dense : 30 000 km de cours d'eau qui couvrent près de 70 % du territoire
+breton, constituant plus de 500 petits bassins versants
+[@savelli2024eau]. La Bretagne a donc été une région avec une quantité
+importante de zones humides. Seulement, d'après le
+@agenceeauloirebretagne_restauration_zh, près de 42 % des zones humides
+de Bretagne auraient été détruites du remembrement de 1960 à 2019. C'est
+donc un milieu naturel très menacé mais qui, pourtant, représente un
+service écologique important. En effet, ces espaces permettent la
+régulation hydrologique des cours d'eau, d'assurer leur qualité par
+rétention, de stocker du carbone et d'abriter une biodiversité riche et
+particulière [@agenceeauloirebretagne_restauration_zh;
+@skinner1995fonctions].
+
+Fort de ces connaissances, il est donc logique qu'une connaissance
+claire des communautés vivant et interagissant avec les zones humides
+permette une meilleure préservation de ces milieux.
+
+Les odonates étant un ordre emblématique de ces milieux et indicateurs
+de l'état de la biodiversité, il a été naturel de les choisir comme
+sujet de cette étude.
+
+C'est ainsi que nous pouvons formuler la problématique suivante :
+
+## Comment les populations d’odonates varient-elles selon les zones biogéographiques ?
+
+Le jeu de données sur lequel cette étude se base provient d'une campagne
+de science participative menée de 2016 à 2026 par l'association Bretagne
+Vivante. Il a permis de recenser 57 espèces d'odonates ainsi que 2688
+communautés selon un maillage de 4 km². Cette étude se divise en 4 zones
+biogéographiques : Littorale, Relief, Méridonale et Plaine.
+
+```{r}
+#| message: false
+#| warning: false
+
+require(vegan)
+require(ggplot2)
+require(tidyverse)
+require(ggdendro)
+require(ade4)
+require(factoextra)
+require(dplyr)
+require(GGally)
+require(reshape2)
+require(ggvegan)
+
+
+matrice_odo = read.table(
+  "Matrice_Odonate.csv",
+  sep = ";",
+  header = T,
+  row.names = 1
+)
+
+
+```
+
+!["Calopteryx Virgo"](images/P1080693-26e88.JPG){#fig-external}
+
+Estimation du nombre d'espèces total selon le nombre d'espèces:
+
+Estimer la richesse d'un écosysteme n'est pas une tache facile, malgré
+un grand effort d'échantillonage, il est possible que des especes rares
+n'ont pas été détectées. Mais il existe des indices, estimateurs pour
+estimer la richesse réelle à partir d'échantillonage.
+
+Une des méthodes la plus connue, est l'estimateur Chao, developpé par
+Anne Chao [@Chao2013].
+
+Le principe de la méthode, est que les espèces rares (observées une
+seule fois ou deux fois dans l'échantillon) portent l'information sur
+les espèces non détectées. En effet, plus il y a d'espèces observées une
+seule fois ($s_n^1$, les singletons), plus il est probable qu'il existe
+encore des espèces totalement absentes de l'inventaire.
+
+L'estimateur de Chao1 s'écrit :
+
+$$\hat{S}_{Chao1} = S_{obs} + \frac{(s_n^1)^2}{2\,s_n^2}$$
+
+où $s_n^1$ est le nombre d'espèces observées une seule fois (singletons)
+et $s_n^2$ le nombre d'espèces observées exactement deux fois
+(doubletons) dans l'échantillon de taille $n$.
+
+Lorsque $s_n^2 = 0$, cette formule devient instable (division par zéro)
+; une version corrigée (biais réduit) est alors utilisée :
+
+$$\hat{S}_{Chao1} = S_{obs} + \frac{s_n^1 (s_n^1 - 1)}{2\,(s_n^2 + 1)}$$
+
+Cette correction évite la divergence de l'estimateur lorsque les
+doubletons sont rares ou absents, tout en restant cohérente avec la
+version non corrigée lorsque $s_n^2$ est grand.
+
+L'idée sous-jacente est donc la suivante : le nombre d'espèces
+manquantes $\hat{S}_{Chao1} - S_{obs}$ est approché par le rapport entre
+le carré du nombre de singletons et deux fois le nombre de doubletons,
+ce qui traduit l'intuition que la rareté observée (beaucoup de
+singletons, peu de doubletons) signale une sous-estimation
+potentiellement forte de la richesse réelle $S$.
+
+```{r}
+
+
+data_mat_compl = ifelse(matrice_odo > 0, 1, 0)
+
+freq_sp = colSums(data_mat_compl)
+
+
+Chao1 = estimateR(freq_sp) ## Permet de mesurer la complétude à travers l'équation de Chao
+
+Chao1
+
+Completude  = Chao1[1] / Chao1[2] * 100
+print(paste0(
+  "La complétude du jeu de données total est de : ",
+  round(Completude, 0),
+  "%"
+))
+
+
+```
+
+```{r}
+library(ggplot2)
+
+# Courbe d'accumulation
+spec <- specaccum(data_mat_compl, method = "random", permutations = 999)
+
+# Récupérer les données dans un data.frame pour ggplot
+df_spec <- data.frame(
+  sites = spec$sites,
+  richness = spec$richness,
+  sd = spec$sd
+)
+
+# Estimation de Chao pour la ligne d'asymptote
+freq_sp <- colSums(data_mat_compl)
+Chao1 <- estimateR(freq_sp)
+S_chao <- Chao1[2]  # S.chao1
+
+ggplot(df_spec, aes(x = sites, y = richness)) +
+  geom_ribbon(aes(ymin = richness - sd, ymax = richness + sd),
+              fill = "lightgreen", alpha = 0.4) +
+  geom_line(col = "darkgreen", linewidth = 1) +
+  geom_hline(yintercept = S_chao, col = "red", linetype = "dashed", linewidth = 1) +
+  annotate("text", x = max(df_spec$sites) * 0.7, y = S_chao + 1,
+           label = paste0("Richesse estimée (Chao1) = ", round(S_chao, 1)),
+           col = "red") +
+  labs(
+    title = "Courbe d'accumulation d'espèces et complétude d'échantillonnage",
+    x = "Nombre de sites échantillonnés",
+    y = "Nombre d'espèces"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(panel.grid.minor = element_blank())
+```
+
+Cela nous donne l'estimation à l'échelle de la Bretagne, mais nous
+pouvons regarder à l'échelle de chaque massif. Et voir si il y a des
+différences d'échantillonage entre les différents massifs.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+
+data_eco = read.table("Communauté_4km²_biogeo_ZH.csv",
+                       sep = ";", header = T, fileEncoding = "latin3")
+
+df_all = data.frame()
+
+for (zone in unique(data_eco$Biogeo_max)) {
+  
+  sites_zone = data_eco$Site[data_eco$Biogeo_max == zone]
+  mat_zone = ifelse(matrice_odo[rownames(matrice_odo) %in% sites_zone, ] > 0, 1, 0)
+  
+  spec = specaccum(mat_zone, method = "random", permutations = 999)
+  
+  df_all = rbind(df_all, data.frame(
+    sites = spec$sites,
+    richness = spec$richness,
+    sd = spec$sd,
+    Zone = zone
+  ))
+}
+
+ggplot(df_all, aes(x = sites, y = richness)) +
+  geom_ribbon(aes(ymin = richness - sd, ymax = richness + sd), fill = "lightgreen", alpha = 0.4) +
+  geom_line(col = "darkgreen", linewidth = 1) +
+  facet_wrap(~ Zone, nrow = 1) +
+  labs(x = "Nombre de sites", y = "Nombre d'espèces",
+       title = "Courbes d'accumulation par zone biogéographique") +
+  theme_minimal(base_size = 12)
+
+
+```
+
+### Analyse de redondance (rda)
+
+L'analyse de redondance permet d'expliquer une table réponse grâce à une
+autre matrice explicative [@RDA1977]. C'est comme faire une ACP mais au
+lieu d'avoir une seule variable réponse, nous en avons plusieurs dans
+une table. Classiquement, la RDA nous permet de modéliser l’effet des
+variables environnementales sur l’ensemble de la communauté. Comme dans
+une ACP, nous essayons de créer une combinaison linéraires des varibles
+explicatives pour décrire les variations des variables réponse.
+
+Nous allons essayer d'expliquer la présence et l'absence des espèces en
+fonction des zones biogéographiques et des autres paramètres écologiques
+(proportion de zones humides et taux d'anthropisation).
+
+Nous allons commencer par sélectionner les variables qui nous
+intéressent parmis les variables de la table "data_eco".
+
+```{r}
+data_eco_rda <- data_eco[,c(1, 8:12)]
+```
+
+Pour que la RDA fonctionne nous allons devoir prétraiter les données.
+Nous avons besoin que nos 2 tables contiennent les mêmes sites, dans le
+même ordre.
+
+```{r}
+### Définition de fonction ###
+
+rewrite <- function(str){
+  # la fonction rewrite prend en argument une chaine de caractère de type "Com_XXXX" et si elle est trop courte (de longueur 8) la ralonge en ajoutant un 0
+  if (nchar(str) == 8) {
+      str <- paste0(str_split(str, "_")[[1]][1], "_0", str_split(str,"_")[[1]][2])
+  }
+  return(str)
+}
+
+
+### Execution ###
+# On réécrit les sites de data_eco
+data_eco_rda$Site <- apply(as.array(data_eco_rda$Site), MARGIN = 1, FUN = rewrite)
+# Puis on les réordone par ordre alphabétique
+data_eco_rda <- data_eco_rda[do.call(order, data_eco_rda), ]
+
+
+# On réécrit les sites de matrice_odo
+matrice_odo_rda <- matrice_odo
+rownames(matrice_odo_rda) <- apply(as.array(rownames(matrice_odo_rda)), MARGIN = 1, FUN = rewrite)
+# On récupère les sites de matrice_odo (qui étaient les noms de lignes) dans une variable
+matrice_odo_rda$Site <- rownames(matrice_odo_rda)
+# Puis on les réordone
+matrice_odo_rda <- matrice_odo_rda[do.call(order, matrice_odo_rda), ]
+
+
+# On remarque que certains sites apparaissent dans une table mais pas l'autre. Hors nous avons besoin d'une correspondance.
+data_eco_rda <- data_eco_rda %>% filter(Site %in% matrice_odo_rda$Site)
+matrice_odo_rda <- matrice_odo_rda %>% filter(Site %in% data_eco_rda$Site)
+
+# Enfin on retire la colonne Site des deux matrices
+matrice_odo_rda <- matrice_odo_rda %>% select(-Site)
+data_eco_rda <- data_eco_rda %>% select(-Site)
+```
+
+Nous avons maintenant deux matrices qui ont le même format. Nous allons
+pouvoir procéder à la rda.
+
+$$Y = A_{mean} + A_{σ} + B_{max} + ZH_{sum} + ZH_{mean}$$ Avec Y, les
+colones de matrice_odo_rda, A l'anthropisation (moyenne et écrat type),
+Bmax la zone biogéographique majoritaire, et ZH les surfaces de zone
+humides (moyenne et somme)
+
+```{r}
+RDA <- rda(matrice_odo_rda ~. , data = data_eco_rda, scale = FALSE)
+print(RDA)
+print(RsquareAdj(RDA))
+```
+
+On obtient une inertie contrainte et un R² très mauvais. Le modèle
+construit à partir des 6 variables explique donc très peu (8%) de la
+variation présente dans les données.
+
+```{r}
+set.seed(123)
+anova(RDA, by = "terms")
+```
+
+L'anova sur les varibles nous permet de voir que seules les variables
+anthropisation moyenne, anthropisation écart type et biogemax (littoral,
+releif, plaine et méridional) ont un effet significatif (très faible
+mais significatif).
+
+Au vu du nombre de sites étudiés, il est logique que 6 variables ne
+suffisent pas à pour expliquer la variation observée. Il faudra donc
+plus de données pour obtenir une anaylse plus interessante.
+
+## Conclusion et limites de l'étude
+
+Cette étude montre que les espèces sont relativement réparties de
+manière homogène sur tout le territoire. En effet, la plus part des
+espèces sont réparties sur toutes les zones géographiques : Littoral,
+Relief, Méridional et Plaine. La zone méridionale semble tout de même
+plus spécialisée que les autres. Il y a aussi une grande présence
+d'espèces au sein des zones humides de même qu'une certaine spécificité.
+
+La science participative inclue certaines limites comme le risque
+d'avoir des taxons plus populaires que d'autres et donc un biais de
+comptage ou de reconnaissance ainsi qu'un biais de sites plus observés
+que d'autre au voisinnage des grandes villes par exemple.

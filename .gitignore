@@ -7,9 +7,9 @@ OCR_TP.Rproj
 *.html
 
 /.quarto/
-**/*.quarto_ipynb
+
+OCR_TP.Rproj
 _freeze/
 _site/
-site_libs/
-projet_files/
-projet_cache/
+
+**/*.quarto_ipynb
