@@ -3,8 +3,8 @@ title: "Projet_OCR"
 author: "Emilie CORDIER Damien LE BRIZOUAL Eudes ROSSIGNEUX"
 
 bibliography:
-  - REF.bib
-  - references.bib
+  - References_abeilles1.bib
+  - References_abeilles2.bib
 
 format:
   html:
