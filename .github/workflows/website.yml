@@ -20,6 +20,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install R packages
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           Rscript -e '
             options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))
