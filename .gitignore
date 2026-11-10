@@ -8,7 +8,9 @@ OCR_TP.Rproj
 
 /.quarto/
 
-**/*.quarto_ipynb
-
+OCR_TP.Rproj
+_freeze/
 _site/
 _freeze/
+
+**/*.quarto_ipynb
