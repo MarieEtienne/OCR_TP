@@ -4,25 +4,38 @@ on:
     branches: ["main", "master"]
   pull_request:
     branches: ["main", "master"]
-    
+
 name: Build website
 
 jobs:
   build:
     name: Build website with quarto
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     container: mpetienne/mode2025:0.1
     permissions:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
       - name: Install R packages
-        run: 
-          Rscript -e "install.packages(c('RefManageR', 'wesanderson', 'palmerpenguins','gauseR'))"
-          Rscript -e "install.packages(c('lme4','car','broom','rcompanion','patchwork','modelsummary','ggpattern', 'vegan','ggvegan', 'ggrepel', 'corrplot'))"    
+        run: |
+          Rscript -e '
+            options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/jammy/latest"))
+            install.packages(c(
+              "remotes", "RefManageR", "wesanderson", "palmerpenguins", "gauseR",
+              "lme4", "car", "broom", "rcompanion", "patchwork", "modelsummary",
+              "ggpattern", "vegan", "ggrepel", "corrplot"
+            ), Ncpus = 4)
+            if (!requireNamespace("ggvegan", quietly = TRUE)) {
+              remotes::install_github("gavinsimpson/ggvegan")
+            }
+          '
+
       - name: Generate slides
-        run: "quarto render"
+        run: quarto render
+
       - name: GitHub Pages action
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v3
