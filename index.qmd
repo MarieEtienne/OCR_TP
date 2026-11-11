@@ -63,45 +63,6 @@ The website is fully generated using Continuous Integration (CI) based on Github
 - CI must pass on the final PR/commit before submission is considered complete
 
 ### Grading breakdown
-*[Specify how points are split between the Quarto part and the Git part — e.g. 60/40, or itemized per criterion above]*
-
-## Collaboration Guidelines
-
-Several files are shared among groups — be careful when modifying them. **Do not overwrite or destroy someone else's work.**
-
-- Always `pull`/`fetch` before starting work each session
-- If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure
-- The `main` branch is protected — all changes go through a reviewed PR
-- Remember to `.gitignore` generated files (rendered output, virtual environments, cache files, etc.) — don't commit them
-
-## Technical Notes
-
-- If using RStudio's visual editor, be aware it can produce messy diffs on `.qmd` files — prefer the source editor when committing, or review your diff carefully before committing
-- Keep the repository structure consistent with what your group agreed on at the start of the project
-**Important Dates**
-
-* No major changes after September 30th, Reviewing time started
-* Final assignment is expected on October 24th at the latest (with ful review process)
-
-
-**Evaluation**
-
-* A quick quizz on October 7th (coeff 2)
-* Final assignment (coeff 3)
-  - Quarto part : should contain
-      * a clear presentation of the dataset, with a basic descriptive presentation using graphs and/or table
-      * numbered equations and figures/and or tables (generated and included) with references to those
-      * a shared bibliography file use to point interesting references
-  - git part
-      * clear commit message
-      * clear commit tree to understand the development process
-      * use branch when you start a new aspect
-      * Avoid merge commit, use as much as possible to clean a nice clear history
-      * DO NOT merge into main, use PR, (be careful to use the rebase option)
-      
-      
-
-### Grading breakdown
 
 **Quarto part — 30 points (group grade)**
 
@@ -128,6 +89,8 @@ Several files are shared among groups — be careful when modifying them. **Do n
 - **-10 points for the group** if another group's work is destroyed/overwritten at merge time
 - **-10 points for the group** if the website is no longer functional after a PR
 
+
+
 ## Collaboration Guidelines
 
 Several files are shared among groups — be careful when modifying them. **Do not overwrite or destroy someone else's work.**
@@ -136,6 +99,16 @@ Several files are shared among groups — be careful when modifying them. **Do n
 - If you hit a merge conflict, resolve it carefully and check with your group before force-pushing; contact the instructor if unsure
 - The `main` branch is protected — all changes go through a reviewed PR
 - Remember to `.gitignore` generated files (rendered output, virtual environments, cache files, etc.) — don't commit them
+
+## Technical Notes
+
+- If using RStudio's visual editor, be aware it can produce messy diffs on `.qmd` files — prefer the source editor when committing, or review your diff carefully before committing
+- Keep the repository structure consistent with what your group agreed on at the start of the project
+**Important Dates**
+
+* No major changes after September 30th, Reviewing time started
+* Final assignment is expected on October 24th at the latest (with ful review process)
+
 
 ## Technical Notes
 
