@@ -4,25 +4,44 @@ on:
     branches: ["main", "master"]
   pull_request:
     branches: ["main", "master"]
-    
+
 name: Build website
 
 jobs:
   build:
     name: Build website with quarto
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     container: mpetienne/mode2025:0.1
     permissions:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
       - name: Install R packages
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          Rscript -e "install.packages(c('RefManageR', 'wesanderson', 'palmerpenguins'))"
-          Rscript -e "install.packages(c('lme4','car','broom','rcompanion','patchwork','modelsummary','ggpattern', 'vegan','ggvegan', 'ggrepel', 'corrplot'))"    
+          cat /etc/os-release
+          Rscript -e '
+            print(getOption("repos"))
+            pkgs <- c(
+              "remotes", "RefManageR", "wesanderson", "palmerpenguins", "gauseR",
+              "lme4", "car", "broom", "rcompanion", "patchwork", "modelsummary",
+              "ggpattern", "vegan", "ggrepel", "corrplot"
+            )
+            missing <- setdiff(pkgs, rownames(installed.packages()))
+            if (length(missing)) install.packages(missing, Ncpus = 4)
+            if (!requireNamespace("ggvegan", quietly = TRUE)) {
+              remotes::install_github("gavinsimpson/ggvegan", upgrade = "never")
+            }
+            library(tidyverse)
+          '
+
       - name: Generate slides
-        run: "quarto render"
+        run: quarto render
+
       - name: GitHub Pages action
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v3
